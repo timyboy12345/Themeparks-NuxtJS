@@ -1,0 +1,133 @@
+<template>
+  <div>
+    <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
+
+    <loading v-if="!park && (!rides || !restaurants)"></loading>
+
+    <div class="grid grid-cols-1 gap-4">
+      <card v-if="park && !park.supports.supportsPoiLocations" title="No support" content="This park does not support the map function" />
+
+      <map-component v-if="park && supportsLatLng" component-height="h-128" :lat="averageLat" :lng="averageLng" :zoom="16">
+        <map-marker v-for="ride of latLngRides" :key="ride.id" :lat="ride.location.lat" :lng="ride.location.lng" :popup="ride.title" />
+
+        <map-marker
+          v-for="restaurant of latLngRestaurants"
+          :key="restaurant.id"
+          icon="red"
+          :lat="restaurant.location.lat"
+          :lng="restaurant.location.lng"
+          :popup="restaurant.title"
+        />
+      </map-component>
+
+      <card v-if="park && supportsLatLng" title="Map" sub-title="On this map, all retrievable data is shown">
+        <template #content>
+          <ul class="list list-disc">
+            <li class="ml-8"><span class="text-blue-700">Blue</span> markers are rides</li>
+            <li class="ml-8"><span class="text-red-800">Red</span> markers are restaurants</li>
+          </ul>
+        </template>
+      </card>
+    </div>
+  </div>
+</template>
+
+<script>
+import Breadcrumbs from '@/components/Breadcrumbs'
+import MapComponent from '@/components/maps/MapComponent'
+import MapMarker from '@/components/maps/MapMarker'
+import Loading from '@/components/LoadingSpinner'
+import Card from '@/components/cards/Card'
+
+export default {
+  name: 'ParkMap',
+  components: { Card, Loading, MapMarker, MapComponent, Breadcrumbs },
+  data() {
+    return {
+      park: null,
+      rides: [],
+      restaurants: [],
+      parkId: this.$route.params.id,
+    }
+  },
+  async fetch() {
+    await Promise.all([this.getPark(), this.getRides(), this.getRestaurants()])
+  },
+  head() {
+    return {
+      title: this.park ? 'All rides and attractions of ' + this.park.name : 'All rides and attractions on a map',
+    }
+  },
+  computed: {
+    averageLat() {
+      return this.latLngRides.reduce((total, next) => total + next.location.lat, 0) / this.rides.length
+    },
+    averageLng() {
+      return this.latLngRides.reduce((total, next) => total + next.location.lng, 0) / this.rides.length
+    },
+    supportsLatLng() {
+      return this.park && (this.rides || this.restaurants) && (this.latLngRides.length > 0 || this.latLngRestaurants > 0)
+    },
+    latLngRides() {
+      return this.rides.filter((r) => r.location && r.location.lat && typeof r.location.lat === 'number')
+    },
+    latLngRestaurants() {
+      return this.restaurants.filter((r) => r.location && r.location.lng && typeof r.location.lng === 'number')
+    },
+    breadcrumbs() {
+      if (!this.park) {
+        return []
+      }
+
+      return [
+        {
+          title: 'Parks',
+          url: '/parks/',
+        },
+        {
+          title: this.park.name,
+          url: '/parks/' + this.parkId,
+        },
+        {
+          title: 'Map',
+          url: '#',
+        },
+      ]
+    },
+  },
+  methods: {
+    async getPark() {
+      await this.$axios
+        .get('/park/' + this.parkId)
+        .then((parkResponse) => {
+          this.park = parkResponse.data
+        })
+        .catch(() => {
+          this.park = null
+        })
+    },
+    async getRides() {
+      await this.$axios
+        .get('/park/' + this.parkId + '/rides')
+        .then((ridesResponse) => {
+          this.rides = ridesResponse.data
+        })
+        .catch(() => {
+          this.park = null
+        })
+    },
+    async getRestaurants() {
+      await this.$axios
+        .get('/park/' + this.parkId + '/restaurants')
+        .then((restaurantsResponse) => {
+          this.restaurants = restaurantsResponse.data
+        })
+        .catch(() => {
+          this.park = null
+        })
+    },
+  },
+}
+</script>
+
+<style scoped></style>

@@ -1,55 +1,35 @@
 <template>
-  <div>
-    <Nuxt />
+  <div class="min-h-screen bg-gray-100">
+    <div
+      class="bg-indigo-800 text-white w-full flex flex-row items-center justify-between py-4 px-4 lg:px-8"
+      :class="{ 'mb-4 lg:mb-8': !breadcrumbs || breadcrumbs.length === 0 }"
+    >
+      <NuxtLink to="/" class="lg:text-lg font-bold">Themeparks</NuxtLink>
+
+      <div class="flex flex-row">
+        <NuxtLink to="/" class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100" exact-active-class="opacity-100">
+          Home
+        </NuxtLink>
+        <NuxtLink to="/parks" class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100" exact-active-class="opacity-100">
+          Parken
+        </NuxtLink>
+      </div>
+    </div>
+
+    <slot name="breadcrumbs"></slot>
+
+    <div class="mx-4 md:mx-8 lg:max-w-6xl lg:mx-auto mt-4 mb-4">
+      <Nuxt keep-alive />
+    </div>
   </div>
 </template>
 
-<style>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+<script>
+export default {
+  computed: {
+    breadcrumbs() {
+      return this.$store.state.breadcrumbs
+    },
+  },
 }
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
-</style>
+</script>

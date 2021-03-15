@@ -1,70 +1,39 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">themeparks-nuxtjs</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+  <div class="grid gap-4">
+    <card
+      title="All themeparks"
+      sub-title="With Themeparks you can track waiting times across many theme parks in across the globe and see live wait times and recommendations."
+      content="Click on the button below to see all available theme parks. "
+    ></card>
+
+    <card-button btn-link="/parks" btn-title="See all available theme parks" />
+
+    <card title="Over Themeparks">
+      <template #content>
+        <h3 class="text-indigo-700 mt-4">Wachttijden van alle pretparken</h3>
+        <p class="text-gray-800">
+          Het doel is om uiteindelijk van veel pretparken ter wereld de wachttijden te tonen. Momenteel ligt de focus op parken in
+          Nederland, de Benelux en Europa, maar parken uit andere regio's worden ook af en toe aangesloten.
+        </p>
+
+        <h3 class="text-indigo-700 mt-2">Waar komt de data vandaan?</h3>
+        <p class="text-gray-800">
+          De data is afkomstig van de officiële apps van de parken. De API's die hierbij worden gebruikt worden door ons uitgelezen om
+          vervolgens hier te tonen.
+        </p>
+      </template>
+    </card>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-
-export default Vue.extend({})
+import Card from '~/components/cards/Card.vue'
+import CardButton from '~/components/cards/actions/CardButton.vue'
+export default {
+  name: 'Index',
+  components: { CardButton, Card },
+  created() {
+    // this.$store.commit('CHANGE_BREADCRUMBS', [])
+  },
+}
 </script>
-
-<style>
-/* Sample `apply` at-rules with Tailwind CSS
-.container {
-@apply min-h-screen flex justify-center items-center text-center mx-auto;
-}
-*/
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
