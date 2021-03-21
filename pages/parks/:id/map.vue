@@ -9,6 +9,14 @@
 
       <map-component v-if="park && supportsLatLng" component-height="h-128" :lat="averageLat" :lng="averageLng" :zoom="16">
         <map-marker v-for="ride of latLngRides" :key="ride.id" :lat="ride.location.lat" :lng="ride.location.lng" :popup="ride.title" />
+        <map-marker
+          v-for="show of latLngShows"
+          :key="show.id"
+          icon="orange"
+          :lat="show.location.lat"
+          :lng="show.location.lng"
+          :popup="show.title"
+        />
 
         <map-marker
           v-for="restaurant of latLngRestaurants"
@@ -47,11 +55,12 @@ export default {
       park: null,
       rides: [],
       restaurants: [],
+      shows: [],
       parkId: this.$route.params.id,
     }
   },
   async fetch() {
-    await Promise.all([this.getPark(), this.getRides(), this.getRestaurants()])
+    await Promise.all([this.getPark(), this.getRides(), this.getRestaurants(), this.getShows()])
   },
   head() {
     return {
@@ -73,6 +82,9 @@ export default {
     },
     latLngRestaurants() {
       return this.restaurants.filter((r) => r.location && r.location.lng && typeof r.location.lng === 'number')
+    },
+    latLngShows() {
+      return this.shows.filter((r) => r.location && r.location.lng && typeof r.location.lng === 'number')
     },
     breadcrumbs() {
       if (!this.park) {
@@ -113,7 +125,7 @@ export default {
           this.rides = ridesResponse.data
         })
         .catch(() => {
-          this.park = null
+          this.rides = []
         })
     },
     async getRestaurants() {
@@ -123,7 +135,17 @@ export default {
           this.restaurants = restaurantsResponse.data
         })
         .catch(() => {
-          this.park = null
+          this.restaurants = []
+        })
+    },
+    async getShows() {
+      await this.$axios
+        .get('/park/' + this.parkId + '/shows')
+        .then((showsResponse) => {
+          this.shows = showsResponse.data
+        })
+        .catch(() => {
+          this.shows = []
         })
     },
   },

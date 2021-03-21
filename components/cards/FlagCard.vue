@@ -8,6 +8,10 @@
         <h1 v-if="title" class="text-lg text-indigo-800 font-bold">{{ title }}</h1>
       </div>
     </template>
+
+    <template v-for="(index, name) in $slots" #[name]>
+      <slot :name="name" />
+    </template>
   </card>
 </template>
 

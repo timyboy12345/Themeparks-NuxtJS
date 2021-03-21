@@ -1,9 +1,10 @@
 <template>
-  <card :title="park.name" :sub-title="park.countryCode" :content="park.description" :image-src="park.image" :link="link"></card>
+  <card :title="park.name" :sub-title="park.countryCode" :content="park.description" :image-src="park.image" :link="link" />
 </template>
 
 <script>
 import Card from '@/components/cards/Card'
+
 export default {
   name: 'ParkCard',
   components: { Card },

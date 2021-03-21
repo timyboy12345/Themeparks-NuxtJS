@@ -3,7 +3,7 @@
     <l-popup v-if="popup">{{ popup }}</l-popup>
 
     <l-icon
-      v-if="icon === 'red'"
+      v-if="icon === 'blue'"
       :icon-size="[25, 41]"
       :icon-anchor="[12, 41]"
       :popup-anchor="[1, -34]"

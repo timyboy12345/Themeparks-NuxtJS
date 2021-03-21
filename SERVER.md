@@ -24,6 +24,7 @@ pm2 list
 ```
 npm run build
 scp -r .nuxt/* root@95.179.187.20:/var/www/tpvue.arendz.nl/.nuxt
+scp -r nuxt.config.js root@95.179.187.20:/var/www/tpvue.arendz.nl/nuxt.config.js
 ssh root@95.179.187.20 pm2 reload tp-vue
 ```
 
@@ -33,7 +34,6 @@ Re-reload the server after this command, as this is apparently not done correctl
 scp -r package* root@95.179.187.20:/var/www/tpvue.arendz.nl/
 npm run build
 scp -r .nuxt/* root@95.179.187.20:/var/www/tpvue.arendz.nl/.nuxt
-scp -r .env root@95.179.187.20:/var/www/tpvue.arendz.nl/.env
 ssh root@95.179.187.20 npm install --only=prod --prefix /var/www/tpvue.arendz.nl
 ssh root@95.179.187.20 pm2 reload tp-vue
 ```

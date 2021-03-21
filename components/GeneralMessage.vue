@@ -1,23 +1,23 @@
 <template>
   <div class="text-center flex flex-col items-center justify-center">
-    <h2 class="text-red-700 font-bold">{{ title }}</h2>
+    <h2 class="text-indigo-700 font-bold">{{ title }}</h2>
     <p class="text-gray-600">{{ subTitle }}</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'GeneralError',
+  name: 'GeneralMessage',
   props: {
     title: {
       type: String,
       required: false,
-      default: 'Something went wrong...',
+      default: 'No data was found...',
     },
     subTitle: {
       type: String,
       required: false,
-      default: 'Please try again',
+      default: "We couldn't find any data right now, try again later",
     },
   },
 }

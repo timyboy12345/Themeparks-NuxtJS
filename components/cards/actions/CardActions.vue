@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-4 flex flex-row items-start">
+  <div class="mt-4 space-y-2 md:space-y-0 md:space-x-2 md:flex md:flex-row items-start">
     <slot></slot>
   </div>
 </template>
@@ -10,8 +10,4 @@ export default {
 }
 </script>
 
-<style scoped>
-* {
-  @apply mr-2;
-}
-</style>
+<style scoped></style>

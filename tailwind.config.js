@@ -4,14 +4,19 @@ module.exports = {
     purgeLayersByDefault: true,
   },
   darkMode: false,
-  purge: [
-    './components/**/*.{vue,js}',
-    './layouts/**/*.vue',
-    './views/**/*.{vue,js}',
-    './pages/**/*.vue',
-    './plugins/**/*.{js,ts}',
-    './nuxt.config.{js,ts}',
-  ],
+  purge: {
+    content: [
+      './components/**/*.{vue,js}',
+      './layouts/**/*.vue',
+      './views/**/*.{vue,js}',
+      './pages/**/*.vue',
+      './plugins/**/*.{js,ts}',
+      './nuxt.config.{js,ts}',
+    ],
+    options: {
+      whitelist: ['bg-gray-500', 'space-x-2'],
+    },
+  },
   theme: {
     extend: {
       colors: {

@@ -2,7 +2,9 @@
   <div>
     <loading-spinner v-if="!rides" class="py-4"></loading-spinner>
 
-    <general-error v-if="rides && rides.length === 0" sub-title="We couldn't fetch the rides for this park" />
+    <general-error v-if="error" class="m-4" sub-title="We couldn't fetch the shows for this park" />
+
+    <general-message v-if="rides && rides.length === 0" class="m-4" />
 
     <div v-if="rides && rides.length > 0" class="flex flex-col bg-white divide-y divide-gray-200">
       <NuxtLink
@@ -28,10 +30,11 @@
 <script>
 import LoadingSpinner from '@/components/LoadingSpinner'
 import GeneralError from '@/components/GeneralError'
+import GeneralMessage from '@/components/GeneralMessage'
 
 export default {
   name: 'RideList',
-  components: { GeneralError, LoadingSpinner },
+  components: { GeneralMessage, GeneralError, LoadingSpinner },
   props: {
     parkId: {
       type: String,
@@ -45,6 +48,7 @@ export default {
   data() {
     return {
       rides: undefined,
+      error: null,
     }
   },
   async fetch() {
@@ -54,9 +58,8 @@ export default {
         return rides.data.slice(0, this.maxRides)
       })
       .catch(({ response }) => {
-        return []
-        console.error('Error while fetching all rides')
-        console.log(response)
+        this.error = response
+        return null
       })
   },
 }

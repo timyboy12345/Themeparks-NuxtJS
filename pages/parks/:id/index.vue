@@ -32,6 +32,19 @@
           </card-actions>
         </template>
       </card>
+
+      <card v-if="park && park.supports.supportsShows" title="Shows" content="See all shows of this park.">
+        <template #content>
+          <show-list class="-mx-4" :max-shows="5" :park-id="parkId"></show-list>
+        </template>
+
+        <template #buttons>
+          <card-actions>
+            <card-button :btn-link="'/parks/' + parkId + '/shows'" btn-title="All shows" />
+            <card-button v-if="park && park.supports.supportsPoiLocations" :btn-link="mapButtonLink" btn-title="Show Map" />
+          </card-actions>
+        </template>
+      </card>
     </div>
   </div>
 </template>
@@ -42,12 +55,13 @@ import RestaurantList from '@/views/RestaurantList'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import RideList from '@/views/RideList'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import ShowList from '@/views/ShowList'
 import ParkCard from '../../../components/cards/ParkCard'
 import Card from '../../../components/cards/Card'
 import CardButton from '../../../components/cards/actions/CardButton'
 
 export default {
-  components: { LoadingSpinner, RideList, Breadcrumbs, RestaurantList, CardActions, CardButton, Card, ParkCard },
+  components: { ShowList, LoadingSpinner, RideList, Breadcrumbs, RestaurantList, CardActions, CardButton, Card, ParkCard },
   data() {
     return {
       parkId: this.$route.params.id,
@@ -68,7 +82,7 @@ export default {
   },
   head() {
     return {
-      title: this.park ? this.park.name : '',
+      title: this.park ? this.park.name : undefined,
     }
   },
   computed: {

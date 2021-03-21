@@ -1,3 +1,5 @@
+const axios = require('axios')
+
 export default {
   server: {
     port: 3001,
@@ -50,6 +52,8 @@ export default {
     'nuxt-leaflet',
     // https://pwa.nuxtjs.org/setup
     '@nuxtjs/pwa',
+    // https://www.npmjs.com/package/@nuxtjs/sitemap
+    '@nuxtjs/sitemap',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -75,7 +79,7 @@ export default {
       name: 'Themeparks',
       start_url: '/',
       display: 'standalone',
-      theme_color: '#00b5ad',
+      theme_color: '#3730a3',
     },
     workbox: {
       /* workbox options */
@@ -95,6 +99,21 @@ export default {
           },
         },
       ],
+    },
+  },
+
+  sitemap: {
+    hostname: 'https://tpvue.arendz.nl',
+    gzip: true,
+    routes: async () => {
+      const { data } = await axios.get('https://tp.arendz.nl/parks')
+      return data.map((d) => {
+        return {
+          url: `/parks/${d.id}`,
+          changefreq: 'weekly',
+          priority: 0.8,
+        }
+      })
     },
   },
 

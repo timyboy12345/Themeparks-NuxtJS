@@ -1,23 +1,17 @@
 <template>
-  <image-card
-    v-if="restaurant.image_url"
-    :title="restaurant.title"
-    :description="restaurant.subTitle"
-    :image-src="restaurant.image_url"
-    :link="cardLink"
-  >
+  <image-card v-if="show.image_url" :title="show.title" :description="show.subTitle" :image-src="show.image_url" :link="cardLink">
   </image-card>
-  <card v-else :title="restaurant.title" :sub-title="restaurant.subTitle" />
+  <card v-else :title="show.title" :content="show.subTitle" :link="cardLink"></card>
 </template>
 
 <script>
 import Card from '@/components/cards/Card'
 import ImageCard from './ImageCard'
 export default {
-  name: 'RestaurantCard',
+  name: 'ShowCard',
   components: { Card, ImageCard },
   props: {
-    restaurant: {
+    show: {
       type: Object,
       required: true,
     },
@@ -33,14 +27,14 @@ export default {
   },
   computed: {
     btnLink() {
-      return this.restaurant.id
+      return this.show.id
     },
     cardLink() {
-      if (!this.park || !this.restaurant || !this.showMore) {
+      if (!this.park || !this.show || !this.showMore) {
         return null
       }
 
-      return `/parks/${this.park.id}/restaurants/${this.restaurant.id}`
+      return `/parks/${this.park.id}/shows/${this.show.id}`
     },
   },
 }
