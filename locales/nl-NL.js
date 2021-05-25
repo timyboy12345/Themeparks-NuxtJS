@@ -1,0 +1,51 @@
+export default {
+  general: {
+    themePark: 'Pretpark',
+    themeParks: 'Pretparken',
+    allThemeParks: 'Alle Pretparken',
+    home: 'Home',
+    park: 'Pretpark',
+    parks: 'Pretparken',
+    rides: 'Attracties',
+    restaurants: 'Restaurants',
+    shows: 'Shows',
+    shops: 'Winkels',
+    maxAge: 'Max. leeftijd: {0} jaar',
+    minAge: 'Min. leeftijd: {0} jaar',
+    maxSize: 'Max. grootte: {0} cm',
+    minSize: 'Min. groote: {0} cm',
+    escortSize: 'Min. grootte zonder begeleiding: {0} cm',
+    currentWaitTime: 'Huidige wachttijd: {0} min.',
+    nextShow: 'Volgende show: {0}',
+    loadingTitle: 'Laden...',
+    loadingContent: 'Data wordt geladen...',
+  },
+  home: {
+    title: 'Welkom bij Themeparks',
+    subtitle:
+      'Met Themeparks kan je wachttijden van je favoriete parken overal ter wereld tracken. Krijg aanbevelingen in welke attractie je nu het beste kan stappen en welke attractie je het beste even kan overslaan',
+    action: 'Klik op de knop hieronder om alle beschikbare pretparken te bekijken.',
+    actionButton: 'Bekijk alle beschikbare pretparken',
+    infoTitle: 'Over Themeparks',
+    infoWaitTimes: 'Wachttijden van alle pretparken',
+    infoWaitTimesContent:
+      "Het doel is om uiteindelijk van veel pretparken ter wereld de wachttijden te tonen. Momenteel ligt de focus op parken in Nederland, de Benelux en Europa, maar parken uit andere regio's worden ook af en toe aangesloten.\n",
+    infoData: 'Waar komt de data vandaan?',
+    infoDataContent:
+      "De data is afkomstig van de officiële apps van de parken. De API's die hierbij worden gebruikt worden door ons uitgelezen om vervolgens hier te tonen. ",
+  },
+  parks: {
+    subTitle: 'Bekijk de lijst met alle beschikbare pretparken hieronder.',
+  },
+  park: {
+    allRides: 'Alle Attracties',
+    allRidesSubtitle: 'Bekijk alle attracties van dit park',
+    showMap: 'Bekijk op kaart',
+    allRestaurants: 'Alle Restaurants',
+    allRestaurantsSubtitle: 'Bekijk alle restaurants van dit park',
+    allShops: 'Alle Winkels',
+    allShopsSubtitle: 'Bekijk alle winkels van dit park',
+    allShows: 'Alle Shows',
+    allShowsSubtitle: 'Bekijk alle shows van dit park',
+  },
+}

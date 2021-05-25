@@ -1,8 +1,8 @@
 <template>
   <div>
-    <loading-spinner v-if="!rides" class="py-4"></loading-spinner>
+    <loading-spinner v-if="!rides && !error" class="py-4"></loading-spinner>
 
-    <general-error v-if="error" class="m-4" sub-title="We couldn't fetch the shows for this park" />
+    <general-error v-if="error" class="m-4" sub-title="We couldn't fetch the rides for this park" />
 
     <general-message v-if="rides && rides.length === 0" class="m-4" />
 
@@ -10,7 +10,7 @@
       <NuxtLink
         v-for="ride of rides"
         :key="ride.id"
-        :to="'/parks/' + parkId + '/rides/' + ride.id"
+        :to="localePath('/parks/' + parkId + '/rides/' + ride.id)"
         class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
       >
         <div class="flex flex-row items-center">
@@ -61,8 +61,8 @@ export default {
       .then((rides) => {
         return rides.data.slice(0, this.maxRides)
       })
-      .catch(({ response }) => {
-        this.error = response
+      .catch(() => {
+        this.error = true
         return null
       })
   },

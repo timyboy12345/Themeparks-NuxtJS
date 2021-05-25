@@ -5,7 +5,7 @@
         v-if="show.showTimes && show.showTimes.futureShowTimes && show.showTimes.futureShowTimes.length > 0"
         class="mt-1 text-indigo-700"
       >
-        Volgende show: <span class="font-bold">{{ show.showTimes.futureShowTimes[0].fromTime | time }}</span>
+        {{ $t('general.nextShow', [show.showTimes.futureShowTimes[0].fromTime | time]) }}
       </div>
     </template>
   </image-card>

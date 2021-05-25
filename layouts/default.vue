@@ -4,14 +4,22 @@
       class="bg-indigo-800 text-white w-full flex flex-row items-center justify-between py-4 px-4 lg:px-8"
       :class="{ 'mb-4 lg:mb-8': !breadcrumbs || breadcrumbs.length === 0 }"
     >
-      <NuxtLink to="/" class="lg:text-lg font-bold">Themeparks</NuxtLink>
+      <NuxtLink :to="localePath('/')" class="lg:text-lg font-bold">Themeparks</NuxtLink>
 
       <div class="flex flex-row">
-        <NuxtLink to="/" class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100" exact-active-class="opacity-100">
-          Home
+        <NuxtLink
+          :to="localePath('/')"
+          class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
+          exact-active-class="opacity-100"
+        >
+          {{ $t('general.home') }}
         </NuxtLink>
-        <NuxtLink to="/parks" class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100" exact-active-class="opacity-100">
-          Parken
+        <NuxtLink
+          :to="localePath('/parks')"
+          class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
+          exact-active-class="opacity-100"
+        >
+          {{ $t('general.parks') }}
         </NuxtLink>
       </div>
     </div>

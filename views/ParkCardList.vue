@@ -6,10 +6,10 @@
           <div class="flex content-between flex-col">
             <p class="mt-4">{{ park.description }}</p>
             <div v-if="park.supports" class="grid grid-cols-2 gap-2 mt-4 text-center">
-              <badge-component v-if="park.supports.supportsRides" text="Attractions" />
-              <badge-component v-if="park.supports.supportsRestaurants" text="Restaurants" />
-              <badge-component v-if="park.supports.supportsShows" text="Shows" />
-              <badge-component v-if="park.supports.supportsShops" text="Shops" />
+              <badge-component v-if="park.supports.supportsRides" :text="$t('general.rides')" />
+              <badge-component v-if="park.supports.supportsRestaurants" :text="$t('general.restaurants')" />
+              <badge-component v-if="park.supports.supportsShows" :text="$t('general.shows')" />
+              <badge-component v-if="park.supports.supportsShops" :text="$t('general.shops')" />
             </div>
           </div>
         </template>

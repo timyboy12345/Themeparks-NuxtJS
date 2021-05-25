@@ -1,6 +1,6 @@
 <template>
   <div class="grid gap-4">
-    <card title="All Theme Parks" sub-title="See the list of available themeparks below"></card>
+    <card :title="$t('general.allThemeParks')" :sub-title="$t('parks.subTitle')"></card>
 
     <general-error v-if="error"></general-error>
 

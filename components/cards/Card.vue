@@ -63,7 +63,7 @@ export default {
   methods: {
     cardClicked() {
       if (this.link) {
-        this.$router.push(this.link)
+        this.$router.push(this.localePath(this.link))
       }
     },
   },

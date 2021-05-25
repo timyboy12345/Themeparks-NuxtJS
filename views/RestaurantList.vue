@@ -1,8 +1,8 @@
 <template>
   <div>
-    <loading-spinner v-if="!restaurants" class="py-4"></loading-spinner>
+    <loading-spinner v-if="!restaurants && !error" class="py-4"></loading-spinner>
 
-    <general-error v-if="error" class="m-4" sub-title="We couldn't fetch the shows for this park" />
+    <general-error v-if="error" class="m-4" sub-title="We couldn't fetch the restaurants for this park" />
 
     <general-message v-if="restaurants && restaurants.length === 0" class="m-4" />
 
@@ -10,7 +10,7 @@
       <NuxtLink
         v-for="restaurant of restaurants"
         :key="restaurant.id"
-        :to="'/parks/' + parkId + '/restaurants/' + restaurant.id"
+        :to="localePath('/parks/' + parkId + '/restaurants/' + restaurant.id)"
         class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between"
       >
         <div class="flex flex-row items-center">
@@ -69,9 +69,9 @@ export default {
       .then((rides) => {
         return rides.data.slice(0, this.maxRestaurants)
       })
-      .catch((e) => {
-        this.error = e
-        return []
+      .catch(() => {
+        this.error = true
+        return null
       })
   },
 }

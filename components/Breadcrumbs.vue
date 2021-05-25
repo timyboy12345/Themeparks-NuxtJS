@@ -7,7 +7,7 @@
       class="bg-gray-300 text-gray-800 flex flex-row py-2 px-4 whitespace-no-wrap overflow-x-auto text-sm md:text-base lg:absolute min-w-full lg:left-0 lg:px-8 mb-4 lg:mb-8"
     >
       <div v-for="(breadcrumb, i) of breadcrumbs" :key="i" property="itemListElement" typeof="ListItem" class="mr-1">
-        <NuxtLink property="item" typeof="WebPage" :to="breadcrumb.url">
+        <NuxtLink property="item" typeof="WebPage" :to="breadcrumb.url !== '#' ? localePath(breadcrumb.url) : '#'">
           <!-- Don't add extra enters, as these make sure the underline is not too long -->
           <span property="name" :class="{ 'underline hover:no-underline': breadcrumb.url !== '#', 'mr-2': i === breadcrumbs.length - 1 }">{{
             breadcrumb.title

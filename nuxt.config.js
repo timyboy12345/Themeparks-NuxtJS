@@ -1,3 +1,4 @@
+// eslint-disable-next-line nuxt/no-cjs-in-config
 const axios = require('axios')
 
 export default {
@@ -49,13 +50,14 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
+    // https://pwa.nuxtjs.org/setup
     '@nuxtjs/pwa',
     // https://www.npmjs.com/package/nuxt-leaflet
     'nuxt-leaflet',
-    // https://pwa.nuxtjs.org/setup
-    '@nuxtjs/pwa',
     // https://www.npmjs.com/package/@nuxtjs/sitemap
     '@nuxtjs/sitemap',
+    // https://i18n.nuxtjs.org/setup
+    'nuxt-i18n',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -101,6 +103,35 @@ export default {
           },
         },
       ],
+    },
+  },
+
+  i18n: {
+    locales: [
+      {
+        code: 'en',
+        iso: 'en-US',
+        file: 'en-US.js',
+      },
+      {
+        code: 'nl',
+        iso: 'nl-NL',
+        file: 'nl-NL.js',
+      },
+    ],
+    defaultLocale: 'en',
+    strategy: 'prefix',
+    langDir: 'locales',
+    vueI18n: {
+      fallbackLocale: 'en',
+      messages: {
+        en: {
+          welcome: 'Welcome',
+        },
+        nl: {
+          welcome: 'Welkom',
+        },
+      },
     },
   },
 

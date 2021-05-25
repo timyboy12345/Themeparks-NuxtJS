@@ -7,41 +7,45 @@
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
       <park-card v-if="park" :park="park" :uses-link="false"></park-card>
 
-      <card v-if="park && park.supports.supportsRides" title="Rides" content="See all rides of this park.">
+      <card v-if="park && park.supports.supportsRides" :title="$t('general.rides')" :sub-title="$t('park.allRidesSubtitle')">
         <template #content>
           <ride-list class="-mx-4" :max-rides="5" :park-id="parkId"></ride-list>
         </template>
 
         <template #buttons>
           <card-actions>
-            <card-button :btn-link="ridesButtonLink" btn-title="All rides" />
-            <card-button v-if="park && park.supports.supportsPoiLocations" :btn-link="mapButtonLink" btn-title="Show Map" />
+            <card-button :btn-link="ridesButtonLink" :btn-title="$t('park.allRides')" />
+            <card-button v-if="park && park.supports.supportsPoiLocations" :btn-link="mapButtonLink" :btn-title="$t('park.showMap')" />
           </card-actions>
         </template>
       </card>
 
-      <card v-if="park && park.supports.supportsRestaurants" title="Restaurants" content="See all restaurants of this park.">
+      <card
+        v-if="park && park.supports.supportsRestaurants"
+        :title="$t('general.restaurants')"
+        :sub-title="$t('park.allRestaurantsSubtitle')"
+      >
         <template #content>
           <restaurant-list class="-mx-4" :max-restaurants="5" :park-id="parkId"></restaurant-list>
         </template>
 
         <template #buttons>
           <card-actions>
-            <card-button :btn-link="restaurantsButtonLink" btn-title="All restaurants" />
-            <card-button v-if="park && park.supports.supportsPoiLocations" :btn-link="mapButtonLink" btn-title="Show Map" />
+            <card-button :btn-link="restaurantsButtonLink" :btn-title="$t('park.allRestaurants')" />
+            <card-button v-if="park && park.supports.supportsPoiLocations" :btn-link="mapButtonLink" :btn-title="$t('park.showMap')" />
           </card-actions>
         </template>
       </card>
 
-      <card v-if="park && park.supports.supportsShows" title="Shows" content="See all shows of this park.">
+      <card v-if="park && park.supports.supportsShows" :title="$t('general.shows')" :sub-title="$t('park.allShowsSubtitle')">
         <template #content>
           <show-list class="-mx-4" :max-shows="5" :park-id="parkId"></show-list>
         </template>
 
         <template #buttons>
           <card-actions>
-            <card-button :btn-link="'/parks/' + parkId + '/shows'" btn-title="All shows" />
-            <card-button v-if="park && park.supports.supportsPoiLocations" :btn-link="mapButtonLink" btn-title="Show Map" />
+            <card-button :btn-link="'/parks/' + parkId + '/shows'" :btn-title="$t('park.allShows')" />
+            <card-button v-if="park && park.supports.supportsPoiLocations" :btn-link="mapButtonLink" :btn-title="$t('park.showMap')" />
           </card-actions>
         </template>
       </card>
@@ -86,7 +90,7 @@ export default {
       })
       .catch((e) => {
         if (e) {
-          this.$router.push('/parks')
+          this.$router.push(this.localePath('/parks'))
         }
       })
   },

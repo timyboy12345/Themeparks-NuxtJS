@@ -1,5 +1,5 @@
 <template>
-  <card title="Loading..." content="Data is being loaded"></card>
+  <card :title="$t('general.loadingTitle')" :content="$t('general.loadingContent')"></card>
 </template>
 
 <script>
