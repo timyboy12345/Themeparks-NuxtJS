@@ -18,7 +18,11 @@
             <img v-if="ride.image_url" :src="ride.image_url" class="object-cover object-center w-full h-full" />
             <div v-else class="object-cover object-center w-full h-full" />
           </div>
-          <div class="text-indigo-700">{{ ride.title }}</div>
+
+          <div class="flex flex-col">
+            <div class="text-indigo-700">{{ ride.title }}</div>
+            <div v-if="ride.currentWaitTime !== undefined" class="text-sm text-gray-600">{{ ride.currentWaitTime }} min wachttijd</div>
+          </div>
         </div>
 
         <div class="text-gray-700">{{ ride.area }}</div>

@@ -31,17 +31,22 @@ export default {
     await Promise.all([this.getRestaurant(), this.getPark()]).then()
   },
   head() {
+    const description =
+      this.restaurant && this.park
+        ? 'See current and past opening times from ' +
+          this.restaurant.title +
+          ', ' +
+          this.park.name +
+          ' and other restaurants and theme parks all over the world'
+        : 'See current and past waiting times and opening times from theme parks all over the world.'
+
     return {
-      title: this.restaurant ? this.restaurant.title : 'Attraction',
+      title: this.restaurant && this.park ? `${this.restaurant.title} @ ${this.park.name}` : 'Attraction',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.restaurant
-            ? 'See current and past waiting times and opening times from ' +
-              this.restaurant.title +
-              ' and other restaurants and theme parks all over the world'
-            : 'See current and past waiting times and opening times from theme parks all over the world.',
+          content: description,
         },
         {
           hid: 'og:image',
@@ -68,7 +73,7 @@ export default {
         },
         {
           title: 'Restaurants',
-          url: '/parks/' + this.parkId + '/restaurants/',
+          url: '/parks/' + this.parkId + '/restaurants',
         },
         {
           title: this.restaurant ? this.restaurant.title : 'Restaurant',

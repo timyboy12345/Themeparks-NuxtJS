@@ -29,15 +29,20 @@ export default {
     await Promise.all([this.getParkRides(), this.getPark()]).then()
   },
   head() {
-    const name = this.park ? this.park.name : 'dit park'
-
     return {
-      title: 'All rides of ' + name,
+      title: this.park ? 'All rides at ' + this.park.name : 'All rides',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: 'These are all rides of ' + name,
+          content: this.park
+            ? 'See current and past wait times from ' + this.park.name + ' and other parks and shows all over the world'
+            : 'See current and past wait times from rides and theme parks all over the world.',
+        },
+        {
+          hid: 'og:image',
+          name: 'og:image',
+          content: this.park ? this.park.image : null,
         },
       ],
     }

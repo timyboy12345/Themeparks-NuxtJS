@@ -41,7 +41,7 @@ export default {
   },
   head() {
     return {
-      title: this.ride ? this.ride.title : 'Attraction',
+      title: this.ride && this.park ? `${this.ride.title} @ ${this.park.name}` : 'Attraction',
       meta: [
         {
           hid: 'description',
@@ -71,7 +71,7 @@ export default {
         },
         {
           title: 'Rides',
-          url: '/parks/' + this.parkId + '/rides/',
+          url: '/parks/' + this.parkId + '/rides',
         },
         {
           title: this.ride ? this.ride.title : 'Ride',

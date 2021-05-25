@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white rounded shadow overflow-hidden transition duration-100"
+    class="bg-white rounded shadow overflow-hidden transition duration-100 d-flex flex-col relative"
     :class="{ 'hover:bg-gray-100 cursor-pointer': link }"
     @click="cardClicked"
   >

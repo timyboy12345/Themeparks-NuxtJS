@@ -18,7 +18,16 @@
             <img v-if="show.image_url" :src="show.image_url" class="object-cover object-center w-full h-full" />
             <div v-else class="object-cover object-center w-full h-full" />
           </div>
-          <div class="text-indigo-700">{{ show.title }}</div>
+
+          <div class="flex flex-col">
+            <div class="text-indigo-700">{{ show.title }}</div>
+            <div
+              v-if="show.showTimes && show.showTimes.futureShowTimes && show.showTimes.futureShowTimes.length > 0"
+              class="text-gray-600 text-sm"
+            >
+              Volgende show: {{ show.showTimes.futureShowTimes[0].fromTime | time }}
+            </div>
+          </div>
         </div>
 
         <div class="text-gray-700">{{ show.area }}</div>
@@ -35,6 +44,12 @@ import GeneralMessage from '@/components/GeneralMessage'
 export default {
   name: 'ShowList',
   components: { GeneralMessage, GeneralError, LoadingSpinner },
+  filters: {
+    time(value) {
+      const times = value.split(':')
+      return `${times[0]}:${times[1]}`
+    },
+  },
   props: {
     parkId: {
       type: String,

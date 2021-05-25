@@ -4,7 +4,7 @@
     :class="{ 'hover:bg-gray-100 cursor-pointer hover:shadow-lg': link }"
     @click="cardClicked"
   >
-    <img v-if="imageSrc" :src="imageSrc" class="-z-1 w-full min-h-64 h-full object-center object-cover" />
+    <img v-if="imageSrc" :src="imageSrc" class="-z-1 w-full min-h-78 h-full object-center object-cover" />
 
     <div class="w-full flex flex-col bottom-0 absolute">
       <div class="p-4 m-4 rounded z-10 bg-white rounded">

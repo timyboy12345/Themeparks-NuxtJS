@@ -8,14 +8,13 @@
       <card v-if="park && !park.supports.supportsPoiLocations" title="No support" content="This park does not support the map function" />
 
       <map-component v-if="park && supportsLatLng" component-height="h-128" :lat="averageLat" :lng="averageLng" :zoom="16">
-        <map-marker v-for="ride of latLngRides" :key="ride.id" :lat="ride.location.lat" :lng="ride.location.lng" :popup="ride.title" />
         <map-marker
-          v-for="show of latLngShows"
-          :key="show.id"
-          icon="orange"
-          :lat="show.location.lat"
-          :lng="show.location.lng"
-          :popup="show.title"
+          v-for="ride of latLngRides"
+          :key="ride.id"
+          icon="blue"
+          :lat="ride.location.lat"
+          :lng="ride.location.lng"
+          :popup="ride.title"
         />
 
         <map-marker
@@ -26,6 +25,24 @@
           :lng="restaurant.location.lng"
           :popup="restaurant.title"
         />
+
+        <map-marker
+          v-for="show of latLngShows"
+          :key="show.id"
+          icon="orange"
+          :lat="show.location.lat"
+          :lng="show.location.lng"
+          :popup="show.title"
+        />
+
+        <map-marker
+          v-for="shop of latLngShops"
+          :key="shop.id"
+          icon="yellow"
+          :lat="shop.location.lat"
+          :lng="shop.location.lng"
+          :popup="shop.title"
+        />
       </map-component>
 
       <card v-if="park && supportsLatLng" title="Map" sub-title="On this map, all retrievable data is shown">
@@ -33,6 +50,8 @@
           <ul class="list list-disc">
             <li class="ml-8"><span class="text-blue-700">Blue</span> markers are rides</li>
             <li class="ml-8"><span class="text-red-800">Red</span> markers are restaurants</li>
+            <li class="ml-8"><span class="text-orange-700">Orange</span> markers are shows</li>
+            <li class="ml-8"><span class="text-yellow-600">Yellow</span> markers are shops</li>
           </ul>
         </template>
       </card>
@@ -56,15 +75,18 @@ export default {
       rides: [],
       restaurants: [],
       shows: [],
+      shops: [],
       parkId: this.$route.params.id,
     }
   },
   async fetch() {
-    await Promise.all([this.getPark(), this.getRides(), this.getRestaurants(), this.getShows()])
+    await Promise.all([this.getPark(), this.getRides(), this.getRestaurants(), this.getShows(), this.getShops()])
   },
   head() {
+    const title = this.park ? 'All rides and attractions of ' + this.park.name : 'All rides and attractions on a map'
+
     return {
-      title: this.park ? 'All rides and attractions of ' + this.park.name : 'All rides and attractions on a map',
+      title,
     }
   },
   computed: {
@@ -85,6 +107,9 @@ export default {
     },
     latLngShows() {
       return this.shows.filter((r) => r.location && r.location.lng && typeof r.location.lng === 'number')
+    },
+    latLngShops() {
+      return this.shops.filter((r) => r.location && r.location.lng && typeof r.location.lng === 'number')
     },
     breadcrumbs() {
       if (!this.park) {
@@ -146,6 +171,16 @@ export default {
         })
         .catch(() => {
           this.shows = []
+        })
+    },
+    async getShops() {
+      await this.$axios
+        .get('/park/' + this.parkId + '/shops')
+        .then((shopsResponse) => {
+          this.shops = shopsResponse.data
+        })
+        .catch(() => {
+          this.shops = []
         })
     },
   },

@@ -18,7 +18,13 @@
             <img v-if="restaurant.image_url" :src="restaurant.image_url" class="object-cover object-center w-full h-full" />
             <div v-else class="object-cover object-center w-full h-full" />
           </div>
-          <div class="text-indigo-700">{{ restaurant.title }}</div>
+
+          <div class="flex flex-col">
+            <div class="text-indigo-700">{{ restaurant.title }}</div>
+            <div v-if="restaurant.openingTimes" class="text-sm text-gray-600">
+              Open van {{ restaurant.openingTimes[0].openTime | time }} tot {{ restaurant.openingTimes[0].closeTime | time }}
+            </div>
+          </div>
         </div>
 
         <div class="text-gray-700">{{ restaurant.area }}</div>
@@ -35,6 +41,12 @@ import GeneralMessage from '@/components/GeneralMessage'
 export default {
   name: 'RestaurantList',
   components: { GeneralMessage, GeneralError, LoadingSpinner },
+  filters: {
+    time(value) {
+      const times = value.split(':')
+      return `${times[0]}:${times[1]}`
+    },
+  },
   props: {
     parkId: {
       type: String,

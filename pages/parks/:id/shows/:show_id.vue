@@ -2,26 +2,33 @@
   <div>
     <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
 
-    <loading v-if="!show && !error"></loading>
+    <div class="grid md:grid-cols-2 gap-4">
+      <loading v-if="!show && !error"></loading>
 
-    <restaurant-card v-if="show" :park="park" :restaurant="show"></restaurant-card>
+      <show-card v-if="show" :park="park" :show="show"></show-card>
 
-    <general-error v-if="error"></general-error>
+      <general-error v-if="error"></general-error>
 
-    <div v-if="show" class="grid grid-cols-2 md:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
-      <img v-for="(img, i) of show.images" :key="i" alt="Image of this restaurant" :src="img" class="bg-white rounded shadow" />
+      <card v-if="show.showTimes" title="Shows van vandaag">
+        <template #content> Shows van vandaag komen binnenkort </template>
+      </card>
+
+      <div v-if="show" class="grid grid-cols-2 md:grid-cols-3 md:grid-cols-4 gap-4">
+        <img v-for="(img, i) of show.images" :key="i" alt="Image of this restaurant" :src="img" class="bg-white rounded shadow" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import RestaurantCard from '@/components/cards/RestaurantCard'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import GeneralError from '@/components/GeneralError'
+import ShowCard from '@/components/cards/ShowCard'
+import Card from '@/components/cards/Card'
 import Loading from '../../../../components/LoadingSpinner'
 
 export default {
-  components: { GeneralError, Breadcrumbs, RestaurantCard, Loading },
+  components: { Card, ShowCard, GeneralError, Breadcrumbs, Loading },
   data() {
     return {
       parkId: this.$route.params.id,
@@ -36,7 +43,7 @@ export default {
   },
   head() {
     return {
-      title: this.show ? this.show.title : 'Show',
+      title: this.show && this.park ? `${this.show.title} @ ${this.park.name}` : 'Show',
       meta: [
         {
           hid: 'description',
@@ -70,7 +77,7 @@ export default {
         },
         {
           title: 'Shows',
-          url: '/parks/' + this.parkId + '/shows/',
+          url: '/parks/' + this.parkId + '/shows',
         },
         {
           title: this.show ? this.show.title : 'Show',

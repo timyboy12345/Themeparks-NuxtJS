@@ -61,7 +61,17 @@ import Card from '../../../components/cards/Card'
 import CardButton from '../../../components/cards/actions/CardButton'
 
 export default {
-  components: { ShowList, LoadingSpinner, RideList, Breadcrumbs, RestaurantList, CardActions, CardButton, Card, ParkCard },
+  components: {
+    ShowList,
+    LoadingSpinner,
+    RideList,
+    Breadcrumbs,
+    RestaurantList,
+    CardActions,
+    CardButton,
+    Card,
+    ParkCard,
+  },
   data() {
     return {
       parkId: this.$route.params.id,
@@ -81,8 +91,28 @@ export default {
       })
   },
   head() {
+    const title = this.park ? this.park.name : undefined
+    let description = 'See rides, restaurants, shows, shops and more from'
+
+    if (this.park) {
+      if (this.park.description) {
+        description = this.park.description
+      } else {
+        description += this.park.name
+      }
+    } else {
+      description += ' this theme park.'
+    }
+
     return {
-      title: this.park ? this.park.name : undefined,
+      title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: description,
+        },
+      ],
     }
   },
   computed: {
@@ -103,7 +133,7 @@ export default {
       return [
         {
           title: 'Parks',
-          url: '/parks/',
+          url: '/parks',
         },
         {
           title: this.park.name,

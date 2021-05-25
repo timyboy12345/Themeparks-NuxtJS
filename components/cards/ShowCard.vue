@@ -1,5 +1,13 @@
 <template>
   <image-card v-if="show.image_url" :title="show.title" :description="show.subTitle" :image-src="show.image_url" :link="cardLink">
+    <template #content>
+      <div
+        v-if="show.showTimes && show.showTimes.futureShowTimes && show.showTimes.futureShowTimes.length > 0"
+        class="mt-1 text-indigo-700"
+      >
+        Volgende show: <span class="font-bold">{{ show.showTimes.futureShowTimes[0].fromTime | time }}</span>
+      </div>
+    </template>
   </image-card>
   <card v-else :title="show.title" :content="show.subTitle" :link="cardLink"></card>
 </template>
@@ -10,6 +18,12 @@ import ImageCard from './ImageCard'
 export default {
   name: 'ShowCard',
   components: { Card, ImageCard },
+  filters: {
+    time(value) {
+      const times = value.split(':')
+      return `${times[0]}:${times[1]}`
+    },
+  },
   props: {
     show: {
       type: Object,

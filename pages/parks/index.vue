@@ -27,7 +27,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: 'Take a look at all the theme parks we support.',
+        content: 'Here you will find all the different theme parks that we support.',
       },
     ],
   },

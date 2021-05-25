@@ -8,6 +8,10 @@
         <div v-if="ride.maxSize">Max length: {{ ride.maxSize }} cm</div>
         <div v-if="ride.minSizeEscort">With family member: {{ ride.minSize ? ride.minSize + '-' : '' }}{{ ride.minSizeEscort }} cm</div>
       </div>
+
+      <div v-if="ride.currentWaitTime !== undefined" class="font-bold text-indigo-700 mt-2">
+        {{ ride.currentWaitTime }} minuten wachttijd
+      </div>
     </template>
   </image-card>
 
@@ -19,6 +23,10 @@
         <div v-if="ride.minSize">Min length: {{ ride.minSize }} cm</div>
         <div v-if="ride.maxSize">Max length: {{ ride.maxSize }} cm</div>
         <div v-if="ride.minSizeEscort">With family member: {{ ride.minSize ? ride.minSize + '-' : '' }}{{ ride.minSizeEscort }} cm</div>
+      </div>
+
+      <div v-if="ride.currentWaitTime !== undefined" class="font-bold text-indigo-700 mt-2">
+        {{ ride.currentWaitTime }} minuten wachttijd
       </div>
     </template>
   </card>

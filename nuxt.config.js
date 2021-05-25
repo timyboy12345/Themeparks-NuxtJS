@@ -8,13 +8,15 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Themeparks',
+    titleTemplate: '%s - Themeparks',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: 'See current and past waiting times and opening times from theme parks all over the world.',
+        content:
+          'See current and past waiting times and opening times from theme parks all over the world. Straight from official data sources.',
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],

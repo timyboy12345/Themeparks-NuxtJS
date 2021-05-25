@@ -25,6 +25,25 @@ export default {
   async fetch() {
     await Promise.all([this.getParkRides(), this.getPark()]).then()
   },
+  head() {
+    return {
+      title: this.park ? 'All shows at ' + this.park.name : 'All shows',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.park
+            ? 'See current and past show and opening times from ' + this.park.name + ' and other parks and shows all over the world'
+            : 'See current and past show and opening times from theme parks all over the world.',
+        },
+        {
+          hid: 'og:image',
+          name: 'og:image',
+          content: this.park ? this.park.image : null,
+        },
+      ],
+    }
+  },
   computed: {
     breadcrumbs() {
       if (!this.park) {
