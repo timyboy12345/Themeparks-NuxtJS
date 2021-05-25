@@ -19,6 +19,12 @@ export default {
         content:
           'See current and past waiting times and opening times from theme parks all over the world. Straight from official data sources.',
       },
+      {
+        hid: 'og:description',
+        name: 'og:description',
+        content:
+          'See current and past waiting times and opening times from theme parks all over the world. Straight from official data sources.',
+      },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
@@ -54,10 +60,10 @@ export default {
     '@nuxtjs/pwa',
     // https://www.npmjs.com/package/nuxt-leaflet
     'nuxt-leaflet',
-    // https://www.npmjs.com/package/@nuxtjs/sitemap
-    '@nuxtjs/sitemap',
     // https://i18n.nuxtjs.org/setup
     'nuxt-i18n',
+    // https://www.npmjs.com/package/@nuxtjs/sitemap
+    '@nuxtjs/sitemap',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -122,22 +128,16 @@ export default {
     defaultLocale: 'en',
     strategy: 'prefix',
     langDir: 'locales',
+    seo: true,
     vueI18n: {
       fallbackLocale: 'en',
-      messages: {
-        en: {
-          welcome: 'Welcome',
-        },
-        nl: {
-          welcome: 'Welkom',
-        },
-      },
     },
   },
 
   sitemap: {
     hostname: 'https://tpvue.arendz.nl',
     gzip: true,
+    i18n: true,
     routes: async () => {
       const { data } = await axios.get('https://tp.arendz.nl/parks')
       return data.map((d) => {

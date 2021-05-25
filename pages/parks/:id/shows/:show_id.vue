@@ -43,7 +43,7 @@ export default {
   },
   head() {
     return {
-      title: this.show && this.park ? `${this.show.title} @ ${this.park.name}` : 'Show',
+      title: this.show && this.park ? `${this.show.title} @ ${this.park.name}` : this.$t('general.show'),
       meta: [
         {
           hid: 'description',
@@ -68,19 +68,19 @@ export default {
 
       return [
         {
-          title: 'Parks',
+          title: this.$t('general.parks'),
           url: '/parks/',
         },
         {
-          title: this.park ? this.park.name : 'Park',
+          title: this.park ? this.park.name : this.$t('general.park'),
           url: '/parks/' + this.parkId,
         },
         {
-          title: 'Shows',
+          title: this.$t('general.shows'),
           url: '/parks/' + this.parkId + '/shows',
         },
         {
-          title: this.show ? this.show.title : 'Show',
+          title: this.show ? this.show.title : this.$t('general.show'),
           url: '#',
         },
       ]

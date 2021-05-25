@@ -62,19 +62,19 @@ export default {
     breadcrumbs() {
       return [
         {
-          title: 'Parks',
+          title: this.$t('general.parks'),
           url: '/parks/',
         },
         {
-          title: this.park ? this.park.name : 'Park',
+          title: this.park ? this.park.name : this.$t('general.park'),
           url: '/parks/' + this.parkId,
         },
         {
-          title: 'Rides',
+          title: this.$t('general.rides'),
           url: '/parks/' + this.parkId + '/rides',
         },
         {
-          title: this.ride ? this.ride.title : 'Ride',
+          title: this.ride ? this.ride.title : this.$t('general.ride'),
           url: '#',
         },
       ]

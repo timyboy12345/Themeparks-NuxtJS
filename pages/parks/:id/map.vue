@@ -118,7 +118,7 @@ export default {
 
       return [
         {
-          title: 'Parks',
+          title: this.$t('general.parks'),
           url: '/parks/',
         },
         {
@@ -126,7 +126,7 @@ export default {
           url: '/parks/' + this.parkId,
         },
         {
-          title: 'Map',
+          title: this.$t('general.map'),
           url: '#',
         },
       ]

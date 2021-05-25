@@ -22,12 +22,12 @@ export default {
     }
   },
   head: {
-    title: 'All theme parks',
+    title: 'All Theme Parks',
     meta: [
       {
         hid: 'description',
         name: 'description',
-        content: 'Here you will find all the different theme parks that we support.',
+        content: 'Here you will find all the different theme parks that we support',
       },
     ],
   },

@@ -136,7 +136,7 @@ export default {
 
       return [
         {
-          title: 'Parks',
+          title: this.$t('general.parks'),
           url: '/parks',
         },
         {

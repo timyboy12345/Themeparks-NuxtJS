@@ -19,6 +19,7 @@ export default {
     nextShow: 'Volgende show: {0}',
     loadingTitle: 'Laden...',
     loadingContent: 'Data wordt geladen...',
+    map: 'Kaart',
   },
   home: {
     title: 'Welkom bij Themeparks',
@@ -36,6 +37,8 @@ export default {
   },
   parks: {
     subTitle: 'Bekijk de lijst met alle beschikbare pretparken hieronder.',
+    seoTitle: 'Alle Pretparken',
+    seoDescription: 'Bekijk alle verschillende pretparken waarvan de data inzichtelijk is.',
   },
   park: {
     allRides: 'Alle Attracties',

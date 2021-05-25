@@ -64,19 +64,19 @@ export default {
 
       return [
         {
-          title: 'Parks',
+          title: this.$t('general.parks'),
           url: '/parks/',
         },
         {
-          title: this.park ? this.park.name : 'Park',
+          title: this.park ? this.park.name : this.$t('general.park'),
           url: '/parks/' + this.parkId,
         },
         {
-          title: 'Restaurants',
+          title: this.$t('general.restaurants'),
           url: '/parks/' + this.parkId + '/restaurants',
         },
         {
-          title: this.restaurant ? this.restaurant.title : 'Restaurant',
+          title: this.restaurant ? this.restaurant.title : this.$t('general.restaurant'),
           url: '#',
         },
       ]

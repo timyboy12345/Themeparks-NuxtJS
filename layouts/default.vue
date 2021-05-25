@@ -34,6 +34,9 @@
 
 <script>
 export default {
+  head() {
+    return this.$nuxtI18nHead({ addSeoAttributes: true })
+  },
   computed: {
     breadcrumbs() {
       return this.$store.state.breadcrumbs

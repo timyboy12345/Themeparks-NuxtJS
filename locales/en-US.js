@@ -19,6 +19,7 @@ export default {
     nextShow: 'Next show: {0}',
     loadingTitle: 'Loading...',
     loadingContent: 'Data is being loaded...',
+    map: 'Map',
   },
   home: {
     title: 'Welcome to Themeparks',
@@ -36,6 +37,8 @@ export default {
   },
   parks: {
     subTitle: 'See the list of available themeparks below',
+    seoTitle: 'All theme parks',
+    seoDescription: 'Here you will find all the different theme parks that we support',
   },
   park: {
     allRides: 'All Rides',
