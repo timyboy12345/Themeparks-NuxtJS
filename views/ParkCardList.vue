@@ -1,5 +1,7 @@
 <template>
   <div>
+    <loading-spinner v-if="!parks || parks.length === 0"></loading-spinner>
+
     <div v-if="parks" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <flag-card v-for="park of parks" :key="park.id" :link="'/parks/' + park.id" :title="park.name" :country-code="park.countryCode">
         <template #content>
@@ -20,11 +22,12 @@
 
 <script>
 import BadgeComponent from '@/components/components/BadgeComponent'
+import LoadingSpinner from '@/components/LoadingSpinner'
 import FlagCard from '~/components/cards/FlagCard.vue'
 
 export default {
   name: 'ParkCardList',
-  components: { BadgeComponent, FlagCard },
+  components: { LoadingSpinner, BadgeComponent, FlagCard },
   data() {
     return {
       parks: [],
@@ -38,6 +41,7 @@ export default {
       })
       .catch((reason) => {
         this.$emit('fetchError', reason)
+        this.$sentry.captureException(reason)
       })
   },
 }

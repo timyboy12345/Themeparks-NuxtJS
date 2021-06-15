@@ -1,3 +1,5 @@
+import webpack from 'webpack'
+
 // eslint-disable-next-line nuxt/no-cjs-in-config
 const axios = require('axios')
 
@@ -64,6 +66,9 @@ export default {
     'nuxt-i18n',
     // https://www.npmjs.com/package/@nuxtjs/sitemap
     '@nuxtjs/sitemap',
+    // https://sentry.nuxtjs.org/guide/setup
+    '@nuxtjs/sentry',
+    'nuxt-highcharts',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -150,6 +155,22 @@ export default {
     },
   },
 
+  entry: {
+    dsn: process.env.NODE_ENV === 'production' ? 'https://6fbc631100c440b9b28e9818d51a14b2@o324258.ingest.sentry.io/5668768' : '', // Enter your project's DSN here
+    // Additional Module Options go here
+    // https://sentry.nuxtjs.org/sentry/options
+    config: {
+      // Add native Sentry config here
+      // https://docs.sentry.io/platforms/javascript/guides/vue/configuration/options/
+    },
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    plugins: [
+      new webpack.IgnorePlugin({
+        resourceRegExp: /@highcharts\/map-collection/,
+      }),
+    ],
+  },
 }

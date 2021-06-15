@@ -10,7 +10,24 @@
       <general-error v-if="error"></general-error>
 
       <card v-if="show.showTimes" title="Shows van vandaag">
-        <template #content> Shows van vandaag komen binnenkort </template>
+        <template #content>
+          <div class="flex flex-col bg-white divide-y divide-gray-200 -mx-4">
+            <div
+              v-for="showTime of show.showTimes.futureShowTimes"
+              :key="showTime.id"
+              class="py-2 px-4 flex flex-row justify-between items-center"
+            >
+              <div class="flex flex-row items-center">
+                <div class="flex flex-col">
+                  <div class="text-indigo-700">{{ showTime.fromTime }}</div>
+                  <div v-if="showTime.edition" class="text-sm text-gray-600">
+                    {{ showTime.edition }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
       </card>
 
       <div v-if="show" class="grid grid-cols-2 md:grid-cols-3 md:grid-cols-4 gap-4">
@@ -95,6 +112,7 @@ export default {
         })
         .catch((reason) => {
           this.error = reason
+          this.$sentry.captureException(reason)
         })
     },
     getPark() {
@@ -105,6 +123,7 @@ export default {
         })
         .catch((reason) => {
           this.error = reason
+          this.$sentry.captureException(reason)
         })
     },
   },

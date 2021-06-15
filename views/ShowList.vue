@@ -11,11 +11,11 @@
         v-for="show of shows"
         :key="show.id"
         :to="localePath('/parks/' + parkId + '/shows/' + show.id)"
-        class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between"
+        class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
       >
         <div class="flex flex-row items-center">
           <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
-            <img v-if="show.image_url" :src="show.image_url" class="object-cover object-center w-full h-full" />
+            <img v-if="show.image_url" alt="Image of this show" :src="show.image_url" class="object-cover object-center w-full h-full" />
             <div v-else class="object-cover object-center w-full h-full" />
           </div>
 
@@ -72,8 +72,9 @@ export default {
       .then((rides) => {
         return rides.data.slice(0, this.maxShows)
       })
-      .catch(() => {
+      .catch((e) => {
         this.error = true
+        this.$sentry.captureException(e)
         return null
       })
   },

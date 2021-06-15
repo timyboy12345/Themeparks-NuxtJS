@@ -6,6 +6,11 @@
     :image-src="restaurant.image_url"
     :link="cardLink"
   >
+    <template #content>
+      <div v-if="restaurant.openingTimes !== undefined && restaurant.openingTimes.length > 0" class="text-sm text-gray-600">
+        Open van {{ restaurant.openingTimes[0].openTime | time }} tot {{ restaurant.openingTimes[0].closeTime | time }}
+      </div>
+    </template>
   </image-card>
   <card v-else :title="restaurant.title" :sub-title="restaurant.subTitle" />
 </template>
@@ -16,6 +21,12 @@ import ImageCard from './ImageCard'
 export default {
   name: 'RestaurantCard',
   components: { Card, ImageCard },
+  filters: {
+    time(value) {
+      const times = value.split(':')
+      return `${times[0]}:${times[1]}`
+    },
+  },
   props: {
     restaurant: {
       type: Object,

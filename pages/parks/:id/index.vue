@@ -49,6 +49,20 @@
           </card-actions>
         </template>
       </card>
+
+      <div
+        v-if="park && park.supports.supportsRideWaitTimesHistory"
+        class="py-2 px-4 bg-yellow-200 relative text-yellow-900 shadow-sm self-start"
+      >
+        <div class="absolute rounded-l bg-yellow-600 left-0 top-0 h-full w-1"></div>
+        <div class="flex flex-col">
+          <h4 class="text-yellow-900 capitalize font-bold">{{ $t('statistics.goToTitle') }}</h4>
+          <p class="text-sm text-yellow-800">{{ $t('statistics.goToDescription') }}</p>
+          <router-link class="underline text-sm mt-2 text-yellow-600" :to="localePath('/parks/' + parkId + '/stats/')">
+            {{ $t('statistics.goToLink') }}
+          </router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -91,6 +105,7 @@ export default {
       .catch((e) => {
         if (e) {
           this.$router.push(this.localePath('/parks'))
+          this.$sentry.captureException(e)
         }
       })
   },

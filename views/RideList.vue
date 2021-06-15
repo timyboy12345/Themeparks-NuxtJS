@@ -15,7 +15,7 @@
       >
         <div class="flex flex-row items-center">
           <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
-            <img v-if="ride.image_url" :src="ride.image_url" class="object-cover object-center w-full h-full" />
+            <img v-if="ride.image_url" alt="Image of this ride" :src="ride.image_url" class="object-cover object-center w-full h-full" />
             <div v-else class="object-cover object-center w-full h-full" />
           </div>
 
@@ -61,8 +61,9 @@ export default {
       .then((rides) => {
         return rides.data.slice(0, this.maxRides)
       })
-      .catch(() => {
+      .catch((e) => {
         this.error = true
+        this.$sentry.captureException(e)
         return null
       })
   },

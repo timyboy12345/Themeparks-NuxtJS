@@ -2,23 +2,13 @@
   <div>
     <breadcrumbs v-if="breadcrumbs" :breadcrumbs="breadcrumbs"></breadcrumbs>
 
-    <loading v-if="!ride || !park"></loading>
+    <div class="grid gap-4">
+      <card :title="$t('general.statistics')" :sub-title="$t('statistics.subTitle')"></card>
 
-    <div class="grid md:grid-cols-2 gap-4">
-      <ride-card v-if="ride && park" :park="park" :ride="ride"></ride-card>
+      <loading-spinner v-if="!rides"></loading-spinner>
 
-      <card v-if="ride" title="General Information">
-        <template #content>
-          <div v-html="ride.description"></div>
-        </template>
-      </card>
-
-      <div v-if="ride && park" class="grid grid-cols-2 lg:grid-cols-3 gap-4">
-        <img v-for="(img, i) of ride.images" :key="i" alt="Image of this ride" :src="img" class="bg-white rounded shadow" />
-      </div>
-
-      <div v-if="ride && park && park.supports.supportsRideWaitTimesHistory && ride.waitingTimes">
-        <RideWaitTimeHistoryChart :ride="ride" :park="park" :chartdata="ride.waitingTimes"></RideWaitTimeHistoryChart>
+      <div v-if="rides">
+        <RidesWaitTimeHistoryChart :rides="rides"></RidesWaitTimeHistoryChart>
       </div>
     </div>
   </div>
@@ -26,23 +16,23 @@
 
 <script>
 import Card from '@/components/cards/Card'
+import RidesWaitTimeHistoryChart from '@/components/charts/RidesWaitTimeHistoryChart'
 import Breadcrumbs from '@/components/Breadcrumbs'
-import RideWaitTimeHistoryChart from '@/components/charts/RideWaitTimeHistoryChart'
-import Loading from '../../../../components/LoadingSpinner'
-import RideCard from '../../../../components/cards/RideCard'
+import LoadingSpinner from '@/components/LoadingSpinner'
 
 export default {
-  components: { RideWaitTimeHistoryChart, Breadcrumbs, Card, RideCard, Loading },
+  name: 'Stats',
+  components: { LoadingSpinner, Breadcrumbs, RidesWaitTimeHistoryChart, Card },
   data() {
     return {
       parkId: this.$route.params.id,
       rideId: this.$route.params.ride_id,
       park: null,
-      ride: null,
+      rides: null,
     }
   },
   async fetch() {
-    await Promise.all([this.fetchPark(), this.fetchRide()])
+    await Promise.all([this.fetchPark(), this.fetchRides()])
   },
   head() {
     return {
@@ -75,20 +65,16 @@ export default {
           url: '/parks/' + this.parkId,
         },
         {
-          title: this.$t('general.rides'),
-          url: '/parks/' + this.parkId + '/rides',
-        },
-        {
-          title: this.ride ? this.ride.title : this.$t('general.ride'),
+          title: this.$t('general.statistics'),
           url: '#',
         },
       ]
     },
   },
   methods: {
-    async fetchRide() {
-      this.ride = await this.$axios.get('/park/' + this.parkId + '/rides/history').then((rides) => {
-        return rides.data.find((r) => r.id === this.rideId)
+    async fetchRides() {
+      this.rides = await this.$axios.get('/park/' + this.parkId + '/rides/history').then((rides) => {
+        return rides.data
       })
     },
     async fetchPark() {
@@ -99,3 +85,5 @@ export default {
   },
 }
 </script>
+
+<style scoped></style>

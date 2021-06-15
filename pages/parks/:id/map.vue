@@ -139,8 +139,9 @@ export default {
         .then((parkResponse) => {
           this.park = parkResponse.data
         })
-        .catch(() => {
+        .catch((e) => {
           this.park = null
+          this.$sentry.captureException(e)
         })
     },
     async getRides() {
@@ -149,8 +150,9 @@ export default {
         .then((ridesResponse) => {
           this.rides = ridesResponse.data
         })
-        .catch(() => {
+        .catch((e) => {
           this.rides = []
+          this.$sentry.captureException(e)
         })
     },
     async getRestaurants() {
@@ -159,8 +161,9 @@ export default {
         .then((restaurantsResponse) => {
           this.restaurants = restaurantsResponse.data
         })
-        .catch(() => {
+        .catch((e) => {
           this.restaurants = []
+          this.$sentry.captureException(e)
         })
     },
     async getShows() {
@@ -169,8 +172,9 @@ export default {
         .then((showsResponse) => {
           this.shows = showsResponse.data
         })
-        .catch(() => {
+        .catch((e) => {
           this.shows = []
+          this.$sentry.captureException(e)
         })
     },
     async getShops() {
@@ -179,8 +183,9 @@ export default {
         .then((shopsResponse) => {
           this.shops = shopsResponse.data
         })
-        .catch(() => {
+        .catch((e) => {
           this.shops = []
+          this.$sentry.captureException(e)
         })
     },
   },

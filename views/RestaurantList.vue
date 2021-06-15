@@ -11,11 +11,16 @@
         v-for="restaurant of restaurants"
         :key="restaurant.id"
         :to="localePath('/parks/' + parkId + '/restaurants/' + restaurant.id)"
-        class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between"
+        class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
       >
         <div class="flex flex-row items-center">
           <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
-            <img v-if="restaurant.image_url" :src="restaurant.image_url" class="object-cover object-center w-full h-full" />
+            <img
+              v-if="restaurant.image_url"
+              alt="Image of this restaurant"
+              :src="restaurant.image_url"
+              class="object-cover object-center w-full h-full"
+            />
             <div v-else class="object-cover object-center w-full h-full" />
           </div>
 
@@ -69,8 +74,9 @@ export default {
       .then((rides) => {
         return rides.data.slice(0, this.maxRestaurants)
       })
-      .catch(() => {
+      .catch((e) => {
         this.error = true
+        this.$sentry.captureException(e)
         return null
       })
   },

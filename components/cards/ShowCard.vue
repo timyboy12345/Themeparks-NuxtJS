@@ -1,11 +1,8 @@
 <template>
   <image-card v-if="show.image_url" :title="show.title" :description="show.subTitle" :image-src="show.image_url" :link="cardLink">
     <template #content>
-      <div
-        v-if="show.showTimes && show.showTimes.futureShowTimes && show.showTimes.futureShowTimes.length > 0"
-        class="mt-1 text-indigo-700"
-      >
-        {{ $t('general.nextShow', [show.showTimes.futureShowTimes[0].fromTime | time]) }}
+      <div v-if="nextShow" class="mt-1 text-indigo-700">
+        {{ $t('general.nextShow', [$options.filters.time(nextShow.fromTime)]) }}
       </div>
     </template>
   </image-card>
@@ -49,6 +46,13 @@ export default {
       }
 
       return `/parks/${this.park.id}/shows/${this.show.id}`
+    },
+    nextShow() {
+      if (this.show.showTimes && this.show.showTimes.futureShowTimes && this.show.showTimes.futureShowTimes.length > 0) {
+        return this.show.showTimes.futureShowTimes[0]
+      }
+
+      return undefined
     },
   },
 }
