@@ -106,7 +106,7 @@ export default {
   methods: {
     getShow() {
       return this.$axios
-        .get('/park/' + this.parkId + '/shows')
+        .get('/parks/' + this.parkId + '/shows')
         .then((restaurants) => {
           this.show = restaurants.data.find((r) => r.id === this.showId)
         })
@@ -117,7 +117,7 @@ export default {
     },
     getPark() {
       return this.$axios
-        .get('/park/' + this.parkId)
+        .get('/parks/' + this.parkId)
         .then((park) => {
           this.park = park.data
         })

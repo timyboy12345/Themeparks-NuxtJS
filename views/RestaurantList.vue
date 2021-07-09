@@ -70,7 +70,7 @@ export default {
   },
   async fetch() {
     this.restaurants = await this.$axios
-      .get('/park/' + this.parkId + '/restaurants')
+      .get('/parks/' + this.parkId + '/restaurants')
       .then((rides) => {
         return rides.data.slice(0, this.maxRestaurants)
       })

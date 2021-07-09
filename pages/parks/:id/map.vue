@@ -135,7 +135,7 @@ export default {
   methods: {
     async getPark() {
       await this.$axios
-        .get('/park/' + this.parkId)
+        .get('/parks/' + this.parkId)
         .then((parkResponse) => {
           this.park = parkResponse.data
         })
@@ -146,7 +146,7 @@ export default {
     },
     async getRides() {
       await this.$axios
-        .get('/park/' + this.parkId + '/rides')
+        .get('/parks/' + this.parkId + '/rides')
         .then((ridesResponse) => {
           this.rides = ridesResponse.data
         })
@@ -157,7 +157,7 @@ export default {
     },
     async getRestaurants() {
       await this.$axios
-        .get('/park/' + this.parkId + '/restaurants')
+        .get('/parks/' + this.parkId + '/restaurants')
         .then((restaurantsResponse) => {
           this.restaurants = restaurantsResponse.data
         })
@@ -168,7 +168,7 @@ export default {
     },
     async getShows() {
       await this.$axios
-        .get('/park/' + this.parkId + '/shows')
+        .get('/parks/' + this.parkId + '/shows')
         .then((showsResponse) => {
           this.shows = showsResponse.data
         })
@@ -179,7 +179,7 @@ export default {
     },
     async getShops() {
       await this.$axios
-        .get('/park/' + this.parkId + '/shops')
+        .get('/parks/' + this.parkId + '/shops')
         .then((shopsResponse) => {
           this.shops = shopsResponse.data
         })

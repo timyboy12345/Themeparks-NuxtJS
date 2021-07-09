@@ -62,5 +62,9 @@ export default {
     goToDescription: 'Take a look at park statistics to plan your ideal day out!',
     goToLink: 'More information',
     subTitle: 'With this data in hand, you can plan the ideal day out.',
+    waitTimesToday: "Today's waiting times",
+    averageWaitTime: 'Average waiting time: {0} min',
+    longestWaitTimesToday: 'Longest waiting times',
+    shortestWaitTimesToday: 'Shortest waiting times',
   },
 }

@@ -62,5 +62,9 @@ export default {
     goToDescription: 'Bekijk statistieken van dit park om het ideale dagje weg te plannen',
     goToLink: 'Meer informatie',
     subTitle: 'Met deze data kan je je ideale dagje in dit park plannen.',
+    waitTimesToday: 'Wachttijden van vandaag',
+    averageWaitTime: 'Gemiddelde wachttijd: {0} min',
+    longestWaitTimesToday: 'Langste wachttijden van vandaag',
+    shortestWaitTimesToday: 'Kortste wachttijden van vandaag',
   },
 }

@@ -1,5 +1,5 @@
 <template>
-  <card title="Wachttijden van vandaag" :sub-title="`Gemiddelde wachttijd: ${avgWaitTime} min`">
+  <card :title="$t('statistics.waitTimesToday')" :sub-title="$t('statistics.averageWaitTime', [avgWaitTime])">
     <template #content>
       <highchart class="mt-3" :options="highChartsOptions"></highchart>
     </template>
@@ -33,6 +33,11 @@ export default {
           timeZone: 'Europe/Amsterdam',
         },
         plotOptions: {
+          line: {
+            marker: {
+              enabled: false,
+            },
+          },
           series: {
             label: {
               connectorAllowed: false,

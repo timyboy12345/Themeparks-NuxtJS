@@ -83,7 +83,7 @@ export default {
   methods: {
     getParkRides() {
       return this.$axios
-        .get('/park/' + this.parkId + '/rides')
+        .get('/parks/' + this.parkId + '/rides')
         .then((rides) => {
           this.rides = rides.data
         })
@@ -94,7 +94,7 @@ export default {
     },
     getPark() {
       return this.$axios
-        .get('/park/' + this.parkId)
+        .get('/parks/' + this.parkId)
         .then((park) => {
           this.park = park.data
         })

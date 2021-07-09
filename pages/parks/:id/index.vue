@@ -98,7 +98,7 @@ export default {
   },
   async fetch() {
     this.park = await this.$axios
-      .get('/park/' + this.parkId)
+      .get('/parks/' + this.parkId)
       .then((park) => {
         return park.data
       })

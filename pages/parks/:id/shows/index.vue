@@ -68,12 +68,12 @@ export default {
   },
   methods: {
     getParkRides() {
-      return this.$axios.get('/park/' + this.parkId + '/shows').then((rides) => {
+      return this.$axios.get('/parks/' + this.parkId + '/shows').then((rides) => {
         this.shows = rides.data
       })
     },
     getPark() {
-      return this.$axios.get('/park/' + this.parkId).then((park) => {
+      return this.$axios.get('/parks/' + this.parkId).then((park) => {
         this.park = park.data
       })
     },

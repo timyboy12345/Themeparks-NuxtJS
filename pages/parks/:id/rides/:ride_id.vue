@@ -87,12 +87,12 @@ export default {
   },
   methods: {
     async fetchRide() {
-      this.ride = await this.$axios.get('/park/' + this.parkId + '/rides/history').then((rides) => {
+      this.ride = await this.$axios.get('/parks/' + this.parkId + '/rides').then((rides) => {
         return rides.data.find((r) => r.id === this.rideId)
       })
     },
     async fetchPark() {
-      this.park = await this.$axios.get('/park/' + this.parkId).then((park) => {
+      this.park = await this.$axios.get('/parks/' + this.parkId).then((park) => {
         return park.data
       })
     },

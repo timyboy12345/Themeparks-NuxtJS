@@ -84,12 +84,12 @@ export default {
   },
   methods: {
     getRestaurant() {
-      return this.$axios.get('/park/' + this.parkId + '/restaurants').then((restaurants) => {
+      return this.$axios.get('/parks/' + this.parkId + '/restaurants').then((restaurants) => {
         this.restaurant = restaurants.data.find((r) => r.id === this.restaurantId)
       })
     },
     getPark() {
-      return this.$axios.get('/park/' + this.parkId).then((park) => {
+      return this.$axios.get('/parks/' + this.parkId).then((park) => {
         this.park = park.data
       })
     },
