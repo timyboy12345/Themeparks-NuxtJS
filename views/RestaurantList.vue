@@ -6,7 +6,7 @@
 
     <general-message v-if="restaurants && restaurants.length === 0" class="m-4" />
 
-    <div v-if="restaurants && restaurants.length > 0" class="flex flex-col bg-white divide-y divide-gray-200">
+    <div v-if="restaurants && restaurants.length > 0" class="mt-2 flex flex-col bg-white divide-y divide-gray-200">
       <NuxtLink
         v-for="restaurant of restaurants"
         :key="restaurant.id"
@@ -17,7 +17,9 @@
           <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
             <img
               v-if="restaurant.image_url"
-              alt="Image of this restaurant"
+              v-lazy-load
+              :alt="`Image of ${restaurant.title}`"
+              :title="`Image of ${restaurant.title}`"
               :src="restaurant.image_url"
               class="object-cover object-center w-full h-full"
             />

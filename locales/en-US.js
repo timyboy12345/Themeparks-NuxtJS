@@ -60,7 +60,7 @@ export default {
   statistics: {
     goToTitle: 'Beta',
     goToDescription: 'Take a look at park statistics to plan your ideal day out!',
-    goToLink: 'More information',
+    goToLink: 'See the wait times of previous days',
     subTitle: 'With this data in hand, you can plan the ideal day out.',
     waitTimesToday: "Today's waiting times",
     averageWaitTime: 'Average waiting time: {0} min',

@@ -64,11 +64,19 @@ export default {
     'nuxt-leaflet',
     // https://i18n.nuxtjs.org/setup
     'nuxt-i18n',
-    // https://www.npmjs.com/package/@nuxtjs/sitemap
-    '@nuxtjs/sitemap',
     // https://sentry.nuxtjs.org/guide/setup
     '@nuxtjs/sentry',
+    // https://www.npmjs.com/package/nuxt-highcharts
     'nuxt-highcharts',
+    // https://www.npmjs.com/package/nuxt-lazy-load
+    [
+      'nuxt-lazy-load',
+      {
+        directiveOnly: true,
+      },
+    ],
+    // https://www.npmjs.com/package/@nuxtjs/sitemap
+    '@nuxtjs/sitemap',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -141,21 +149,29 @@ export default {
 
   sitemap: {
     hostname: 'https://tpvue.arendz.nl',
+    cacheTime: 6000,
     gzip: true,
-    i18n: true,
     routes: async () => {
+      const routes = []
+      const langs = ['en', 'nl']
+
       const { data } = await axios.get('https://tp.arendz.nl/parks')
-      return data.map((d) => {
-        return {
-          url: `/parks/${d.id}`,
-          changefreq: 'weekly',
-          priority: 0.8,
-        }
+      data.forEach((park) => {
+        langs.forEach((lang) => {
+          routes.push({
+            url: `/${lang}/${park.id}`,
+            priority: 0.8,
+            changefreq: 'weekly',
+          })
+        })
       })
+
+      return routes
     },
+    i18n: true,
   },
 
-  entry: {
+  sentry: {
     dsn: process.env.NODE_ENV === 'production' ? 'https://6fbc631100c440b9b28e9818d51a14b2@o324258.ingest.sentry.io/5668768' : '', // Enter your project's DSN here
     // Additional Module Options go here
     // https://sentry.nuxtjs.org/sentry/options

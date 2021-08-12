@@ -6,7 +6,7 @@
 
     <general-message v-if="shows && shows.length === 0" class="m-4" />
 
-    <div v-if="shows && shows.length > 0" class="flex flex-col bg-white divide-y divide-gray-200">
+    <div v-if="shows && shows.length > 0" class="mt-2 flex flex-col bg-white divide-y divide-gray-200">
       <NuxtLink
         v-for="show of shows"
         :key="show.id"
@@ -15,7 +15,13 @@
       >
         <div class="flex flex-row items-center">
           <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
-            <img v-if="show.image_url" alt="Image of this show" :src="show.image_url" class="object-cover object-center w-full h-full" />
+            <img
+              v-if="show.image_url"
+              :alt="`Image of ${show.title}`"
+              :title="`Image of ${show.title}`"
+              :src="show.image_url"
+              class="object-cover object-center w-full h-full"
+            />
             <div v-else class="object-cover object-center w-full h-full" />
           </div>
 

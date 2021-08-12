@@ -1,9 +1,11 @@
 <template>
-  <card :title="$t('statistics.waitTimesToday')" :sub-title="$t('statistics.averageWaitTime', [avgWaitTime])">
-    <template #content>
-      <highchart class="mt-3" :options="highChartsOptions"></highchart>
-    </template>
-  </card>
+  <no-ssr>
+    <card :title="$t('statistics.waitTimesToday')" :sub-title="$t('statistics.averageWaitTime', [avgWaitTime])">
+      <template #content>
+        <highchart class="mt-3" :options="highChartsOptions"></highchart>
+      </template>
+    </card>
+  </no-ssr>
 </template>
 
 <script>
@@ -63,6 +65,7 @@ export default {
         ride.waitingTimes
           .filter((d) => d.wait !== null)
           .filter((d) => this.isToday(d.date))
+          .filter((d) => this.parkIsOpen(d.date))
           .forEach((dataPoint) => {
             data.push([Date.parse(dataPoint.date), dataPoint.wait])
           })
@@ -97,6 +100,10 @@ export default {
       return (
         someDate.getDate() === today.getDate() && someDate.getMonth() === today.getMonth() && someDate.getFullYear() === today.getFullYear()
       )
+    },
+    parkIsOpen(rawDate) {
+      const d = new Date(rawDate)
+      return d.getHours() > 9 && d.getHours() < 23
     },
   },
 }
