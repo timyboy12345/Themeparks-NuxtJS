@@ -26,6 +26,9 @@ export default {
     loadingContent: 'Data is being loaded...',
     map: 'Map',
     statistics: 'Statistics',
+    animals: 'Animals',
+    generalInformation: 'General Information',
+    readMoreOn: 'Read more on the website of {0}',
   },
   home: {
     title: 'Welcome to Themeparks',
@@ -56,6 +59,8 @@ export default {
     allShopsSubtitle: 'See all shops of this park',
     allShows: 'All Shows',
     allShowsSubtitle: 'See all shows of this park',
+    allAnimals: 'All Animals',
+    allAnimalsSubtitle: 'See all animals of this park',
   },
   statistics: {
     goToTitle: 'Beta',

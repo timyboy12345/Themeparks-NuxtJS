@@ -26,6 +26,9 @@ export default {
     loadingContent: 'Data wordt geladen...',
     map: 'Kaart',
     statistics: 'Statistieken',
+    animals: 'Dieren',
+    generalInformation: 'Algemene Informatie',
+    readMoreOn: 'Lees meer op de website van {0}',
   },
   home: {
     title: 'Welkom bij Themeparks',
@@ -56,6 +59,8 @@ export default {
     allShopsSubtitle: 'Bekijk alle winkels van dit park',
     allShows: 'Alle Shows',
     allShowsSubtitle: 'Bekijk alle shows van dit park',
+    allAnimals: 'Alle Dieren',
+    allAnimalsSubtitle: 'Bekijk alle dieren van dit park',
   },
   statistics: {
     goToTitle: 'Beta',
