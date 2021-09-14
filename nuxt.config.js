@@ -131,11 +131,13 @@ export default {
         code: 'en',
         iso: 'en-US',
         file: 'en-US.js',
+        countryFlag: 'gb',
       },
       {
         code: 'nl',
         iso: 'nl-NL',
         file: 'nl-NL.js',
+        countryFlag: 'nl',
       },
     ],
     defaultLocale: 'en',
@@ -159,7 +161,7 @@ export default {
       data.forEach((park) => {
         langs.forEach((lang) => {
           routes.push({
-            url: `/${lang}/${park.id}`,
+            url: `/${lang}/parks/${park.id}`,
             priority: 0.8,
             changefreq: 'weekly',
           })

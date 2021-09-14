@@ -48,6 +48,7 @@ export default {
     subTitle: 'See the list of available themeparks below',
     seoTitle: 'All theme parks',
     seoDescription: 'Here you will find all the different theme parks that we support',
+    content: 'Use this map to get an overview of which parks are supported globally.',
   },
   park: {
     allRides: 'All Rides',
@@ -71,5 +72,10 @@ export default {
     averageWaitTime: 'Average waiting time: {0} min',
     longestWaitTimesToday: 'Longest waiting times',
     shortestWaitTimesToday: 'Shortest waiting times',
+  },
+  map: {
+    parksAreBeingLoaded: 'Parks are being loaded...',
+    title: 'Map of all parks',
+    subtitle: 'Use the map below to see all parks supported by this website.',
   },
 }

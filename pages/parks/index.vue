@@ -1,6 +1,12 @@
 <template>
   <div class="grid gap-4">
-    <card :title="$t('general.allThemeParks')" :sub-title="$t('parks.subTitle')"></card>
+    <card :title="$t('general.allThemeParks')" :sub-title="$t('parks.subTitle')">
+      <template #content>
+        <div class="block pt-2">
+          <router-link class="underline" :to="localePath('/parks/map/')">{{ $t('parks.content') }}</router-link>
+        </div>
+      </template>
+    </card>
 
     <general-error v-if="error"></general-error>
 

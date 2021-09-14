@@ -4,11 +4,12 @@
 
     <loading v-if="!animal"></loading>
 
-    <div class="grid gap-4">
+    <div class="grid md:grid-cols-2 gap-4">
       <animal-card v-if="animal" :park="park" :animal="animal"></animal-card>
 
       <card v-if="animal && animal.description" :title="$t('general.generalInformation')">
         <template #content>
+          <!-- eslint-disable-next-line vue/no-v-html -->
           <div v-html="animal.description"></div>
         </template>
       </card>
@@ -22,7 +23,6 @@
         {{ $t('general.readMoreOn', [park.name]) }}
       </a>
 
-      :href="animal.w"
       <div class="grid grid-cols-2 md:grid-cols-3 md:grid-cols-4 gap-4">
         <img v-for="(img, i) of animal.images" :key="i" alt="Image of this animal" :src="img" class="bg-white rounded shadow" />
       </div>

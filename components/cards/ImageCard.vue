@@ -11,6 +11,7 @@
         <h1 v-if="title" class="text-lg text-indigo-800 font-bold">{{ title }}</h1>
         <h2 v-if="subtitle" class="text-sm text-gray-600 -mt-1">{{ subtitle }}</h2>
 
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <p v-if="description" class="mt-2 text-gray-800" v-html="description"></p>
 
         <slot name="content"></slot>

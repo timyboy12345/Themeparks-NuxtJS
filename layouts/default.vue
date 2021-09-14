@@ -6,7 +6,7 @@
     >
       <NuxtLink :to="localePath('/')" class="lg:text-lg font-bold">Themeparks</NuxtLink>
 
-      <div class="flex flex-row">
+      <div class="flex flex-row items-center">
         <NuxtLink
           :to="localePath('/')"
           class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
@@ -21,6 +21,19 @@
         >
           {{ $t('general.parks') }}
         </NuxtLink>
+        <NuxtLink
+          :to="localePath('/parks/map')"
+          class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
+          exact-active-class="opacity-100"
+        >
+          {{ $t('general.map') }}
+        </NuxtLink>
+
+        <div class="w-6 h-6 rounded-full bg-white overflow-hidden ml-4">
+          <nuxt-link v-for="locale in availableLocales" :key="locale.code" :to="switchLocalePath(locale.code)">
+            <img :src="`https://flagcdn.com/${locale.countryFlag}.svg`" class="object-cover w-full h-full" />
+          </nuxt-link>
+        </div>
       </div>
     </div>
 
@@ -40,6 +53,9 @@ export default {
   computed: {
     breadcrumbs() {
       return this.$store.state.breadcrumbs
+    },
+    availableLocales() {
+      return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale)
     },
   },
 }

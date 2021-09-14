@@ -1,6 +1,8 @@
 <template>
   <l-marker :lat-lng="[lat, lng]">
-    <l-popup v-if="popup">{{ popup }}</l-popup>
+    <l-popup v-if="popup">
+      <slot>{{ popup }}</slot>
+    </l-popup>
 
     <l-icon
       v-if="icon === 'blue'"

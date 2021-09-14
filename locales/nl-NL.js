@@ -48,6 +48,7 @@ export default {
     subTitle: 'Bekijk de lijst met alle beschikbare pretparken hieronder.',
     seoTitle: 'Alle Pretparken',
     seoDescription: 'Bekijk alle verschillende pretparken waarvan de data inzichtelijk is.',
+    content: 'Bekijk hier een wereldkaart met alle parken die worden bijgehouden.',
   },
   park: {
     allRides: 'Alle Attracties',
@@ -72,5 +73,10 @@ export default {
     averageWaitTime: 'Gemiddelde wachttijd: {0} min',
     longestWaitTimesToday: 'Langste wachttijden van vandaag',
     shortestWaitTimesToday: 'Kortste wachttijden van vandaag',
+  },
+  map: {
+    parksAreBeingLoaded: 'Alle pretparken worden ingeladen...',
+    title: 'Kaart van pretparken',
+    subtitle: 'Bekijk op onderstaande kaart alle pretparken die worden ondersteund door deze website.',
   },
 }
