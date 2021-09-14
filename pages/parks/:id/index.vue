@@ -63,6 +63,19 @@
           </card-actions>
         </template>
       </card>
+
+      <card v-if="park && park.supports.supportsAnimals" :title="$t('general.animals')" :sub-title="$t('park.allAnimalsSubtitle')">
+        <template #content>
+          <animal-list class="-mx-4" :max-animals="5" :park-id="parkId"></animal-list>
+        </template>
+
+        <template #buttons>
+          <card-actions>
+            <card-button :btn-link="'/parks/' + parkId + '/animals'" :btn-title="$t('park.allAnimals')" />
+            <card-button v-if="park && park.supports.supportsPoiLocations" :btn-link="mapButtonLink" :btn-title="$t('park.animalMap')" />
+          </card-actions>
+        </template>
+      </card>
     </div>
   </div>
 </template>
@@ -74,12 +87,14 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 import RideList from '@/views/RideList'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import ShowList from '@/views/ShowList'
+import AnimalList from '@/views/AnimalList'
 import ParkCard from '../../../components/cards/ParkCard'
 import Card from '../../../components/cards/Card'
 import CardButton from '../../../components/cards/actions/CardButton'
 
 export default {
   components: {
+    AnimalList,
     ShowList,
     LoadingSpinner,
     RideList,

@@ -26,6 +26,9 @@ export default {
     loadingContent: 'Data wordt geladen...',
     map: 'Kaart',
     statistics: 'Statistieken',
+    animals: 'Dieren',
+    generalInformation: 'Algemene Informatie',
+    readMoreOn: 'Lees meer op de website van {0}',
   },
   home: {
     title: 'Welkom bij Themeparks',
@@ -45,6 +48,7 @@ export default {
     subTitle: 'Bekijk de lijst met alle beschikbare pretparken hieronder.',
     seoTitle: 'Alle Pretparken',
     seoDescription: 'Bekijk alle verschillende pretparken waarvan de data inzichtelijk is.',
+    content: 'Bekijk hier een wereldkaart met alle parken die worden bijgehouden.',
   },
   park: {
     allRides: 'Alle Attracties',
@@ -56,6 +60,8 @@ export default {
     allShopsSubtitle: 'Bekijk alle winkels van dit park',
     allShows: 'Alle Shows',
     allShowsSubtitle: 'Bekijk alle shows van dit park',
+    allAnimals: 'Alle Dieren',
+    allAnimalsSubtitle: 'Bekijk alle dieren van dit park',
   },
   statistics: {
     goToTitle: 'Beta',
@@ -67,5 +73,10 @@ export default {
     averageWaitTime: 'Gemiddelde wachttijd: {0} min',
     longestWaitTimesToday: 'Langste wachttijden van vandaag',
     shortestWaitTimesToday: 'Kortste wachttijden van vandaag',
+  },
+  map: {
+    parksAreBeingLoaded: 'Alle pretparken worden ingeladen...',
+    title: 'Kaart van pretparken',
+    subtitle: 'Bekijk op onderstaande kaart alle pretparken die worden ondersteund door deze website.',
   },
 }

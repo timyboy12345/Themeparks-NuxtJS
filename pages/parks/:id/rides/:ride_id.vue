@@ -9,6 +9,7 @@
 
       <card v-if="ride" title="General Information">
         <template #content>
+          <!-- eslint-disable-next-line vue/no-v-html -->
           <div v-html="ride.description"></div>
         </template>
       </card>
