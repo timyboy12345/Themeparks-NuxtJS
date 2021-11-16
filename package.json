@@ -2,6 +2,10 @@
   "name": "themeparks-nuxtjs",
   "version": "1.0.0",
   "private": false,
+  "repository": {
+    "url": "https://github.com/timyboy12345/Themeparks-NuxtJS"
+  },
+  "license": "MIT",
   "scripts": {
     "dev": "nuxt-ts",
     "build": "nuxt-ts build",
@@ -31,7 +35,7 @@
     "@nuxtjs/eslint-config-typescript": "^5.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/pwa": "^3.3.5",
-    "@nuxtjs/tailwindcss": "^4.2.1",
+    "@nuxtjs/tailwindcss": "^3.4.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^7.2.0",
