@@ -28,9 +28,9 @@
 
           <div class="flex flex-col">
             <div class="text-indigo-700">{{ restaurant.title }}</div>
-            <div v-if="restaurant.openingTimes" class="text-sm text-gray-600">
-              Open van {{ restaurant.openingTimes[0].openTime | time }} tot {{ restaurant.openingTimes[0].closeTime | time }}
-            </div>
+            <!--            <div v-if="restaurant.openingTimes" class="text-sm text-gray-600">-->
+            <!--              Open van {{ restaurant.openingTimes[0].openTime | time }} tot {{ restaurant.openingTimes[0].closeTime | time }}-->
+            <!--            </div>-->
           </div>
         </div>
 

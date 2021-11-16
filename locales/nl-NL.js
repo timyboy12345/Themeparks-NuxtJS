@@ -67,7 +67,7 @@ export default {
     goToTitle: 'Beta',
     goToDescription:
       'Bekijk statistieken van dit park, waaronder de wachttijden van de afgelopen dagen, om het ideale dagje weg te plannen',
-    goToLink: 'Bekijk de wachttijden van afgelopen dagen',
+    goToLink: 'Bekijk de wachttijden van vandaag',
     subTitle: 'Met deze data kan je je ideale dagje in dit park plannen.',
     waitTimesToday: 'Wachttijden van vandaag',
     averageWaitTime: 'Gemiddelde wachttijd: {0} min',
