@@ -98,7 +98,7 @@ export default {
   },
   head() {
     return {
-      title: this.ride && this.park ? `${this.ride.title} @ ${this.park.name}` : 'Attraction',
+      title: this.park ? this.$t('statistics.seoTitle', [this.park.name]) : this.$t('statistics.seoTitleLoading'),
       meta: [
         {
           hid: 'description',

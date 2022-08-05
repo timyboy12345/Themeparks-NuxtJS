@@ -14,6 +14,8 @@ export default {
     show: 'Show',
     shops: 'Winkels',
     shop: 'Winkel',
+    animals: 'Dieren',
+    animal: 'Dier',
     maxAge: 'Max. leeftijd: {0} jaar',
     minAge: 'Min. leeftijd: {0} jaar',
     maxSize: 'Max. grootte: {0} cm',
@@ -26,7 +28,6 @@ export default {
     loadingContent: 'Data wordt geladen...',
     map: 'Kaart',
     statistics: 'Statistieken',
-    animals: 'Dieren',
     generalInformation: 'Algemene Informatie',
     readMoreOn: 'Lees meer op de website van {0}',
   },
@@ -43,6 +44,9 @@ export default {
     infoData: 'Waar komt de data vandaan?',
     infoDataContent:
       "De data is afkomstig van de officiële apps van de parken. De API's die hierbij worden gebruikt worden door ons uitgelezen om vervolgens hier te tonen. ",
+    apiInfo: 'Kan ik de pretpark-API ook gebruiken?',
+    apiInfoContent:
+      'Jazeker! Alle data op ons platform wordt opgehaald via een door ons ontwikkelde API, die open-source is en te vinden is op https://tp.arendz.nl. Documentatie is te vinden op https://tp.arendz.nl/api',
   },
   parks: {
     subTitle: 'Bekijk de lijst met alle beschikbare pretparken hieronder.',
@@ -62,6 +66,15 @@ export default {
     allShowsSubtitle: 'Bekijk alle shows van dit park',
     allAnimals: 'Alle Dieren',
     allAnimalsSubtitle: 'Bekijk alle dieren van dit park',
+    bottomSeoBlockTitle: 'Alle Pretparken in een lijst',
+    bottomSeoBlockContent:
+      'In deze lijst vind je alle pretparken die wachttijden, shows, openingstijden of andere data publiceren op hun website. Deze data zetten wij om in een gestandardiseerd formaat, zodat je altijd toegang hebt tot de meest actuele pretpark-data.',
+  },
+  shows: {
+    futureShowTimesCardTitle: 'Shows van vandaag',
+    futureShowTimesCardSubtitle: 'Deze shows moeten vandaag nog gespeeld worden.',
+    passedShowTimesCardTitle: 'Afgelopen Shows',
+    passedShowTimesCardSubtitle: 'Deze shows waren eerder op de dag, en zijn waarschijnlijk niet meer te zien vandaag.',
   },
   statistics: {
     goToTitle: 'Beta',
@@ -73,10 +86,14 @@ export default {
     averageWaitTime: 'Gemiddelde wachttijd: {0} min',
     longestWaitTimesToday: 'Langste wachttijden van vandaag',
     shortestWaitTimesToday: 'Kortste wachttijden van vandaag',
+    seoTitle: 'Geschiedenis van Wachttijden van {0}',
+    seoTitleLoading: 'Geschiedenis van Wachttijden',
   },
   map: {
     parksAreBeingLoaded: 'Alle pretparken worden ingeladen...',
-    title: 'Kaart van pretparken',
+    title: 'Kaart van Pretparken met wachttijden',
     subtitle: 'Bekijk op onderstaande kaart alle pretparken die worden ondersteund door deze website.',
+    seoTitle: 'Alle Pretparken op een wereldkaart',
+    seoDescription: 'Bekijk op deze pagina een wereldkaart met alle pretparken die worden ondersteund door deze website.',
   },
 }

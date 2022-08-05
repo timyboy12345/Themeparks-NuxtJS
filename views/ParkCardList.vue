@@ -12,6 +12,7 @@
               <badge-component v-if="park.supports.supportsRestaurants" :text="$t('general.restaurants')" />
               <badge-component v-if="park.supports.supportsShows" :text="$t('general.shows')" />
               <badge-component v-if="park.supports.supportsShops" :text="$t('general.shops')" />
+              <badge-component v-if="park.supports.supportsAnimals" :text="$t('general.animals')" />
             </div>
           </div>
         </template>

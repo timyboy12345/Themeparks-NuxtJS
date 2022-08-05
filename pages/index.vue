@@ -13,6 +13,11 @@
         <p class="text-gray-800">
           {{ $t('home.infoDataContent') }}
         </p>
+
+        <h3 class="text-indigo-700 mt-2">{{ $t('home.apiInfo') }}</h3>
+        <p class="text-gray-800">
+          {{ $t('home.apiInfoContent') }}
+        </p>
       </template>
     </card>
   </div>
