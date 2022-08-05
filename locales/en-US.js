@@ -14,6 +14,8 @@ export default {
     show: 'Show',
     shops: 'Shops',
     shop: 'Shop',
+    animals: 'Animals',
+    animal: 'Animal',
     maxAge: 'Max. age: {0} years',
     minAge: 'Min. age: {0} years',
     maxSize: 'Max. size: {0} cm',
@@ -26,7 +28,6 @@ export default {
     loadingContent: 'Data is being loaded...',
     map: 'Map',
     statistics: 'Statistics',
-    animals: 'Animals',
     generalInformation: 'General Information',
     readMoreOn: 'Read more on the website of {0}',
   },
@@ -43,6 +44,9 @@ export default {
     infoData: 'Waar komt de data vandaan?',
     infoDataContent:
       "De data is afkomstig van de officiële apps van de parken. De API's die hierbij worden gebruikt worden door ons uitgelezen om vervolgens hier te tonen. ",
+    apiInfo: 'Can I use the API-data from this website?',
+    apiInfoContent:
+      'You sure can! All data we retrieve is exposed to a open-source API, freely accessible at https://tp.arendz.nl. Documentation can be found at https://tp.arendz.nl/api',
   },
   parks: {
     subTitle: 'See the list of available themeparks below',
@@ -62,20 +66,33 @@ export default {
     allShowsSubtitle: 'See all shows of this park',
     allAnimals: 'All Animals',
     allAnimalsSubtitle: 'See all animals of this park',
+    bottomSeoBlockTitle: 'All Theme Parks in one list',
+    bottomSeoBlockContent:
+      'In this list you will find all theme parks that publish ride data, wait times, show times and other data on their website or app. We transform this data in a standardised format, so you always have access to the most recent themepark-data.',
+  },
+  shows: {
+    futureShowTimesCardTitle: 'Shows of today',
+    futureShowTimesCardSubtitle: 'These shows have not yet played yet.',
+    passedShowTimesCardTitle: 'Passed Shows',
+    passedShowTimesCardSubtitle: "These shows were earlier today, and you probably won't be able to see them anymore today.",
   },
   statistics: {
     goToTitle: 'Beta',
     goToDescription: 'Take a look at park statistics to plan your ideal day out!',
-    goToLink: 'See the wait times of previous days',
+    goToLink: 'See the wait times of today',
     subTitle: 'With this data in hand, you can plan the ideal day out.',
     waitTimesToday: "Today's waiting times",
     averageWaitTime: 'Average waiting time: {0} min',
     longestWaitTimesToday: 'Longest waiting times',
     shortestWaitTimesToday: 'Shortest waiting times',
+    seoTitle: 'History of wait times of {0}',
+    seoTitleLoading: 'History of wait times',
   },
   map: {
     parksAreBeingLoaded: 'Parks are being loaded...',
     title: 'Map of all parks',
     subtitle: 'Use the map below to see all parks supported by this website.',
+    seoTitle: 'All Theme Parks on a map',
+    seoDescription: 'See all themeparks that are supported by this website on the map on this page.',
   },
 }

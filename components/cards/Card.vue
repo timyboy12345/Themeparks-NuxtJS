@@ -1,8 +1,9 @@
 <template>
-  <div
+  <component
+    :is="componentType"
     class="bg-white rounded shadow overflow-hidden transition duration-100 d-flex flex-col relative"
     :class="{ 'hover:bg-gray-100 cursor-pointer': link }"
-    @click="cardClicked"
+    :to="localizedLink"
   >
     <img v-if="imageSrc" :alt="imageAlt" :src="imageSrc" class="w-full h-32 object-center object-cover" />
 
@@ -22,7 +23,7 @@
         <slot name="buttons" />
       </div>
     </div>
-  </div>
+  </component>
 </template>
 
 <script>
@@ -60,11 +61,12 @@ export default {
       default: 'Image',
     },
   },
-  methods: {
-    cardClicked() {
-      if (this.link) {
-        this.$router.push(this.localePath(this.link))
-      }
+  computed: {
+    componentType() {
+      return this.link ? 'NuxtLink' : 'div'
+    },
+    localizedLink() {
+      return this.link ? this.localePath(this.link) : null
     },
   },
 }

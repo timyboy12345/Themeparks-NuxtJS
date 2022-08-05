@@ -7,7 +7,7 @@
 
       <no-ssr v-if="parks">
         <map-component component-height="h-128" :zoom="1" :lat="0" :lng="0">
-          <map-marker v-for="park in locatedParks" :key="park.id" popup="test" :lat="park.location.lat" :lng="park.location.lng">
+          <map-marker v-for="park in locatedParks" :key="park.id" :popup="park.name" :lat="park.location.lat" :lng="park.location.lng">
             <template #default>
               <router-link :to="localePath(`/parks/${park.id}`)">{{ park.name }}</router-link>
             </template>
@@ -38,9 +38,21 @@ export default {
   async fetch() {
     await this.getParks()
   },
+  head() {
+    return {
+      title: this.$t('map.title'),
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Here you will find all the different theme parks that we support',
+        },
+      ],
+    }
+  },
   computed: {
     locatedParks() {
-      return this.parks.filter((p) => p.location)
+      return this.parks.filter((p) => p.location && p.location.lat && p.location.lng)
     },
     breadcrumbs() {
       return [

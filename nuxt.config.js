@@ -178,6 +178,8 @@ export default {
     // Additional Module Options go here
     // https://sentry.nuxtjs.org/sentry/options
     config: {
+      tracing: true,
+      tracesSampleRate: 1.0,
       // Add native Sentry config here
       // https://docs.sentry.io/platforms/javascript/guides/vue/configuration/options/
     },

@@ -7,9 +7,9 @@
     :link="cardLink"
   >
     <template #content>
-      <div v-if="restaurant.openingTimes !== undefined && restaurant.openingTimes.length > 0" class="text-sm text-gray-600">
-        Open van {{ restaurant.openingTimes[0].openTime | time }} tot {{ restaurant.openingTimes[0].closeTime | time }}
-      </div>
+      <!--      <div v-if="restaurant.openingTimes !== undefined && restaurant.openingTimes.length > 0" class="text-sm text-gray-600">-->
+      <!--        Open van {{ restaurant.openingTimes[0].openTime | time }} tot {{ restaurant.openingTimes[0].closeTime | time }}-->
+      <!--      </div>-->
     </template>
   </image-card>
   <card v-else :title="restaurant.title" :sub-title="restaurant.subTitle" />

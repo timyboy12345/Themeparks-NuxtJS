@@ -4,10 +4,10 @@
 
     <loading v-if="!animal"></loading>
 
-    <div class="grid md:grid-cols-2 gap-4">
-      <animal-card v-if="animal" :park="park" :animal="animal"></animal-card>
+    <div v-if="animal && park" class="grid md:grid-cols-2 gap-4">
+      <animal-card :park="park" :animal="animal"></animal-card>
 
-      <card v-if="animal && animal.description" :title="$t('general.generalInformation')">
+      <card v-if="animal.description" :title="$t('general.generalInformation')">
         <template #content>
           <!-- eslint-disable-next-line vue/no-v-html -->
           <div v-html="animal.description"></div>

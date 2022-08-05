@@ -9,7 +9,11 @@
 
       <general-error v-if="error"></general-error>
 
-      <card v-if="show.showTimes" title="Shows van vandaag">
+      <card
+        v-if="show && show.showTimes"
+        :title="$t('shows.futureShowTimesCardTitle')"
+        :sub-title="$t('shows.futureShowTimesCardSubtitle')"
+      >
         <template #content>
           <div class="flex flex-col bg-white divide-y divide-gray-200 -mx-4">
             <div
@@ -20,6 +24,27 @@
               <div class="flex flex-row items-center">
                 <div class="flex flex-col">
                   <div class="text-indigo-700">{{ showTime.fromTime }}</div>
+                  <div v-if="showTime.edition" class="text-sm text-gray-600">
+                    {{ showTime.edition }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </card>
+
+      <card
+        v-if="show && show.showTimes && pastShows.length > 0"
+        :title="$t('shows.passedShowTimesCardTitle')"
+        :sub-title="$t('shows.passedShowTimesCardSubtitle')"
+      >
+        <template #content>
+          <div class="flex flex-col bg-white divide-y divide-gray-200 -mx-4">
+            <div v-for="showTime of pastShows" :key="showTime.id" class="py-2 px-4 flex flex-row justify-between items-center">
+              <div class="flex flex-row items-center">
+                <div class="flex flex-col">
+                  <div class="text-gray-700">{{ showTime.fromTime }}</div>
                   <div v-if="showTime.edition" class="text-sm text-gray-600">
                     {{ showTime.edition }}
                   </div>
@@ -101,6 +126,9 @@ export default {
           url: '#',
         },
       ]
+    },
+    pastShows() {
+      return this.show ? this.show.showTimes.allShowTimes.filter((st) => st.isPassed) : null
     },
   },
   methods: {

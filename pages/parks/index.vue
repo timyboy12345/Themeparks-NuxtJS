@@ -11,6 +11,8 @@
     <general-error v-if="error"></general-error>
 
     <park-list @fetch-error="catchError" />
+
+    <card :title="$t('park.bottomSeoBlockTitle')" :content="$t('park.bottomSeoBlockContent')"></card>
   </div>
 </template>
 
@@ -27,15 +29,17 @@ export default {
       error: null,
     }
   },
-  head: {
-    title: 'All Theme Parks',
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content: 'Here you will find all the different theme parks that we support',
-      },
-    ],
+  head() {
+    return {
+      title: this.$t('parks.seoTitle'),
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Here you will find all the different theme parks that we support',
+        },
+      ],
+    }
   },
   methods: {
     catchError(e) {
