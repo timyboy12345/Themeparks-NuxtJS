@@ -21,6 +21,10 @@
       <div v-if="ride && park && park.supports.supportsRideWaitTimesHistory && ride.waitingTimes">
         <RideWaitTimeHistoryChart :ride="ride" :park="park" :chartdata="ride.waitingTimes"></RideWaitTimeHistoryChart>
       </div>
+
+      <div v-if="ride && park && park.supports.supportsRideWaitTimesHistory && averageWaitingTimes">
+        <RideAverageWaitTimeHistoryChart :ride="ride" :park="park" :chartdata="averageWaitingTimes"></RideAverageWaitTimeHistoryChart>
+      </div>
     </div>
   </div>
 </template>
@@ -29,17 +33,19 @@
 import Card from '@/components/cards/Card'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import RideWaitTimeHistoryChart from '@/components/charts/RideWaitTimeHistoryChart'
+import RideAverageWaitTimeHistoryChart from '@/components/charts/RideAverageWaitTimeHistoryChart'
 import Loading from '../../../../components/LoadingSpinner'
 import RideCard from '../../../../components/cards/RideCard'
 
 export default {
-  components: { RideWaitTimeHistoryChart, Breadcrumbs, Card, RideCard, Loading },
+  components: { RideAverageWaitTimeHistoryChart, RideWaitTimeHistoryChart, Breadcrumbs, Card, RideCard, Loading },
   data() {
     return {
       parkId: this.$route.params.id,
       rideId: this.$route.params.ride_id,
       park: null,
       ride: null,
+      averageWaitingTimes: null,
     }
   },
   async fetch() {
@@ -86,6 +92,9 @@ export default {
       ]
     },
   },
+  created() {
+    this.fetchHistory()
+  },
   methods: {
     async fetchRide() {
       this.ride = await this.$axios.get('/parks/' + this.parkId + '/rides').then((rides) => {
@@ -95,6 +104,16 @@ export default {
     async fetchPark() {
       this.park = await this.$axios.get('/parks/' + this.parkId).then((park) => {
         return park.data
+      })
+    },
+    async fetchHistory() {
+      this.averageWaitingTimes = await this.$axios.get('/parks/' + this.parkId + '/history/averages').then((rides) => {
+        const ride = rides.data.find((ride) => ride.id === this.rideId)
+        if (ride) {
+          return ride.waitingTimes
+        } else {
+          return []
+        }
       })
     },
   },

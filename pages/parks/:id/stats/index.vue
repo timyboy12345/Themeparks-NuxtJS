@@ -24,8 +24,9 @@
                 <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
                   <img
                     v-if="ride.ride.image_url"
+                    v-lazy-load
                     alt="Image of this ride"
-                    :src="ride.ride.image_url"
+                    :data-src="ride.ride.image_url"
                     class="object-cover object-center w-full h-full"
                   />
                   <div v-else class="object-cover object-center w-full h-full" />
@@ -55,8 +56,9 @@
                 <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
                   <img
                     v-if="ride.ride.image_url"
+                    v-lazy-load
                     alt="Image of this ride"
-                    :src="ride.ride.image_url"
+                    :data-src="ride.ride.image_url"
                     class="object-cover object-center w-full h-full"
                   />
                   <div v-else class="object-cover object-center w-full h-full" />
