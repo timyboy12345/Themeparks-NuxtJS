@@ -10,8 +10,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Themeparks',
-    titleTemplate: '%s - Themeparks',
+    title: 'Themeparkplanner',
+    titleTemplate: '%s - Themeparkplanner',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -88,9 +88,9 @@ export default {
   pwa: {
     mobileApp: true,
     mobileAppIOS: true,
-    name: 'Themeparks',
+    name: 'Themeparkplanner',
     author: 'Tim Arendsen',
-    ogHost: 'https://tpvue.arendz.nl',
+    ogHost: 'https://themeparkplanner.com',
     twitterCard: 'summary',
     appleStatusBarStyle: 'black-translucent',
     icon: {
@@ -98,8 +98,8 @@ export default {
     },
     manifest: {
       lang: 'en',
-      short_name: 'Themeparks',
-      name: 'Themeparks',
+      short_name: 'Themeparkplanner',
+      name: 'Themeparkplanner',
       start_url: '/',
       display: 'standalone',
       theme_color: '#3730a3',
@@ -110,7 +110,7 @@ export default {
       offlineStrategy: 'StaleWhileRevalidate',
       runtimeCaching: [
         {
-          urlPattern: 'https://tpvue.arendz.om/parks/*',
+          urlPattern: 'https://themeparkplanner.com/parks/*',
           handler: 'cacheFirst',
           method: 'GET',
           strategyOptions: {
@@ -150,14 +150,14 @@ export default {
   },
 
   sitemap: {
-    hostname: 'https://tpvue.arendz.nl',
+    hostname: 'https://themeparkplanner.com',
     cacheTime: 6000,
     gzip: true,
     routes: async () => {
       const routes = []
       const langs = ['en', 'nl']
 
-      const { data } = await axios.get('https://tp.arendz.nl/parks')
+      const { data } = await axios.get('https://themeparkplanner.com/parks')
       data.forEach((park) => {
         langs.forEach((lang) => {
           routes.push({
