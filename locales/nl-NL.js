@@ -30,14 +30,15 @@ export default {
     statistics: 'Statistieken',
     generalInformation: 'Algemene Informatie',
     readMoreOn: 'Lees meer op de website van {0}',
+    ad: 'Advertentie',
   },
   home: {
-    title: 'Welkom bij Themeparks',
+    title: 'Welkom bij Themeparkplanner',
     subtitle:
-      'Met Themeparks kan je wachttijden van je favoriete parken overal ter wereld tracken. Krijg aanbevelingen in welke attractie je nu het beste kan stappen en welke attractie je het beste even kan overslaan',
+      'Met Themeparkplanner kan je wachttijden van je favoriete parken overal ter wereld tracken. Krijg aanbevelingen in welke attractie je nu het beste kan stappen en welke attractie je het beste even kan overslaan',
     action: 'Klik op de knop hieronder om alle beschikbare pretparken te bekijken.',
     actionButton: 'Bekijk alle beschikbare pretparken',
-    infoTitle: 'Over Themeparks',
+    infoTitle: 'Over Themeparkplanner',
     infoWaitTimes: 'Wachttijden van alle pretparken',
     infoWaitTimesContent:
       "Het doel is om uiteindelijk van veel pretparken ter wereld de wachttijden te tonen. Momenteel ligt de focus op parken in Nederland, de Benelux en Europa, maar parken uit andere regio's worden ook af en toe aangesloten.\n",
@@ -75,6 +76,11 @@ export default {
     futureShowTimesCardSubtitle: 'Deze shows moeten vandaag nog gespeeld worden.',
     passedShowTimesCardTitle: 'Afgelopen Shows',
     passedShowTimesCardSubtitle: 'Deze shows waren eerder op de dag, en zijn waarschijnlijk niet meer te zien vandaag.',
+  },
+  ride: {
+    averageWaitTimes: 'Gemiddelde wachttijden',
+    subTitle: 'Gemiddelde wachttijd: {0} minuten',
+    averageWaitingTimesLoading: 'Gemiddelde wachttijden worden geladen',
   },
   statistics: {
     goToTitle: 'Beta',

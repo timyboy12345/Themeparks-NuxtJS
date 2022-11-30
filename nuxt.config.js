@@ -29,6 +29,13 @@ export default {
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
+        'data-ad-client': 'ca-pub-3611207014341558',
+        async: true,
+      },
+    ],
   },
 
   loading: {
@@ -40,7 +47,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/axios'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: false,
@@ -51,6 +58,8 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    // https://google-analytics.nuxtjs.org/setup
+    '@nuxtjs/google-analytics',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -139,6 +148,12 @@ export default {
         file: 'nl-NL.js',
         countryFlag: 'nl',
       },
+      {
+        code: 'es',
+        iso: 'es-ES',
+        file: 'es-ES.js',
+        countryFlag: 'es',
+      },
     ],
     defaultLocale: 'en',
     strategy: 'prefix',
@@ -155,9 +170,9 @@ export default {
     gzip: true,
     routes: async () => {
       const routes = []
-      const langs = ['en', 'nl']
+      const langs = ['en', 'nl', 'es']
 
-      const { data } = await axios.get('https://themeparkplanner.com/parks')
+      const { data } = await axios.get('https://tp.arendz.nl/parks')
       data.forEach((park) => {
         langs.forEach((lang) => {
           routes.push({
@@ -192,5 +207,9 @@ export default {
         resourceRegExp: /@highcharts\/map-collection/,
       }),
     ],
+  },
+
+  googleAnalytics: {
+    id: 'G-3TY2JS0V9B',
   },
 }

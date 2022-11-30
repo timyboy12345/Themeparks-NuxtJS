@@ -76,6 +76,8 @@
           </card-actions>
         </template>
       </card>
+
+      <ad-card></ad-card>
     </div>
   </div>
 </template>
@@ -88,12 +90,14 @@ import RideList from '@/views/RideList'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import ShowList from '@/views/ShowList'
 import AnimalList from '@/views/AnimalList'
+import AdCard from '@/components/cards/AdCard'
 import ParkCard from '../../../components/cards/ParkCard'
 import Card from '../../../components/cards/Card'
 import CardButton from '../../../components/cards/actions/CardButton'
 
 export default {
   components: {
+    AdCard,
     AnimalList,
     ShowList,
     LoadingSpinner,
