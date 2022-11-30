@@ -30,6 +30,7 @@ export default {
     statistics: 'Statistics',
     generalInformation: 'General Information',
     readMoreOn: 'Read more on the website of {0}',
+    ad: 'Ad',
   },
   home: {
     title: 'Welcome to Themeparkplanner',

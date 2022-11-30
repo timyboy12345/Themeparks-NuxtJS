@@ -4,10 +4,24 @@
 
     <loading v-if="!restaurant"></loading>
 
-    <restaurant-card v-if="restaurant" :park="park" :restaurant="restaurant"></restaurant-card>
+    <div class="grid md:grid-cols-2 gap-4">
+      <restaurant-card v-if="restaurant" :park="park" :restaurant="restaurant"></restaurant-card>
 
-    <div v-if="restaurant" class="grid grid-cols-2 md:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
-      <img v-for="(img, i) of restaurant.images" :key="i" alt="Image of this restaurant" :src="img" class="bg-white rounded shadow" />
+      <card v-if="restaurant && restaurant.description" :title="$t('general.generalInformation')">
+        <template #content>
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <div v-html="restaurant.description"></div>
+        </template>
+      </card>
+
+      <div
+        v-if="restaurant && restaurant.images && restaurant.images.length > 0"
+        class="grid grid-cols-2 md:grid-cols-3 md:grid-cols-4 gap-4 mt-4"
+      >
+        <img v-for="(img, i) of restaurant.images" :key="i" alt="Image of this restaurant" :src="img" class="bg-white rounded shadow" />
+      </div>
+
+      <ad-card></ad-card>
     </div>
   </div>
 </template>
@@ -15,10 +29,12 @@
 <script>
 import RestaurantCard from '@/components/cards/RestaurantCard'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import AdCard from '@/components/cards/AdCard'
+import Card from '@/components/cards/Card'
 import Loading from '../../../../components/LoadingSpinner'
 
 export default {
-  components: { Breadcrumbs, RestaurantCard, Loading },
+  components: { Card, AdCard, Breadcrumbs, RestaurantCard, Loading },
   data() {
     return {
       parkId: this.$route.params.id,

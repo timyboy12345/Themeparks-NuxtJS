@@ -30,6 +30,7 @@ export default {
     statistics: 'Estadísticas',
     generalInformation: 'Informatción general',
     readMoreOn: 'Leer más en el sitio web de {0}',
+    ad: 'Anuncio',
   },
   home: {
     title: 'Bienvenido a Themeparkplanner',

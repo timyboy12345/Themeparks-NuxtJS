@@ -14,7 +14,7 @@
         </template>
       </card>
 
-      <div v-if="ride && park" class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+      <div v-if="ride && park && ride.images && ride.images.length > 0" class="grid grid-cols-2 lg:grid-cols-3 gap-4">
         <img v-for="(img, i) of ride.images" :key="i" alt="Image of this ride" :src="img" class="bg-white rounded shadow" />
       </div>
 
@@ -32,6 +32,8 @@
 
         <loading-spinner v-else :subtitle="$t('ride.averageWaitingTimesLoading')"></loading-spinner>
       </div>
+
+      <ad-card></ad-card>
     </div>
   </div>
 </template>
@@ -42,11 +44,13 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 import RideWaitTimeHistoryChart from '@/components/charts/RideWaitTimeHistoryChart'
 import RideAverageWaitTimeHistoryChart from '@/components/charts/RideAverageWaitTimeHistoryChart'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import AdCard from '@/components/cards/AdCard'
 import Loading from '../../../../components/LoadingSpinner'
 import RideCard from '../../../../components/cards/RideCard'
 
 export default {
-  components: { LoadingSpinner, RideAverageWaitTimeHistoryChart, RideWaitTimeHistoryChart, Breadcrumbs, Card, RideCard, Loading },
+  // eslint-disable-next-line vue/no-unused-components
+  components: { AdCard, LoadingSpinner, RideAverageWaitTimeHistoryChart, RideWaitTimeHistoryChart, Breadcrumbs, Card, RideCard, Loading },
   data() {
     return {
       parkId: this.$route.params.id,
