@@ -4,7 +4,7 @@
       class="bg-indigo-800 text-white w-full flex flex-row items-center justify-between py-4 px-4 lg:px-8"
       :class="{ 'mb-4 lg:mb-8': !breadcrumbs || breadcrumbs.length === 0 }"
     >
-      <NuxtLink :to="localePath('/')" class="lg:text-lg font-bold">Themeparks</NuxtLink>
+      <NuxtLink :to="localePath('/')" class="lg:text-lg font-bold">Themeparkplanner</NuxtLink>
 
       <div class="flex flex-row items-center">
         <NuxtLink
@@ -29,9 +29,14 @@
           {{ $t('general.map') }}
         </NuxtLink>
 
-        <div class="w-6 h-6 rounded-full bg-white overflow-hidden ml-4">
-          <nuxt-link v-for="locale in availableLocales" :key="locale.code" :to="switchLocalePath(locale.code)">
-            <img :src="`https://flagcdn.com/${locale.countryFlag}.svg`" class="object-cover w-full h-full" />
+        <div class="flex flex-row">
+          <nuxt-link
+            v-for="locale in availableLocales"
+            :key="locale.code"
+            class="rounded-full bg-white overflow-hidden ml-4 w-6 h-6"
+            :to="switchLocalePath(locale.code)"
+          >
+            <img alt="Link to other language" :src="`https://flagcdn.com/${locale.countryFlag}.svg`" class="object-cover w-full h-full" />
           </nuxt-link>
         </div>
       </div>
