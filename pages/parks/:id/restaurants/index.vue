@@ -4,6 +4,10 @@
 
     <loading v-if="!restaurants || restaurants.length === 0"></loading>
 
+    <h1 v-if="park && restaurants.length > 0" class="text-lg text-indigo-800 font-bold mb-2">
+      {{ $t('park.allRestaurantsOf', [park.name]) }}
+    </h1>
+
     <restaurant-card-list v-if="restaurants && restaurants.length > 0" :park="park" :restaurants="restaurants"></restaurant-card-list>
   </div>
 </template>
@@ -27,14 +31,12 @@ export default {
   },
   head() {
     return {
-      title: this.park ? 'All restaurants at ' + this.park.name : 'All restaurants',
+      title: this.park ? this.$t('park.allRestaurantsOf', [this.park.name]) : this.$t('park.allRestaurants'),
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.park
-            ? 'See current and past restaurant opening times from ' + this.park.name + ' and other parks and shows all over the world'
-            : 'See current and past opening times from restaurants and theme parks all over the world.',
+          content: this.park ? this.$t('park.allRestaurantsDescription') : this.$t('park.allRestaurantsOfDescription'),
         },
         {
           hid: 'og:image',

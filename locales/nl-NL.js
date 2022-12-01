@@ -57,10 +57,17 @@ export default {
   },
   park: {
     allRides: 'Alle Attracties',
+    allRidesOf: 'Alle attracties van {0}',
     allRidesSubtitle: 'Bekijk alle attracties van dit park',
+    allRidesDescription: 'Bekijk huidige en historische wachttijden van attracties en shows in parken over de hele wereld.',
+    allRidesOfDescription: 'Bekijk huidige en historische wachttijden van attracties en shows in {0} en andere parken over de hele wereld.',
     showMap: 'Bekijk op kaart',
     allRestaurants: 'Alle Restaurants',
+    allRestaurantsOf: 'Alle restaurants van {0}',
     allRestaurantsSubtitle: 'Bekijk alle restaurants van dit park',
+    allRestaurantsDescription: 'Bekijk restaurants en bijbehorende openingstijden van restaurants in attractieparken over de hele wereld.',
+    allRestaurantsOfDescription:
+      'Bekijk huidige en historische openingstijden van restaurants in {0} en andere parken over de hele wereld.',
     allShops: 'Alle Winkels',
     allShopsSubtitle: 'Bekijk alle winkels van dit park',
     allShows: 'Alle Shows',

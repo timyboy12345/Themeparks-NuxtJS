@@ -4,41 +4,43 @@
       class="bg-indigo-800 text-white w-full flex flex-row items-center justify-between py-4 px-4 lg:px-8"
       :class="{ 'mb-4 lg:mb-8': !breadcrumbs || breadcrumbs.length === 0 }"
     >
-      <NuxtLink :to="localePath('/')" class="lg:text-lg font-bold">Themeparkplanner</NuxtLink>
+      <div class="flex flex-col md:flex-row">
+        <NuxtLink :to="localePath('/')" class="lg:text-lg font-bold">Themeparkplanner</NuxtLink>
 
-      <div class="flex flex-row items-center">
-        <NuxtLink
-          :to="localePath('/')"
-          class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
-          exact-active-class="opacity-100"
-        >
-          {{ $t('general.home') }}
-        </NuxtLink>
-        <NuxtLink
-          :to="localePath('/parks')"
-          class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
-          exact-active-class="opacity-100"
-        >
-          {{ $t('general.parks') }}
-        </NuxtLink>
-        <NuxtLink
-          :to="localePath('/parks/map')"
-          class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
-          exact-active-class="opacity-100"
-        >
-          {{ $t('general.map') }}
-        </NuxtLink>
-
-        <div class="flex flex-row">
-          <nuxt-link
-            v-for="locale in availableLocales"
-            :key="locale.code"
-            class="rounded-full bg-white overflow-hidden ml-4 w-6 h-6"
-            :to="switchLocalePath(locale.code)"
+        <div class="flex flex-row items-center mt-2 md:mt-0">
+          <NuxtLink
+            :to="localePath('/')"
+            class="lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
+            exact-active-class="opacity-100"
           >
-            <img alt="Link to other language" :src="`https://flagcdn.com/${locale.countryFlag}.svg`" class="object-cover w-full h-full" />
-          </nuxt-link>
+            {{ $t('general.home') }}
+          </NuxtLink>
+          <NuxtLink
+            :to="localePath('/parks')"
+            class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
+            exact-active-class="opacity-100"
+          >
+            {{ $t('general.parks') }}
+          </NuxtLink>
+          <NuxtLink
+            :to="localePath('/parks/map')"
+            class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
+            exact-active-class="opacity-100"
+          >
+            {{ $t('general.map') }}
+          </NuxtLink>
         </div>
+      </div>
+
+      <div class="flex flex-row">
+        <nuxt-link
+          v-for="locale in availableLocales"
+          :key="locale.code"
+          class="rounded-full bg-white overflow-hidden ml-4 w-6 h-6"
+          :to="switchLocalePath(locale.code)"
+        >
+          <img alt="Link to other language" :src="`https://flagcdn.com/${locale.countryFlag}.svg`" class="object-cover w-full h-full" />
+        </nuxt-link>
       </div>
     </div>
 

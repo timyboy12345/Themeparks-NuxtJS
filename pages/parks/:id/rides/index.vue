@@ -6,6 +6,8 @@
 
     <general-error v-if="error"></general-error>
 
+    <h1 v-if="park && rides.length > 0" class="text-lg text-indigo-800 font-bold mb-2">{{ $t('park.allRidesOf', [park.name]) }}</h1>
+
     <ride-list v-if="rides && rides.length > 0" :park="park" :rides="rides"></ride-list>
 
     <div v-if="park && park.supports.supportsRideWaitTimesHistory" class="py-2 px-4 bg-yellow-200 relative mt-4 text-yellow-900 shadow-sm">
@@ -41,14 +43,12 @@ export default {
   },
   head() {
     return {
-      title: this.park ? 'All rides at ' + this.park.name : 'All rides',
+      title: this.park ? this.$t('park.allRidesOf', [this.park.name]) : this.$t('park.allRides'),
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.park
-            ? 'See current and past wait times from ' + this.park.name + ' and other parks and shows all over the world'
-            : 'See current and past wait times from rides and theme parks all over the world.',
+          content: this.park ? this.$t('park.allRidesDescription') : this.$t('park.allRidesOfDescription'),
         },
         {
           hid: 'og:image',

@@ -57,10 +57,17 @@ export default {
   },
   park: {
     allRides: 'Todos los viajes',
+    allRidesOf: 'Todas las atracciones de {0}',
     allRidesSubtitle: 'Ver todas las atracciones de este parque',
+    allRidesDescription: 'Ver los tiempos de espera actuales y pasados de las atracciones y parques de todo el mundo.',
+    allRidesOfDescription: 'Ver los tiempos de espera actuales y pasados de {0} y otros parques y espectáculos de todo el mundo.',
     showMap: 'Ver en el mapa',
     allRestaurants: 'Todos restaurantes',
+    allRestaurantsOf: 'Todos restaurantes de {0}',
     allRestaurantsSubtitle: 'Ver todos los restaurantes en este parque',
+    allRestaurantsDescription: 'Vea los horarios actuales y pasados de los restaurantes y parques temáticos de todo el mundo.',
+    allRestaurantsOfDescription:
+      'Vea los horarios de apertura actuales y pasados de los restaurantes de {0} y otros parques y espectáculos de todo el mundo.',
     allShops: 'Todos las tiendas',
     allShopsSubtitle: 'Ver todas las tiendas en este parque',
     allShows: 'Todos especáculos',
