@@ -49,6 +49,10 @@
     <div class="mx-4 md:mx-8 lg:max-w-6xl lg:mx-auto mt-4 mb-4">
       <Nuxt keep-alive />
     </div>
+
+    <div class="text-gray-600 text-sm mx-4 md:mx-8 lg:max-w-6xl lg:mx-auto mt-4 pb-4">
+      {{ $t('general.madeWithLove') }} - <a href="https://arendz.nl" target="_blank" class="underline text-gray-800">Arendz.nl</a>
+    </div>
   </div>
 </template>
 

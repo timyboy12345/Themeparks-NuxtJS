@@ -31,6 +31,7 @@ export default {
     generalInformation: 'Algemene Informatie',
     readMoreOn: 'Lees meer op de website van {0}',
     ad: 'Advertentie',
+    madeWithLove: 'Gemaakt met ❤️ door Tim',
   },
   home: {
     title: 'Welkom bij Themeparkplanner',

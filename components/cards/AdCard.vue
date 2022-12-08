@@ -1,5 +1,5 @@
 <template>
-  <card :sub-title="$t('general.ad')">
+  <card v-if="show" :sub-title="$t('general.ad')">
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3611207014341558"
@@ -25,5 +25,13 @@ import Card from '@/components/cards/Card'
 export default {
   name: 'AdCard',
   components: { Card },
+  data() {
+    return {
+      show: false,
+    }
+  },
+  mounted() {
+    this.show = true
+  },
 }
 </script>
