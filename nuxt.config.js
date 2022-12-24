@@ -56,7 +56,11 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/axios'],
+  plugins: [
+    '~/plugins/axios',
+    // https://kuroco.app/docs/faq/how-do-i-set-up-google-analytics-4-in-nuxtjs/
+    '~/plugins/gtag',
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: false,
@@ -67,8 +71,6 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
-    // https://google-analytics.nuxtjs.org/setup
-    '@nuxtjs/google-analytics',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -216,9 +218,5 @@ export default {
         resourceRegExp: /@highcharts\/map-collection/,
       }),
     ],
-  },
-
-  googleAnalytics: {
-    id: 'G-3TY2JS0V9B',
   },
 }
