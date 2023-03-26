@@ -38,13 +38,6 @@ export default {
       { rel: 'manifest', href: '/site.webmanifest' },
       { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#3730a3' },
     ],
-    script: [
-      {
-        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
-        'data-ad-client': 'ca-pub-3611207014341558',
-        async: true,
-      },
-    ],
   },
 
   loading: {
@@ -79,7 +72,7 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     // https://pwa.nuxtjs.org/setup
-    '@nuxtjs/pwa',
+    // '@nuxtjs/pwa',
     // https://www.npmjs.com/package/nuxt-leaflet
     'nuxt-leaflet',
     // https://i18n.nuxtjs.org/setup
