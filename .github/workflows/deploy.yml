@@ -14,7 +14,8 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        node-version: [16.14]
+        os: [ubuntu-latest]
+        node: [14]
 
     steps:
       - name: Checkout 🛎
