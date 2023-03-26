@@ -14,7 +14,7 @@
         </template>
       </card>
 
-      <div v-if="ride && park && ride.images && ride.images.length > 0" class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+      <div v-if="ride && park && ride.images && ride.images.length > 0" class="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start">
         <img v-for="(img, i) of ride.images" :key="i" alt="Image of this ride" :src="img" class="bg-white rounded shadow" />
       </div>
 
@@ -30,7 +30,7 @@
           :chartdata="averageWaitingTimes"
         ></RideAverageWaitTimeHistoryChart>
 
-        <loading-spinner v-else :subtitle="$t('ride.averageWaitingTimesLoading')"></loading-spinner>
+        <loading-spinner v-else class="my-8" :subtitle="$t('ride.averageWaitingTimesLoading')"></loading-spinner>
       </div>
 
       <ad-card></ad-card>

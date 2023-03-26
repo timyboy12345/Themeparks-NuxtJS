@@ -80,15 +80,28 @@ export default {
       'In deze lijst vind je alle pretparken die wachttijden, shows, openingstijden of andere data publiceren op hun website. Deze data zetten wij om in een gestandardiseerd formaat, zodat je altijd toegang hebt tot de meest actuele pretpark-data.',
   },
   shows: {
+    descriptionTitle: 'Alle shows van {0}',
+    descriptionContent:
+      '{0} heeft in totaal {1} shows. Lees op deze pagina alles over de verschillende shows in het park, zoals showtijden en locaties van alle verschillende shows.',
     futureShowTimesCardTitle: 'Shows van vandaag',
     futureShowTimesCardSubtitle: 'Deze shows moeten vandaag nog gespeeld worden.',
     passedShowTimesCardTitle: 'Afgelopen Shows',
     passedShowTimesCardSubtitle: 'Deze shows waren eerder op de dag, en zijn waarschijnlijk niet meer te zien vandaag.',
   },
+  rides: {
+    descriptionTitle: 'Alle attracties van {0}',
+    descriptionContent:
+      '{0} heeft in totaal {1} attracties. Bekijk op deze pagina informatie over alle attracties, zoals de minimale- en maximale lengtes. Of ben je op zoek naar attracties voor een specifieke doelgroep, zoals kleine kinderen of pubers. Gebruik de filters en vind snel de ideale volgende attractie.',
+  },
   ride: {
     averageWaitTimes: 'Gemiddelde wachttijden',
     subTitle: 'Gemiddelde wachttijd: {0} minuten',
     averageWaitingTimesLoading: 'Gemiddelde wachttijden worden geladen',
+  },
+  restaurants: {
+    descriptionTitle: 'Alle restaurants van {0}',
+    descriptionContent:
+      "{0} heeft {1} verschillende restaurants. Bekijk op deze pagina de verschillende opties die je hebt, menu's van alle restaurants en meer.",
   },
   statistics: {
     goToTitle: 'Beta',

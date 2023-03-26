@@ -6,9 +6,15 @@
 
     <general-error v-if="error"></general-error>
 
-    <h1 v-if="park && rides.length > 0" class="text-lg text-indigo-800 font-bold mb-2">{{ $t('park.allRidesOf', [park.name]) }}</h1>
+    <h1 v-if="park && rides && rides.length > 0" class="text-lg text-indigo-800 font-bold mb-2">
+      {{ $t('park.allRidesOf', [park.name]) }}
+    </h1>
 
     <ride-list v-if="rides && rides.length > 0" :park="park" :rides="rides"></ride-list>
+
+    <div v-if="park && rides && rides.length > 0" class="my-8 grid md:grid-cols-2 gap-4">
+      <card :title="$t('rides.descriptionTitle', [park.name])" :content="$t('rides.descriptionContent', [park.name, rides.length])"></card>
+    </div>
 
     <div v-if="park && park.supports.supportsRideWaitTimesHistory" class="py-2 px-4 bg-yellow-200 relative mt-4 text-yellow-900 shadow-sm">
       <div class="absolute rounded-l bg-yellow-600 left-0 top-0 h-full w-1"></div>
@@ -26,10 +32,12 @@
 <script>
 import Breadcrumbs from '@/components/Breadcrumbs'
 import GeneralError from '@/components/GeneralError'
+import Card from '@/components/cards/Card'
 import Loading from '../../../../components/LoadingSpinner'
 import RideList from '../../../../views/RideCardList'
+
 export default {
-  components: { GeneralError, Breadcrumbs, RideList, Loading },
+  components: { Card, GeneralError, Breadcrumbs, RideList, Loading },
   data() {
     return {
       parkId: this.$route.params.id,

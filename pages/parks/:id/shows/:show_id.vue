@@ -55,9 +55,11 @@
         </template>
       </card>
 
-      <div v-if="show" class="grid grid-cols-2 md:grid-cols-3 md:grid-cols-4 gap-4">
+      <div v-if="show" class="grid grid-cols-2 md:grid-cols-3 md:grid-cols-4 gap-4 content-start">
         <img v-for="(img, i) of show.images" :key="i" alt="Image of this restaurant" :src="img" class="bg-white rounded shadow" />
       </div>
+
+      <AdCard />
     </div>
   </div>
 </template>
@@ -67,10 +69,11 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 import GeneralError from '@/components/GeneralError'
 import ShowCard from '@/components/cards/ShowCard'
 import Card from '@/components/cards/Card'
+import AdCard from '@/components/cards/AdCard'
 import Loading from '../../../../components/LoadingSpinner'
 
 export default {
-  components: { Card, ShowCard, GeneralError, Breadcrumbs, Loading },
+  components: { AdCard, Card, ShowCard, GeneralError, Breadcrumbs, Loading },
   data() {
     return {
       parkId: this.$route.params.id,

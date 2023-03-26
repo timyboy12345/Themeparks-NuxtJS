@@ -7,14 +7,17 @@
       :restaurant="restaurant"
       :show-more="true"
     ></restaurant-card>
+
+    <AdCard class="col-span-2" />
   </div>
 </template>
 
 <script>
 import RestaurantCard from '@/components/cards/RestaurantCard'
+import AdCard from '@/components/cards/AdCard'
 
 export default {
-  components: { RestaurantCard },
+  components: { AdCard, RestaurantCard },
   props: {
     restaurants: {
       type: Array,

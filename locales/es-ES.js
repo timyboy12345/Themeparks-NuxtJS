@@ -80,15 +80,28 @@ export default {
       'En este listado encontrarás todos los parques de atracciones que publican tiempos de espera, espectáculos, horarios de apertura u otros datos en su web. Convertimos estos datos a un formato estandarizado para que siempre tengas acceso a los datos más actualizados del parque temático.',
   },
   shows: {
+    descriptionTitle: 'Todos los shows de {0}',
+    descriptionContent:
+      '{0} tiene un total de {1} espectáculos. Lea todo sobre estos espectáculos, los horarios de inicio y las ubicaciones en todo el parque en themeparkplanner.com.',
     futureShowTimesCardTitle: 'Espectáculos de hoy',
     futureShowTimesCardSubtitle: 'Estos programas deben reproducirse hoy.',
     passedShowTimesCardTitle: 'Programas pasados',
     passedShowTimesCardSubtitle: 'Estos programas fueron más temprano en el día y probablemente no se verán hoy.',
   },
+  rides: {
+    descriptionTitle: 'Todos los viajes en {0}',
+    descriptionContent:
+      '{0} tiene un total de {1} viajes. Consulta toda la información relacionada con las atracciones de este parque en esta página, incluidas las distancias mínimas y máximas. ¿Está buscando atracciones para un público objetivo específico, como niños pequeños o adolescentes? Usa nuestros filtros para encontrar el próximo viaje perfecto para tu grupo.',
+  },
   ride: {
     averageWaitTimes: 'Tiempos de espera promedio',
     subTitle: 'Tiempos de espera promedio: {0} minutos',
     averageWaitingTimesLoading: 'Tiempos de espera promedio de carga',
+  },
+  restaurants: {
+    descriptionTitle: 'Todos los restaurantes de {0}',
+    descriptionContent:
+      '{0} tiene {1} restaurantes diferentes repartidos por todo el parque. Vea todos los menús, horarios de apertura y más en una sola página, solo en themeparkplanner.com.',
   },
   statistics: {
     goToTitle: 'Beta',

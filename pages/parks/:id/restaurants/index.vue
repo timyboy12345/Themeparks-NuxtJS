@@ -4,21 +4,29 @@
 
     <loading v-if="!restaurants || restaurants.length === 0"></loading>
 
-    <h1 v-if="park && restaurants.length > 0" class="text-lg text-indigo-800 font-bold mb-2">
+    <h1 v-if="park && restaurants && restaurants.length > 0" class="text-lg text-indigo-800 font-bold mb-2">
       {{ $t('park.allRestaurantsOf', [park.name]) }}
     </h1>
 
     <restaurant-card-list v-if="restaurants && restaurants.length > 0" :park="park" :restaurants="restaurants"></restaurant-card-list>
+
+    <div v-if="park && restaurants && restaurants.length > 0" class="my-8 grid md:grid-cols-2 gap-4">
+      <card
+        :title="$t('restaurants.descriptionTitle', [park.name])"
+        :content="$t('restaurants.descriptionContent', [park.name, restaurants.length])"
+      ></card>
+    </div>
   </div>
 </template>
 
 <script>
 import Breadcrumbs from '@/components/Breadcrumbs'
 import RestaurantCardList from '@/views/RestaurantCardList'
-import Loading from '../../../../components/LoadingSpinner'
+import Card from '@/components/cards/Card'
+import Loading from '@/components/LoadingSpinner'
 
 export default {
-  components: { Breadcrumbs, RestaurantCardList, Loading },
+  components: { Card, Breadcrumbs, RestaurantCardList, Loading },
   data() {
     return {
       parkId: this.$route.params.id,

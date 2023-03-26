@@ -23,9 +23,11 @@
         {{ $t('general.readMoreOn', [park.name]) }}
       </a>
 
-      <div class="grid grid-cols-2 md:grid-cols-3 md:grid-cols-4 gap-4">
+      <div class="grid grid-cols-2 md:grid-cols-3 md:grid-cols-4 gap-4 content-start">
         <img v-for="(img, i) of animal.images" :key="i" alt="Image of this animal" :src="img" class="bg-white rounded shadow" />
       </div>
+
+      <AdCard />
     </div>
   </div>
 </template>
@@ -34,10 +36,11 @@
 import AnimalCard from '@/components/cards/AnimalCard'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import Card from '@/components/cards/Card'
-import Loading from '../../../../components/LoadingSpinner'
+import AdCard from '@/components/cards/AdCard'
+import Loading from '@/components/LoadingSpinner'
 
 export default {
-  components: { Card, Breadcrumbs, AnimalCard, Loading },
+  components: { AdCard, Card, Breadcrumbs, AnimalCard, Loading },
   data() {
     return {
       parkId: this.$route.params.id,

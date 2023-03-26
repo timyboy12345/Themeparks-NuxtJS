@@ -74,6 +74,8 @@
           </div>
         </template>
       </card>
+
+      <AdCard />
     </div>
   </div>
 </template>
@@ -83,10 +85,11 @@ import Card from '@/components/cards/Card'
 import RidesWaitTimeHistoryChart from '@/components/charts/RidesWaitTimeHistoryChart'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import AdCard from '@/components/cards/AdCard'
 
 export default {
   name: 'Stats',
-  components: { LoadingSpinner, Breadcrumbs, RidesWaitTimeHistoryChart, Card },
+  components: { AdCard, LoadingSpinner, Breadcrumbs, RidesWaitTimeHistoryChart, Card },
   data() {
     return {
       parkId: this.$route.params.id,

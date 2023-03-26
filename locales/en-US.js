@@ -79,15 +79,28 @@ export default {
       'In this list you will find all theme parks that publish ride data, wait times, show times and other data on their website or app. We transform this data in a standardised format, so you always have access to the most recent themepark-data.',
   },
   shows: {
+    descriptionTitle: 'All shows of {0}',
+    descriptionContent:
+      '{0} has a total of {1} shows. Read all about these shows, the starting times and locations throughout the park on themeparkplanner.com.',
     futureShowTimesCardTitle: 'Shows of today',
     futureShowTimesCardSubtitle: 'These shows have not yet played yet.',
     passedShowTimesCardTitle: 'Passed Shows',
     passedShowTimesCardSubtitle: "These shows were earlier today, and you probably won't be able to see them anymore today.",
   },
+  rides: {
+    descriptionTitle: 'All rides in {0}',
+    descriptionContent:
+      '{0} has a total of {1} rides. See all information related to the rides in this park on this page, including minimum and maximum lengths. Looking for rides for a specific target audience, like small children or teens? Use our filters to find the perfect next ride for your group.',
+  },
   ride: {
     averageWaitTimes: 'Average Waiting Times',
     subTitle: 'Average waiting time: {0} minutes',
     averageWaitingTimesLoading: 'Average waiting times are being loaded',
+  },
+  restaurants: {
+    descriptionTitle: 'All restaurants of {0}',
+    descriptionContent:
+      '{0} has {1} different restaurants spread throughout the park. See all menus, opening hours and more on one page, only on themeparkplanner.com.',
   },
   statistics: {
     goToTitle: 'Beta',

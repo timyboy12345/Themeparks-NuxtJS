@@ -5,16 +5,21 @@
     <loading v-if="!shows || shows.length === 0"></loading>
 
     <show-card-list v-if="shows && shows.length > 0" :park="park" :shows="shows"></show-card-list>
+
+    <div v-if="park && shows && shows.length > 0" class="my-8 grid md:grid-cols-2 gap-4">
+      <card :title="$t('shows.descriptionTitle', [park.name])" :content="$t('shows.descriptionContent', [park.name, shows.length])"></card>
+    </div>
   </div>
 </template>
 
 <script>
 import Breadcrumbs from '@/components/Breadcrumbs'
 import ShowCardList from '@/views/ShowCardList'
-import Loading from '../../../../components/LoadingSpinner'
+import Card from '@/components/cards/Card'
+import Loading from '@/components/LoadingSpinner'
 
 export default {
-  components: { ShowCardList, Breadcrumbs, Loading },
+  components: { Card, ShowCardList, Breadcrumbs, Loading },
   data() {
     return {
       parkId: this.$route.params.id,

@@ -16,7 +16,7 @@
 
       <div
         v-if="restaurant && restaurant.images && restaurant.images.length > 0"
-        class="grid grid-cols-2 md:grid-cols-3 md:grid-cols-4 gap-4 mt-4"
+        class="grid grid-cols-2 md:grid-cols-3 md:grid-cols-4 gap-4 mt-4 content-start"
       >
         <img v-for="(img, i) of restaurant.images" :key="i" alt="Image of this restaurant" :src="img" class="bg-white rounded shadow" />
       </div>

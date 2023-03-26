@@ -20,15 +20,18 @@
         </p>
       </template>
     </card>
+
+    <AdCard />
   </div>
 </template>
 
 <script lang="ts">
 import Card from '~/components/cards/Card.vue'
 import CardButton from '~/components/cards/actions/CardButton.vue'
+import AdCard from '~/components/cards/AdCard.vue'
 export default {
   name: 'Index',
-  components: { CardButton, Card },
+  components: { AdCard, CardButton, Card },
   created() {
     // this.$store.commit('CHANGE_BREADCRUMBS', [])
   },
