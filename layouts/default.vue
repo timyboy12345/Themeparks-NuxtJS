@@ -108,19 +108,27 @@ export default {
         .get('/auth/user')
         .then((response) => {
           this.$store.commit('auth/setUser', response.data)
-        })
-        .catch((exception) => {
-          alert('Something went wrong while fetching user details')
-          this.$sentry.captureException(exception)
-        })
 
-      this.$axios
-        .get('/checkins')
-        .then((response) => {
-          this.$store.commit('auth/setCheckins', response.data)
+          this.$axios
+            .get('/checkins')
+            .then((response) => {
+              this.$store.commit('auth/setCheckins', response.data)
+            })
+            .catch((exception) => {
+              alert('Something went wrong while fetching all checkins')
+              this.$sentry.captureException(exception)
+            })
         })
         .catch((exception) => {
-          alert('Something went wrong while fetching all checkins')
+          // Unauthenticated
+          if (exception.response.status === 401) {
+            this.$store.commit('auth/setToken', null)
+            alert('Login is not valid any more, please log in again')
+            this.$router.push(this.localePath('/user/login'))
+            return
+          }
+
+          alert('Something went wrong while fetching user details')
           this.$sentry.captureException(exception)
         })
     }

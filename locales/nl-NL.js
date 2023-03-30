@@ -33,6 +33,7 @@ export default {
     ad: 'Advertentie',
     madeWithLove: 'Gemaakt met ❤️ door Tim',
     login: 'Inloggen',
+    logout: 'Uitloggen',
     loginReason: 'Log in met je gegevens om toegang te krijgen tot door jouw bezochte pretparken, ride count en meer statistieken.',
     register: 'Registreren',
     account: 'Account',
@@ -136,5 +137,8 @@ export default {
     addCheckinButton: 'Toevoegen aan mijn ervaringen',
     existingCheckinsTitle: 'Eerdere checkins',
     notCheckedIn: 'Je bent nog nooit in deze attractie geweest',
+    dateTimeDescription: 'De dag en tijd dat je deze attractie hebt bezocht',
+    waitTimeDescription:
+      'Het aantal minuten dat jij écht in de wachtrij hebt gestaan, dus niet het aantal minuten dat het park aangaf toen je in de rij ging staan.',
   },
 }

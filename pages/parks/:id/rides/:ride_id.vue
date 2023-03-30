@@ -2,7 +2,7 @@
   <div>
     <breadcrumbs v-if="breadcrumbs" :breadcrumbs="breadcrumbs"></breadcrumbs>
 
-    <loading v-if="!ride || !park"></loading>
+    <loading v-if="!ride || !park" class="my-4"></loading>
 
     <div class="grid md:grid-cols-2 gap-4">
       <ride-card v-if="ride && park" :park="park" :ride="ride"></ride-card>
@@ -42,7 +42,7 @@
               class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
             >
               <div class="flex flex-col">
-                <div class="text-indigo-700">{{ checkin.dateTime }} / {{ checkin.dateTime }}</div>
+                <div class="text-indigo-700">{{ checkin.dateTime }} / {{ checkin.createdAt }}</div>
                 <div v-if="checkin.wait !== undefined" class="text-sm text-gray-600">{{ checkin.wait }} min wachttijd</div>
               </div>
             </div>
@@ -73,7 +73,7 @@
         <loading-spinner v-else class="my-8" :subtitle="$t('ride.averageWaitingTimesLoading')"></loading-spinner>
       </div>
 
-      <ad-card></ad-card>
+      <AdCard />
     </div>
   </div>
 </template>

@@ -32,6 +32,13 @@ export default {
     readMoreOn: 'Leer más en el sitio web de {0}',
     ad: 'Anuncio',
     madeWithLove: 'Made with ❤️ by Tim',
+    login: 'Iniciar sesión',
+    logout: 'Cerrar sesión',
+    loginReason: 'Inicie sesión con sus datos para acceder a los parques temáticos que visitó, el número de viajes y más estadísticas.',
+    register: 'Registrar',
+    account: 'Cuenta',
+    userData: 'Tus datos',
+    checkins: 'Registros',
   },
   home: {
     title: 'Bienvenido a Themeparkplanner',

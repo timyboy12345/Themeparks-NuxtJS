@@ -3,20 +3,15 @@ module.exports = {
     // removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true,
   },
-  darkMode: false,
-  purge: {
-    content: [
-      './components/**/*.{vue,js}',
-      './layouts/**/*.vue',
-      './views/**/*.{vue,js}',
-      './pages/**/*.vue',
-      './plugins/**/*.{js,ts}',
-      './nuxt.config.{js,ts}',
-    ],
-    options: {
-      whitelist: ['bg-gray-500', 'space-x-2'],
-    },
-  },
+  darkMode: 'media',
+  content: [
+    './components/**/*.{vue,js}',
+    './layouts/**/*.vue',
+    './views/**/*.{vue,js}',
+    './pages/**/*.vue',
+    './plugins/**/*.{js,ts}',
+    './nuxt.config.{js,ts}',
+  ],
   theme: {
     extend: {
       colors: {
@@ -55,5 +50,5 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 }

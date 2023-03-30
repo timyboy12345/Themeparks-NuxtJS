@@ -77,7 +77,7 @@
         </template>
       </card>
 
-      <ad-card></ad-card>
+      <AdCard />
     </div>
   </div>
 </template>

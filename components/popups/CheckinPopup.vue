@@ -1,8 +1,22 @@
 <template>
   <div class="absolute shadow w-full bottom-0 left-0 z-10">
-    <div class="bg-white rounded shadow m-4 p-4 rounded gap-y-4">
-      <CustomInput id="dateTime" v-model="dateTime" type="date" label="Datum en tijd" placeholder="Wanneer ben je er in geweest?" />
-      <CustomInput id="wait" v-model="waitTime" label="Wachttijd" placeholder="Hoeveel minuten heb je gewacht?" />
+    <div class="bg-white rounded shadow m-4 p-4 rounded gap-y-4 flex flex-col">
+      <CustomInput
+        id="dateTime"
+        v-model="dateTime"
+        :description="$t('checkins.dateTimeDescription')"
+        type="datetime-local"
+        label="Datum en tijd"
+        placeholder="Wanneer ben je er in geweest?"
+      />
+      <CustomInput
+        id="wait"
+        v-model="waitTime"
+        :description="$t('checkins.waitTimeDescription')"
+        type="number"
+        label="Wachttijd"
+        placeholder="Hoeveel minuten heb je gewacht?"
+      />
 
       <button
         :class="{ 'opacity-50': !dateTime }"
@@ -23,7 +37,7 @@ export default {
   components: { CustomInput },
   data() {
     return {
-      dateTime: new Date().toISOString().substr(0, 10),
+      dateTime: `${new Date().toISOString().substr(0, 10)} ${new Date().toISOString().substr(11, 5)}`,
       waitTime: null,
     }
   },

@@ -1,7 +1,18 @@
 <template>
   <div class="flex flex-col">
     <label class="text-gray-600 text-sm mb-1" :for="id">{{ label }}</label>
-    <input :id="id" v-model="internalValue" :type="type" class="py-2 px-4 rounded shadow-sm" :name="id" :placeholder="placeholder" />
+    <input
+      :id="id"
+      v-model="internalValue"
+      :type="type"
+      class="border border-gray-300 rounded focus:outline-none focus:shadow-outline focus:border-indigo-300"
+      :name="id"
+      :placeholder="placeholder"
+    />
+
+    <div v-if="description" class="text-gray-600 text-sm">
+      {{ description }}
+    </div>
   </div>
 </template>
 
@@ -15,6 +26,11 @@ export default {
     label: {
       required: true,
       type: String,
+    },
+    description: {
+      required: false,
+      type: String,
+      default: null,
     },
     placeholder: {
       required: false,

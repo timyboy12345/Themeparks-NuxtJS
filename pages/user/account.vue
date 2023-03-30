@@ -4,10 +4,26 @@
       {{ $t('general.account') }}
     </h1>
 
-    <div class="grid items-start content-start justify-start lg:grid-cols-2 gap-4">
+    <div class="grid items-start lg:grid-cols-2 gap-4">
       <Card :title="$t('general.userData')">
         <template #content>
-          {{ $store.state.auth.user }}
+          <div v-if="$store.state.auth.user">
+            <ul class="list-disc ml-4 my-4">
+              <li>Email: {{ $store.state.auth.user.email }}</li>
+              <li>Username: {{ $store.state.auth.user.userName }}</li>
+              <li>Name: {{ $store.state.auth.user.firstName }} {{ $store.state.auth.user.lastName }}</li>
+            </ul>
+          </div>
+
+          <LoadingSpinner v-else class="my-4" />
+
+          <button
+            type="button"
+            class="rounded text-white bg-red-700 hover:bg-red-800 transition-colors duration-100 py-1 px-2"
+            @click="logout"
+          >
+            {{ $t('general.logout') }}
+          </button>
         </template>
       </Card>
 
@@ -37,16 +53,16 @@
                 </div>
 
                 <div class="flex flex-col">
-                  <div class="text-indigo-700">{{ checkin.rideId }} / {{ checkin.parkId }}</div>
-                  <div v-if="checkin.currentWaitTime !== undefined" class="text-sm text-gray-600">
-                    {{ checkin.currentWaitTime }} min wachttijd
-                  </div>
+                  <div class="text-indigo-700">{{ checkin.rideId }} / {{ checkin.parkId }} / {{ checkin.dateTime }}</div>
+                  <div v-if="checkin.waitTime" class="text-sm text-gray-600">{{ checkin.waitTime }} min wachttijd</div>
                 </div>
               </div>
 
               <div class="text-gray-700">{{ checkin.area }}</div>
             </NuxtLink>
           </div>
+
+          <LoadingSpinner v-else class="my-4" />
         </template>
       </card>
     </div>
@@ -55,16 +71,18 @@
 
 <script>
 import Card from '@/components/cards/Card'
+import LoadingSpinner from '@/components/LoadingSpinner'
 
 export default {
-  components: { Card },
-  data() {
-    return {
-      account: null,
-      checkins: null,
-    }
+  components: { LoadingSpinner, Card },
+  methods: {
+    logout() {
+      this.$store.commit('auth/setToken', null)
+      this.$store.commit('auth/setUser', null)
+      this.$store.commit('auth/setCheckins', null)
+
+      this.$router.push(this.localePath('/user/login'))
+    },
   },
-  created() {},
-  methods: {},
 }
 </script>

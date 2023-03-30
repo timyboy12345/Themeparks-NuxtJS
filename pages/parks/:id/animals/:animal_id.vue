@@ -2,7 +2,7 @@
   <div>
     <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
 
-    <loading v-if="!animal"></loading>
+    <loading v-if="!animal" class="my-4"></loading>
 
     <div v-if="animal && park" class="grid md:grid-cols-2 gap-4">
       <animal-card :park="park" :animal="animal"></animal-card>

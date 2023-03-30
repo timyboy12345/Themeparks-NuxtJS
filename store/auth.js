@@ -12,7 +12,12 @@ export const mutations = {
     state.checkins = checkins
   },
   setToken(state, token) {
-    localStorage.setItem('jwt_token', token)
+    if (token) {
+      localStorage.setItem('jwt_token', token)
+    } else {
+      localStorage.removeItem('jwt_token')
+    }
+
     state.authToken = token
   },
 }

@@ -32,6 +32,14 @@ export default {
     readMoreOn: 'Read more on the website of {0}',
     ad: 'Ad',
     madeWithLove: 'Made with ❤️ by Tim',
+    login: 'Log In',
+    logout: 'Log Out',
+    loginReason:
+      "Log in to see what parks you have visited in the past, what your favorite rides are, where you've waited the longest and more statistics.",
+    register: 'Register',
+    account: 'Account',
+    userData: 'Your Account',
+    checkins: 'Checkins',
   },
   home: {
     title: 'Welcome to Themeparkplanner',
@@ -120,5 +128,16 @@ export default {
     subtitle: 'Use the map below to see all parks supported by this website.',
     seoTitle: 'All Theme Parks on a map',
     seoDescription: 'See all themeparks that are supported by this website on the map on this page.',
+  },
+  checkins: {
+    addCheckinTitle: 'Add Checkin',
+    addCheckinDescription:
+      'By adding a checkin for this location you get an insight into what rides, restaurants and other experiences you have visited over the years.',
+    addCheckinButton: 'Add to my checkins',
+    existingCheckinsTitle: 'Previous checkins',
+    notCheckedIn: 'You have never checked in to this location',
+    dateTimeDescription: 'The day and time you have experienced this ride, restaurant or other experience',
+    waitTimeDescription:
+      'The amount of minutes you actually had to wait before you could experience this experience. Not the amount of minutes the park said you would wait for it.',
   },
 }

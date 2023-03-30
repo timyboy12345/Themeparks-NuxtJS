@@ -58,16 +58,20 @@ export default {
           this.status = 'login'
         })
 
+      await setTimeout(() => {}, 400)
+
       if (this.status === 'loading') {
         await this.fetchUser()
+        this.status = 'login'
+        this.password = ''
         this.$router.push(this.localePath('/user/account'))
       }
     },
     fetchUser() {
       const userPromise = this.$axios
-        .get('/auth/account')
+        .get('/auth/user')
         .then((response) => {
-          this.$store.commit('auth/setCheckins', response.data)
+          this.$store.commit('auth/setUser', response.data)
         })
         .catch((exception) => {
           alert('Something went wrong while fetching user details')

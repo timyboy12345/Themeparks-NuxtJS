@@ -2,9 +2,9 @@
   <div>
     <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
 
-    <div class="grid md:grid-cols-2 gap-4">
-      <loading v-if="!show && !error"></loading>
+    <loading v-if="!show && !error" class="my-4"></loading>
 
+    <div class="grid md:grid-cols-2 gap-4">
       <show-card v-if="show" :park="park" :show="show"></show-card>
 
       <general-error v-if="error"></general-error>

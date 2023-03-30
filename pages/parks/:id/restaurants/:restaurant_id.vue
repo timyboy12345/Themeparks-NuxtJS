@@ -2,7 +2,7 @@
   <div>
     <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
 
-    <loading v-if="!restaurant"></loading>
+    <loading v-if="!restaurant" class="my-4"></loading>
 
     <div class="grid md:grid-cols-2 gap-4">
       <restaurant-card v-if="restaurant" :park="park" :restaurant="restaurant"></restaurant-card>
@@ -21,7 +21,7 @@
         <img v-for="(img, i) of restaurant.images" :key="i" alt="Image of this restaurant" :src="img" class="bg-white rounded shadow" />
       </div>
 
-      <ad-card></ad-card>
+      <AdCard />
     </div>
   </div>
 </template>
