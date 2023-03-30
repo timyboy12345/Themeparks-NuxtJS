@@ -10,7 +10,7 @@
         <div class="flex flex-row items-center mt-2 md:mt-0">
           <NuxtLink
             :to="localePath('/')"
-            class="lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
+            class="md:ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
             exact-active-class="opacity-100"
           >
             {{ $t('general.home') }}
@@ -29,6 +29,22 @@
           >
             {{ $t('general.map') }}
           </NuxtLink>
+          <NuxtLink
+            v-if="!$store.state.auth.user"
+            :to="localePath('/user/login')"
+            class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
+            exact-active-class="opacity-100"
+          >
+            {{ $t('general.login') }}
+          </NuxtLink>
+          <NuxtLink
+            v-else
+            :to="localePath('/user/account')"
+            class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
+            exact-active-class="opacity-100"
+          >
+            {{ $t('general.account') }}
+          </NuxtLink>
         </div>
       </div>
 
@@ -46,21 +62,33 @@
 
     <slot name="breadcrumbs"></slot>
 
-    <div class="mx-4 md:mx-8 lg:max-w-6xl lg:mx-auto mt-4 mb-4">
+    <div class="mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto mt-4 mb-4">
       <Nuxt keep-alive />
     </div>
 
-    <div class="text-gray-600 text-sm mx-4 md:mx-8 lg:max-w-6xl lg:mx-auto mt-4 pb-4">
+    <div class="text-gray-600 text-sm mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto mt-4 pb-4">
       {{ $t('general.madeWithLove') }} -
-      <a href="https://arendz.nl?utm_source=themeparkplanner&utm_campaign=backlink" target="_blank" class="underline text-gray-800"
-        >Arendz.nl</a
-      >
+      <a href="https://arendz.nl?utm_source=themeparkplanner&utm_campaign=backlink" target="_blank" class="underline text-gray-800">
+        Arendz.nl
+      </a>
     </div>
+
+    <Transition>
+      <div v-if="$store.getters['popup/getCurrentPopup']">
+        <div class="fixed w-full h-full left-0 top-0 z-10">
+          <div class="absolute opacity-75 bg-gray-700 -z-1 w-full h-full" @click="closePopup"></div>
+
+          <CheckinPopup />
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
 <script>
+import CheckinPopup from '~/components/popups/CheckinPopup'
 export default {
+  components: { CheckinPopup },
   head() {
     return this.$nuxtI18nHead({ addSeoAttributes: true })
   },
@@ -72,5 +100,47 @@ export default {
       return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale)
     },
   },
+  mounted() {
+    if (localStorage.getItem('jwt_token')) {
+      this.$store.commit('auth/setToken', localStorage.getItem('jwt_token'))
+
+      this.$axios
+        .get('/auth/user')
+        .then((response) => {
+          this.$store.commit('auth/setUser', response.data)
+        })
+        .catch((exception) => {
+          alert('Something went wrong while fetching user details')
+          this.$sentry.captureException(exception)
+        })
+
+      this.$axios
+        .get('/checkins')
+        .then((response) => {
+          this.$store.commit('auth/setCheckins', response.data)
+        })
+        .catch((exception) => {
+          alert('Something went wrong while fetching all checkins')
+          this.$sentry.captureException(exception)
+        })
+    }
+  },
+  methods: {
+    closePopup() {
+      this.$store.commit('popup/closePopup')
+    },
+  },
 }
 </script>
+
+<style>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>

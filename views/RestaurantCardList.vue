@@ -8,7 +8,7 @@
       :show-more="true"
     ></restaurant-card>
 
-    <AdCard class="col-span-2" />
+    <AdCard class="md:col-span-2" />
   </div>
 </template>
 

@@ -8,7 +8,7 @@
     <img v-if="imageSrc" v-lazy-load :data-src="imageSrc" class="-z-1 w-full min-h-78 h-full object-center object-cover" />
 
     <div class="w-full flex flex-col bottom-0 absolute">
-      <div class="p-4 m-4 rounded z-10 bg-white rounded">
+      <div class="p-4 m-4 rounded z-5 bg-white rounded">
         <h1 v-if="title" class="text-lg text-indigo-800 font-bold">{{ title }}</h1>
         <h2 v-if="subtitle" class="text-sm text-gray-600 -mt-1">{{ subtitle }}</h2>
 

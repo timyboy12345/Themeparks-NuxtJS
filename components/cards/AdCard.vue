@@ -21,6 +21,5 @@ export default {
       required: false,
     },
   },
-  // components: { Card },
 }
 </script>

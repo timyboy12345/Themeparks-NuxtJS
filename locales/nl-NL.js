@@ -32,6 +32,12 @@ export default {
     readMoreOn: 'Lees meer op de website van {0}',
     ad: 'Advertentie',
     madeWithLove: 'Gemaakt met ❤️ door Tim',
+    login: 'Inloggen',
+    loginReason: 'Log in met je gegevens om toegang te krijgen tot door jouw bezochte pretparken, ride count en meer statistieken.',
+    register: 'Registreren',
+    account: 'Account',
+    userData: 'Jouw Gegevens',
+    checkins: 'Checkins',
   },
   home: {
     title: 'Welkom bij Themeparkplanner',
@@ -122,5 +128,13 @@ export default {
     subtitle: 'Bekijk op onderstaande kaart alle pretparken die worden ondersteund door deze website.',
     seoTitle: 'Alle Pretparken op een wereldkaart',
     seoDescription: 'Bekijk op deze pagina een wereldkaart met alle pretparken die worden ondersteund door deze website.',
+  },
+  checkins: {
+    addCheckinTitle: 'Checkin toevoegen',
+    addCheckinDescription:
+      'Door een checkin toe te voegen voor deze locatie krijg je inzicht in op welke dagen je welke attracties, shows, restaurants en meer bezoekt.',
+    addCheckinButton: 'Toevoegen aan mijn ervaringen',
+    existingCheckinsTitle: 'Eerdere checkins',
+    notCheckedIn: 'Je bent nog nooit in deze attractie geweest',
   },
 }

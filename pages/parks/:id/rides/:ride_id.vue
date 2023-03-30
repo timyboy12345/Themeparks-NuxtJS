@@ -14,6 +14,46 @@
         </template>
       </card>
 
+      <card v-if="ride && $store.state.auth.user" :title="$t('checkins.addCheckinTitle')">
+        <template #content>
+          <p class="text-gray-600 text-sm mb-4">
+            {{ $t('checkins.addCheckinDescription') }}
+          </p>
+
+          <button
+            class="rounded py-2 px-4 text-white bg-indigo-800 hover:bg-indigo-900 transition-colors duration-100"
+            type="button"
+            @click="addCheckin"
+          >
+            {{ $t('checkins.addCheckinButton') }}
+          </button>
+        </template>
+      </card>
+
+      <card v-if="ride && $store.state.auth.user" :title="$t('checkins.existingCheckinsTitle')">
+        <template #content>
+          <div
+            v-if="$store.state.auth.checkins && $store.state.auth.checkins.filter((r) => r.rideId === rideId).length > 0"
+            class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200"
+          >
+            <div
+              v-for="checkin of $store.state.auth.checkins.filter((r) => r.rideId === rideId)"
+              :key="checkin.id"
+              class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
+            >
+              <div class="flex flex-col">
+                <div class="text-indigo-700">{{ checkin.dateTime }} / {{ checkin.dateTime }}</div>
+                <div v-if="checkin.wait !== undefined" class="text-sm text-gray-600">{{ checkin.wait }} min wachttijd</div>
+              </div>
+            </div>
+          </div>
+
+          <div v-else>
+            {{ $t('checkins.notCheckedIn') }}
+          </div>
+        </template>
+      </card>
+
       <div v-if="ride && park && ride.images && ride.images.length > 0" class="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start">
         <img v-for="(img, i) of ride.images" :key="i" alt="Image of this ride" :src="img" class="bg-white rounded shadow" />
       </div>
@@ -126,6 +166,15 @@ export default {
         } else {
           return []
         }
+      })
+    },
+    addCheckin() {
+      this.$store.commit('popup/addPopup', {
+        type: 'addCheckin',
+        ride: this.ride,
+        park: this.park,
+        parkId: this.parkId,
+        rideId: this.rideId,
       })
     },
   },
