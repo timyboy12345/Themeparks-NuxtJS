@@ -43,7 +43,9 @@
             >
               <div class="flex flex-col">
                 <div class="text-indigo-700">{{ checkin.dateTime }} / {{ checkin.createdAt }}</div>
-                <div v-if="checkin.wait !== undefined" class="text-sm text-gray-600">{{ checkin.wait }} min wachttijd</div>
+                <div v-if="checkin.waitTime !== undefined" class="text-sm text-gray-600">
+                  {{ $t('general.unspecifiedWaitTime', [checkin.waitTime]) }}
+                </div>
               </div>
             </div>
           </div>

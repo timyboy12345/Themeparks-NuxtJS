@@ -21,3 +21,18 @@ export const mutations = {
     state.authToken = token
   },
 }
+
+export const getters = {
+  individualDays(state) {
+    const arrayUniqueByKey = [...new Map(state.checkins.map((ci) => [ci.dateTime.substr(0, 10), ci])).values()]
+
+    return arrayUniqueByKey.map((day) => {
+      return {
+        ...day,
+        year: day.dateTime.substr(0, 4),
+        month: day.dateTime.substr(5, 2),
+        day: day.dateTime.substr(8, 2),
+      }
+    })
+  },
+}

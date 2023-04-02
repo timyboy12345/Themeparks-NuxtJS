@@ -28,7 +28,9 @@
 
           <div class="flex flex-col">
             <div class="text-indigo-700">{{ ride.title }}</div>
-            <div v-if="ride.currentWaitTime !== undefined" class="text-sm text-gray-600">{{ ride.currentWaitTime }} min wachttijd</div>
+            <div v-if="ride.currentWaitTime !== undefined" class="text-sm text-gray-600">
+              {{ $t('general.unspecifiedWaitTime', [ride.currentWaitTime]) }}
+            </div>
           </div>
         </div>
 

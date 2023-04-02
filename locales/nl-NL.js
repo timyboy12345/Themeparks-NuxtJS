@@ -22,6 +22,7 @@ export default {
     minSize: 'Min. groote: {0} cm',
     escortSize: 'Min. grootte zonder begeleiding: {0} cm',
     currentWaitTime: 'Huidige wachttijd: {0} min.',
+    unspecifiedWaitTime: '{0} min wachttijd',
     nextShow: 'Volgende show: {0}',
     loading: 'Laden',
     loadingTitle: 'Laden...',
@@ -39,6 +40,8 @@ export default {
     account: 'Account',
     userData: 'Jouw Gegevens',
     checkins: 'Checkins',
+    search: 'Zoeken',
+    enterSearchTerm: 'Zoekterm invoeren',
   },
   home: {
     title: 'Welkom bij Themeparkplanner',
@@ -140,5 +143,13 @@ export default {
     dateTimeDescription: 'De dag en tijd dat je deze attractie hebt bezocht',
     waitTimeDescription:
       'Het aantal minuten dat jij écht in de wachtrij hebt gestaan, dus niet het aantal minuten dat het park aangaf toen je in de rij ging staan.',
+    checkinsTitle: 'Checkins',
+    checkinsSubtitle: 'Hier vind je alle checkins die je de afgelopen tijd hebt ingediend',
+    allCheckins: 'Alle checkins bekijken',
+    checkedInDaysTitle: 'Ingecheckte dagen',
+    checkedInDaysSubtitle: 'Dit zijn alle dagen waarop je een attractie hebt ingecheckt',
+    checkinsForDate: 'Alle checkins van {date}',
+    checkinsByDayTitle: 'Ingecheckte Dagen',
+    allCheckedInDays: 'Alle ingecheckte dagen',
   },
 }

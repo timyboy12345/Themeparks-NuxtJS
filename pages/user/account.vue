@@ -27,44 +27,29 @@
         </template>
       </Card>
 
-      <card :title="$t('general.checkins')">
+      <Card :title="$t('checkins.checkedInDaysTitle')" :sub-title="$t('checkins.checkedInDaysSubtitle')">
         <template #content>
-          <div
-            v-if="$store.state.auth.checkins && $store.state.auth.checkins.length > 0"
-            class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200"
-          >
-            <NuxtLink
-              v-for="checkin of $store.state.auth.checkins"
-              :key="checkin.id"
-              :to="localePath('/parks/' + checkin.parkId + '/rides/' + checkin.rideId)"
-              class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
-            >
-              <div class="flex flex-row items-center">
-                <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
-                  <img
-                    v-if="checkin.image_url"
-                    v-lazy-load
-                    :alt="`Image of ${checkin.title}`"
-                    :title="`Image of ${checkin.title}`"
-                    :data-src="checkin.image_url"
-                    class="object-cover object-center w-full h-full"
-                  />
-                  <div v-else class="object-cover object-center w-full h-full" />
-                </div>
-
-                <div class="flex flex-col">
-                  <div class="text-indigo-700">{{ checkin.rideId }} / {{ checkin.parkId }} / {{ checkin.dateTime }}</div>
-                  <div v-if="checkin.waitTime" class="text-sm text-gray-600">{{ checkin.waitTime }} min wachttijd</div>
-                </div>
-              </div>
-
-              <div class="text-gray-700">{{ checkin.area }}</div>
-            </NuxtLink>
-          </div>
-
-          <LoadingSpinner v-else class="my-4" />
+          <checkin-days-list class="-mx-4" :max-days="5"></checkin-days-list>
         </template>
-      </card>
+
+        <template #buttons>
+          <card-actions>
+            <card-button btn-link="/user/checkins/days/" :btn-title="$t('checkins.allCheckedInDays')" />
+          </card-actions>
+        </template>
+      </Card>
+
+      <Card :title="$t('checkins.checkinsTitle')" :sub-title="$t('checkins.checkinsSubtitle')">
+        <template #content>
+          <checkin-list class="-mx-4" :max-checkins="5"></checkin-list>
+        </template>
+
+        <template #buttons>
+          <card-actions>
+            <card-button btn-link="/user/checkins/" :btn-title="$t('checkins.allCheckins')" />
+          </card-actions>
+        </template>
+      </Card>
     </div>
   </div>
 </template>
@@ -72,9 +57,14 @@
 <script>
 import Card from '@/components/cards/Card'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import CheckinList from '@/views/CheckinList'
+import CardActions from '@/components/cards/actions/CardActions'
+import CardButton from '@/components/cards/actions/CardButton'
+import CheckinDaysList from '@/views/CheckinDaysList'
 
 export default {
-  components: { LoadingSpinner, Card },
+  name: 'Account',
+  components: { CheckinDaysList, CardButton, CardActions, CheckinList, LoadingSpinner, Card },
   methods: {
     logout() {
       this.$store.commit('auth/setToken', null)

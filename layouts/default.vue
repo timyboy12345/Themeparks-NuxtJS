@@ -11,21 +11,21 @@
           <NuxtLink
             :to="localePath('/')"
             class="md:ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
-            exact-active-class="opacity-100"
+            exact-active-class="!opacity-100"
           >
             {{ $t('general.home') }}
           </NuxtLink>
           <NuxtLink
             :to="localePath('/parks')"
             class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
-            exact-active-class="opacity-100"
+            exact-active-class="!opacity-100"
           >
             {{ $t('general.parks') }}
           </NuxtLink>
           <NuxtLink
             :to="localePath('/parks/map')"
             class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
-            exact-active-class="opacity-100"
+            exact-active-class="!opacity-100"
           >
             {{ $t('general.map') }}
           </NuxtLink>
@@ -33,7 +33,7 @@
             v-if="!$store.state.auth.user"
             :to="localePath('/user/login')"
             class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
-            exact-active-class="opacity-100"
+            exact-active-class="!opacity-100"
           >
             {{ $t('general.login') }}
           </NuxtLink>
@@ -41,7 +41,7 @@
             v-else
             :to="localePath('/user/account')"
             class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
-            exact-active-class="opacity-100"
+            exact-active-class="!opacity-100"
           >
             {{ $t('general.account') }}
           </NuxtLink>

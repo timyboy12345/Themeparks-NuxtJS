@@ -22,6 +22,7 @@ export default {
     minSize: 'Min. size: {0} cm',
     escortSize: 'Min. size without escort: {0} cm',
     currentWaitTime: 'Current wait: {0} min.',
+    unspecifiedWaitTime: '{0} min wait',
     nextShow: 'Next show: {0}',
     loading: 'Loading',
     loadingTitle: 'Loading...',
@@ -40,6 +41,8 @@ export default {
     account: 'Account',
     userData: 'Your Account',
     checkins: 'Checkins',
+    search: 'Search',
+    enterSearchTerm: 'Enter Search Term',
   },
   home: {
     title: 'Welcome to Themeparkplanner',
@@ -139,5 +142,13 @@ export default {
     dateTimeDescription: 'The day and time you have experienced this ride, restaurant or other experience',
     waitTimeDescription:
       'The amount of minutes you actually had to wait before you could experience this experience. Not the amount of minutes the park said you would wait for it.',
+    checkinsTitle: 'Checkins',
+    checkinsSubtitle: 'Here you will find all your recent checkins',
+    allCheckins: 'See all checkins',
+    checkedInDaysTitle: 'Checked In Days',
+    checkedInDaysSubtitle: 'On these days you have checked in to at least one location',
+    checkinsForDate: 'All checkins on {date}',
+    checkinsByDayTitle: 'Checked In Days',
+    allCheckedInDays: 'All Checked In Days',
   },
 }

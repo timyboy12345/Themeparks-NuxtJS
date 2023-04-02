@@ -53,6 +53,8 @@ export default {
     '~/plugins/axios',
     // https://kuroco.app/docs/faq/how-do-i-set-up-google-analytics-4-in-nuxtjs/
     '~/plugins/gtag',
+    // https://vinodugale219.medium.com/add-date-filter-in-nuxtjs-7dead1373d7c
+    '~plugins/filters.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

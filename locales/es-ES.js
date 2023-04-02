@@ -22,6 +22,7 @@ export default {
     minSize: 'Min. tamaño: {0} cm',
     escortSize: 'Min. tamaño sin acompañante: {0} cm',
     currentWaitTime: 'Tiempo de espera actual: {0} min.',
+    unspecifiedWaitTime: '{0} min de tiempo de espera',
     nextShow: 'Siguiente programa: {0}',
     loading: 'Cargando',
     loadingTitle: 'Cargando...',
@@ -39,6 +40,8 @@ export default {
     account: 'Cuenta',
     userData: 'Tus datos',
     checkins: 'Registros',
+    search: 'Buscar',
+    enterSearchTerm: 'Término de búsqueda',
   },
   home: {
     title: 'Bienvenido a Themeparkplanner',
@@ -128,5 +131,24 @@ export default {
     subtitle: 'Vea todos los parques temáticos admitidos por este sitio web en el mapa a continuación.',
     seoTitle: 'Todos los parques de atracciones en un mapa mundial',
     seoDescription: 'Ver un mapa mundial en esta página con todos los parques temáticos compatibles con este sitio web.',
+  },
+  checkins: {
+    addCheckinTitle: 'Agregar registro',
+    addCheckinDescription:
+      'Agregar un check-in para esta ubicación le da una idea de qué días visita qué atracciones, espectáculos, restaurantes y más.',
+    addCheckinButton: 'Agregar a mis experiencias',
+    existingCheckinsTitle: 'Registros anteriores',
+    notCheckedIn: 'Nunca has estado en esta atracción',
+    dateTimeDescription: 'El día y la hora en que visitó esta atracción',
+    waitTimeDescription:
+      'La cantidad de minutos que realmente estuvo en la fila, no la cantidad de minutos que el parque indicó cuando estuvo en la fila.',
+    checkinsTitle: 'Registros',
+    checkinsSubtitle: 'Aquí encontrarás todos los checkins que has enviado recientemente',
+    allCheckins: 'Ver todos los registros',
+    checkInDaysTitle: 'Registrado en días',
+    checkInDaysSubtitle: 'Estos son todos los días que se registró en una atracción',
+    checkinsForDate: 'Todos los registros desde {date}',
+    checkinsByDayTitle: 'Registrado en días',
+    allCheckedInDays: 'Todos los días registrados',
   },
 }

@@ -3,7 +3,13 @@
     <loading-spinner v-if="!parks || parks.length === 0"></loading-spinner>
 
     <div v-if="parks" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      <flag-card v-for="park of parks" :key="park.id" :link="'/parks/' + park.id" :title="park.name" :country-code="park.countryCode">
+      <flag-card
+        v-for="park of queriedParks"
+        :key="park.id"
+        :link="'/parks/' + park.id"
+        :title="park.name"
+        :country-code="park.countryCode"
+      >
         <template #content>
           <div class="flex content-between flex-col">
             <p class="mt-4">{{ park.description }}</p>
@@ -29,6 +35,18 @@ import FlagCard from '~/components/cards/FlagCard.vue'
 export default {
   name: 'ParkCardList',
   components: { LoadingSpinner, BadgeComponent, FlagCard },
+  props: {
+    query: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    queriedCountry: {
+      type: String,
+      required: false,
+      default: null,
+    },
+  },
   data() {
     return {
       parks: [],
@@ -44,6 +62,19 @@ export default {
         this.$emit('fetchError', reason)
         this.$sentry.captureException(reason)
       })
+  },
+  computed: {
+    queriedParks() {
+      return this.parks
+        .filter((p) => p.name.toLowerCase().includes(this.query.toLowerCase()))
+        .filter((p) => {
+          if (!this.queriedCountry) {
+            return true
+          }
+
+          return this.queriedCountry === p.countryCode
+        })
+    },
   },
 }
 </script>
