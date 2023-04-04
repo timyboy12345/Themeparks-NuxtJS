@@ -32,23 +32,12 @@
 
       <card v-if="ride && $store.state.auth.user" :title="$t('checkins.existingCheckinsTitle')">
         <template #content>
-          <div
+          <checkin-list
             v-if="$store.state.auth.checkins && $store.state.auth.checkins.filter((r) => r.rideId === rideId).length > 0"
+            edit
+            :ride-id="ride.id"
             class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200"
-          >
-            <div
-              v-for="checkin of $store.state.auth.checkins.filter((r) => r.rideId === rideId)"
-              :key="checkin.id"
-              class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
-            >
-              <div class="flex flex-col">
-                <div class="text-indigo-700">{{ checkin.dateTime }} / {{ checkin.createdAt }}</div>
-                <div v-if="checkin.waitTime !== undefined" class="text-sm text-gray-600">
-                  {{ $t('general.unspecifiedWaitTime', [checkin.waitTime]) }}
-                </div>
-              </div>
-            </div>
-          </div>
+          />
 
           <div v-else>
             {{ $t('checkins.notCheckedIn') }}
@@ -83,16 +72,25 @@
 <script>
 import Card from '@/components/cards/Card'
 import Breadcrumbs from '@/components/Breadcrumbs'
-import RideWaitTimeHistoryChart from '@/components/charts/RideWaitTimeHistoryChart'
 import RideAverageWaitTimeHistoryChart from '@/components/charts/RideAverageWaitTimeHistoryChart'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import AdCard from '@/components/cards/AdCard'
+import CheckinList from '@/views/CheckinList'
 import Loading from '../../../../components/LoadingSpinner'
 import RideCard from '../../../../components/cards/RideCard'
 
 export default {
   // eslint-disable-next-line vue/no-unused-components
-  components: { AdCard, LoadingSpinner, RideAverageWaitTimeHistoryChart, RideWaitTimeHistoryChart, Breadcrumbs, Card, RideCard, Loading },
+  components: {
+    CheckinList,
+    AdCard,
+    LoadingSpinner,
+    RideAverageWaitTimeHistoryChart,
+    Breadcrumbs,
+    Card,
+    RideCard,
+    Loading,
+  },
   data() {
     return {
       parkId: this.$route.params.id,

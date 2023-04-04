@@ -11,6 +11,9 @@ export const mutations = {
   setCheckins(state, checkins) {
     state.checkins = checkins
   },
+  addCheckin(state, checkin) {
+    state.checkins.push(checkin)
+  },
   setToken(state, token) {
     if (token) {
       localStorage.setItem('jwt_token', token)

@@ -43,6 +43,7 @@ export default {
     checkins: 'Checkins',
     search: 'Search',
     enterSearchTerm: 'Enter Search Term',
+    dataIsBeingSaved: 'Data is being saved',
   },
   home: {
     title: 'Welcome to Themeparkplanner',
@@ -150,5 +151,7 @@ export default {
     checkinsForDate: 'All checkins on {date}',
     checkinsByDayTitle: 'Checked In Days',
     allCheckedInDays: 'All Checked In Days',
+    deleteCheckin: 'Delete Checkin',
+    saveCheckinButton: 'Save Checkin',
   },
 }

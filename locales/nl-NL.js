@@ -42,6 +42,7 @@ export default {
     checkins: 'Checkins',
     search: 'Zoeken',
     enterSearchTerm: 'Zoekterm invoeren',
+    dataIsBeingSaved: 'Data wordt opgeslagen',
   },
   home: {
     title: 'Welkom bij Themeparkplanner',
@@ -151,5 +152,7 @@ export default {
     checkinsForDate: 'Alle checkins van {date}',
     checkinsByDayTitle: 'Ingecheckte Dagen',
     allCheckedInDays: 'Alle ingecheckte dagen',
+    deleteCheckin: 'Checkin Verwijderen',
+    saveCheckinButton: 'Checkin Opslaan',
   },
 }

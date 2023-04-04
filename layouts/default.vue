@@ -78,7 +78,11 @@
         <div class="fixed w-full h-full left-0 top-0 z-10">
           <div class="absolute opacity-75 bg-gray-700 -z-1 w-full h-full" @click="closePopup"></div>
 
-          <CheckinPopup />
+          <AddCheckinPopup v-if="$store.getters['popup/getCurrentPopup'].type === 'addCheckin'" />
+          <EditCheckinPopup
+            v-if="$store.getters['popup/getCurrentPopup'].type === 'editCheckin'"
+            :checkin="$store.getters['popup/getCurrentPopup'].checkin"
+          />
         </div>
       </div>
     </Transition>
@@ -86,9 +90,11 @@
 </template>
 
 <script>
-import CheckinPopup from '~/components/popups/CheckinPopup'
+import AddCheckinPopup from '@/components/popups/AddCheckinPopup'
+import EditCheckinPopup from '@/components/popups/EditCheckinPopup'
+
 export default {
-  components: { CheckinPopup },
+  components: { EditCheckinPopup, AddCheckinPopup },
   head() {
     return this.$nuxtI18nHead({ addSeoAttributes: true })
   },
@@ -123,8 +129,8 @@ export default {
           // Unauthenticated
           if (exception.response.status === 401) {
             this.$store.commit('auth/setToken', null)
-            alert('Login is not valid any more, please log in again')
-            this.$router.push(this.localePath('/user/login'))
+            // alert('Login is not valid any more, please log in again')
+            // this.$router.push(this.localePath('/user/login'))
             return
           }
 

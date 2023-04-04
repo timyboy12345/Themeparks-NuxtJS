@@ -8,6 +8,7 @@
       class="border border-gray-300 rounded focus:outline-none focus:shadow-outline focus:border-indigo-300"
       :name="id"
       :placeholder="placeholder"
+      @keypress.enter="$emit('keypress', $event)"
     />
 
     <div v-if="description" class="text-gray-600 text-sm">

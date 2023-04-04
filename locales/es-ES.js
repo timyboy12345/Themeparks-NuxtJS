@@ -42,6 +42,7 @@ export default {
     checkins: 'Registros',
     search: 'Buscar',
     enterSearchTerm: 'Término de búsqueda',
+    dataIsBeingSaved: 'Los datos se guardan',
   },
   home: {
     title: 'Bienvenido a Themeparkplanner',
@@ -150,5 +151,7 @@ export default {
     checkinsForDate: 'Todos los registros desde {date}',
     checkinsByDayTitle: 'Registrado en días',
     allCheckedInDays: 'Todos los días registrados',
+    deleteCheckin: 'Eliminar registro',
+    saveCheckinButton: 'Guardar registro',
   },
 }

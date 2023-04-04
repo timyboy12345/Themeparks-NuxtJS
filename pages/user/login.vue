@@ -10,8 +10,15 @@
       <template #content>
         <div v-if="error" class="text-red-800">Je gegevens waren incorrect. Probeer het opnieuw.</div>
         <form v-if="status === 'login'" class="flex flex-col gap-y-2" @submit.prevent="login">
-          <CustomInput id="email" v-model="email" label="Email Adres" placeholder="Geldig Emailadres" />
-          <CustomInput id="password" v-model="password" type="password" label="Wachtwoord" placeholder="Jouw Wachtwoord" />
+          <CustomInput id="email" v-model="email" label="Email Adres" placeholder="Geldig Emailadres" @keypress.enter.self="login" />
+          <CustomInput
+            id="password"
+            v-model="password"
+            type="password"
+            label="Wachtwoord"
+            placeholder="Jouw Wachtwoord"
+            @keypress.enter="login"
+          />
           <button
             type="button"
             class="rounded bg-indigo-800 hover:bg-indigo-900 transition-colors duration-100 text-white py-2 px-4 mt-4"
@@ -53,9 +60,12 @@ export default {
           this.status = 'loading'
         })
         .catch((exception) => {
-          alert('Something went wrong')
           this.error = exception
           this.status = 'login'
+
+          if (exception.response.status !== 401) {
+            alert('Something went wrong on the server, try again tomorrow')
+          }
         })
 
       await setTimeout(() => {}, 400)
@@ -64,6 +74,7 @@ export default {
         await this.fetchUser()
         this.status = 'login'
         this.password = ''
+        this.error = null
         this.$router.push(this.localePath('/user/account'))
       }
     },
