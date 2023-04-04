@@ -146,9 +146,6 @@ export default {
       ]
     },
   },
-  created() {
-    this.fetchHistory()
-  },
   methods: {
     async fetchRide() {
       this.ride = await this.$axios.get('/parks/' + this.parkId + '/rides').then((rides) => {
@@ -157,18 +154,27 @@ export default {
     },
     async fetchPark() {
       this.park = await this.$axios.get('/parks/' + this.parkId).then((park) => {
+        if (park.data.supports.supportsRideWaitTimesHistory) {
+          this.fetchHistory()
+        }
+
         return park.data
       })
     },
     async fetchHistory() {
-      this.averageWaitingTimes = await this.$axios.get('/parks/' + this.parkId + '/history/averages').then((rides) => {
-        const ride = rides.data.find((ride) => ride.id === this.rideId)
-        if (ride) {
-          return ride.waitingTimes
-        } else {
-          return []
-        }
-      })
+      this.averageWaitingTimes = await this.$axios
+        .get('/parks/' + this.parkId + '/history/averages')
+        .then((rides) => {
+          const ride = rides.data.find((ride) => ride.id === this.rideId)
+          if (ride) {
+            return ride.waitingTimes
+          } else {
+            return []
+          }
+        })
+        .catch((exception) => {
+          this.$sentry.captureException(exception)
+        })
     },
     addCheckin() {
       this.$store.commit('popup/addPopup', {
