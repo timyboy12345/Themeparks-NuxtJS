@@ -35,6 +35,10 @@ export default {
           url: '/user/checkins/',
         },
         {
+          title: this.$t('checkins.checkinsByDayTitle'),
+          url: '/user/checkins/days/',
+        },
+        {
           title: this.$route.params.year,
           url: `/user/checkins/${this.$route.params.year}/`,
         },

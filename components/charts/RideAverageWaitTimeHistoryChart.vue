@@ -58,6 +58,7 @@ export default {
     parsedData() {
       const validData = this.chartdata.filter((d) => d.wait !== null)
       const array = []
+
       validData.forEach((dataPoint) => {
         const now = new Date()
         const hour = dataPoint.time.split(':')[0]
@@ -68,6 +69,7 @@ export default {
 
         array.push([date, Math.round(dataPoint.wait)])
       })
+
       return array
     },
     avgWaitTime() {

@@ -64,6 +64,8 @@
         <loading-spinner v-else class="my-8" :subtitle="$t('ride.averageWaitingTimesLoading')"></loading-spinner>
       </div>
 
+      <RideStatsCard v-if="ride" :park="park" :ride="ride"></RideStatsCard>
+
       <AdCard />
     </div>
   </div>
@@ -76,12 +78,14 @@ import RideAverageWaitTimeHistoryChart from '@/components/charts/RideAverageWait
 import LoadingSpinner from '@/components/LoadingSpinner'
 import AdCard from '@/components/cards/AdCard'
 import CheckinList from '@/views/CheckinList'
+import RideStatsCard from '@/components/cards/RideStatsCard'
 import Loading from '../../../../components/LoadingSpinner'
 import RideCard from '../../../../components/cards/RideCard'
 
 export default {
   // eslint-disable-next-line vue/no-unused-components
   components: {
+    RideStatsCard,
     CheckinList,
     AdCard,
     LoadingSpinner,
