@@ -59,7 +59,7 @@
         <img v-for="(img, i) of show.images" :key="i" alt="Image of this restaurant" :src="img" class="bg-white rounded shadow" />
       </div>
 
-      <AdCard />
+      <AdCard v-if="show" />
     </div>
   </div>
 </template>

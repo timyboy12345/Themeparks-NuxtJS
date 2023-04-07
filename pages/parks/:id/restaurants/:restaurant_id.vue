@@ -21,7 +21,7 @@
         <img v-for="(img, i) of restaurant.images" :key="i" alt="Image of this restaurant" :src="img" class="bg-white rounded shadow" />
       </div>
 
-      <AdCard />
+      <AdCard v-if="restaurant" />
     </div>
   </div>
 </template>

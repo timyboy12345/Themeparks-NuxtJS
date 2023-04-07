@@ -44,6 +44,7 @@ export default {
     search: 'Buscar',
     enterSearchTerm: 'Término de búsqueda',
     dataIsBeingSaved: 'Los datos se guardan',
+    openingHours: 'Horario de apertura',
   },
   home: {
     title: 'Bienvenido a Themeparkplanner',
@@ -90,6 +91,7 @@ export default {
     bottomSeoBlockTitle: 'Todos los parques temáticos en una lista',
     bottomSeoBlockContent:
       'En este listado encontrarás todos los parques de atracciones que publican tiempos de espera, espectáculos, horarios de apertura u otros datos en su web. Convertimos estos datos a un formato estandarizado para que siempre tengas acceso a los datos más actualizados del parque temático.',
+    openingHoursSubtitle: 'Aquí encontrarás los horarios de apertura para hoy y los próximos días',
   },
   shows: {
     descriptionTitle: 'Todos los shows de {0}',
@@ -124,6 +126,14 @@ export default {
       locationTitle: '¿Dónde está el {0}?',
       locationLocatedInPark: 'Esta atracción, {0}, está ubicada en {1}.',
       locationLocatedInArea: 'La atracción está ubicada en el área temática {0}.',
+      heightTitle: '¿Qué tan alto es {0}?',
+      height: 'La atracción tiene {0} metros de altura desde el suelo hasta el punto más alto de la atracción.',
+      speedTitle: '¿Qué tan rápido es {0}?',
+      speed: '{1} sube a {0} kilómetros por hora.',
+      manufacturerTitle: '¿Quién construyó {0}?',
+      manufacturer: 'La atracción fue construida por {0}.',
+      buildInTitle: '¿Cuándo se construyó {0}?',
+      buildIn: 'La atracción fue construida en {0}.'
     },
   },
   restaurants: {

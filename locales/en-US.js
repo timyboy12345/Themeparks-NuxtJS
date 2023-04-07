@@ -46,6 +46,7 @@ export default {
     search: 'Search',
     enterSearchTerm: 'Enter Search Term',
     dataIsBeingSaved: 'Data is being saved',
+    openingHours: 'Opening Hours',
   },
   home: {
     title: 'Welcome to Themeparkplanner',
@@ -91,6 +92,7 @@ export default {
     bottomSeoBlockTitle: 'All Theme Parks in one list',
     bottomSeoBlockContent:
       'In this list you will find all theme parks that publish ride data, wait times, show times and other data on their website or app. We transform this data in a standardised format, so you always have access to the most recent themepark-data.',
+    openingHoursSubtitle: 'All opening hours for today and the coming days',
   },
   shows: {
     descriptionTitle: 'All shows of {0}',
@@ -125,6 +127,14 @@ export default {
       locationTitle: 'Where is {0} located?',
       locationLocatedInPark: 'This ride, {0} is located in {1}.',
       locationLocatedInArea: 'The attraction is located in the {0} area of the park.',
+      heightTitle: 'How high is {0}?',
+      height: 'The ride is {0} meters high from the ground to the highest point of the ride.',
+      speedTitle: 'How fast is {0}?',
+      speed: '{1} goes up to {0} kilometers per hour.',
+      manufacturerTitle: 'Who built {0}?',
+      manufacturer: 'The ride was built by {0}.',
+      buildInTitle: 'When was {0} built?',
+      buildIn: 'The attraction was built in {0}.'
     },
   },
   restaurants: {

@@ -44,6 +44,7 @@ export default {
     search: 'Zoeken',
     enterSearchTerm: 'Zoekterm invoeren',
     dataIsBeingSaved: 'Data wordt opgeslagen',
+    openingHours: 'Openingstijden',
   },
   home: {
     title: 'Welkom bij Themeparkplanner',
@@ -90,6 +91,7 @@ export default {
     bottomSeoBlockTitle: 'Alle Pretparken in een lijst',
     bottomSeoBlockContent:
       'In deze lijst vind je alle pretparken die wachttijden, shows, openingstijden of andere data publiceren op hun website. Deze data zetten wij om in een gestandardiseerd formaat, zodat je altijd toegang hebt tot de meest actuele pretpark-data.',
+    openingHoursSubtitle: 'De openingstijden van vandaag en de komende dagen',
   },
   shows: {
     descriptionTitle: 'Alle shows van {0}',
@@ -124,6 +126,14 @@ export default {
       locationTitle: 'Waar staat de {0}?',
       locationLocatedInPark: 'Deze attractie, {0}, staat in {1}.',
       locationLocatedInArea: 'De attractie bevind zich in themadeel {0}.',
+      heightTitle: 'Hoe hoog is {0}?',
+      height: 'De attractie is {0} meter hoog vanaf de grond tot het hoogste punt van de attractie.',
+      speedTitle: 'Hoe snel gaat {0}?',
+      speed: '{1} gaat maximaal {0} kilometer per uur.',
+      manufacturerTitle: 'Wie heeft {0} gebouwd?',
+      manufacturer: 'De attractie is gebouwd door {0}.',
+      buildInTitle: 'Wanneer is {0} gebouwd?',
+      buildIn: 'De attractie is gebouwd in {0}.'
     },
   },
   restaurants: {

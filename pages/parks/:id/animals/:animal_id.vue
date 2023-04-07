@@ -27,7 +27,7 @@
         <img v-for="(img, i) of animal.images" :key="i" alt="Image of this animal" :src="img" class="bg-white rounded shadow" />
       </div>
 
-      <AdCard />
+      <AdCard v-if="animal" />
     </div>
   </div>
 </template>

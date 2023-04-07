@@ -46,7 +46,7 @@
       </card>
 
       <div v-if="ride && park && ride.images && ride.images.length > 0" class="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start">
-        <img v-for="(img, i) of ride.images" :key="i" alt="Image of this ride" :src="img" class="bg-white rounded shadow" />
+        <img @click="openImage(img)" v-for="(img, i) of ride.images" :key="i" alt="Image of this ride" :src="img" class="cursor-pointer bg-white rounded shadow" />
       </div>
 
       <!--      <div v-if="ride && park && park.supports.supportsRideWaitTimesHistory && ride.waitingTimes">-->
@@ -66,7 +66,7 @@
 
       <RideStatsCard v-if="ride" :park="park" :ride="ride"></RideStatsCard>
 
-      <AdCard />
+      <AdCard v-if="ride" />
     </div>
   </div>
 </template>
@@ -149,6 +149,9 @@ export default {
     },
   },
   methods: {
+    openImage(imgSrc) {
+      window.open(imgSrc, '_blank')
+    },
     async fetchRide() {
       this.ride = await this.$axios.get('/parks/' + this.parkId + '/rides').then((rides) => {
         return rides.data.find((r) => r.id === this.rideId)
