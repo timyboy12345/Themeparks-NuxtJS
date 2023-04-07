@@ -133,7 +133,7 @@ export default {
       manufacturerTitle: 'Wie heeft {0} gebouwd?',
       manufacturer: 'De attractie is gebouwd door {0}.',
       buildInTitle: 'Wanneer is {0} gebouwd?',
-      buildIn: 'De attractie is gebouwd in {0}.'
+      buildIn: 'De attractie is gebouwd in {0}.',
     },
   },
   restaurants: {

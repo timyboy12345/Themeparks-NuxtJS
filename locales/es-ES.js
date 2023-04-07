@@ -133,7 +133,7 @@ export default {
       manufacturerTitle: '¿Quién construyó {0}?',
       manufacturer: 'La atracción fue construida por {0}.',
       buildInTitle: '¿Cuándo se construyó {0}?',
-      buildIn: 'La atracción fue construida en {0}.'
+      buildIn: 'La atracción fue construida en {0}.',
     },
   },
   restaurants: {

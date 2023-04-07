@@ -22,8 +22,9 @@
         </div>
 
         <div class="text-gray-700">
-          <div v-for="timeSlot of openingHour.openingTimes" :key="openTime">
-            {{ timeSlot.openTime }} - {{ timeSlot.closeTime }}
+          <div v-for="timeSlot of openingHour.openingTimes" :key="timeSlot.openTime">
+            {{ timeSlot.openTime }} -
+            {{ timeSlot.closeTime }}
           </div>
         </div>
       </div>

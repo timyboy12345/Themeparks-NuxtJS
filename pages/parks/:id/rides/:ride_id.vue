@@ -46,7 +46,14 @@
       </card>
 
       <div v-if="ride && park && ride.images && ride.images.length > 0" class="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start">
-        <img @click="openImage(img)" v-for="(img, i) of ride.images" :key="i" alt="Image of this ride" :src="img" class="cursor-pointer bg-white rounded shadow" />
+        <img
+          v-for="(img, i) of ride.images"
+          :key="i"
+          alt="Image of this ride"
+          :src="img"
+          class="cursor-pointer bg-white rounded shadow"
+          @click="openImage(img)"
+        />
       </div>
 
       <!--      <div v-if="ride && park && park.supports.supportsRideWaitTimesHistory && ride.waitingTimes">-->
