@@ -75,6 +75,12 @@
 
       <AdCard v-if="park" />
 
+      <card v-if="park && blogPosts && blogPosts.length > 0" :title="$t('general.blog')" :sub-title="$t('park.allBlogPostsSubtitle')">
+        <template #content>
+          <blog-post-list class="-mx-4" :blog-posts="blogPosts"></blog-post-list>
+        </template>
+      </card>
+
       <div
         v-if="park && park.supports.supportsRideWaitTimesHistory"
         class="py-2 px-4 bg-yellow-200 relative text-yellow-900 shadow-sm self-start"
@@ -105,9 +111,11 @@ import ParkCard from '../../../components/cards/ParkCard'
 import Card from '../../../components/cards/Card'
 import CardButton from '../../../components/cards/actions/CardButton'
 import OpeningHoursList from '~/views/OpeningHoursList'
+import BlogPostList from '~/views/BlogPostList.vue'
 
 export default {
   components: {
+    BlogPostList,
     OpeningHoursList,
     AdCard,
     AnimalList,
@@ -126,6 +134,7 @@ export default {
       parkId: this.$route.params.id,
       park: null,
       openingTimes: null,
+      blogPosts: null,
     }
   },
   async fetch() {
@@ -192,6 +201,18 @@ export default {
         },
       ]
     },
+  },
+  async created() {
+    this.blogPosts = await this.$axios
+      .get('/blog-posts/parks/' + this.parkId)
+      .then((park) => {
+        return park.data
+      })
+      .catch((e) => {
+        if (e) {
+          this.$sentry.captureException(e)
+        }
+      })
   },
 }
 </script>

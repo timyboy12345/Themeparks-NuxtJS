@@ -16,6 +16,7 @@ export default {
     shop: 'Shop',
     animals: 'Animals',
     animal: 'Animal',
+    blog: 'Blog',
     maxAge: 'Max. age: {0} years',
     minAge: 'Min. age: {0} years',
     maxSize: 'Max. size: {0} cm',
@@ -93,6 +94,7 @@ export default {
     bottomSeoBlockContent:
       'In this list you will find all theme parks that publish ride data, wait times, show times and other data on their website or app. We transform this data in a standardised format, so you always have access to the most recent themepark-data.',
     openingHoursSubtitle: 'All opening hours for today and the coming days',
+    allBlogPostsSubtitle: 'Read all about this park in our recent blogs',
   },
   shows: {
     descriptionTitle: 'All shows of {0}',
@@ -135,6 +137,9 @@ export default {
       manufacturer: 'The ride was built by {0}.',
       buildInTitle: 'When was {0} built?',
       buildIn: 'The attraction was built in {0}.',
+      rcdbStatsTitle: 'RCDB Stats',
+      rcdbStatsSubTitle: 'These data points are sourced from RCDB and may be incorrect',
+      rcdbSeeMore: 'See more: {0}',
     },
   },
   restaurants: {
@@ -181,5 +186,14 @@ export default {
     allCheckedInDays: 'All Checked In Days',
     deleteCheckin: 'Delete Checkin',
     saveCheckinButton: 'Save Checkin',
+  },
+  blog: {
+    subTitle: 'Below you will find a list of all the different blog posts we have posted about the different theme parks we maintain.',
+    seoTitle: 'Blog posts',
+    seoDescription: 'Read the latest news about the various amusement parks that we track, along with good tips and advice',
+    moreAboutPark: 'Read more about this amusement park',
+    bottomSeoBlockTitle: 'Read more about the different amusement parks',
+    bottomSeoBlockContent:
+      'Read about the various amusement parks in the Netherlands, Europe and the rest of the world and get tips, tricks and the latest news.',
   },
 }

@@ -16,6 +16,7 @@ export default {
     shop: 'Winkel',
     animals: 'Dieren',
     animal: 'Dier',
+    blog: 'Blog',
     maxAge: 'Max. leeftijd: {0} jaar',
     minAge: 'Min. leeftijd: {0} jaar',
     maxSize: 'Max. grootte: {0} cm',
@@ -92,6 +93,7 @@ export default {
     bottomSeoBlockContent:
       'In deze lijst vind je alle pretparken die wachttijden, shows, openingstijden of andere data publiceren op hun website. Deze data zetten wij om in een gestandardiseerd formaat, zodat je altijd toegang hebt tot de meest actuele pretpark-data.',
     openingHoursSubtitle: 'De openingstijden van vandaag en de komende dagen',
+    allBlogPostsSubtitle: 'Bekijk hier de recentste blogposts van dit park',
   },
   shows: {
     descriptionTitle: 'Alle shows van {0}',
@@ -134,6 +136,9 @@ export default {
       manufacturer: 'De attractie is gebouwd door {0}.',
       buildInTitle: 'Wanneer is {0} gebouwd?',
       buildIn: 'De attractie is gebouwd in {0}.',
+      rcdbStatsTitle: 'RCDB Stats',
+      rcdbStatsSubTitle: 'Deze gegevens komen van RCDB en zijn misschien incorrect',
+      rcdbSeeMore: 'Bekijk meer: {0}',
     },
   },
   restaurants: {
@@ -181,5 +186,15 @@ export default {
     allCheckedInDays: 'Alle ingecheckte dagen',
     deleteCheckin: 'Checkin Verwijderen',
     saveCheckinButton: 'Checkin Opslaan',
+  },
+  blog: {
+    subTitle:
+      'Hieronder vind je een lijst met alle verschillende blogberichten die we hebben geplaatst over de verschillende pretparken die we bijhouden.',
+    seoTitle: 'Blogposts',
+    seoDescription: 'Lees het laatste nieuws over de verschillende pretparken die wij bijhouden, samen met goede tips en adviezen',
+    moreAboutPark: 'Lees meer over dit pretpark',
+    bottomSeoBlockTitle: 'Lees meer over de verschillende pretparken',
+    bottomSeoBlockContent:
+      'Lees over de verschillende pretparken in Nederland, Europa en de rest van de wereld en krijg tips, tricks en de laatste nieuwtjes.',
   },
 }

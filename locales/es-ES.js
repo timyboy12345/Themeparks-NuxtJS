@@ -16,6 +16,7 @@ export default {
     shop: 'Tienda',
     animals: 'Animales',
     animal: 'Animal',
+    blog: 'Blog',
     maxAge: 'Max. edad: {0} años',
     minAge: 'Min. edad: {0} años',
     maxSize: 'Max. tamaño: {0} cm',
@@ -92,6 +93,7 @@ export default {
     bottomSeoBlockContent:
       'En este listado encontrarás todos los parques de atracciones que publican tiempos de espera, espectáculos, horarios de apertura u otros datos en su web. Convertimos estos datos a un formato estandarizado para que siempre tengas acceso a los datos más actualizados del parque temático.',
     openingHoursSubtitle: 'Aquí encontrarás los horarios de apertura para hoy y los próximos días',
+    allBlogPostsSubtitle: 'Vea las publicaciones de blog más recientes de este parque aquí.',
   },
   shows: {
     descriptionTitle: 'Todos los shows de {0}',
@@ -134,6 +136,9 @@ export default {
       manufacturer: 'La atracción fue construida por {0}.',
       buildInTitle: '¿Cuándo se construyó {0}?',
       buildIn: 'La atracción fue construida en {0}.',
+      rcdbStatsTitle: 'Estadísticas RCDB',
+      rcdbStatsSubTitle: 'Estos datos provienen de RCDB y pueden ser incorrectos',
+      rcdbSeeMore: 'Ver más: {0}',
     },
   },
   restaurants: {
@@ -180,5 +185,16 @@ export default {
     allCheckedInDays: 'Todos los días registrados',
     deleteCheckin: 'Eliminar registro',
     saveCheckinButton: 'Guardar registro',
+  },
+  blog: {
+    subtitle:
+      'A continuación encontrará una lista de todas las diferentes publicaciones de blog que hemos publicado sobre los diferentes parques temáticos que mantenemos.',
+    seoTitle: 'Publicaciones de blog',
+    seoDescription:
+      'Lea las últimas noticias sobre los distintos parques de atracciones que mantenemos, junto con buenos consejos y sugerencias',
+    moreAboutPark: 'Lea más sobre este parque de diversiones',
+    bottomSeoBlockTitle: 'Leer más sobre los diferentes parques de atracciones',
+    bottomSeoBlockContent:
+      'Lea sobre los distintos parques de atracciones de los Países Bajos, Europa y el resto del mundo y obtenga consejos, trucos y las últimas noticias.',
   },
 }
