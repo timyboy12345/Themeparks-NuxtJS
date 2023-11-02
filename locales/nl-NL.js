@@ -16,6 +16,8 @@ export default {
     shop: 'Winkel',
     animals: 'Dieren',
     animal: 'Dier',
+    halloweenEvents: 'Halloweenactiviteiten',
+    halloweenEvent: 'Halloweenactiviteit',
     blog: 'Blog',
     maxAge: 'Max. leeftijd: {0} jaar',
     minAge: 'Min. leeftijd: {0} jaar',
@@ -89,6 +91,9 @@ export default {
     allShowsSubtitle: 'Bekijk alle shows van dit park',
     allAnimals: 'Alle Dieren',
     allAnimalsSubtitle: 'Bekijk alle dieren van dit park',
+    allHalloweenEvents: 'Alle Halloweenactiviteiten',
+    allHalloweenEventsOf: 'Alle halloweenactiviteiten van {0}',
+    allHalloweenEventsSubtitle: 'Bekijk alle halloweenactiviteiten van dit park',
     bottomSeoBlockTitle: 'Alle Pretparken in een lijst',
     bottomSeoBlockContent:
       'In deze lijst vind je alle pretparken die wachttijden, shows, openingstijden of andere data publiceren op hun website. Deze data zetten wij om in een gestandardiseerd formaat, zodat je altijd toegang hebt tot de meest actuele pretpark-data.',
@@ -145,6 +150,15 @@ export default {
     descriptionTitle: 'Alle restaurants van {0}',
     descriptionContent:
       "{0} heeft {1} verschillende restaurants. Bekijk op deze pagina de verschillende opties die je hebt, menu's van alle restaurants en meer.",
+  },
+  halloween: {
+    descriptionTitle: 'Alle halloweenactiviteiten van {0}',
+    descriptionContent:
+      '{0} heeft in totaal {1} halloweenactiviteiten. Bekijk op deze pagina informatie over alle halloweenactiviteiten, zoals alle scarezones, spookhuizen en experiences. Ben je op zoek naar specifieke evenementen, zoals parades, specifieke scarezones of zones geschikt voor kinderen. Gebruik de filters en zoek wat je als volgende kan doen tijdens je halloweendag.',
+    house: 'Spookhuis',
+    scarezone: 'Scarezone',
+    experience: 'Experience',
+    maze: 'Doolhof',
   },
   statistics: {
     goToTitle: 'Beta',

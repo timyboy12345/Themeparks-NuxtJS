@@ -64,6 +64,22 @@
       </card>
 
       <card
+        v-if="park && park.supports.supportsHalloween"
+        :title="$t('general.halloweenEvents')"
+        :sub-title="$t('park.allHalloweenEventsSubtitle')"
+      >
+        <template #content>
+          <halloween-event-list class="-mx-4" :max-halloween-events="5" :park-id="parkId"></halloween-event-list>
+        </template>
+
+        <template #buttons>
+          <card-actions>
+            <card-button :btn-link="'/parks/' + parkId + '/halloween'" :btn-title="$t('park.allHalloweenEvents')" />
+          </card-actions>
+        </template>
+      </card>
+
+      <card
         v-if="park && park.supports.supportsOpeningTimes"
         :title="$t('general.openingHours')"
         :sub-title="$t('park.openingHoursSubtitle')"
@@ -112,9 +128,11 @@ import Card from '../../../components/cards/Card'
 import CardButton from '../../../components/cards/actions/CardButton'
 import OpeningHoursList from '~/views/OpeningHoursList'
 import BlogPostList from '~/views/BlogPostList.vue'
+import HalloweenEventList from '~/views/HalloweenEventList.vue'
 
 export default {
   components: {
+    HalloweenEventList,
     BlogPostList,
     OpeningHoursList,
     AdCard,

@@ -16,6 +16,8 @@ export default {
     shop: 'Tienda',
     animals: 'Animales',
     animal: 'Animal',
+    halloweenEvents: 'Actividades de halloween',
+    halloweenEvent: 'Actividad de halloween',
     blog: 'Blog',
     maxAge: 'Max. edad: {0} años',
     minAge: 'Min. edad: {0} años',
@@ -89,6 +91,9 @@ export default {
     allShowsSubtitle: 'Ver todos los espectáculos de este parque',
     allAnimals: 'Todos los animales',
     allAnimalsSubtitle: 'Ver todos los animales en este parque',
+    allHalloweenEvents: 'Todas las actividades de Halloween',
+    allHalloweenEventsOf: 'Todas las actividades de Halloween de X',
+    allHalloweenEventsSubtitle: 'Ver todas las actividades de Halloween de este parque',
     bottomSeoBlockTitle: 'Todos los parques temáticos en una lista',
     bottomSeoBlockContent:
       'En este listado encontrarás todos los parques de atracciones que publican tiempos de espera, espectáculos, horarios de apertura u otros datos en su web. Convertimos estos datos a un formato estandarizado para que siempre tengas acceso a los datos más actualizados del parque temático.',
@@ -145,6 +150,15 @@ export default {
     descriptionTitle: 'Todos los restaurantes de {0}',
     descriptionContent:
       '{0} tiene {1} restaurantes diferentes repartidos por todo el parque. Vea todos los menús, horarios de apertura y más en una sola página, solo en themeparkplanner.com.',
+  },
+  halloween: {
+    descriptionTitle: 'Todas las actividades de Halloween de {0}',
+    descriptionContent:
+      '{0} tiene un total de {1} actividades de Halloween. Vea información sobre todas las actividades de Halloween en esta página, como todas las zonas de miedo, casas encantadas y experiencias. ¿Está buscando eventos específicos, como desfiles, zonas de miedo específicas o zonas adecuadas para niños? Usa los filtros y descubre lo que puedes hacer a continuación en tu día de Halloween.',
+    house: 'Casa encantada',
+    scarezone: 'Zona de miedo',
+    experiencia: 'Experiencia',
+    maze: 'laberinto',
   },
   statistics: {
     goToTitle: 'Beta',

@@ -16,6 +16,8 @@ export default {
     shop: 'Shop',
     animals: 'Animals',
     animal: 'Animal',
+    halloweenEvents: 'Halloween Activities',
+    halloweenEvent: 'Halloween Activity',
     blog: 'Blog',
     maxAge: 'Max. age: {0} years',
     minAge: 'Min. age: {0} years',
@@ -90,6 +92,8 @@ export default {
     allShowsSubtitle: 'See all shows of this park',
     allAnimals: 'All Animals',
     allAnimalsSubtitle: 'See all animals of this park',
+    allHalloweenEvents: 'All Halloween Activities',
+    allHalloweenEventsOf: 'All Halloween Activities of {0}',
     bottomSeoBlockTitle: 'All Theme Parks in one list',
     bottomSeoBlockContent:
       'In this list you will find all theme parks that publish ride data, wait times, show times and other data on their website or app. We transform this data in a standardised format, so you always have access to the most recent themepark-data.',
@@ -146,6 +150,15 @@ export default {
     descriptionTitle: 'All restaurants of {0}',
     descriptionContent:
       '{0} has {1} different restaurants spread throughout the park. See all menus, opening hours and more on one page, only on themeparkplanner.com.',
+  },
+  halloween: {
+    descriptionTitle: 'All Halloween Activities of {0}',
+    descriptionContent:
+      '{0} has a total of {1} halloween activities. Find out more about the different scare zones, houses and experiences or search for specific events in this park, like parades, shows and more.',
+    house: 'Haunted House',
+    scarezone: 'Scarezone',
+    experience: 'Experience',
+    maze: 'Maze',
   },
   statistics: {
     goToTitle: 'Beta',
