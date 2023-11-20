@@ -83,7 +83,8 @@ export default {
     '@nuxtjs/sentry',
     // https://www.npmjs.com/package/nuxt-highcharts
     'nuxt-highcharts',
-    // https://www.npmjs.com/package/nuxt-lazy-load
+    // https://www.npmjs.com/package/nuxt-lazy-load,
+    '@nuxtjs/markdownit',
     [
       'nuxt-lazy-load',
       {
@@ -211,6 +212,10 @@ export default {
       // Add native Sentry config here
       // https://docs.sentry.io/platforms/javascript/guides/vue/configuration/options/
     },
+  },
+
+  markdownit: {
+    runtime: true, // Support `$md()`
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

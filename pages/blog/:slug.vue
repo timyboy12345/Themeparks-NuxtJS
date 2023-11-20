@@ -18,7 +18,7 @@
           {{ blogPost.createdAt | formatDate }}
           <span v-if="blogPost.author">| {{ blogPost.author.firstName }}</span>
         </h2>
-        <p v-html="blogPost.content"></p>
+        <article class="prose lg:prose-xl" v-html="$md.render(blogPost.content)"></article>
       </div>
 
       <NuxtLink
