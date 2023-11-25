@@ -85,6 +85,7 @@ export default {
     allRestaurantsDescription: 'Bekijk restaurants en bijbehorende openingstijden van restaurants in attractieparken over de hele wereld.',
     allRestaurantsOfDescription:
       'Bekijk huidige en historische openingstijden van restaurants in {0} en andere parken over de hele wereld.',
+    allBlogPosts: 'Bekijk alle blogposts van dit park',
     allShops: 'Alle Winkels',
     allShopsSubtitle: 'Bekijk alle winkels van dit park',
     allShows: 'Alle Shows',

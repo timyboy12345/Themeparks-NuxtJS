@@ -2,10 +2,13 @@
   <div>
     <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
 
-    <loading-spinner v-if="!park" class="mt-8"></loading-spinner>
+    <loading-spinner v-if="$fetchState.pending" class="mt-8"></loading-spinner>
+    <p v-else-if="$fetchState.error">
+      <general-error title="Park not found" sub-title="This park could not be found" />
+    </p>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <park-card v-if="park" :park="park" :uses-link="false"></park-card>
+    <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <park-card :park="park" :uses-link="false"></park-card>
 
       <card v-if="park && park.supports.supportsRides" :title="$t('general.rides')" :sub-title="$t('park.allRidesSubtitle')">
         <template #content>
@@ -95,6 +98,12 @@
         <template #content>
           <blog-post-list class="-mx-4" :blog-posts="blogPosts"></blog-post-list>
         </template>
+
+        <template #buttons>
+          <card-actions>
+            <card-button :btn-link="'/blog?park=' + parkId" :btn-title="$t('park.allBlogPosts')" />
+          </card-actions>
+        </template>
       </card>
 
       <div
@@ -129,9 +138,11 @@ import CardButton from '../../../components/cards/actions/CardButton'
 import OpeningHoursList from '~/views/OpeningHoursList'
 import BlogPostList from '~/views/BlogPostList.vue'
 import HalloweenEventList from '~/views/HalloweenEventList.vue'
+import GeneralError from '~/components/GeneralError.vue'
 
 export default {
   components: {
+    GeneralError,
     HalloweenEventList,
     BlogPostList,
     OpeningHoursList,
@@ -156,16 +167,13 @@ export default {
     }
   },
   async fetch() {
-    this.park = await this.$axios
+    await this.$axios
       .get('/parks/' + this.parkId)
       .then((park) => {
-        return park.data
+        this.park = park.data
       })
       .catch((e) => {
-        if (e) {
-          this.$router.push(this.localePath('/parks'))
-          this.$sentry.captureException(e)
-        }
+        throw e
       })
   },
   head() {

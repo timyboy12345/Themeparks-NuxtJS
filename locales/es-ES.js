@@ -85,6 +85,7 @@ export default {
     allRestaurantsDescription: 'Vea los horarios actuales y pasados de los restaurantes y parques temáticos de todo el mundo.',
     allRestaurantsOfDescription:
       'Vea los horarios de apertura actuales y pasados de los restaurantes de {0} y otros parques y espectáculos de todo el mundo.',
+    allBlogPosts: 'Ver todas las publicaciones de blog de este parque',
     allShops: 'Todos las tiendas',
     allShopsSubtitle: 'Ver todas las tiendas en este parque',
     allShows: 'Todos especáculos',

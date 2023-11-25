@@ -18,7 +18,7 @@
           {{ blogPost.createdAt | formatDate }}
           <span v-if="blogPost.author">| {{ blogPost.author.firstName }}</span>
         </h2>
-        <article class="prose lg:prose-xl" v-html="$md.render(blogPost.content)"></article>
+        <article class="prose lg:prose-lg max-w-none" v-html="$md.render(blogPost.content)"></article>
       </div>
 
       <NuxtLink
@@ -88,7 +88,7 @@ export default {
         return []
       }
 
-      return [
+      let bc = [
         {
           title: this.$t('general.home'),
           url: '/',
@@ -97,11 +97,18 @@ export default {
           title: this.$t('general.blog'),
           url: '/blog',
         },
-        {
-          title: this.blogPost.title,
-          url: '#',
-        },
       ]
+
+      if (this.blogPost.parkId) {
+        if (this.park) {
+          bc = bc.concat({ title: this.park.name, url: '/blog?park=' + this.park.id })
+        }
+      }
+
+      return bc.concat({
+        title: this.blogPost.title,
+        url: '#',
+      })
     },
   },
   methods: {

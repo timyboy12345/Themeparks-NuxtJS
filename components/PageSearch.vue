@@ -46,6 +46,23 @@
             />
           </div>
         </div>
+
+        <div v-if="parks" class="flex flex-row items-center mt-2 lg:mt-0 lg:ml-4">
+          <label for="page-search-park" class="text-sm mr-2">{{ $t('general.park') }}</label>
+
+          <select
+            id="page-search-park"
+            name="page-search-park"
+            class="rounded py-1 px-2 bg-transparent border-gray-400"
+            :value="park"
+            @change="selectPark"
+          >
+            <option value="">-</option>
+            <option v-for="p of parks" :key="p.id" :value="p.id">
+              {{ p.name }}
+            </option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -72,6 +89,16 @@ export default {
       required: false,
       default: null,
     },
+    park: {
+      type: String,
+      required: false,
+      default: null,
+    },
+    parks: {
+      type: Array,
+      required: false,
+      default: null,
+    },
   },
   computed: {
     internalValue: {
@@ -91,6 +118,14 @@ export default {
       }
 
       this.$emit('selectCountry', countryCode)
+    },
+    selectPark(elem) {
+      if (elem.target.value === null || elem.target.value === '') {
+        this.$emit('selectPark', null)
+        return
+      }
+
+      this.$emit('selectPark', elem.target.value)
     },
   },
 }

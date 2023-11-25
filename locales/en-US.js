@@ -86,6 +86,7 @@ export default {
     allRestaurantsSubtitle: 'See all restaurants of this park',
     allRestaurantsDescription: 'See current and past opening times from restaurants and theme parks all over the world.',
     allRestaurantsOfDescription: 'See current and past restaurant opening times from {0} and other parks and shows all over the world.',
+    allBlogPosts: 'See all blog posts for this park',
     allShops: 'All Shops',
     allShopsSubtitle: 'See all shops of this park',
     allShows: 'All Shows',

@@ -12,7 +12,7 @@
         class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
       >
         <div class="flex flex-row items-center">
-          <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
+          <div class="shrink-0 rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
             <img
               v-if="post.imageUrl"
               :alt="`Image of ${post.title}`"

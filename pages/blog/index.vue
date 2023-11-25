@@ -1,15 +1,22 @@
 <template>
   <div>
-    <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
+    <!--    <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>-->
 
-    <loading-spinner v-if="!blogPosts" class="mt-8"></loading-spinner>
+    <loading-spinner v-if="$fetchState.pending" class="mt-8"></loading-spinner>
+    <general-error
+      v-else-if="$fetchState.error"
+      title="Blog posts could not be loaded"
+      sub-title="The blog posts could not be loaded at this time, try again later"
+    />
 
-    <div v-if="blogPosts && blogPosts.length > 0">
-      <card class="mb-4" :title="$t('general.blog')" :sub-title="$t('blog.subTitle')"></card>
+    <div v-else>
+      <page-search v-model="searchQuery" :park="parkQuery" :parks="parks" @selectPark="selectPark"></page-search>
+
+      <card class="mb-4 mt-4" :title="$t('general.blog')" :sub-title="$t('blog.subTitle')"></card>
 
       <div class="grid gap-4 grid-cols-2 lg:grid-cols-3">
         <card
-          v-for="post in blogPosts"
+          v-for="post in filteredBlogPosts"
           :key="post.id"
           :sub-title="post.createdAt | formatDate"
           :link="'/blog/' + post.slug"
@@ -27,26 +34,37 @@
 
 <script>
 import LoadingSpinner from '~/components/LoadingSpinner.vue'
-import Breadcrumbs from '~/components/Breadcrumbs.vue'
 import Card from '~/components/cards/Card.vue'
+import GeneralError from '~/components/GeneralError.vue'
+import PageSearch from '~/components/PageSearch.vue'
 
 export default {
   name: 'BlogIndex',
-  components: { Card, Breadcrumbs, LoadingSpinner },
+  components: { PageSearch, GeneralError, Card, LoadingSpinner },
   data() {
     return {
       blogPosts: [],
+      parks: [],
+      searchQuery: '',
+      parkQuery: this.$route.query.park,
     }
   },
   async fetch() {
-    this.blogPosts = await this.$axios
+    await this.$axios
       .get('/blog-posts')
       .then((blogPosts) => {
-        return blogPosts.data
+        this.blogPosts = blogPosts.data
       })
       .catch((reason) => {
-        this.$emit('fetchError', reason)
-        this.$sentry.captureException(reason)
+        throw reason
+      })
+    await this.$axios
+      .get('/parks')
+      .then((parks) => {
+        this.parks = parks.data
+      })
+      .catch((reason) => {
+        throw reason
       })
   },
   head() {
@@ -77,6 +95,27 @@ export default {
           url: '#',
         },
       ]
+    },
+    filteredBlogPosts() {
+      let posts = this.blogPosts
+
+      if (this.searchQuery) {
+        posts = posts.filter((p) => p.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
+      }
+
+      if (this.parkQuery) {
+        posts = posts.filter((p) => p.parkId === this.parkQuery)
+      }
+
+      return posts
+      // return posts.sort((a, b) => a.createdAt < b.createdAt)
+    },
+  },
+  methods: {
+    selectPark(id) {
+      this.parkQuery = id
+
+      this.$router.push({ query: { park: id } })
     },
   },
 }

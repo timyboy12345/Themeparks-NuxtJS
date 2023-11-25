@@ -19,6 +19,8 @@
         lg:left-0 lg:px-8
         mb-4
         lg:mb-8
+        overflow-y-hidden overflow-x-auto
+        whitespace-nowrap
       "
     >
       <div v-for="(breadcrumb, i) of breadcrumbs" :key="i" property="itemListElement" typeof="ListItem" class="mr-1">

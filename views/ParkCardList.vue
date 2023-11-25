@@ -13,7 +13,7 @@
         <template #content>
           <div class="flex content-between flex-col">
             <p class="mt-4">{{ park.description }}</p>
-            <div v-if="park.supports" class="grid grid-cols-2 gap-2 mt-4 text-center">
+            <div v-if="park.supports && showBadges" class="grid grid-cols-2 gap-2 mt-4 text-center">
               <badge-component v-if="park.supports.supportsRides" :text="$t('general.rides')" />
               <badge-component v-if="park.supports.supportsRestaurants" :text="$t('general.restaurants')" />
               <badge-component v-if="park.supports.supportsShows" :text="$t('general.shows')" />
@@ -50,6 +50,7 @@ export default {
   data() {
     return {
       parks: [],
+      showBadges: false,
     }
   },
   async fetch() {
