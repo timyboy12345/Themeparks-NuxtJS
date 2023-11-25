@@ -29,6 +29,16 @@
 
       <card class="mt-4" :title="$t('blog.bottomSeoBlockTitle')" :content="$t('blog.bottomSeoBlockContent')"></card>
     </div>
+
+    <router-link
+      v-if="$store.state.auth.user"
+      :to="localePath('/blog/create')"
+      class="shadow text-white p-1 fixed right-10 bottom-10 w-8 h-8 bg-indigo-800 hover:bg-indigo-900 transition duration-100 rounded"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+      </svg>
+    </router-link>
   </div>
 </template>
 

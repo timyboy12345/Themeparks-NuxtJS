@@ -2,9 +2,14 @@
   <div>
     <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
 
-    <loading-spinner v-if="!blogPost" class="mt-8"></loading-spinner>
+    <loading-spinner v-if="$fetchState.pending" class="mt-8"></loading-spinner>
+    <general-error
+      v-else-if="$fetchState.error"
+      title="Post could not be found"
+      sub-title="Check if this blog exists, and if the URL is valid"
+    ></general-error>
 
-    <div v-if="blogPost" class="grid gap-4">
+    <div v-else class="grid gap-4">
       <img
         v-lazy-load
         class="w-full max-h-96 overflow-hidden object-center object-cover rounded bg-white shadow"
@@ -38,6 +43,20 @@
           <p>{{ $t('blog.moreAboutPark') }}</p>
         </div>
       </NuxtLink>
+
+      <router-link
+        v-if="$store.state.auth.user"
+        :to="localePath('/blog/' + blogPost.slug + '/edit')"
+        class="shadow text-white p-1 fixed right-10 bottom-10 w-8 h-8 bg-indigo-800 hover:bg-indigo-900 transition duration-100 rounded"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+          />
+        </svg>
+      </router-link>
     </div>
   </div>
 </template>
@@ -45,10 +64,11 @@
 <script>
 import LoadingSpinner from '~/components/LoadingSpinner.vue'
 import Breadcrumbs from '~/components/Breadcrumbs.vue'
+import GeneralError from '~/components/GeneralError.vue'
 
 export default {
   name: 'BlogShow',
-  components: { Breadcrumbs, LoadingSpinner },
+  components: { GeneralError, Breadcrumbs, LoadingSpinner },
   data() {
     return {
       blogPost: null,
@@ -56,18 +76,19 @@ export default {
     }
   },
   async fetch() {
-    this.blogPost = await this.$axios
+    await this.$axios
       .get('/blog-posts/slug/' + this.$route.params.slug)
       .then(async (blogPost) => {
         if (blogPost.data.parkId) {
           await this.loadPark(blogPost.data.parkId)
         }
 
-        return blogPost.data
+        this.blogPost = blogPost.data
       })
       .catch((reason) => {
         this.$emit('fetchError', reason)
         this.$sentry.captureException(reason)
+        throw reason
       })
   },
   head() {

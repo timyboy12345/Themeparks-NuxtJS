@@ -74,4 +74,4 @@ jobs:
       - name: Install dependencies on production server ⏱
         run: ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} npm install --only=prod --prefix /var/www/tpvue.arendz.nl
       - name: Restart Themeparks Server 🏁
-        run: ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} pm2 reload 2
+        run: ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} pm2 reload tpvue-nuxt

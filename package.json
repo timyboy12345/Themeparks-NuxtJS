@@ -1,6 +1,6 @@
 {
   "name": "themeparks-nuxtjs",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "private": false,
   "repository": {
     "url": "https://github.com/timyboy12345/Themeparks-NuxtJS"
@@ -16,6 +16,7 @@
     "lint": "npm run lint:js"
   },
   "dependencies": {
+    "@kangc/v-md-editor": "^2.3.18",
     "@nuxt/typescript-runtime": "^2.0.1",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/google-adsense": "^2.0.0",
@@ -26,6 +27,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "core-js": "^3.19.1",
     "highcharts": "^9.3.1",
+    "mavon-editor": "^2.10.4",
     "nuxt": "^2.16.3",
     "nuxt-highcharts": "^1.0.8",
     "nuxt-i18n": "^6.28.1",
