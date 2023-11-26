@@ -1,15 +1,12 @@
 <template>
   <div class="flex flex-col">
     <label class="text-gray-600 text-sm mb-1" :for="id">{{ label }}</label>
-    <input
-      :id="id"
-      v-model="internalValue"
-      :type="type"
-      class="border border-gray-300 rounded focus:outline-none focus:shadow-outline focus:border-indigo-300"
-      :name="id"
-      :placeholder="placeholder"
-      @keypress.enter="$emit('keypress', $event)"
-    />
+
+    <slot name="input"></slot>
+
+    <div class="text-sm text-gray-400 flex flex-col py-2 -mt-2">
+      <slot name="bottom"></slot>
+    </div>
 
     <div v-if="description" class="text-gray-600 text-sm">
       {{ description }}
@@ -32,31 +29,6 @@ export default {
       required: false,
       type: String,
       default: null,
-    },
-    placeholder: {
-      required: false,
-      type: String,
-      default: null,
-    },
-    type: {
-      required: false,
-      type: String,
-      default: 'text',
-    },
-    value: {
-      required: false,
-      type: [String, Number],
-      default: null,
-    },
-  },
-  computed: {
-    internalValue: {
-      get() {
-        return this.value
-      },
-      set(value) {
-        this.$emit('input', value)
-      },
     },
   },
 }

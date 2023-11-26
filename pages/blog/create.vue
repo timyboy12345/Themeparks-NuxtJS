@@ -5,18 +5,36 @@
     <div class="flex flex-col gap-4">
       <div v-if="error" class="text-sm text-red-900 p-2 bg-red-100 rounded border border-red-500">{{ error }}</div>
 
-      <CustomInput id="title" v-model="title" label="Titel" placeholder="Titel van de blog post" />
-      <CustomInput id="title" v-model="imageUrl" label="Afbeelding" placeholder="Externe afbeelding van de blog post" />
-      <CustomInput id="title" v-model="description" label="Omschrijving" placeholder="Omschrijving van de blog post (max 160 char.)" />
-      <CustomInput id="title" v-model="parkId" label="Pretpark ID" placeholder="Het ID van het park" />
-      <CustomInput id="title" v-model="locale" label="Taal" placeholder="De taalcode van deze blogpost" />
-      <CustomInput id="title" v-model="slug" label="URL" placeholder="De URL/Slug van deze blogpost, in de geselecteerde locale" />
-      <mavon-editor
-        v-model="content"
-        language="en"
-        placeholder="Inhoud van de blogpost"
-        box-shadow-style="0 2px 12px 0 rgba(0, 0, 0, 0.1)"
+      <CustomTextInput id="title" v-model="title" label="Titel" placeholder="Titel van de blog post" />
+      <CustomTextInput id="image" v-model="imageUrl" label="Afbeelding" placeholder="Externe afbeelding van de blog post" />
+      <CustomTextInput
+        id="description"
+        v-model="description"
+        label="Omschrijving"
+        placeholder="Omschrijving van de blog post"
+        :max-length="160"
+        :min-length="120"
       />
+      <CustomSelectInput
+        id="park"
+        v-model="parkId"
+        :options="parks"
+        :disabled="parks && parks.length > 0"
+        label="Pretpark ID"
+        placeholder="Het ID van het park"
+      />
+      <CustomSelectInput id="locale" v-model="locale" :options="localeOptions" label="Taal" placeholder="De taalcode van deze blogpost" />
+      <CustomUrlInput id="slug" v-model="slug" label="URL" placeholder="De URL/Slug van deze blogpost, in de geselecteerde locale" />
+
+      <client-only>
+        <mavon-editor
+          v-model="content"
+          :autofocus="false"
+          language="en"
+          placeholder="Inhoud van de blogpost"
+          box-shadow-style="0 2px 12px 0 rgba(0, 0, 0, 0.1)"
+        />
+      </client-only>
 
       <button type="submit" class="rounded bg-indigo-800 transition duration-100 hover:bg-indigo-900 text-white py-2 px-4" @click="save">
         Blogpost toevoegen
@@ -26,11 +44,13 @@
 </template>
 
 <script>
-import CustomInput from '~/components/form/CustomInput.vue'
+import CustomTextInput from '~/components/form/CustomTextInput.vue'
+import CustomUrlInput from '~/components/form/CustomUrlInput.vue'
+import CustomSelectInput from '~/components/form/CustomSelectInput.vue'
 
 export default {
   name: 'CreateBlogPost',
-  components: { CustomInput },
+  components: { CustomSelectInput, CustomUrlInput, CustomTextInput },
   data() {
     return {
       title: '',
@@ -41,7 +61,41 @@ export default {
       locale: 'nl',
       slug: '',
       error: null,
+      parks: null,
     }
+  },
+  async fetch() {
+    await this.$axios
+      .get('/parks')
+      .then((parks) => {
+        this.parks = parks.data.map((p) => {
+          return {
+            value: p.id,
+            text: p.name,
+          }
+        })
+      })
+      .catch((reason) => {
+        throw reason
+      })
+  },
+  computed: {
+    localeOptions() {
+      return [
+        {
+          value: 'nl',
+          text: 'Nederlands',
+        },
+        {
+          value: 'en',
+          text: 'Engels',
+        },
+        {
+          value: 'es',
+          text: 'Spaans',
+        },
+      ]
+    },
   },
   methods: {
     async save() {
@@ -53,7 +107,7 @@ export default {
       await this.$axios
         .post('/blog-posts', {
           title: this.title,
-          park: this.parkId,
+          parkId: this.parkId,
           imageUrl: this.imageUrl,
           description: this.description,
           content: this.content,
@@ -62,6 +116,14 @@ export default {
         })
         .then(() => {
           this.$router.push(this.localePath('/blog/' + this.slug))
+
+          this.title = ''
+          this.parkId = ''
+          this.imageUrl = ''
+          this.description = ''
+          this.content = ''
+          this.locale = 'nl'
+          this.slug = ''
         })
         .catch((exception) => {
           this.error = exception

@@ -2,7 +2,7 @@
   <div class="absolute shadow w-full bottom-0 left-0 z-10">
     <div class="bg-white rounded shadow m-4 p-4 rounded gap-y-4 flex flex-col">
       <div v-if="!saving" class="flex flex-col gap-y-4">
-        <CustomInput
+        <CustomTextInput
           id="dateTime"
           v-model="dateTime"
           :description="$t('checkins.dateTimeDescription')"
@@ -10,7 +10,7 @@
           label="Datum en tijd"
           placeholder="Wanneer ben je er in geweest?"
         />
-        <CustomInput
+        <CustomTextInput
           id="wait"
           v-model="waitTime"
           :description="$t('checkins.waitTimeDescription')"
@@ -39,12 +39,12 @@
 </template>
 
 <script>
-import CustomInput from '@/components/form/CustomInput'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import CustomTextInput from '@/components/form/CustomTextInput.vue'
 
 export default {
   name: 'EditCheckinPopup',
-  components: { LoadingSpinner, CustomInput },
+  components: { CustomTextInput, LoadingSpinner },
   props: {
     checkin: { type: Object, required: true },
   },

@@ -10,8 +10,8 @@
       <template #content>
         <div v-if="error" class="text-red-800">Je gegevens waren incorrect. Probeer het opnieuw.</div>
         <form v-if="status === 'login'" class="flex flex-col gap-y-2" @submit.prevent="login">
-          <CustomInput id="email" v-model="email" label="Email Adres" placeholder="Geldig Emailadres" @keypress.enter.self="login" />
-          <CustomInput
+          <CustomTextInput id="email" v-model="email" label="Email Adres" placeholder="Geldig Emailadres" @keypress.enter.self="login" />
+          <CustomTextInput
             id="password"
             v-model="password"
             type="password"
@@ -33,11 +33,11 @@
 </template>
 
 <script>
-import CustomInput from '@/components/form/CustomInput'
 import Card from '@/components/cards/Card'
+import CustomTextInput from '~/components/form/CustomTextInput.vue'
 
 export default {
-  components: { Card, CustomInput },
+  components: { CustomTextInput, Card },
   data() {
     return {
       status: 'login',
