@@ -77,7 +77,7 @@ export default {
       },
     },
     charLengthMessage() {
-      let m = `Karakters: ${this.value.length}, `
+      let m = `Karakters: ${this.value ? this.value.length : 0}, `
 
       if (this.minLength) {
         m += `Min: ${this.minLength}`

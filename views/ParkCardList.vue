@@ -1,8 +1,13 @@
 <template>
   <div>
-    <loading-spinner v-if="!parks || parks.length === 0"></loading-spinner>
+    <loading-spinner v-if="$fetchState.pending"></loading-spinner>
+    <general-error
+      v-if="$fetchState.error"
+      title="Parks could not be loaded"
+      sub-title="Parks could not be loaded at this time, please try again later"
+    />
 
-    <div v-if="parks" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div v-else class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <flag-card
         v-for="park of queriedParks"
         :key="park.id"
@@ -31,10 +36,11 @@
 import BadgeComponent from '@/components/components/BadgeComponent'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import FlagCard from '~/components/cards/FlagCard.vue'
+import GeneralError from '~/components/GeneralError.vue'
 
 export default {
   name: 'ParkCardList',
-  components: { LoadingSpinner, BadgeComponent, FlagCard },
+  components: { GeneralError, LoadingSpinner, BadgeComponent, FlagCard },
   props: {
     query: {
       type: String,
@@ -62,6 +68,7 @@ export default {
       .catch((reason) => {
         this.$emit('fetchError', reason)
         this.$sentry.captureException(reason)
+        throw reason
       })
   },
   computed: {
