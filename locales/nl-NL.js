@@ -211,5 +211,9 @@ export default {
     bottomSeoBlockTitle: 'Lees meer over de verschillende pretparken',
     bottomSeoBlockContent:
       'Lees over de verschillende pretparken in Nederland, Europa en de rest van de wereld en krijg tips, tricks en de laatste nieuwtjes.',
+    associatedTitle: 'Meer artikelen van dit park',
+    associatedContent:
+      'Lees hier andere artikelen over {0}, zoals artikelen over recente activiteiten, toekomstige evenementen en speciale gelegenheden.',
+    allBlogpostsOfThisPark: 'Alle blogposts van dit park',
   },
 }

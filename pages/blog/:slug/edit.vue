@@ -2,7 +2,10 @@
   <div>
     <h1 class="text-lg text-indigo-800 font-bold mb-2">Blogpost aanpassen</h1>
 
-    <div class="flex flex-col gap-4">
+    <loading-spinner v-if="$fetchState.pending" />
+    <general-error v-else-if="$fetchState.error" :sub-title="$fetchState.error" />
+
+    <div v-else class="flex flex-col gap-4">
       <div v-if="error" class="text-sm text-red-900 p-2 bg-red-100 rounded border border-red-500">{{ error }}</div>
 
       <CustomTextInput id="title" v-model="title" label="Titel" placeholder="Titel van de blog post" />
@@ -47,10 +50,12 @@
 import CustomTextInput from '~/components/form/CustomTextInput.vue'
 import CustomUrlInput from '~/components/form/CustomUrlInput.vue'
 import CustomSelectInput from '~/components/form/CustomSelectInput.vue'
+import LoadingSpinner from '~/components/LoadingSpinner.vue'
+import GeneralError from '~/components/GeneralError.vue'
 
 export default {
   name: 'EditBlogPost',
-  components: { CustomSelectInput, CustomUrlInput, CustomTextInput },
+  components: { GeneralError, LoadingSpinner, CustomSelectInput, CustomUrlInput, CustomTextInput },
   data() {
     return {
       blogPost: null,

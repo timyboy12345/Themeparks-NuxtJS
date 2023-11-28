@@ -209,5 +209,9 @@ export default {
     bottomSeoBlockTitle: 'Read more about the different amusement parks',
     bottomSeoBlockContent:
       'Read about the various amusement parks in the Netherlands, Europe and the rest of the world and get tips, tricks and the latest news.',
+    associatedTitle: 'More from this park',
+    associatedContent:
+      'Read all about {0}, like when certain events are happening, what has happened in the past few months and so much more.',
+    allBlogpostsOfThisPark: 'All posts from this park',
   },
 }

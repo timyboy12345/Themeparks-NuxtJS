@@ -211,5 +211,9 @@ export default {
     bottomSeoBlockTitle: 'Leer más sobre los diferentes parques de atracciones',
     bottomSeoBlockContent:
       'Lea sobre los distintos parques de atracciones de los Países Bajos, Europa y el resto del mundo y obtenga consejos, trucos y las últimas noticias.',
+    associatedTitle: 'Más artículos de este parque',
+    associatedContent:
+      'Lea otros artículos sobre {0} aquí, como artículos sobre actividades recientes, eventos futuros y ocasiones especiales.',
+    allBlogpostsOfThisPark: 'Todas las publicaciones de blog de este parque',
   },
 }

@@ -56,21 +56,24 @@
       </div>
 
       <div class="flex flex-row">
-        <nuxt-link
+        <NuxtLink
           v-for="locale in availableLocales"
           :key="locale.code"
           class="rounded-full bg-white overflow-hidden ml-4 w-6 h-6"
           :to="switchLocalePath(locale.code)"
         >
           <img alt="Link to other language" :src="`https://flagcdn.com/${locale.countryFlag}.svg`" class="object-cover w-full h-full" />
-        </nuxt-link>
+        </NuxtLink>
       </div>
     </div>
 
     <slot name="breadcrumbs"></slot>
 
     <div class="mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto mt-4 mb-4">
-      <Nuxt keep-alive />
+      <Nuxt
+        keep-alive
+        :keep-alive-props="{ exclude: ['pages/blog/:slug/edit.vue', 'pages/blog/create.vue', 'pages/blog/:slug/index.vue'] }"
+      />
     </div>
 
     <div class="text-gray-600 text-sm mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto mt-4 pb-4">
