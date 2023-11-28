@@ -6,7 +6,7 @@
 
     <general-message v-if="animals && animals.length === 0" class="m-4" />
 
-    <div v-if="animals && animals.length > 0" class="mt-2 flex flex-col bg-white divide-y divide-gray-200">
+    <div v-if="animals && animals.length > 0" class="mt-2 flex flex-col bg-white divide-y divide-gray-200 dark:divide-gray-600">
       <NuxtLink
         v-for="animal of animals"
         :key="animal.id"

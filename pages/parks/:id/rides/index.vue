@@ -16,7 +16,10 @@
       <card :title="$t('rides.descriptionTitle', [park.name])" :content="$t('rides.descriptionContent', [park.name, rides.length])"></card>
     </div>
 
-    <div v-if="park && park.supports.supportsRideWaitTimesHistory" class="py-2 px-4 bg-yellow-200 relative mt-4 text-yellow-900 shadow-sm">
+    <div
+      v-if="park && park.supports.supportsRideWaitTimesHistory"
+      class="py-2 px-4 bg-yellow-200 relative mt-4 text-yellow-900 shadow-sm rounded"
+    >
       <div class="absolute rounded-l bg-yellow-600 left-0 top-0 h-full w-1"></div>
       <div class="flex flex-col">
         <h4 class="text-yellow-900 capitalize font-bold">{{ $t('statistics.goToTitle') }}</h4>

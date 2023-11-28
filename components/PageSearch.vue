@@ -3,6 +3,7 @@
     <div
       class="
         bg-gray-300
+        dark:bg-gray-800
         text-gray-800
         flex flex-row
         py-2
@@ -19,13 +20,13 @@
     >
       <div class="flex w-full flex-col lg:flex-row lg:items-center ml-4 lg:ml-0">
         <div class="flex flex-row items-center">
-          <label for="page-search" class="text-sm mr-2">{{ $t('general.search') }}</label>
+          <label for="page-search" class="text-sm dark:text-gray-500 mr-2">{{ $t('general.search') }}</label>
           <input
             id="page-search"
             v-model="internalValue"
             name="page-search"
             type="text"
-            class="rounded py-1 px-2 bg-transparent border-gray-400"
+            class="form-input rounded py-1 px-2 bg-transparent border-gray-400 dark:text-gray-300"
             :placeholder="$t('general.enterSearchTerm')"
           />
         </div>
@@ -53,7 +54,7 @@
           <select
             id="page-search-park"
             name="page-search-park"
-            class="rounded py-1 px-2 bg-transparent border-gray-400"
+            class="form-select rounded py-1 px-2 bg-transparent border-gray-400"
             :value="park"
             @change="selectPark"
           >

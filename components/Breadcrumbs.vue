@@ -6,6 +6,7 @@
       typeof="BreadcrumbList"
       class="
         bg-gray-300
+        dark:bg-gray-800 dark:text-gray-400
         text-gray-800
         flex flex-row
         py-2

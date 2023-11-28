@@ -5,7 +5,7 @@
         :id="id"
         v-model="internalValue"
         :type="type"
-        class="border border-gray-300 rounded focus:outline-none focus:shadow-outline focus:border-indigo-300"
+        class="form-input border border-gray-300 rounded focus:outline-none focus:shadow-outline focus:border-indigo-300"
         :name="id"
         :placeholder="placeholder"
         @keypress.enter="$emit('keypress', $event)"

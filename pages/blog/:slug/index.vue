@@ -9,8 +9,8 @@
       sub-title="Check if this blog exists, and if the URL is valid"
     ></general-error>
 
-    <div v-else class="grid gap-4" :class="{ 'grid-cols-3': hasAssociatedPosts }">
-      <div class="grid gap-4" :class="{ 'col-span-2': hasAssociatedPosts }">
+    <div v-else class="grid gap-4" :class="{ 'lg:grid-cols-3': hasAssociatedPosts }">
+      <div class="grid gap-4" :class="{ 'lg:col-span-2': hasAssociatedPosts }">
         <img
           v-lazy-load
           class="w-full max-h-96 overflow-hidden object-center object-cover rounded bg-white shadow"
@@ -18,19 +18,31 @@
           alt="Foto van blogpost"
         />
 
-        <div class="p-4 rounded bg-white shadow">
-          <h1 class="text-2xl font-bold text-indigo-800">{{ blogPost.title }}</h1>
-          <h2 class="text-gray-600">
+        <div class="p-4 rounded bg-white dark:bg-gray-700 shadow">
+          <h1 class="text-2xl font-bold text-indigo-800 dark:text-indigo-600">{{ blogPost.title }}</h1>
+          <h2 class="text-gray-600 dark:text-gray-500 my-2">
             {{ blogPost.createdAt | formatDate }}
             <span v-if="blogPost.author">| {{ blogPost.author.firstName }}</span>
           </h2>
-          <article class="prose lg:prose-lg max-w-none" v-html="$md.render(blogPost.content)"></article>
+          <article class="prose dark:prose-invert max-w-none" v-html="$md.render(blogPost.content)"></article>
         </div>
 
         <nuxt-link
           v-if="park"
           :to="localePath('/parks/' + park.id)"
-          class="items-center bg-white transition duration-100 hover:bg-gray-100 rounded shadow flex flex-row p-4"
+          class="
+            items-center
+            bg-white
+            dark:bg-gray-700
+            transition
+            duration-100
+            hover:bg-gray-100
+            dark:hover:bg-gray-800
+            rounded
+            shadow
+            flex flex-row
+            p-4
+          "
         >
           <img
             v-lazy-load
@@ -40,8 +52,8 @@
           />
 
           <div class="ml-8 flex flex-col">
-            <h2 class="text-indigo-800 font-bold">{{ park.name }}</h2>
-            <p>{{ $t('blog.moreAboutPark') }}</p>
+            <h2 class="text-indigo-800 dark:text-indigo-600 font-bold">{{ park.name }}</h2>
+            <p class="text-gray-900 dark:text-gray-400">{{ $t('blog.moreAboutPark') }}</p>
           </div>
         </nuxt-link>
 
@@ -70,15 +82,7 @@
           </template>
         </Card>
 
-        <card
-          v-for="post in associatedBlogPosts"
-          :key="post.id"
-          :sub-title="post.createdAt | formatDate"
-          :link="'/blog/' + post.slug"
-          :image-src="post.imageUrl"
-          :title="post.title"
-          :content="post.description"
-        />
+        <blog-post-card v-for="post in associatedBlogPosts" :key="post.id" :blog-post="post" />
       </div>
     </div>
   </div>
@@ -89,10 +93,11 @@ import LoadingSpinner from '~/components/LoadingSpinner.vue'
 import Breadcrumbs from '~/components/Breadcrumbs.vue'
 import GeneralError from '~/components/GeneralError.vue'
 import Card from '~/components/cards/Card.vue'
+import BlogPostCard from '~/components/cards/BlogPostCard.vue'
 
 export default {
   name: 'BlogShow',
-  components: { Card, GeneralError, Breadcrumbs, LoadingSpinner },
+  components: { BlogPostCard, Card, GeneralError, Breadcrumbs, LoadingSpinner },
   data() {
     return {
       blogPost: null,

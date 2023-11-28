@@ -108,7 +108,7 @@
 
       <div
         v-if="park && park.supports.supportsRideWaitTimesHistory"
-        class="py-2 px-4 bg-yellow-200 relative text-yellow-900 shadow-sm self-start"
+        class="py-2 px-4 bg-yellow-200 relative text-yellow-900 shadow-sm self-start rounded"
       >
         <div class="absolute rounded-l bg-yellow-600 left-0 top-0 h-full w-1"></div>
         <div class="flex flex-col">

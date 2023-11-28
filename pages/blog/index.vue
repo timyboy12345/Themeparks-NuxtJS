@@ -15,16 +15,7 @@
       <card class="mb-4 mt-4" :title="$t('general.blog')" :sub-title="$t('blog.subTitle')"></card>
 
       <div class="grid gap-4 grid-cols-2 lg:grid-cols-3">
-        <card
-          v-for="post in filteredBlogPosts"
-          :key="post.id"
-          :sub-title="post.createdAt | formatDate"
-          :link="'/blog/' + post.slug"
-          :image-src="post.imageUrl"
-          :title="post.title"
-        >
-          <template #content>{{ post.description }}</template>
-        </card>
+        <blog-post-card v-for="post in filteredBlogPosts" :key="post.id" :blog-post="post" />
       </div>
 
       <card class="mt-4" :title="$t('blog.bottomSeoBlockTitle')" :content="$t('blog.bottomSeoBlockContent')"></card>
@@ -47,10 +38,11 @@ import LoadingSpinner from '~/components/LoadingSpinner.vue'
 import Card from '~/components/cards/Card.vue'
 import GeneralError from '~/components/GeneralError.vue'
 import PageSearch from '~/components/PageSearch.vue'
+import BlogPostCard from '~/components/cards/BlogPostCard.vue'
 
 export default {
   name: 'BlogIndex',
-  components: { PageSearch, GeneralError, Card, LoadingSpinner },
+  components: { BlogPostCard, PageSearch, GeneralError, Card, LoadingSpinner },
   data() {
     return {
       blogPosts: [],

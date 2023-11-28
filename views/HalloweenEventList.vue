@@ -6,12 +6,26 @@
 
     <general-message v-if="halloweenEvents && halloweenEvents.length === 0" class="m-4" />
 
-    <div v-if="halloweenEvents && halloweenEvents.length > 0" class="mt-2 flex flex-col bg-white divide-y divide-gray-200">
+    <div
+      v-if="halloweenEvents && halloweenEvents.length > 0"
+      class="mt-2 flex flex-col bg-white divide-y divide-gray-200 dark:divide-gray-600"
+    >
       <NuxtLink
         v-for="halloweenEvent of halloweenEvents"
         :key="halloweenEvent.id"
         :to="localePath('/parks/' + parkId + '/halloween/' + halloweenEvent.id)"
-        class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
+        class="
+          py-2
+          px-4
+          flex
+          hover:bg-gray-100
+          dark:bg-gray-700 dark:hover:bg-gray-800
+          transition
+          duration-100
+          flex-row
+          justify-between
+          items-center
+        "
       >
         <div class="flex flex-row items-center">
           <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
@@ -27,7 +41,7 @@
           </div>
 
           <div class="flex flex-col">
-            <div class="text-indigo-700">{{ halloweenEvent.title }}</div>
+            <div class="text-indigo-700 dark:text-indigo-400">{{ halloweenEvent.title }}</div>
             <div v-if="halloweenEvent.currentWaitTime !== undefined" class="text-sm text-gray-600">
               {{ $t('general.unspecifiedWaitTime', [halloweenEvent.currentWaitTime]) }}
             </div>
