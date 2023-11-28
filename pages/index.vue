@@ -31,7 +31,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Card from '~/components/cards/Card.vue'
 import CardButton from '~/components/cards/actions/CardButton.vue'
 import AdCard from '~/components/cards/AdCard.vue'
