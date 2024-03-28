@@ -60,16 +60,17 @@
       <!--        <RideWaitTimeHistoryChart :ride="ride" :park="park" :chartdata="ride.waitingTimes"></RideWaitTimeHistoryChart>-->
       <!--      </div>-->
 
-      <div v-if="ride && park && park.supports.supportsRideWaitTimesHistory">
-        <RideAverageWaitTimeHistoryChart
-          v-if="averageWaitingTimes"
-          :ride="ride"
-          :park="park"
-          :chartdata="averageWaitingTimes"
-        ></RideAverageWaitTimeHistoryChart>
+      <!-- TODO: Re-enable once fetching historic wait times is faster -->
+      <!--      <div v-if="ride && park && park.supports.supportsRideWaitTimesHistory">-->
+      <!--        <RideAverageWaitTimeHistoryChart-->
+      <!--          v-if="averageWaitingTimes"-->
+      <!--          :ride="ride"-->
+      <!--          :park="park"-->
+      <!--          :chartdata="averageWaitingTimes"-->
+      <!--        ></RideAverageWaitTimeHistoryChart>-->
 
-        <loading-spinner v-else class="my-8" :subtitle="$t('ride.averageWaitingTimesLoading')"></loading-spinner>
-      </div>
+      <!--        <loading-spinner v-else class="my-8" :subtitle="$t('ride.averageWaitingTimesLoading')"></loading-spinner>-->
+      <!--      </div>-->
 
       <RideStatsCard v-if="ride" :park="park" :ride="ride"></RideStatsCard>
 
@@ -81,8 +82,6 @@
 <script>
 import Card from '@/components/cards/Card'
 import Breadcrumbs from '@/components/Breadcrumbs'
-import RideAverageWaitTimeHistoryChart from '@/components/charts/RideAverageWaitTimeHistoryChart'
-import LoadingSpinner from '@/components/LoadingSpinner'
 import AdCard from '@/components/cards/AdCard'
 import CheckinList from '@/views/CheckinList'
 import RideStatsCard from '@/components/cards/RideStatsCard'
@@ -95,8 +94,6 @@ export default {
     RideStatsCard,
     CheckinList,
     AdCard,
-    LoadingSpinner,
-    RideAverageWaitTimeHistoryChart,
     Breadcrumbs,
     Card,
     RideCard,
@@ -166,9 +163,10 @@ export default {
     },
     async fetchPark() {
       this.park = await this.$axios.get('/parks/' + this.parkId).then((park) => {
-        if (park.data.supports.supportsRideWaitTimesHistory) {
-          this.fetchHistory()
-        }
+        // TODO: Re-enable once ride history is faster
+        // if (park.data.supports.supportsRideWaitTimesHistory) {
+        //   this.fetchHistory()
+        // }
 
         return park.data
       })

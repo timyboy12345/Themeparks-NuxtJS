@@ -56,6 +56,8 @@ export default {
     { src: '~plugins/markdown', ssr: false },
     // https://vinodugale219.medium.com/add-date-filter-in-nuxtjs-7dead1373d7c
     '~plugins/filters.js',
+    // https://stackoverflow.com/questions/67718493/nuxtjs-manage-several-axios-instances
+    '~plugins/rcdb',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

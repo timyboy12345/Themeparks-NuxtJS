@@ -172,6 +172,9 @@ export default {
     shortestWaitTimesToday: 'Shortest waiting times',
     seoTitle: 'History of wait times of {0}',
     seoTitleLoading: 'History of wait times',
+    tempTitle: 'Wait time history is temporarily down',
+    tempContent:
+      'Processing multiple years of wait time history takes a lot of compute power, which is why this functionality is temporarily turned off. But no worries, the data is still being gathered, and once we find a faster way to present the data to our visitors we will re-enable this function once again.',
   },
   map: {
     parksAreBeingLoaded: 'Parks are being loaded...',

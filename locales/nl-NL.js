@@ -173,6 +173,9 @@ export default {
     shortestWaitTimesToday: 'Kortste wachttijden van vandaag',
     seoTitle: 'Geschiedenis van Wachttijden van {0}',
     seoTitleLoading: 'Geschiedenis van Wachttijden',
+    tempTitle: 'Wachttijdgeschiedenis staat tijdelijk uit',
+    tempContent:
+      'Het verwerken van meerdere jaren aan wachttijden voor verschillende parken kost erg veel rekenkracht, daarom staat deze functie even uit. Maar geen zorgen, de data wordt nog steeds verzameld, zodra we een betere manier hebben gevonden om de data te presenteren zal deze functie weer online komen.',
   },
   map: {
     parksAreBeingLoaded: 'Alle pretparken worden ingeladen...',

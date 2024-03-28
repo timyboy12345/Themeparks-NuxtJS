@@ -172,6 +172,9 @@ export default {
     shortestWaitTimesToday: 'Tiempos de espera maás cortos hoy',
     seoTitle: 'Historial de colas de {0}',
     seoTitleLoading: 'Historial de colas',
+    tempTitle: 'El historial de tiempo de espera está temporalmente deshabilitado',
+    tempContent:
+      'Procesar los tiempos de espera de varios años en diferentes parques requiere mucha potencia informática, por lo que esta función está temporalmente desactivada. Pero no se preocupe, los datos aún se están recopilando. Tan pronto como encontremos una mejor manera de presentar los datos, esta función volverá a estar disponible.',
   },
   map: {
     parksAreBeingLoaded: 'Todos los parques temáticos se están cargando...',

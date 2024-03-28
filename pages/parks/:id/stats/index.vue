@@ -5,75 +5,77 @@
     <div class="grid md:grid-cols-2 gap-4">
       <card class="md:col-span-2" :title="$t('general.statistics')" :sub-title="$t('statistics.subTitle')"></card>
 
-      <loading-spinner v-if="!rides" class="md:col-span-2"></loading-spinner>
+      <card class="md:col-span-2" :title="$t('statistics.tempTitle')" :content="$t('statistics.tempContent')"></card>
 
-      <div v-if="rides">
-        <RidesWaitTimeHistoryChart :rides="rides"></RidesWaitTimeHistoryChart>
-      </div>
+      <!--      <loading-spinner v-if="!rides" class="md:col-span-2"></loading-spinner>-->
 
-      <card v-if="rides" :title="$t('statistics.longestWaitTimesToday')">
-        <template #content>
-          <div v-if="topWaitTimes" class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200">
-            <NuxtLink
-              v-for="ride of topWaitTimes.slice(0, 10)"
-              :key="ride.id"
-              :to="localePath('/parks/' + parkId + '/rides/' + ride.ride.id)"
-              class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
-            >
-              <div class="flex flex-row items-center">
-                <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
-                  <img
-                    v-if="ride.ride.image_url"
-                    v-lazy-load
-                    alt="Image of this ride"
-                    :data-src="ride.ride.image_url"
-                    class="object-cover object-center w-full h-full"
-                  />
-                  <div v-else class="object-cover object-center w-full h-full" />
-                </div>
+      <!--      <div v-if="rides">-->
+      <!--        <RidesWaitTimeHistoryChart :rides="rides"></RidesWaitTimeHistoryChart>-->
+      <!--      </div>-->
 
-                <div class="flex flex-col">
-                  <div class="text-indigo-700">{{ ride.ride.title }}</div>
-                </div>
-              </div>
+      <!--      <card v-if="rides" :title="$t('statistics.longestWaitTimesToday')">-->
+      <!--        <template #content>-->
+      <!--          <div v-if="topWaitTimes" class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200">-->
+      <!--            <NuxtLink-->
+      <!--              v-for="ride of topWaitTimes.slice(0, 10)"-->
+      <!--              :key="ride.id"-->
+      <!--              :to="localePath('/parks/' + parkId + '/rides/' + ride.ride.id)"-->
+      <!--              class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"-->
+      <!--            >-->
+      <!--              <div class="flex flex-row items-center">-->
+      <!--                <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">-->
+      <!--                  <img-->
+      <!--                    v-if="ride.ride.image_url"-->
+      <!--                    v-lazy-load-->
+      <!--                    alt="Image of this ride"-->
+      <!--                    :data-src="ride.ride.image_url"-->
+      <!--                    class="object-cover object-center w-full h-full"-->
+      <!--                  />-->
+      <!--                  <div v-else class="object-cover object-center w-full h-full" />-->
+      <!--                </div>-->
 
-              <div class="text-gray-700">{{ ride.maxWaitTime }} min</div>
-            </NuxtLink>
-          </div>
-        </template>
-      </card>
+      <!--                <div class="flex flex-col">-->
+      <!--                  <div class="text-indigo-700">{{ ride.ride.title }}</div>-->
+      <!--                </div>-->
+      <!--              </div>-->
 
-      <card v-if="rides" :title="$t('statistics.shortestWaitTimesToday')">
-        <template #content>
-          <div v-if="topWaitTimes" class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200">
-            <NuxtLink
-              v-for="ride of topWaitTimes.reverse().slice(0, 10)"
-              :key="ride.id"
-              :to="localePath('/parks/' + parkId + '/rides/' + ride.ride.id)"
-              class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
-            >
-              <div class="flex flex-row items-center">
-                <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
-                  <img
-                    v-if="ride.ride.image_url"
-                    v-lazy-load
-                    alt="Image of this ride"
-                    :data-src="ride.ride.image_url"
-                    class="object-cover object-center w-full h-full"
-                  />
-                  <div v-else class="object-cover object-center w-full h-full" />
-                </div>
+      <!--              <div class="text-gray-700">{{ ride.maxWaitTime }} min</div>-->
+      <!--            </NuxtLink>-->
+      <!--          </div>-->
+      <!--        </template>-->
+      <!--      </card>-->
 
-                <div class="flex flex-col">
-                  <div class="text-indigo-700">{{ ride.ride.title }}</div>
-                </div>
-              </div>
+      <!--      <card v-if="rides" :title="$t('statistics.shortestWaitTimesToday')">-->
+      <!--        <template #content>-->
+      <!--          <div v-if="topWaitTimes" class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200">-->
+      <!--            <NuxtLink-->
+      <!--              v-for="ride of topWaitTimes.reverse().slice(0, 10)"-->
+      <!--              :key="ride.id"-->
+      <!--              :to="localePath('/parks/' + parkId + '/rides/' + ride.ride.id)"-->
+      <!--              class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"-->
+      <!--            >-->
+      <!--              <div class="flex flex-row items-center">-->
+      <!--                <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">-->
+      <!--                  <img-->
+      <!--                    v-if="ride.ride.image_url"-->
+      <!--                    v-lazy-load-->
+      <!--                    alt="Image of this ride"-->
+      <!--                    :data-src="ride.ride.image_url"-->
+      <!--                    class="object-cover object-center w-full h-full"-->
+      <!--                  />-->
+      <!--                  <div v-else class="object-cover object-center w-full h-full" />-->
+      <!--                </div>-->
 
-              <div class="text-gray-700">{{ ride.maxWaitTime }} min</div>
-            </NuxtLink>
-          </div>
-        </template>
-      </card>
+      <!--                <div class="flex flex-col">-->
+      <!--                  <div class="text-indigo-700">{{ ride.ride.title }}</div>-->
+      <!--                </div>-->
+      <!--              </div>-->
+
+      <!--              <div class="text-gray-700">{{ ride.maxWaitTime }} min</div>-->
+      <!--            </NuxtLink>-->
+      <!--          </div>-->
+      <!--        </template>-->
+      <!--      </card>-->
 
       <AdCard />
     </div>
@@ -82,14 +84,12 @@
 
 <script>
 import Card from '@/components/cards/Card'
-import RidesWaitTimeHistoryChart from '@/components/charts/RidesWaitTimeHistoryChart'
 import Breadcrumbs from '@/components/Breadcrumbs'
-import LoadingSpinner from '@/components/LoadingSpinner'
 import AdCard from '@/components/cards/AdCard'
 
 export default {
   name: 'Stats',
-  components: { AdCard, LoadingSpinner, Breadcrumbs, RidesWaitTimeHistoryChart, Card },
+  components: { AdCard, Breadcrumbs, Card },
   data() {
     return {
       parkId: this.$route.params.id,
@@ -99,7 +99,8 @@ export default {
     }
   },
   async fetch() {
-    await Promise.all([this.fetchPark(), this.fetchRides()])
+    // await Promise.all([this.fetchPark(), this.fetchRides()])
+    await Promise.all([this.fetchPark()])
   },
   head() {
     return {
@@ -170,11 +171,12 @@ export default {
     },
   },
   methods: {
-    async fetchRides() {
-      this.rides = await this.$axios.get('/parks/' + this.parkId + '/history/today').then((rides) => {
-        return rides.data
-      })
-    },
+    // TODO: Re-enable once park history is faster
+    // async fetchRides() {
+    //   this.rides = await this.$axios.get('/parks/' + this.parkId + '/history/today').then((rides) => {
+    //     return rides.data
+    //   })
+    // },
     async fetchPark() {
       this.park = await this.$axios.get('/parks/' + this.parkId).then((park) => {
         return park.data
