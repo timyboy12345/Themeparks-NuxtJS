@@ -74,6 +74,10 @@
 
       <RideStatsCard v-if="ride" :park="park" :ride="ride"></RideStatsCard>
 
+      <client-only>
+        <RCDBStatsCard v-if="ride" :park="park" :ride="ride"></RCDBStatsCard>
+      </client-only>
+
       <AdCard v-if="ride" />
     </div>
   </div>
@@ -85,12 +89,14 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 import AdCard from '@/components/cards/AdCard'
 import CheckinList from '@/views/CheckinList'
 import RideStatsCard from '@/components/cards/RideStatsCard'
+import RCDBStatsCard from '@/components/cards/RCDBStatsCard'
 import Loading from '../../../../components/LoadingSpinner'
 import RideCard from '../../../../components/cards/RideCard'
 
 export default {
   // eslint-disable-next-line vue/no-unused-components
   components: {
+    RCDBStatsCard,
     RideStatsCard,
     CheckinList,
     AdCard,

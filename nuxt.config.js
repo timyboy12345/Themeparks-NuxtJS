@@ -97,12 +97,12 @@ export default {
     // https://www.npmjs.com/package/@nuxtjs/sitemap
     '@nuxtjs/sitemap',
     // https://www.npmjs.com/package/@nuxtjs/google-adsense
-    [
-      '@nuxtjs/google-adsense',
-      {
-        id: 'ca-pub-3611207014341558',
-      },
-    ],
+    // [
+    //   '@nuxtjs/google-adsense',
+    //   {
+    //     id: 'ca-pub-3611207014341558',
+    //   },
+    // ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

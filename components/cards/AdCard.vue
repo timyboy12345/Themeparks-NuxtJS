@@ -2,7 +2,7 @@
   <card v-if="!$store.state.auth.authToken" :sub-title="$t('general.ad')">
     <template #content>
       <div class="relative" :class="`${height}`">
-        <adsbygoogle ad-slot="9200028200" />
+        <!-- <adsbygoogle ad-slot="9200028200" /> -->
       </div>
     </template>
   </card>
