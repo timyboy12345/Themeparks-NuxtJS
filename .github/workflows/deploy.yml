@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        node: [14]
+        node: [18.15]
 
     steps:
       - name: Checkout 🛎
@@ -72,6 +72,6 @@ jobs:
       - name: Copy nuxt config file 🖨
         run: scp -r nuxt.config.js ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/tpvue.arendz.nl/nuxt.config.js
       - name: Install dependencies on production server ⏱
-        run: ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} npm install --only=prod --prefix /var/www/tpvue.arendz.nl
+        run: ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} npm install --omit=dev --prefix /var/www/tpvue.arendz.nl
       - name: Restart Themeparks Server 🏁
         run: ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} pm2 reload tpvue-nuxt
