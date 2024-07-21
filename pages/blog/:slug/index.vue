@@ -30,19 +30,7 @@
         <nuxt-link
           v-if="park"
           :to="localePath('/parks/' + park.id)"
-          class="
-            items-center
-            bg-white
-            dark:bg-gray-700
-            transition
-            duration-100
-            hover:bg-gray-100
-            dark:hover:bg-gray-800
-            rounded
-            shadow
-            flex flex-row
-            p-4
-          "
+          class="items-center bg-white dark:bg-gray-700 transition duration-100 hover:bg-gray-100 dark:hover:bg-gray-800 rounded shadow flex flex-row p-4"
         >
           <img
             v-lazy-load

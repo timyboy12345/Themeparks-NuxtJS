@@ -26,11 +26,11 @@
 </template>
 
 <script>
+import Loading from '../../../../components/LoadingSpinner'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import GeneralError from '@/components/GeneralError'
 import Card from '@/components/cards/Card'
 import HalloweenEventCardList from '@/views/HalloweenEventCardList.vue'
-import Loading from '../../../../components/LoadingSpinner'
 
 export default {
   components: { HalloweenEventCardList, Card, GeneralError, Breadcrumbs, Loading },

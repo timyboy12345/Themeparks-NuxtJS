@@ -19,10 +19,10 @@
 </template>
 
 <script>
+import ParkList from '../../views/ParkCardList'
 import Card from '@/components/cards/Card'
 import GeneralError from '@/components/GeneralError'
 import PageSearch from '@/components/PageSearch'
-import ParkList from '../../views/ParkCardList'
 
 export default {
   name: 'ParksIndex',

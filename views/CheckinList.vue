@@ -14,18 +14,7 @@
         :key="checkin.id"
         :to="localePath('/parks/' + checkin.parkId + '/rides/' + checkin.rideId)"
         :class="{ 'cursor-pointer': edit }"
-        class="
-          py-2
-          px-4
-          flex
-          hover:bg-gray-100
-          dark:bg-gray-700 dark:hover:bg-gray-800
-          transition
-          duration-100
-          flex-row
-          justify-between
-          items-center
-        "
+        class="py-2 px-4 flex hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-800 transition duration-100 flex-row justify-between items-center"
         @click="handleEdit(checkin)"
       >
         <div class="flex flex-row items-center">

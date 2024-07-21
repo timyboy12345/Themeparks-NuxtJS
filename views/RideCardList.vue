@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import AdCard from '@/components/cards/AdCard'
 import RideCard from '../components/cards/RideCard'
+import AdCard from '@/components/cards/AdCard'
 
 export default {
   components: { AdCard, RideCard },

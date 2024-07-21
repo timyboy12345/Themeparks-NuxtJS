@@ -67,13 +67,13 @@
 </template>
 
 <script>
+import Loading from '../../../../components/LoadingSpinner'
 import Card from '@/components/cards/Card'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import AdCard from '@/components/cards/AdCard'
 import CheckinList from '@/views/CheckinList'
 import RideStatsCard from '@/components/cards/RideStatsCard'
 import HalloweenEventCard from '@/components/cards/HalloweenEventCard.vue'
-import Loading from '../../../../components/LoadingSpinner'
 
 export default {
   // eslint-disable-next-line vue/no-unused-components

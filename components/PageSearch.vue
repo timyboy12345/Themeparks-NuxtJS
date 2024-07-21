@@ -1,22 +1,7 @@
 <template>
   <div class="-mx-4 md:-mx-8 -mt-4 lg:-mt-8">
     <div
-      class="
-        bg-gray-300
-        dark:bg-gray-800
-        text-gray-800
-        flex flex-row
-        py-2
-        whitespace-no-wrap
-        overflow-x-auto
-        text-sm
-        md:text-base
-        lg:absolute
-        min-w-full
-        lg:left-0 lg:px-8
-        mb-4
-        lg:mb-8
-      "
+      class="bg-gray-300 dark:bg-gray-800 text-gray-800 flex flex-row py-2 whitespace-no-wrap overflow-x-auto text-sm md:text-base lg:absolute min-w-full lg:left-0 lg:px-8 mb-4 lg:mb-8"
     >
       <div class="flex w-full flex-col lg:flex-row lg:items-center ml-4 lg:ml-0">
         <div class="flex flex-row items-center">

@@ -65,12 +65,12 @@
 </template>
 
 <script>
+import Loading from '../../../../components/LoadingSpinner'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import GeneralError from '@/components/GeneralError'
 import ShowCard from '@/components/cards/ShowCard'
 import Card from '@/components/cards/Card'
 import AdCard from '@/components/cards/AdCard'
-import Loading from '../../../../components/LoadingSpinner'
 
 export default {
   components: { AdCard, Card, ShowCard, GeneralError, Breadcrumbs, Loading },

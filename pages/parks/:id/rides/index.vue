@@ -33,11 +33,11 @@
 </template>
 
 <script>
+import Loading from '../../../../components/LoadingSpinner'
+import RideList from '../../../../views/RideCardList'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import GeneralError from '@/components/GeneralError'
 import Card from '@/components/cards/Card'
-import Loading from '../../../../components/LoadingSpinner'
-import RideList from '../../../../views/RideCardList'
 
 export default {
   components: { Card, GeneralError, Breadcrumbs, RideList, Loading },

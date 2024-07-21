@@ -9,9 +9,9 @@
 </template>
 
 <script>
+import Loading from '../../../../components/LoadingSpinner'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import AnimalCardList from '@/views/AnimalCardList'
-import Loading from '../../../../components/LoadingSpinner'
 
 export default {
   components: { Breadcrumbs, AnimalCardList, Loading },

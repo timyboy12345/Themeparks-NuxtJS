@@ -47,8 +47,9 @@
 </template>
 
 <script>
-import Card from '@/components/cards/Card'
 import ImageCard from './ImageCard'
+import Card from '@/components/cards/Card'
+
 export default {
   name: 'RideCard',
   components: { Card, ImageCard },

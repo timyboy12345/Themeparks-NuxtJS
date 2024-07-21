@@ -27,11 +27,11 @@
 </template>
 
 <script>
+import Loading from '../../../../components/LoadingSpinner'
 import RestaurantCard from '@/components/cards/RestaurantCard'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import AdCard from '@/components/cards/AdCard'
 import Card from '@/components/cards/Card'
-import Loading from '../../../../components/LoadingSpinner'
 
 export default {
   components: { Card, AdCard, Breadcrumbs, RestaurantCard, Loading },

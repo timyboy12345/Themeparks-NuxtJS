@@ -12,18 +12,7 @@
         v-for="checkin of $store.getters['auth/individualDays']"
         :key="checkin.id"
         :to="localePath(`/user/checkins/${checkin.year}/${checkin.month}/${checkin.day}`)"
-        class="
-          py-2
-          px-4
-          flex
-          hover:bg-gray-100
-          dark:bg-gray-700 dark:hover:bg-gray-800
-          transition
-          duration-100
-          flex-row
-          justify-between
-          items-center
-        "
+        class="py-2 px-4 flex hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-800 transition duration-100 flex-row justify-between items-center"
       >
         <div class="flex flex-row items-center">
           <div class="flex flex-col">

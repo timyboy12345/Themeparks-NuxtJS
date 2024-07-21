@@ -22,19 +22,19 @@
           {{ $t('ride.stats.buildIn', [stats.build_in, ride.title]) }}
         </div>
 
-        <a target="_blank" v-if="link" :href="link" class="text-sm underline text-indigo-700 hover:text-indigo-800">
+        <a v-if="link" target="_blank" :href="link" class="text-sm underline text-indigo-700 hover:text-indigo-800">
           {{ $t('ride.stats.rcdbSeeMore', [link]) }}
         </a>
       </div>
     </template>
   </Card>
 
-  <LoadingSpinner v-else/>
+  <LoadingSpinner v-else />
 </template>
 
 <script>
-import Card from '@/components/cards/Card';
-import LoadingSpinner from '~/components/LoadingSpinner';
+import Card from '@/components/cards/Card'
+import LoadingSpinner from '~/components/LoadingSpinner'
 
 export default {
   name: 'RCDBStatsCard',
@@ -65,13 +65,14 @@ export default {
         speed: null,
         build_in: null,
       },
-    };
+    }
   },
   fetch() {
-    this.$rcdb.get('/api/coasters/search?q=' + this.ride.title)
+    this.$rcdb
+      .get('/api/coasters/search?q=' + this.ride.title)
       .then((response) => {
         if (response.data.coasters.length > 0) {
-          const coaster = response.data.coasters[0];
+          const coaster = response.data.coasters[0]
           this.stats = {
             height: Array.isArray(coaster.stats.height) ? coaster.stats.height[0] : coaster.stats.height,
             length: Array.isArray(coaster.stats.length) ? coaster.stats.length[0] : coaster.stats.length,
@@ -81,21 +82,21 @@ export default {
             model: coaster.model,
             type: coaster.type,
             build_in: coaster.status?.date.opened.split('-')[0],
-          };
+          }
 
-          this.raw = coaster;
-          this.link = `https://rcdb.com${coaster.link}`;
+          this.raw = coaster
+          this.link = `https://rcdb.com${coaster.link}`
         }
       })
       .catch((exception) => {
-        console.error(exception);
-        this.$sentry.captureException(exception);
+        console.error(exception)
+        this.$sentry.captureException(exception)
       })
       .then(() => {
-        this.loaded = true;
-      });
+        this.loaded = true
+      })
   },
-};
+}
 </script>
 
 <style scoped></style>
