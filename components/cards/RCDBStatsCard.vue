@@ -1,5 +1,5 @@
 <template>
-  <Card v-if="loaded" :title="$t('ride.stats.rcdbStatsTitle')" :sub-title="$t('ride.stats.rcdbStatsSubTitle')">
+  <Card v-if="loaded && raw" :title="$t('ride.stats.rcdbStatsTitle')" :sub-title="$t('ride.stats.rcdbStatsSubTitle')">
     <template #content>
       <div class="flex flex-col gap-y-2 mt-2">
         <div v-if="stats.height">
@@ -29,7 +29,7 @@
     </template>
   </Card>
 
-  <LoadingSpinner v-else />
+  <LoadingSpinner v-else-if="!loaded" />
 </template>
 
 <script>

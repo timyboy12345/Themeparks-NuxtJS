@@ -1,6 +1,6 @@
 {
   "name": "themeparks-nuxtjs",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "private": false,
   "repository": {
     "url": "https://github.com/timyboy12345/Themeparks-NuxtJS"
@@ -25,24 +25,24 @@
     "@nuxtjs/sitemap": "^2.4.0",
     "@sentry/tracing": "^6.15.0",
     "@tailwindcss/forms": "^0.5.3",
-    "core-js": "^3.19.1",
+    "core-js": "^3.37.1",
     "highcharts": "^9.3.1",
     "mavon-editor": "^2.10.4",
-    "nuxt": "^2.16.3",
+    "nuxt": "^2.18.1",
     "nuxt-highcharts": "^1.0.8",
     "nuxt-i18n": "^6.28.1",
     "nuxt-lazy-load": "^1.2.9",
     "nuxt-leaflet": "^0.0.27",
-    "postcss": "^8.4.21",
+    "postcss": "^8.4.39",
     "vue-gtag": "^1.16.1"
   },
   "devDependencies": {
-    "@nuxt/types": "^2.16.3",
+    "@nuxt/types": "^2.18.1",
     "@nuxt/typescript-build": "^2.0.4",
     "@nuxtjs/eslint-config-typescript": "^5.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/pwa": "^3.3.5",
-    "@nuxtjs/tailwindcss": "^6.6.5",
+    "@nuxtjs/tailwindcss": "^6.12.1",
     "@tailwindcss/typography": "^0.5.10",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.32.0",

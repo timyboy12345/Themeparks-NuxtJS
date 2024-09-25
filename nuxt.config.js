@@ -171,6 +171,12 @@ export default {
         file: 'es-ES.js',
         countryFlag: 'es',
       },
+      {
+        code: 'de',
+        iso: 'de-DE',
+        file: 'de-DE.js',
+        countryFlag: 'de',
+      },
     ],
     defaultLocale: 'en',
     strategy: 'prefix',
