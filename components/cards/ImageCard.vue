@@ -9,8 +9,8 @@
 
     <div class="w-full flex flex-col bottom-0 absolute">
       <div class="p-4 m-4 rounded z-5 bg-white rounded">
-        <h1 v-if="title" class="text-lg text-indigo-800 font-bold">{{ title }}</h1>
-        <h2 v-if="subtitle" class="text-sm text-gray-600 -mt-1">{{ subtitle }}</h2>
+        <h1 v-if="title" class="text-xl text-indigo-800 font-bold">{{ title }}</h1>
+        <p v-if="subtitle" class="text-sm text-gray-600 -mt-1">{{ subtitle }}</p>
 
         <!-- eslint-disable-next-line vue/no-v-html -->
         <p v-if="description" class="mt-2 text-gray-800" v-html="description"></p>

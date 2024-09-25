@@ -7,6 +7,13 @@
     <div class="grid md:grid-cols-2 gap-4">
       <show-card v-if="show" :park="park" :show="show"></show-card>
 
+      <card v-if="show && show.description" :title="$t('general.generalInformation')">
+        <template #content>
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <div v-html="show.description"></div>
+        </template>
+      </card>
+
       <general-error v-if="error"></general-error>
 
       <card

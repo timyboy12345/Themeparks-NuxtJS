@@ -22,8 +22,12 @@
           <h1 class="text-2xl font-bold text-indigo-800 dark:text-indigo-600">{{ blogPost.title }}</h1>
           <h2 class="text-gray-600 dark:text-gray-500 my-2">
             {{ blogPost.createdAt | formatDate }}
+            <!-- TODO: Uncomment once updatedAt is implemented -->
+            <!-- <span v-if="blogPost.createdAt !== blogPost.updatedAt">| {{ blogPost.updatedAt | formatDate }}</span>-->
             <span v-if="blogPost.author">| {{ blogPost.author.firstName }}</span>
           </h2>
+
+          <!-- eslint-disable-next-line vue/no-v-html -->
           <article class="prose dark:prose-invert max-w-none" v-html="$md.render(blogPost.content)"></article>
         </div>
 
@@ -112,7 +116,7 @@ export default {
   },
   head() {
     return {
-      title: this.$t('blog.seoTitle'),
+      title: this.blogPost ? this.blogPost.title : this.$t('blog.seoTitle'),
       meta: [
         {
           hid: 'description',

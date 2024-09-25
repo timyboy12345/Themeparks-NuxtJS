@@ -11,8 +11,8 @@
       <div class="flex flex-col justify-between h-full">
         <div class="text-gray-800 dark:text-gray-300">
           <slot name="title">
-            <h1 v-if="title" class="text-lg text-indigo-800 dark:text-indigo-500 font-bold">{{ title }}</h1>
-            <h2 v-if="subTitle" class="text-sm text-gray-600 dark:text-gray-500">{{ subTitle }}</h2>
+            <h2 v-if="title" class="text-lg text-indigo-800 dark:text-indigo-500 font-bold">{{ title }}</h2>
+            <p v-if="subTitle" class="text-sm text-gray-600 dark:text-gray-500">{{ subTitle }}</p>
           </slot>
 
           <slot name="content">

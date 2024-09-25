@@ -7,7 +7,7 @@
     <div class="grid md:grid-cols-2 gap-4">
       <ride-card v-if="ride && park" :park="park" :ride="ride"></ride-card>
 
-      <card v-if="ride" :title="$t('general.generalInformation')">
+      <card v-if="ride && ride.description" :title="$t('general.generalInformation')">
         <template #content>
           <!-- eslint-disable-next-line vue/no-v-html -->
           <div v-html="ride.description"></div>
