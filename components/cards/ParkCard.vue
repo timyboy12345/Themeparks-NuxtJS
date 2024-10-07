@@ -1,5 +1,5 @@
 <template>
-  <card :title="park.name" :sub-title="park.countryCode" :content="park.description" :image-src="park.image" :link="link" />
+  <card h1 :title="park.name" :sub-title="park.countryCode" :content="park.description" :image-src="park.image" :link="link" />
 </template>
 
 <script>

@@ -1,6 +1,7 @@
 <template>
   <image-card
     v-if="restaurant.image_url"
+    :h1="h1"
     :title="restaurant.title"
     :description="restaurant.subTitle"
     :image-src="restaurant.image_url"
@@ -41,6 +42,11 @@ export default {
       type: Object,
       required: false,
       default: null,
+    },
+    h1: {
+      required: false,
+      type: Boolean,
+      default: false,
     },
   },
   computed: {

@@ -11,7 +11,7 @@
         v-for="animal of animals"
         :key="animal.id"
         :to="localePath('/parks/' + parkId + '/animals/' + animal.id)"
-        class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
+        class="py-2 px-4 flex hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-800 transition duration-100 flex-row justify-between items-center"
       >
         <div class="flex flex-row items-center">
           <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
@@ -26,7 +26,7 @@
           </div>
 
           <div class="flex flex-col">
-            <div class="text-indigo-700">{{ animal.title }}</div>
+            <div class="text-indigo-700 dark:text-indigo-400">{{ animal.title }}</div>
             <div
               v-if="animal.animalTimes && animal.animalTimes.futureAnimalTimes && animal.animalTimes.futureAnimalTimes.length > 0"
               class="text-gray-600 text-sm"
@@ -36,7 +36,7 @@
           </div>
         </div>
 
-        <div class="text-gray-700">{{ animal.area }}</div>
+        <div class="text-gray-700 dark:text-gray-500">{{ animal.area }}</div>
       </NuxtLink>
     </div>
   </div>

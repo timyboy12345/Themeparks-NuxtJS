@@ -1,5 +1,5 @@
 <template>
-  <image-card v-if="ride.image_url" :title="ride.title" :description="ride.subTitle" :image-src="ride.image_url" :link="cardLink">
+  <image-card v-if="ride.image_url" :h1="h1" :title="ride.title" :description="ride.subTitle" :image-src="ride.image_url" :link="cardLink">
     <template #content>
       <div
         v-if="ride.minAgeWithoutEscort || ride.maxAge || ride.minSizeWithEscort || ride.minSizeWithoutEscort || ride.maxSize"
@@ -66,6 +66,11 @@ export default {
       type: Object,
       required: false,
       default: null,
+    },
+    h1: {
+      required: false,
+      type: Boolean,
+      default: false,
     },
   },
   computed: {

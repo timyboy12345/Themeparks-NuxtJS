@@ -2,26 +2,26 @@
   <div>
     <breadcrumbs v-if="breadcrumbs" :breadcrumbs="breadcrumbs"></breadcrumbs>
 
-    <loading v-if="!ride || !park" class="my-4"></loading>
+    <loading v-if="$fetchState.pending" class="my-4"></loading>
 
-    <div class="grid md:grid-cols-2 gap-4">
-      <ride-card v-if="ride && park" :park="park" :ride="ride"></ride-card>
+    <div v-else-if="ride && park" class="grid md:grid-cols-2 gap-4">
+      <ride-card h1 :park="park" :ride="ride"></ride-card>
 
-      <card v-if="ride && ride.description" :title="$t('general.generalInformation')">
+      <card v-if="ride.description" :title="$t('general.generalInformation')">
         <template #content>
           <!-- eslint-disable-next-line vue/no-v-html -->
           <div v-html="ride.description"></div>
         </template>
       </card>
 
-      <card v-if="ride && $store.state.auth.user" :title="$t('checkins.addCheckinTitle')">
+      <card v-if="$store.state.auth.user" :title="$t('checkins.addCheckinTitle')">
         <template #content>
-          <p class="text-gray-600 text-sm mb-4">
+          <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
             {{ $t('checkins.addCheckinDescription') }}
           </p>
 
           <button
-            class="rounded py-2 px-4 text-white bg-indigo-800 hover:bg-indigo-900 transition-colors duration-100"
+            class="rounded py-2 px-4 text-white bg-indigo-800 hover:bg-indigo-900 dark:bg-indigo-400 dark:hover:bg-indigo-500 transition-colors duration-100"
             type="button"
             @click="addCheckin"
           >
@@ -30,7 +30,7 @@
         </template>
       </card>
 
-      <card v-if="ride && $store.state.auth.user" :title="$t('checkins.existingCheckinsTitle')">
+      <card v-if="$store.state.auth.user" :title="$t('checkins.existingCheckinsTitle')">
         <template #content>
           <checkin-list
             v-if="$store.state.auth.checkins && $store.state.auth.checkins.filter((r) => r.rideId === rideId).length > 0"
@@ -45,7 +45,7 @@
         </template>
       </card>
 
-      <div v-if="ride && park && ride.images && ride.images.length > 0" class="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start">
+      <div v-if="ride.images && ride.images.length > 0" class="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start">
         <img
           v-for="(img, i) of ride.images"
           :key="i"
@@ -72,14 +72,16 @@
       <!--        <loading-spinner v-else class="my-8" :subtitle="$t('ride.averageWaitingTimesLoading')"></loading-spinner>-->
       <!--      </div>-->
 
-      <RideStatsCard v-if="ride" :park="park" :ride="ride"></RideStatsCard>
+      <RideStatsCard :park="park" :ride="ride"></RideStatsCard>
 
       <client-only>
-        <RCDBStatsCard v-if="ride" :park="park" :ride="ride"></RCDBStatsCard>
+        <RCDBStatsCard :park="park" :ride="ride"></RCDBStatsCard>
       </client-only>
 
-      <AdCard v-if="ride" />
+      <AdCard />
     </div>
+
+    <general-error v-else title="Ride not found" />
   </div>
 </template>
 
@@ -92,10 +94,12 @@ import AdCard from '@/components/cards/AdCard'
 import CheckinList from '@/views/CheckinList'
 import RideStatsCard from '@/components/cards/RideStatsCard'
 import RCDBStatsCard from '@/components/cards/RCDBStatsCard'
+import GeneralError from '~/components/GeneralError.vue'
 
 export default {
   // eslint-disable-next-line vue/no-unused-components
   components: {
+    GeneralError,
     RCDBStatsCard,
     RideStatsCard,
     CheckinList,

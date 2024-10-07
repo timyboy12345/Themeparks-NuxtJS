@@ -5,7 +5,7 @@
     <loading v-if="!animal" class="my-4"></loading>
 
     <div v-if="animal && park" class="grid md:grid-cols-2 gap-4">
-      <animal-card :park="park" :animal="animal"></animal-card>
+      <animal-card h1 :park="park" :animal="animal"></animal-card>
 
       <card v-if="animal.description" :title="$t('general.generalInformation')">
         <template #content>

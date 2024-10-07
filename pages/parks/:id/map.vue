@@ -43,6 +43,15 @@
           :lng="shop.location.lng"
           :popup="shop.title"
         />
+
+        <map-marker
+          v-for="animal of latLngAnimals"
+          :key="animal.id"
+          icon="purple"
+          :lat="animal.location.lat"
+          :lng="animal.location.lng"
+          :popup="animal.title"
+        />
       </map-component>
 
       <card v-if="park && supportsLatLng" title="Map" sub-title="On this map, all retrievable data is shown">
@@ -52,6 +61,7 @@
             <li class="ml-8"><span class="text-red-800">Red</span> markers are restaurants</li>
             <li class="ml-8"><span class="text-orange-700">Orange</span> markers are shows</li>
             <li class="ml-8"><span class="text-yellow-600">Yellow</span> markers are shops</li>
+            <li class="ml-8"><span class="text-indigo-600">Purple</span> markers are animals</li>
           </ul>
         </template>
       </card>
@@ -76,11 +86,12 @@ export default {
       restaurants: [],
       shows: [],
       shops: [],
+      animals: [],
       parkId: this.$route.params.id,
     }
   },
   async fetch() {
-    await Promise.all([this.getPark(), this.getRides(), this.getRestaurants(), this.getShows(), this.getShops()])
+    await Promise.all([this.getPark(), this.getRides(), this.getRestaurants(), this.getShows(), this.getShops(), this.getAnimals()])
   },
   head() {
     const title = this.park ? 'All rides and attractions of ' + this.park.name : 'All rides and attractions on a map'
@@ -110,6 +121,9 @@ export default {
     },
     latLngShops() {
       return this.shops.filter((r) => r.location && r.location.lng && typeof r.location.lng === 'number')
+    },
+    latLngAnimals() {
+      return this.animals.filter((r) => r.location && r.location.lng && typeof r.location.lng === 'number')
     },
     breadcrumbs() {
       if (!this.park) {
@@ -185,6 +199,17 @@ export default {
         })
         .catch((e) => {
           this.shops = []
+          this.$sentry.captureException(e)
+        })
+    },
+    async getAnimals() {
+      await this.$axios
+        .get('/parks/' + this.parkId + '/animals')
+        .then((animalsResponse) => {
+          this.animals = animalsResponse.data
+        })
+        .catch((e) => {
+          this.animals = []
           this.$sentry.captureException(e)
         })
     },

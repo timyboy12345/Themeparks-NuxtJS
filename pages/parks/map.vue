@@ -3,7 +3,7 @@
     <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
 
     <div class="grid gap-4">
-      <card :title="$t('map.title')" :sub-title="$t('map.subtitle')"></card>
+      <card h1 :title="$t('map.title')" :sub-title="$t('map.subtitle')"></card>
 
       <no-ssr v-if="parks">
         <map-component component-height="h-128" :zoom="1" :lat="0" :lng="0">
@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     locatedParks() {
-      return this.parks.filter((p) => p.location && p.location.lat && p.location.lng)
+      return this.parks.filter((p) => p.location && p.location.lat && p.location.lng && p.location.lat > -80 && p.location.lat < 80)
     },
     breadcrumbs() {
       return [

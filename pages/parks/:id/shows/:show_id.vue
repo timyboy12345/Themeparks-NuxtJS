@@ -2,27 +2,22 @@
   <div>
     <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
 
-    <loading v-if="!show && !error" class="my-4"></loading>
+    <general-error v-if="error"></general-error>
 
-    <div class="grid md:grid-cols-2 gap-4">
-      <show-card v-if="show" :park="park" :show="show"></show-card>
+    <loading v-if="$fetchState.pending" class="my-4"></loading>
+    <div v-else-if="show" class="grid md:grid-cols-2 gap-4">
+      <show-card h1 :park="park" :show="show"></show-card>
 
-      <card v-if="show && show.description" :title="$t('general.generalInformation')">
+      <card v-if="show.description" :title="$t('general.generalInformation')">
         <template #content>
           <!-- eslint-disable-next-line vue/no-v-html -->
           <div v-html="show.description"></div>
         </template>
       </card>
 
-      <general-error v-if="error"></general-error>
-
-      <card
-        v-if="show && show.showTimes"
-        :title="$t('shows.futureShowTimesCardTitle')"
-        :sub-title="$t('shows.futureShowTimesCardSubtitle')"
-      >
+      <card v-if="show.showTimes" :title="$t('shows.futureShowTimesCardTitle')" :sub-title="$t('shows.futureShowTimesCardSubtitle')">
         <template #content>
-          <div class="flex flex-col bg-white divide-y divide-gray-200 -mx-4">
+          <div class="flex flex-col bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray600 -mx-4">
             <div
               v-for="showTime of show.showTimes.futureShowTimes"
               :key="showTime.id"
@@ -30,8 +25,8 @@
             >
               <div class="flex flex-row items-center">
                 <div class="flex flex-col">
-                  <div class="text-indigo-700">{{ showTime.fromTime }}</div>
-                  <div v-if="showTime.edition" class="text-sm text-gray-600">
+                  <div class="text-indigo-700 dark:text-indigo-400">{{ showTime.fromTime }}</div>
+                  <div v-if="showTime.edition" class="text-sm text-gray-600 dark:text-gray-300">
                     {{ showTime.edition }}
                   </div>
                 </div>
@@ -42,17 +37,17 @@
       </card>
 
       <card
-        v-if="show && show.showTimes && pastShows.length > 0"
+        v-if="show.showTimes && pastShows.length > 0"
         :title="$t('shows.passedShowTimesCardTitle')"
         :sub-title="$t('shows.passedShowTimesCardSubtitle')"
       >
         <template #content>
-          <div class="flex flex-col bg-white divide-y divide-gray-200 -mx-4">
+          <div class="flex flex-col bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-600 -mx-4">
             <div v-for="showTime of pastShows" :key="showTime.id" class="py-2 px-4 flex flex-row justify-between items-center">
               <div class="flex flex-row items-center">
                 <div class="flex flex-col">
-                  <div class="text-gray-700">{{ showTime.fromTime }}</div>
-                  <div v-if="showTime.edition" class="text-sm text-gray-600">
+                  <div class="text-gray-700 dark:text-gray-400">{{ showTime.fromTime }}</div>
+                  <div v-if="showTime.edition" class="text-sm text-gray-600 dark:text-gray-300">
                     {{ showTime.edition }}
                   </div>
                 </div>
@@ -62,12 +57,14 @@
         </template>
       </card>
 
-      <div v-if="show" class="grid grid-cols-2 md:grid-cols-3 md:grid-cols-4 gap-4 content-start">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 content-start">
         <img v-for="(img, i) of show.images" :key="i" alt="Image of this restaurant" :src="img" class="bg-white rounded shadow" />
       </div>
 
-      <AdCard v-if="show" />
+      <AdCard />
     </div>
+
+    <general-error v-else title="Show not found" />
   </div>
 </template>
 
@@ -138,7 +135,9 @@ export default {
       ]
     },
     pastShows() {
-      return this.show ? this.show.showTimes.allShowTimes.filter((st) => st.isPassed) : null
+      return this.show && this.show.showTimes && this.show.showTimes.allShowTimes
+        ? this.show.showTimes.allShowTimes.filter((st) => st.isPassed)
+        : []
     },
   },
   methods: {

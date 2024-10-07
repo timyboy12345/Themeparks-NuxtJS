@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-4 space-y-2 md:space-y-0 md:space-x-2 md:flex md:flex-row items-start">
+  <div class="mt-4 gap-2 grid items-start">
     <slot></slot>
   </div>
 </template>

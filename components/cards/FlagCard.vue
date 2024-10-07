@@ -10,7 +10,7 @@
             class="w-full h-full object-center object-cover"
           />
         </div>
-        <h1 v-if="title" class="break-words text-lg text-indigo-800 dark:text-indigo-500 font-bold">{{ title }}</h1>
+        <p v-if="title" class="break-words text-lg text-indigo-800 dark:text-indigo-500 font-bold">{{ title }}</p>
       </div>
     </template>
 

@@ -36,7 +36,7 @@
           </div>
         </div>
 
-        <div class="text-gray-700">{{ show.area }}</div>
+        <div class="text-gray-700 dark:text-gray-500">{{ show.area }}</div>
       </NuxtLink>
     </div>
   </div>

@@ -1,5 +1,12 @@
 <template>
-  <image-card v-if="animal.image_url" :title="animal.title" :description="animal.subTitle" :image-src="animal.image_url" :link="cardLink">
+  <image-card
+    v-if="animal.image_url"
+    :h1="h1"
+    :title="animal.title"
+    :description="animal.subTitle"
+    :image-src="animal.image_url"
+    :link="cardLink"
+  >
   </image-card>
 
   <card v-else :title="animal.title" :content="animal.subTitle" :link="cardLink"></card>
@@ -25,6 +32,11 @@ export default {
       type: Object,
       required: false,
       default: null,
+    },
+    h1: {
+      required: false,
+      type: Boolean,
+      default: false,
     },
   },
   computed: {

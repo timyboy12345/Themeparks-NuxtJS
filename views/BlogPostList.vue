@@ -25,7 +25,7 @@
 
           <div class="flex flex-col">
             <div class="text-indigo-700 dark:text-indigo-400">{{ post.title }}</div>
-            <div class="text-gray-600 text-sm">
+            <div class="text-gray-600 dark:text-gray-500 text-sm">
               {{ post.createdAt | formatDate }} <span v-if="post.author">| {{ post.author.firstName }}</span>
             </div>
           </div>

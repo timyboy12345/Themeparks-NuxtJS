@@ -43,6 +43,16 @@
       icon-url="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png"
       shadow-url="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png"
     />
+
+    <l-icon
+      v-if="icon === 'purple'"
+      :icon-size="[25, 41]"
+      :icon-anchor="[12, 41]"
+      :popup-anchor="[1, -34]"
+      :shadow-size="[41, 41]"
+      icon-url="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png"
+      shadow-url="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png"
+    />
   </l-marker>
 </template>
 

@@ -37,7 +37,7 @@
           </div>
         </div>
 
-        <div class="text-gray-700">{{ halloweenEvent.area }}</div>
+        <div class="text-gray-700 dark:text-gray-500">{{ halloweenEvent.area }}</div>
       </NuxtLink>
     </div>
   </div>

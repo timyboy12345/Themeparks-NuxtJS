@@ -5,7 +5,7 @@
     <loading v-if="!restaurant" class="my-4"></loading>
 
     <div class="grid md:grid-cols-2 gap-4">
-      <restaurant-card v-if="restaurant" :park="park" :restaurant="restaurant"></restaurant-card>
+      <restaurant-card v-if="restaurant" h1 :park="park" :restaurant="restaurant"></restaurant-card>
 
       <card v-if="restaurant && restaurant.description" :title="$t('general.generalInformation')">
         <template #content>

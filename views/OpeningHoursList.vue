@@ -6,22 +6,22 @@
 
     <general-message v-if="openingHours && openingHours.length === 0" class="m-4" />
 
-    <div v-if="openingHours && openingHours.length > 0" class="mt-2 flex flex-col bg-white divide-y divide-gray-200">
+    <div v-if="openingHours && openingHours.length > 0" class="mt-2 flex flex-col bg-white divide-y divide-gray-200 dark:divide-gray-600">
       <div
         v-for="openingHour of openingHours"
         :key="openingHour.id"
-        class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
+        class="py-2 px-4 flex hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-800 transition duration-100 flex-row justify-between items-center"
       >
         <div class="flex flex-row items-center">
           <div class="flex flex-col">
-            <div class="text-indigo-700">{{ openingHour.date | formatDate }}</div>
+            <div class="text-indigo-700 dark:text-indigo-400">{{ openingHour.date | formatDate }}</div>
             <div v-if="openingHour.currentWaitTime !== undefined" class="text-sm text-gray-600">
               {{ $t('general.unspecifiedWaitTime', [openingHour.currentWaitTime]) }}
             </div>
           </div>
         </div>
 
-        <div class="text-gray-700">
+        <div class="text-gray-700 dark:text-gray-300">
           <div v-for="timeSlot of openingHour.openingTimes" :key="timeSlot.openTime">
             {{ timeSlot.openTime }} -
             {{ timeSlot.closeTime }}

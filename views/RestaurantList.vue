@@ -34,7 +34,7 @@
           </div>
         </div>
 
-        <div class="text-gray-700">{{ restaurant.area }}</div>
+        <div class="text-gray-700 dark:text-gray-500">{{ restaurant.area }}</div>
       </NuxtLink>
     </div>
   </div>

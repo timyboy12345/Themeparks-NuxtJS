@@ -4,6 +4,10 @@
 
     <loading v-if="!shows || shows.length === 0"></loading>
 
+    <h1 v-if="park && shows && shows.length > 0" class="text-lg text-indigo-800 dark:text-indigo-400 font-bold mb-2">
+      {{ $t('park.allShowsOf', [park.name]) }}
+    </h1>
+
     <show-card-list v-if="shows && shows.length > 0" :park="park" :shows="shows"></show-card-list>
 
     <div v-if="park && shows && shows.length > 0" class="my-8 grid md:grid-cols-2 gap-4">

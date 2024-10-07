@@ -9,7 +9,7 @@
 
     <div class="w-full flex flex-col bottom-0 absolute">
       <div class="p-4 m-4 rounded z-5 bg-white rounded">
-        <h1 v-if="title" class="text-xl text-indigo-800 font-bold">{{ title }}</h1>
+        <component :is="h1 ? 'h1' : 'h2'" v-if="title" class="text-xl text-indigo-800 font-bold">{{ title }}</component>
         <p v-if="subtitle" class="text-sm text-gray-600 -mt-1">{{ subtitle }}</p>
 
         <!-- eslint-disable-next-line vue/no-v-html -->
@@ -50,6 +50,11 @@ export default {
       required: false,
       type: String,
       default: null,
+    },
+    h1: {
+      required: false,
+      type: Boolean,
+      default: false,
     },
   },
   computed: {

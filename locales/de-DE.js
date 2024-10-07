@@ -81,6 +81,9 @@ export default {
     allRidesDescription: 'Sehen Sie sich aktuelle und vergangene Wartezeiten von Fahrgeschäften und Parks auf der ganzen Welt an',
     allRidesOfDescription:
       'Sehen Sie sich die aktuellen und vergangenen Wartezeiten von {0} und anderen Parks und Shows auf der ganzen Welt an',
+    showRidesOnMap: 'Attraktionen auf der Karte anzeigen',
+    showShowsOnMap: 'Shows auf der Karte anzeigen',
+    showRestaurantsOnMap: 'Restaurants auf der Karte anzeigen',
     showMap: 'Karte anzeigen',
     allRestaurants: 'Alle Restaurants',
     allRestaurantsOf: 'Alle Restaurants von {0}',

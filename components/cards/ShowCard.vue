@@ -1,5 +1,5 @@
 <template>
-  <image-card v-if="show.image_url" :title="show.title" :description="show.subTitle" :image-src="show.image_url" :link="cardLink">
+  <image-card v-if="show.image_url" :h1="h1" :title="show.title" :description="show.subTitle" :image-src="show.image_url" :link="cardLink">
     <template #content>
       <div v-if="nextShow" class="mt-1 text-indigo-700">
         {{ $t('general.nextShow', [$options.filters.time(nextShow.fromTime)]) }}
@@ -35,6 +35,11 @@ export default {
       type: Object,
       required: false,
       default: null,
+    },
+    h1: {
+      required: false,
+      type: Boolean,
+      default: false,
     },
   },
   computed: {

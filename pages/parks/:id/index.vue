@@ -18,7 +18,12 @@
         <template #buttons>
           <card-actions>
             <card-button :btn-link="ridesButtonLink" :btn-title="$t('park.allRides')" />
-            <card-button v-if="park && park.supports.supportsPoiLocations" :btn-link="mapButtonLink" :btn-title="$t('park.showMap')" />
+            <card-button
+              v-if="park && park.supports.supportsPoiLocations"
+              :btn-link="mapButtonLink"
+              :btn-title="$t('park.showRidesOnMap')"
+              thin
+            />
           </card-actions>
         </template>
       </card>
@@ -35,7 +40,12 @@
         <template #buttons>
           <card-actions>
             <card-button :btn-link="restaurantsButtonLink" :btn-title="$t('park.allRestaurants')" />
-            <card-button v-if="park && park.supports.supportsPoiLocations" :btn-link="mapButtonLink" :btn-title="$t('park.showMap')" />
+            <card-button
+              v-if="park && park.supports.supportsPoiLocations"
+              :btn-link="mapButtonLink"
+              :btn-title="$t('park.showRestaurantsOnMap')"
+              thin
+            />
           </card-actions>
         </template>
       </card>
@@ -48,7 +58,12 @@
         <template #buttons>
           <card-actions>
             <card-button :btn-link="'/parks/' + parkId + '/shows'" :btn-title="$t('park.allShows')" />
-            <card-button v-if="park && park.supports.supportsPoiLocations" :btn-link="mapButtonLink" :btn-title="$t('park.showMap')" />
+            <card-button
+              v-if="park && park.supports.supportsPoiLocations"
+              :btn-link="mapButtonLink"
+              :btn-title="$t('park.showShowsOnMap')"
+              thin
+            />
           </card-actions>
         </template>
       </card>
@@ -61,7 +76,7 @@
         <template #buttons>
           <card-actions>
             <card-button :btn-link="'/parks/' + parkId + '/animals'" :btn-title="$t('park.allAnimals')" />
-            <card-button v-if="park && park.supports.supportsPoiLocations" :btn-link="mapButtonLink" :btn-title="$t('park.animalMap')" />
+            <card-button v-if="park && park.supports.supportsPoiLocations" :btn-link="mapButtonLink" :btn-title="$t('park.showMap')" thin />
           </card-actions>
         </template>
       </card>
