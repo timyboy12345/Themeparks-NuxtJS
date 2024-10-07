@@ -31,7 +31,7 @@
               v-if="animal.animalTimes && animal.animalTimes.futureAnimalTimes && animal.animalTimes.futureAnimalTimes.length > 0"
               class="text-gray-600 text-sm"
             >
-              Volgende animal: {{ animal.animalTimes.futureAnimalTimes[0].fromTime | time }}
+              Volgende animal: {{ animal.animalTimes.futureAnimalTimes[0].localFromTime | time }}
             </div>
           </div>
         </div>

@@ -28,13 +28,16 @@
 
           <div class="flex flex-col">
             <div class="text-indigo-700 dark:text-indigo-400">{{ ride.title }}</div>
-            <div v-if="ride.currentWaitTime !== undefined" class="text-sm text-gray-600 dark:text-gray-400">
+            <div
+              v-if="ride.currentWaitTime !== undefined && ride.currentWaitTime !== null"
+              class="text-sm text-gray-600 dark:text-gray-400"
+            >
               {{ $t('general.unspecifiedWaitTime', [ride.currentWaitTime]) }}
             </div>
           </div>
         </div>
 
-        <div class="text-gray-700 dark:text-gray-500">{{ ride.area }}</div>
+        <div class="text-nowrap text-gray-700 dark:text-gray-500">{{ ride.area }}</div>
       </NuxtLink>
     </div>
   </div>

@@ -27,11 +27,8 @@
 
           <div class="flex flex-col">
             <div class="text-indigo-700 dark:text-indigo-400">{{ show.title }}</div>
-            <div
-              v-if="show.showTimes && show.showTimes.futureShowTimes && show.showTimes.futureShowTimes.length > 0"
-              class="text-gray-600 text-sm"
-            >
-              Volgende show: {{ show.showTimes.futureShowTimes[0].fromTime | time }}
+            <div v-if="futureShowTimes(show).length > 0" class="text-gray-600 dark:text-gray-400 text-sm">
+              Volgende show: {{ futureShowTimes(show)[0].localFromTime | time }}
             </div>
           </div>
         </div>
@@ -83,6 +80,15 @@ export default {
         this.$sentry.captureException(e)
         return null
       })
+  },
+  methods: {
+    futureShowTimes(show) {
+      if (!show.showTimes || !show.showTimes.showTimes) {
+        return []
+      }
+
+      return show.showTimes.showTimes.filter((st) => !st.isPassed)
+    },
   },
 }
 </script>

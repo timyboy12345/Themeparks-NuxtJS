@@ -15,17 +15,17 @@
         </template>
       </card>
 
-      <card v-if="show.showTimes" :title="$t('shows.futureShowTimesCardTitle')" :sub-title="$t('shows.futureShowTimesCardSubtitle')">
+      <card
+        v-if="futureShows.length > 0"
+        :title="$t('shows.futureShowTimesCardTitle')"
+        :sub-title="$t('shows.futureShowTimesCardSubtitle')"
+      >
         <template #content>
           <div class="flex flex-col bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray600 -mx-4">
-            <div
-              v-for="showTime of show.showTimes.futureShowTimes"
-              :key="showTime.id"
-              class="py-2 px-4 flex flex-row justify-between items-center"
-            >
+            <div v-for="showTime of futureShows" :key="showTime.id" class="py-2 px-4 flex flex-row justify-between items-center">
               <div class="flex flex-row items-center">
                 <div class="flex flex-col">
-                  <div class="text-indigo-700 dark:text-indigo-400">{{ showTime.fromTime }}</div>
+                  <div class="text-indigo-700 dark:text-indigo-400">{{ showTime.localFromTime }}</div>
                   <div v-if="showTime.edition" class="text-sm text-gray-600 dark:text-gray-300">
                     {{ showTime.edition }}
                   </div>
@@ -36,17 +36,13 @@
         </template>
       </card>
 
-      <card
-        v-if="show.showTimes && pastShows.length > 0"
-        :title="$t('shows.passedShowTimesCardTitle')"
-        :sub-title="$t('shows.passedShowTimesCardSubtitle')"
-      >
+      <card v-if="pastShows.length > 0" :title="$t('shows.passedShowTimesCardTitle')" :sub-title="$t('shows.passedShowTimesCardSubtitle')">
         <template #content>
           <div class="flex flex-col bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-600 -mx-4">
             <div v-for="showTime of pastShows" :key="showTime.id" class="py-2 px-4 flex flex-row justify-between items-center">
               <div class="flex flex-row items-center">
                 <div class="flex flex-col">
-                  <div class="text-gray-700 dark:text-gray-400">{{ showTime.fromTime }}</div>
+                  <div class="text-gray-700 dark:text-gray-400">{{ showTime.localFromTime }}</div>
                   <div v-if="showTime.edition" class="text-sm text-gray-600 dark:text-gray-300">
                     {{ showTime.edition }}
                   </div>
@@ -134,9 +130,14 @@ export default {
         },
       ]
     },
+    futureShows() {
+      return this.show && this.show.showTimes && this.show.showTimes.showTimes
+        ? this.show.showTimes.showTimes.filter((st) => !st.isPassed)
+        : []
+    },
     pastShows() {
-      return this.show && this.show.showTimes && this.show.showTimes.allShowTimes
-        ? this.show.showTimes.allShowTimes.filter((st) => st.isPassed)
+      return this.show && this.show.showTimes && this.show.showTimes.showTimes
+        ? this.show.showTimes.showTimes.filter((st) => st.isPassed)
         : []
     },
   },
