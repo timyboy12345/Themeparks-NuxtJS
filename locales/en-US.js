@@ -16,6 +16,7 @@ export default {
     shop: 'Shop',
     animals: 'Animals',
     animal: 'Animal',
+    weather: 'Weather',
     halloweenEvents: 'Halloween Activities',
     halloweenEvent: 'Halloween Activity',
     blog: 'Blog',

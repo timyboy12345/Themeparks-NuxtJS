@@ -107,6 +107,14 @@
         </template>
       </card>
 
+      <ClientOnly>
+        <card v-if="park && park.location" :title="$t('general.weather')">
+          <template #content>
+            <weather-list class="-mx-4" :lat="park.location.lat" :lng="park.location.lng" />
+          </template>
+        </card>
+      </ClientOnly>
+
       <AdCard v-if="park" />
 
       <card v-if="park && blogPosts && blogPosts.length > 0" :title="$t('general.blog')" :sub-title="$t('park.allBlogPostsSubtitle')">
@@ -154,9 +162,11 @@ import OpeningHoursList from '~/views/OpeningHoursList'
 import BlogPostList from '~/views/BlogPostList.vue'
 import HalloweenEventList from '~/views/HalloweenEventList.vue'
 import GeneralError from '~/components/GeneralError.vue'
+import WeatherList from '~/views/WeatherList.vue'
 
 export default {
   components: {
+    WeatherList,
     GeneralError,
     HalloweenEventList,
     BlogPostList,

@@ -51,6 +51,8 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/axios',
+    // Weather data from open-meteo.com
+    '~/plugins/open-meteo',
     // https://kuroco.app/docs/faq/how-do-i-set-up-google-analytics-4-in-nuxtjs/
     '~/plugins/gtag',
     { src: '~plugins/markdown', ssr: false },

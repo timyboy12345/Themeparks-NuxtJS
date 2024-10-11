@@ -16,6 +16,7 @@ export default {
     shop: 'Winkel',
     animals: 'Dieren',
     animal: 'Dier',
+    weather: 'Weer',
     halloweenEvents: 'Halloweenactiviteiten',
     halloweenEvent: 'Halloweenactiviteit',
     blog: 'Blog',
