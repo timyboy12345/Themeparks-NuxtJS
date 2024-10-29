@@ -72,6 +72,8 @@ export default {
     seoTitle: 'Alle Pretparken',
     seoDescription: 'Bekijk alle verschillende pretparken waarvan de data inzichtelijk is.',
     content: 'Bekijk hier een wereldkaart met alle parken die worden bijgehouden.',
+    noParksFoundTitle: 'Geen parken gevonden',
+    noParksFoundContent: 'Probeer andere filters of zoekcriteria om parken te vinden.',
   },
   park: {
     allRides: 'Alle Attracties',

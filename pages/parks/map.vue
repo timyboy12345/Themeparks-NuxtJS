@@ -9,7 +9,16 @@
         <map-component component-height="h-128" :zoom="1" :lat="0" :lng="0">
           <map-marker v-for="park in locatedParks" :key="park.id" :popup="park.name" :lat="park.location.lat" :lng="park.location.lng">
             <template #default>
-              <router-link :to="localePath(`/parks/${park.id}`)">{{ park.name }}</router-link>
+              <img
+                v-if="park.image"
+                v-lazy-load
+                alt="Image depecting theme park"
+                :data-src="park.image"
+                class="rounded overflow-hidden mb-2 w-40 h-20 object-cover"
+              />
+              <router-link :to="localePath(`/parks/${park.id}`)" class="underline hover:no-underline text-indigo-800">{{
+                park.name
+              }}</router-link>
             </template>
           </map-marker>
         </map-component>

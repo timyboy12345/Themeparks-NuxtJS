@@ -72,6 +72,8 @@ export default {
     seoTitle: 'Todos los parques temáticos',
     seoDescription: 'Ver todos los diferentes parques de diversiones cuyos datos son reveladores.',
     content: 'Ver un mapa mundial aquí con todos los parques que se rastrean.',
+    noParksFoundTitle: 'No se encontraron parques',
+    noParksFoundContent: 'Pruebe otros filtros o criterios de búsqueda para encontrar parques.',
   },
   park: {
     allRides: 'Todos los viajes',

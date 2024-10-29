@@ -74,6 +74,8 @@ export default {
     seoTitle: 'Alle Freizeitparks',
     seoDescription: 'Hier finden Sie alle verschiedenen Themenparks, die wir unterstützen',
     content: 'Verwenden Sie diese Karte, um einen Überblick darüber zu erhalten, welche Parks weltweit unterstützt werden.',
+    noParksFoundTitle: 'Keine Parks gefunden',
+    noParksFoundContent: 'Versuchen Sie andere Filter oder Suchkriterien, um Parks zu finden.',
   },
   park: {
     allRides: 'Alle Fahrten',

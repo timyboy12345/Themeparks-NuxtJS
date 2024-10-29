@@ -9,10 +9,11 @@
           <input
             id="page-search"
             v-model="internalValue"
+            :placeholder="$t('general.enterSearchTerm')"
+            class="form-input rounded py-1 px-2 bg-transparent border-gray-400 dark:text-gray-300"
             name="page-search"
             type="text"
-            class="form-input rounded py-1 px-2 bg-transparent border-gray-400 dark:text-gray-300"
-            :placeholder="$t('general.enterSearchTerm')"
+            @keydown.enter="$event.target.blur()"
           />
         </div>
 

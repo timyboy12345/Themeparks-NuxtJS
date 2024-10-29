@@ -2,12 +2,17 @@
   <div>
     <loading-spinner v-if="$fetchState.pending"></loading-spinner>
     <general-error
-      v-if="$fetchState.error"
+      v-else-if="$fetchState.error"
       title="Parks could not be loaded"
       sub-title="Parks could not be loaded at this time, please try again later"
     />
 
     <div v-else class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div v-if="queriedParks && queriedParks.length === 0" class="text-center md:col-span-3 lg:col-span-4 flex flex-col my-4">
+        <h2 class="font-bold text-red-700">{{ $t('parks.noParksFoundTitle') }}</h2>
+        <p class="text-gray-600">{{ $t('parks.noParksFoundContent') }}</p>
+      </div>
+
       <flag-card
         v-for="park of queriedParks"
         :key="park.id"

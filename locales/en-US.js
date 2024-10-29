@@ -74,6 +74,8 @@ export default {
     seoTitle: 'All theme parks',
     seoDescription: 'Here you will find all the different theme parks that we support',
     content: 'Use this map to get an overview of which parks are supported globally.',
+    noParksFoundTitle: 'No parks found',
+    noParksFoundContent: 'Try other search parameters to find suitable parks.',
   },
   park: {
     allRides: 'All Rides',

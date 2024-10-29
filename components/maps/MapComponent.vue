@@ -1,7 +1,14 @@
 <template>
   <div class="bg-white rounded shadow overflow-hidden" :class="[componentHeight]">
     <no-ssr>
-      <l-map :no-wrap="true" :zoom="zoom" :center="[lat, lng]">
+      <l-map
+        :max-bounds="[
+          [-90, -180],
+          [90, 180],
+        ]"
+        :zoom="zoom"
+        :center="[lat, lng]"
+      >
         <l-tile-layer :no-wrap="true" url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></l-tile-layer>
         <slot></slot>
       </l-map>
