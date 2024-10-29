@@ -55,7 +55,7 @@
         </div>
       </div>
 
-      <div class="flex flex-row">
+      <div class="hidden sm:flex flex-row">
         <NuxtLink
           v-for="locale in availableLocales"
           :key="locale.code"
@@ -76,11 +76,24 @@
       />
     </div>
 
-    <div class="text-gray-600 text-sm mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto mt-4 pb-4">
-      {{ $t('general.madeWithLove') }} -
-      <a href="https://arendz.nl?utm_source=themeparkplanner&utm_campaign=backlink" target="_blank" class="underline text-gray-800">
-        Arendz.nl
-      </a>
+    <div class="mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto mt-4 pb-4 flex flex-col">
+      <div class="flex flex-row mb-4 gap-2">
+        <NuxtLink
+          v-for="locale in availableLocales"
+          :key="locale.code"
+          class="rounded-full bg-white overflow-hidden w-6 h-6"
+          :to="switchLocalePath(locale.code)"
+        >
+          <img alt="Link to other language" :src="`https://flagcdn.com/${locale.countryFlag}.svg`" class="object-cover w-full h-full" />
+        </NuxtLink>
+      </div>
+
+      <div class="text-gray-600 text-sm">
+        {{ $t('general.madeWithLove') }} -
+        <a href="https://arendz.nl?utm_source=themeparkplanner&utm_campaign=backlink" target="_blank" class="underline text-gray-800">
+          Arendz.nl
+        </a>
+      </div>
     </div>
 
     <Transition>

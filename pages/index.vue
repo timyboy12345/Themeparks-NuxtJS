@@ -25,7 +25,7 @@
 
     <loading-spinner v-if="$fetchState.pending" />
     <general-error v-if="$fetchState.error" />
-    <div class="grid gap-4 grid-cols-2 xl:grid-cols-4">
+    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <blog-post-card v-for="blogPost of blogPosts" :key="blogPost.id" :blog-post="blogPost" />
     </div>
   </div>
