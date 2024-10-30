@@ -2,24 +2,20 @@
   <div>
     <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
 
-    <loading v-if="!halloweenEvents && !error"></loading>
+    <loading v-if="$fetchState.pending"></loading>
 
-    <general-error v-if="error"></general-error>
+    <general-error v-if="$fetchState.error"></general-error>
 
-    <h1 v-if="park && halloweenEvents && halloweenEvents.length > 0" class="text-lg text-indigo-800 font-bold mb-2">
-      {{ $t('park.allHalloweenEventsOf', [park.name]) }}
+    <h1 v-if="park && events && events.length > 0" class="text-lg text-indigo-800 font-bold mb-2">
+      {{ $t('park.allEventsOf', [park.name]) }}
     </h1>
 
-    <halloween-event-card-list
-      v-if="halloweenEvents && halloweenEvents.length > 0"
-      :park="park"
-      :halloween-events="halloweenEvents"
-    ></halloween-event-card-list>
+    <event-card-list v-if="events && events.length > 0" :park="park" :events="events"></event-card-list>
 
-    <div v-if="park && halloweenEvents && halloweenEvents.length > 0" class="my-8 grid md:grid-cols-2 gap-4">
+    <div v-if="park && events && events.length > 0" class="my-8 grid md:grid-cols-2 gap-4">
       <card
-        :title="$t('halloween.descriptionTitle', [park.name])"
-        :content="$t('halloween.descriptionContent', [park.name, halloweenEvents.length])"
+        :title="$t('events.descriptionTitle', [park.name])"
+        :content="$t('events.descriptionContent', [park.name, events.length])"
       ></card>
     </div>
   </div>
@@ -30,29 +26,30 @@ import Loading from '../../../../components/LoadingSpinner'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import GeneralError from '@/components/GeneralError'
 import Card from '@/components/cards/Card'
-import HalloweenEventCardList from '@/views/HalloweenEventCardList.vue'
+import EventCardList from '@/views/EventCardList.vue'
 
 export default {
-  components: { HalloweenEventCardList, Card, GeneralError, Breadcrumbs, Loading },
+  components: { EventCardList, Card, GeneralError, Breadcrumbs, Loading },
   data() {
     return {
       parkId: this.$route.params.id,
-      halloweenEvents: null,
+      events: null,
       park: null,
       error: null,
     }
   },
   async fetch() {
-    await Promise.all([this.getParkHalloweenEvents(), this.getPark()]).then()
+    await Promise.all([this.getParkEvents(), this.getPark()]).then()
   },
   head() {
+    // TODO: Improve Title and Description
     return {
-      title: this.park ? this.$t('park.allRidesOf', [this.park.name]) : this.$t('park.allRides'),
+      title: this.park ? this.$t('park.allEventsOf', [this.park.name]) : this.$t('general.events'),
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.park ? this.$t('park.allRidesDescription') : this.$t('park.allRidesOfDescription'),
+          content: this.$t('park.allEvents'),
         },
         {
           hid: 'og:image',
@@ -78,18 +75,18 @@ export default {
           url: '/parks/' + this.parkId,
         },
         {
-          title: this.$t('general.halloweenEvents'),
+          title: this.$t('general.events'),
           url: '#',
         },
       ]
     },
   },
   methods: {
-    getParkHalloweenEvents() {
+    getParkEvents() {
       return this.$axios
-        .get('/parks/' + this.parkId + '/halloween')
-        .then((halloweenEvents) => {
-          this.halloweenEvents = halloweenEvents.data
+        .get('/parks/' + this.parkId + '/events')
+        .then((data) => {
+          this.events = data.data
         })
         .catch((reason) => {
           this.error = reason

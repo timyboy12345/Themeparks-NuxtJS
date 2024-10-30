@@ -17,8 +17,8 @@ export default {
     animals: 'Animals',
     animal: 'Animal',
     weather: 'Weather',
-    halloweenEvents: 'Halloween Activities',
-    halloweenEvent: 'Halloween Activity',
+    events: 'Events',
+    event: 'Event',
     blog: 'Blog',
     maxAge: 'Max. age: {0} years',
     minAge: 'Min. age: {0} years',
@@ -99,8 +99,9 @@ export default {
     allShowsSubtitle: 'See all shows of this park',
     allAnimals: 'All Animals',
     allAnimalsSubtitle: 'See all animals of this park',
-    allHalloweenEvents: 'All Halloween Activities',
-    allHalloweenEventsOf: 'All Halloween Activities of {0}',
+    allEvents: 'All Events',
+    allEventsOf: 'All Events of {0}',
+    allEventsSubtitle: 'See all events of this park',
     bottomSeoBlockTitle: 'All Theme Parks in one list',
     bottomSeoBlockContent:
       'In this list you will find all theme parks that publish ride data, wait times, show times and other data on their website or app. We transform this data in a standardised format, so you always have access to the most recent themepark-data.',
@@ -158,10 +159,11 @@ export default {
     descriptionContent:
       '{0} has {1} different restaurants spread throughout the park. See all menus, opening hours and more on one page, only on themeparkplanner.com.',
   },
-  halloween: {
-    descriptionTitle: 'All Halloween Activities of {0}',
+  events: {
+    descriptionTitle: 'All Events of {0}',
     descriptionContent:
-      '{0} has a total of {1} halloween activities. Find out more about the different scare zones, houses and experiences or search for specific events in this park, like parades, shows and more.',
+      "{0} has a total of {1} events. View this page to find information about all events, including when events like Halloween and Christmas are happening in the park. If you're looking for specific parts of events, like parades or shows, click on the event you're interested in and search further.",
+    dateCount: '{0} dates',
     house: 'Haunted House',
     scarezone: 'Scarezone',
     experience: 'Experience',

@@ -17,8 +17,8 @@ export default {
     animals: 'Dieren',
     animal: 'Dier',
     weather: 'Weer',
-    halloweenEvents: 'Halloweenactiviteiten',
-    halloweenEvent: 'Halloweenactiviteit',
+    events: 'Evenementen',
+    event: 'Evenement',
     blog: 'Blog',
     maxAge: 'Max. leeftijd: {0} jaar',
     minAge: 'Min. leeftijd: {0} jaar',
@@ -100,9 +100,9 @@ export default {
     allShowsSubtitle: 'Bekijk alle shows van dit park',
     allAnimals: 'Alle Dieren',
     allAnimalsSubtitle: 'Bekijk alle dieren van dit park',
-    allHalloweenEvents: 'Alle Halloweenactiviteiten',
-    allHalloweenEventsOf: 'Alle halloweenactiviteiten van {0}',
-    allHalloweenEventsSubtitle: 'Bekijk alle halloweenactiviteiten van dit park',
+    allEvents: 'Alle evenementen',
+    allEventsOf: 'Alle evenementen van {0}',
+    allEventsSubtitle: 'Bekijk alle evenementen van dit park',
     bottomSeoBlockTitle: 'Alle Pretparken in een lijst',
     bottomSeoBlockContent:
       'In deze lijst vind je alle pretparken die wachttijden, shows, openingstijden of andere data publiceren op hun website. Deze data zetten wij om in een gestandardiseerd formaat, zodat je altijd toegang hebt tot de meest actuele pretpark-data.',
@@ -160,10 +160,11 @@ export default {
     descriptionContent:
       "{0} heeft {1} verschillende restaurants. Bekijk op deze pagina de verschillende opties die je hebt, menu's van alle restaurants en meer.",
   },
-  halloween: {
-    descriptionTitle: 'Alle halloweenactiviteiten van {0}',
+  events: {
+    descriptionTitle: 'Alle evenementen van {0}',
     descriptionContent:
-      '{0} heeft in totaal {1} halloweenactiviteiten. Bekijk op deze pagina informatie over alle halloweenactiviteiten, zoals alle scarezones, spookhuizen en experiences. Ben je op zoek naar specifieke evenementen, zoals parades, specifieke scarezones of zones geschikt voor kinderen. Gebruik de filters en zoek wat je als volgende kan doen tijdens je halloweendag.',
+      '{0} heeft in totaal {1} evenementen. Bekijk op deze pagina informatie over alle evenementen, zoals wanneer evenementen als halloween en kerst plaatsvinden in het park. Ben je op zoek naar specifieke onderdelen van evenementen, zoals parades of shows, klik dan op het evenementen waar je interesse in hebt en zoek verder.',
+    dateCount: '{0} datums',
     house: 'Spookhuis',
     scarezone: 'Scarezone',
     experience: 'Experience',

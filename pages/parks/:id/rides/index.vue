@@ -59,6 +59,7 @@ export default {
         {
           hid: 'description',
           name: 'description',
+          // TODO: the allRidesOfDescription requires a value
           content: this.park ? this.$t('park.allRidesDescription') : this.$t('park.allRidesOfDescription'),
         },
         {

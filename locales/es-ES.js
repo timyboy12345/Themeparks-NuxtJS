@@ -17,8 +17,8 @@ export default {
     animals: 'Animales',
     animal: 'Animal',
     weather: 'Clima',
-    halloweenEvents: 'Actividades de halloween',
-    halloweenEvent: 'Actividad de halloween',
+    events: 'Actividades',
+    event: 'Actividad',
     blog: 'Blog',
     maxAge: 'Max. edad: {0} años',
     minAge: 'Min. edad: {0} años',
@@ -98,9 +98,9 @@ export default {
     allShowsSubtitle: 'Ver todos los espectáculos de este parque',
     allAnimals: 'Todos los animales',
     allAnimalsSubtitle: 'Ver todos los animales en este parque',
-    allHalloweenEvents: 'Todas las actividades de Halloween',
-    allHalloweenEventsOf: 'Todas las actividades de Halloween de X',
-    allHalloweenEventsSubtitle: 'Ver todas las actividades de Halloween de este parque',
+    allEvents: 'Todas las actividades',
+    allEventsOf: 'Todas las actividades de {0}',
+    allEventsSubtitle: 'Ver todas las actividades de este parque',
     bottomSeoBlockTitle: 'Todos los parques temáticos en una lista',
     bottomSeoBlockContent:
       'En este listado encontrarás todos los parques de atracciones que publican tiempos de espera, espectáculos, horarios de apertura u otros datos en su web. Convertimos estos datos a un formato estandarizado para que siempre tengas acceso a los datos más actualizados del parque temático.',
@@ -158,10 +158,11 @@ export default {
     descriptionContent:
       '{0} tiene {1} restaurantes diferentes repartidos por todo el parque. Vea todos los menús, horarios de apertura y más en una sola página, solo en themeparkplanner.com.',
   },
-  halloween: {
-    descriptionTitle: 'Todas las actividades de Halloween de {0}',
+  events: {
+    descriptionTitle: 'Todas las actividades de {0}',
     descriptionContent:
-      '{0} tiene un total de {1} actividades de Halloween. Vea información sobre todas las actividades de Halloween en esta página, como todas las zonas de miedo, casas encantadas y experiencias. ¿Está buscando eventos específicos, como desfiles, zonas de miedo específicas o zonas adecuadas para niños? Usa los filtros y descubre lo que puedes hacer a continuación en tu día de Halloween.',
+      '{0} tiene un total de {1} eventos. Vea información sobre todos los eventos en esta página, como cuándo se llevan a cabo eventos como Halloween y Navidad en el parque. Si busca partes específicas de eventos, como desfiles o espectáculos, haga clic en el evento que le interesa y continúe buscando.',
+    dateCount: '{0} fechas',
     house: 'Casa encantada',
     scarezone: 'Zona de miedo',
     experiencia: 'Experiencia',

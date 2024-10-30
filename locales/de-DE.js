@@ -17,8 +17,8 @@ export default {
     animals: 'Tiere',
     animal: 'Tier',
     weather: 'Wetter',
-    halloweenEvents: 'Halloween-Aktivitäten',
-    halloweenEvent: 'Halloween-Aktivität',
+    events: 'Aktivitäten',
+    event: 'Aktivität',
     blog: 'Blog',
     maxAge: 'Max. Alter: {0} Jahre',
     minAge: 'Mindestalter: {0} Jahre',
@@ -102,8 +102,9 @@ export default {
     allShowsSubtitle: 'Sehen Sie alle Shows dieses Parks',
     allAnimals: 'Alle Tiere',
     allAnimalsSubtitle: 'Sehen Sie alle Tiere dieses Parks',
-    allHalloweenEvents: 'Alle Halloween-Aktivitäten',
-    allHalloweenEventsOf: 'Alle Halloween-Aktivitäten von {0}',
+    allEvents: 'Alle Aktivitäten',
+    allEventsOf: 'Alle Aktivitäten von {0}',
+    allEventsSubtitle: 'Alle Veranstaltungen dieses Parks anzeigen',
     bottomSeoBlockTitle: 'Alle Freizeitparks in einer Liste',
     bottomSeoBlockContent:
       'In dieser Liste finden Sie alle Freizeitparks, die Fahrtdaten, Wartezeiten, Showzeiten und andere Daten auf ihrer Website oder App veröffentlichen. Wir transformieren diese Daten in ein standardisiertes Format, damit Sie immer Zugriff auf die neuesten Freizeitpark-Daten haben.',
@@ -161,10 +162,11 @@ export default {
     descriptionContent:
       '{0} hat {1} verschiedene Restaurants im gesamten Park verteilt. Sehen Sie alle Menüs, Öffnungszeiten und mehr auf einer Seite, nur auf themeparkplanner.com.',
   },
-  halloween: {
-    descriptionTitle: 'Alle Halloween-Aktivitäten von {0}',
+  events: {
+    descriptionTitle: 'Alle Aktivitäten von {0}',
     descriptionContent:
-      '{0} hat insgesamt {1} Halloween-Aktivitäten. Erfahren Sie mehr über die verschiedenen Schreckenszonen, Häuser und Erlebnisse oder suchen Sie nach bestimmten Veranstaltungen in diesem Park, wie Paraden, Shows und mehr.',
+      '{0} hat insgesamt {1} Ereignisse. Sehen Sie sich auf dieser Seite Informationen zu allen Veranstaltungen an, z. B. wann Veranstaltungen wie Halloween und Weihnachten im Park stattfinden. Wenn Sie nach bestimmten Teilen von Veranstaltungen wie Paraden oder Shows suchen, klicken Sie auf die Veranstaltung, die Sie interessiert, und setzen Sie die Suche fort.',
+    dateCount: '{0} Termine',
     house: 'Spukhaus',
     scarezone: 'Scarezone',
     experience: 'Erfahrung',

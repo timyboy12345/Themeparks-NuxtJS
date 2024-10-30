@@ -1,12 +1,6 @@
 <template>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-    <halloween-event-card
-      v-for="halloweenEvent of halloweenEvents"
-      :key="halloweenEvent.id"
-      :park="park"
-      :halloween-event="halloweenEvent"
-      :show-more="true"
-    ></halloween-event-card>
+    <event-card v-for="event of events" :key="event.id" :park="park" :event="event" :show-more="true"></event-card>
 
     <AdCard class="md:col-span-2" />
   </div>
@@ -14,12 +8,12 @@
 
 <script>
 import AdCard from '@/components/cards/AdCard'
-import HalloweenEventCard from '@/components/cards/HalloweenEventCard.vue'
+import EventCard from '@/components/cards/EventCard.vue'
 
 export default {
-  components: { HalloweenEventCard, AdCard },
+  components: { EventCard, AdCard },
   props: {
-    halloweenEvents: {
+    events: {
       type: Array,
       required: true,
     },

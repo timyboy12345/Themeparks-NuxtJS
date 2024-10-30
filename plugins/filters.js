@@ -19,3 +19,16 @@ Vue.filter('formatDate', (value) => {
     year: 'numeric',
   })
 })
+
+Vue.filter('formatDateArray', (value) => {
+  const dates = value.map((d) => {
+    const date = new Date(d)
+    return date.toLocaleString(['nl-NL'], {
+      month: 'long',
+      day: '2-digit',
+      year: 'numeric',
+    })
+  })
+
+  return dates.join(', ')
+})

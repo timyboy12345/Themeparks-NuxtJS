@@ -81,18 +81,14 @@
         </template>
       </card>
 
-      <card
-        v-if="park && park.supports.supportsHalloween"
-        :title="$t('general.halloweenEvents')"
-        :sub-title="$t('park.allHalloweenEventsSubtitle')"
-      >
+      <card v-if="park && park.supports.supportsEvents" :title="$t('general.events')" :sub-title="$t('park.allEventsSubtitle')">
         <template #content>
-          <halloween-event-list class="-mx-4" :max-halloween-events="5" :park-id="parkId"></halloween-event-list>
+          <event-list class="-mx-4" :max-events="5" :park-id="parkId" />
         </template>
 
         <template #buttons>
           <card-actions>
-            <card-button :btn-link="'/parks/' + parkId + '/halloween'" :btn-title="$t('park.allHalloweenEvents')" />
+            <card-button :btn-link="'/parks/' + parkId + '/events'" :btn-title="$t('park.allEvents')" />
           </card-actions>
         </template>
       </card>
@@ -160,7 +156,7 @@ import AnimalList from '@/views/AnimalList'
 import AdCard from '@/components/cards/AdCard'
 import OpeningHoursList from '~/views/OpeningHoursList'
 import BlogPostList from '~/views/BlogPostList.vue'
-import HalloweenEventList from '~/views/HalloweenEventList.vue'
+import EventList from '~/views/EventList.vue'
 import GeneralError from '~/components/GeneralError.vue'
 import WeatherList from '~/views/WeatherList.vue'
 
@@ -168,7 +164,7 @@ export default {
   components: {
     WeatherList,
     GeneralError,
-    HalloweenEventList,
+    EventList,
     BlogPostList,
     OpeningHoursList,
     AdCard,
