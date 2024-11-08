@@ -19,8 +19,8 @@
         />
 
         <div class="p-4 rounded bg-white dark:bg-gray-700 shadow">
-          <h1 class="text-2xl font-bold text-indigo-800 dark:text-indigo-400">{{ blogPost.title }}</h1>
-          <h2 class="text-gray-600 dark:text-gray-500 my-2">
+          <h1 class="text-2xl font-bold text-indigo-800 dark:text-indigo-300">{{ blogPost.title }}</h1>
+          <h2 class="text-gray-600 dark:text-gray-400 my-2">
             {{ blogPost.createdAt | formatDate }}
             <!-- TODO: Uncomment once updatedAt is implemented -->
             <!-- <span v-if="blogPost.createdAt !== blogPost.updatedAt">| {{ blogPost.updatedAt | formatDate }}</span>-->
@@ -44,7 +44,7 @@
           />
 
           <div class="ml-8 flex flex-col">
-            <h2 class="text-indigo-800 dark:text-indigo-400 font-bold">{{ park.name }}</h2>
+            <h2 class="text-indigo-800 dark:text-indigo-300 font-bold">{{ park.name }}</h2>
             <p class="text-gray-900 dark:text-gray-400">{{ $t('blog.moreAboutPark') }}</p>
           </div>
         </nuxt-link>

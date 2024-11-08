@@ -4,7 +4,7 @@
       <select
         :id="id"
         v-model="internalValue"
-        class="form-select border border-gray-300 rounded focus:outline-none focus:shadow-outline focus:border-indigo-300"
+        class="form-select border border-gray-300 rounded focus:outline-none focus:shadow-outline focus:border-indigo-300 dark:text-gray-300"
         :name="id"
         :placeholder="placeholder"
         :disabled="typeof options === undefined"

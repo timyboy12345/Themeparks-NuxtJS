@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <h1 class="text-lg text-indigo-800 font-bold mb-2">
+    <h1 class="text-lg text-indigo-800 dark:text-indigo-300 font-bold mb-2">
       {{ $t('general.account') }}
     </h1>
 

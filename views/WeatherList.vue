@@ -17,8 +17,8 @@
       >
         <div class="flex flex-row items-center">
           <div class="flex flex-col">
-            <div class="text-indigo-700 dark:text-indigo-400">{{ hour }}:00</div>
-            <div class="text-sm text-gray-600">
+            <div class="text-indigo-700 dark:text-indigo-300">{{ hour }}:00</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">
               {{ weatherData.hourly.temperature_2m[hour] }}&deg; / {{ weatherData.hourly.rain[hour] }}mm
             </div>
           </div>
@@ -26,7 +26,7 @@
 
         <div class="text-gray-700 dark:text-gray-300">
           <img
-            class="w-8 h-8 bg-gray-200 rounded-full p-0.5 object-center"
+            class="w-8 h-8 bg-gray-400 rounded-full p-0.5 object-center"
             alt="Image depicting weather type"
             :src="weatherIcon(weatherData.hourly.weather_code[hour], weatherData.hourly.is_day[hour])"
           />

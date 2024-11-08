@@ -4,7 +4,7 @@
 
     <loading v-if="!restaurants || restaurants.length === 0"></loading>
 
-    <h1 v-if="park && restaurants && restaurants.length > 0" class="text-lg text-indigo-800 dark:text-indigo-400 font-bold mb-2">
+    <h1 v-if="park && restaurants && restaurants.length > 0" class="text-lg text-indigo-800 dark:text-indigo-300 font-bold mb-2">
       {{ $t('park.allRestaurantsOf', [park.name]) }}
     </h1>
 

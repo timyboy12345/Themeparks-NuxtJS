@@ -5,7 +5,7 @@
     <loading v-if="$fetchState.pending" class="my-4"></loading>
 
     <div v-else-if="poi && park" class="grid md:grid-cols-2 gap-4">
-      <event-poi-card :event-id="eventId" h1 :park="park" :poi="poi" />
+      <event-poi-card :event-slug="eventSlug" h1 :park="park" :poi="poi" />
 
       <card v-if="poi.description" :title="$t('general.generalInformation')">
         <template #content>
@@ -36,7 +36,7 @@
             v-if="$store.state.auth.checkins && $store.state.auth.checkins.filter((r) => r.poiId === poiId).length > 0"
             edit
             :ride-id="poi.id"
-            class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200"
+            class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200 dark:bg-gray-700"
           />
 
           <div v-else>
@@ -89,7 +89,7 @@ export default {
   data() {
     return {
       parkId: this.$route.params.id,
-      eventId: this.$route.params.event_id,
+      eventSlug: this.$route.params.event_slug,
       poiId: this.$route.params.poi_id,
       park: null,
       event: null,
@@ -98,7 +98,7 @@ export default {
     }
   },
   async fetch() {
-    await Promise.all([this.fetchPark(), this.fetchEvent(), this.fetchPoi()])
+    await Promise.all([this.fetchPark(), this.fetchEvent()])
   },
   head() {
     return {
@@ -137,7 +137,7 @@ export default {
         },
         {
           title: this.event ? this.event.name : this.$t('general.event'),
-          url: '/parks/' + this.parkId + '/events/' + this.eventId,
+          url: '/parks/' + this.parkId + '/events/' + this.eventSlug,
         },
         {
           title: this.poi ? this.poi.title : this.$t('general.event'),
@@ -151,14 +151,15 @@ export default {
       window.open(imgSrc, '_blank')
     },
     async fetchEvent() {
-      this.event = await this.$axios.get('/parks/' + this.parkId + '/events').then((rides) => {
-        return rides.data.find((r) => r.type.toLowerCase() === this.eventId)
+      const e = await this.$axios.get('/parks/' + this.parkId + '/events').then((events) => {
+        return {
+          event: events.data.find((r) => r.slug === this.eventSlug),
+          poi: events.data.find((r) => r.slug === this.eventSlug).pois.find((p) => p.id === this.poiId),
+        }
       })
-    },
-    async fetchPoi() {
-      this.poi = await this.$axios.get('/parks/' + this.parkId + '/events').then((rides) => {
-        return rides.data.find((r) => r.type.toLowerCase() === this.eventId).pois.find((p) => p.id === this.poiId)
-      })
+
+      this.event = e.event
+      this.poi = e.poi
     },
     async fetchPark() {
       this.park = await this.$axios.get('/parks/' + this.parkId).then((park) => {

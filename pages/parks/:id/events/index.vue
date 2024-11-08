@@ -6,7 +6,7 @@
 
     <general-error v-if="$fetchState.error"></general-error>
 
-    <h1 v-if="park && events && events.length > 0" class="text-lg text-indigo-800 font-bold mb-2">
+    <h1 v-if="park && events && events.length > 0" class="text-lg text-indigo-800 dark:text-indigo-300 font-bold mb-2">
       {{ $t('park.allEventsOf', [park.name]) }}
     </h1>
 

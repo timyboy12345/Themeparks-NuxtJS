@@ -16,7 +16,7 @@
       >
         <div class="flex flex-row items-center">
           <div class="flex flex-col">
-            <div class="text-indigo-700 dark:text-indigo-200">{{ checkin.dateTime | formatDate }}</div>
+            <div class="text-indigo-700 dark:text-indigo-300">{{ checkin.dateTime | formatDate }}</div>
           </div>
         </div>
 

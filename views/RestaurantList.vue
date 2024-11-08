@@ -27,14 +27,14 @@
           </div>
 
           <div class="flex flex-col">
-            <div class="text-indigo-700 dark:text-indigo-400">{{ restaurant.title }}</div>
+            <div class="text-indigo-700 dark:text-indigo-300">{{ restaurant.title }}</div>
             <!--            <div v-if="restaurant.openingTimes" class="text-sm text-gray-600">-->
             <!--              Open van {{ restaurant.openingTimes[0].openTime | time }} tot {{ restaurant.openingTimes[0].closeTime | time }}-->
             <!--            </div>-->
           </div>
         </div>
 
-        <div class="text-gray-700 dark:text-gray-500">{{ restaurant.area }}</div>
+        <div class="text-gray-700 dark:text-gray-400">{{ restaurant.area }}</div>
       </NuxtLink>
     </div>
   </div>

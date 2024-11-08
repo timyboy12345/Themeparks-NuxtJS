@@ -5,7 +5,9 @@
     :image-src="blogPost.imageUrl"
     :title="blogPost.title"
   >
-    <template #content>{{ blogPost.description }}</template>
+    <template #content>
+      <div class="mt-2">{{ blogPost.description }}</div>
+    </template>
   </card>
 </template>
 

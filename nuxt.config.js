@@ -113,45 +113,45 @@ export default {
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
-  pwa: {
-    mobileApp: true,
-    mobileAppIOS: true,
-    name: 'Themeparkplanner',
-    author: 'Tim Arendsen',
-    ogHost: 'https://themeparkplanner.com',
-    twitterCard: 'summary',
-    appleStatusBarStyle: 'black-translucent',
-    icon: {
-      iconSrc: './static/icon.png',
-    },
-    manifest: {
-      lang: 'en',
-      short_name: 'Themeparkplanner',
-      name: 'Themeparkplanner',
-      start_url: '/',
-      display: 'standalone',
-      theme_color: '#3730a3',
-    },
-    workbox: {
-      /* workbox options */
-      dev: false,
-      offlineStrategy: 'StaleWhileRevalidate',
-      runtimeCaching: [
-        {
-          urlPattern: 'https://themeparkplanner.com/parks/*',
-          handler: 'cacheFirst',
-          method: 'GET',
-          strategyOptions: {
-            cacheName: 'giphy',
-            cacheExpiration: {
-              maxEntries: 100,
-              maxAgeSeconds: 60 * 60 * 24 * 10,
-            },
-          },
-        },
-      ],
-    },
-  },
+  // pwa: {
+  //   mobileApp: true,
+  //   mobileAppIOS: true,
+  //   name: 'Themeparkplanner',
+  //   author: 'Tim Arendsen',
+  //   ogHost: 'https://themeparkplanner.com',
+  //   twitterCard: 'summary',
+  //   appleStatusBarStyle: 'black-translucent',
+  //   icon: {
+  //     iconSrc: './static/icon.png',
+  //   },
+  //   manifest: {
+  //     lang: 'en',
+  //     short_name: 'Themeparkplanner',
+  //     name: 'Themeparkplanner',
+  //     start_url: '/',
+  //     display: 'standalone',
+  //     theme_color: '#3730a3',
+  //   },
+  //   workbox: {
+  //     /* workbox options */
+  //     dev: false,
+  //     offlineStrategy: 'StaleWhileRevalidate',
+  //     runtimeCaching: [
+  //       {
+  //         urlPattern: 'https://themeparkplanner.com/parks/*',
+  //         handler: 'cacheFirst',
+  //         method: 'GET',
+  //         strategyOptions: {
+  //           cacheName: 'giphy',
+  //           cacheExpiration: {
+  //             maxEntries: 100,
+  //             maxAgeSeconds: 60 * 60 * 24 * 10,
+  //           },
+  //         },
+  //       },
+  //     ],
+  //   },
+  // },
 
   i18n: {
     locales: [

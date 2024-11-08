@@ -4,7 +4,7 @@
     :subtitle="eventType"
     :h1="h1"
     :title="poi.title"
-    :description="poi.subTitle"
+    :description="poi.subTitle | limitText"
     :image-src="poi.image_url"
     :link="cardLink"
   >
@@ -31,7 +31,7 @@
     </template>
   </image-card>
 
-  <card v-else :title="poi.title" :content="poi.subTitle" :link="cardLink">
+  <card v-else :title="poi.title" :link="cardLink">
     <template #content>
       <div
         v-if="poi.minAgeWithoutEscort || poi.maxAge || poi.minSizeWithEscort || poi.maxSize || poi.minSizeWithoutEscort"
@@ -75,7 +75,7 @@ export default {
       required: false,
       default: null,
     },
-    eventId: {
+    eventSlug: {
       type: String,
       required: true,
     },
@@ -90,11 +90,11 @@ export default {
       return this.poi.id
     },
     cardLink() {
-      if (!this.park || !this.poi || !this.eventId || !this.showMore) {
+      if (!this.park || !this.poi || !this.eventSlug || !this.showMore) {
         return null
       }
 
-      return `/parks/${this.park.id}/events/${this.eventId}/${this.poi.id}`
+      return `/parks/${this.park.id}/events/${this.eventSlug}/${this.poi.id}`
     },
     eventType() {
       if (!this.poi) {
@@ -103,13 +103,13 @@ export default {
 
       switch (this.poi.category) {
         case 'HALLOWEEN_HOUSE':
-          return this.$t('halloween.house')
+          return this.$t('events.house')
         case 'HALLOWEEN_SCAREZONE':
-          return this.$t('halloween.scarezone')
+          return this.$t('events.scarezone')
         case 'HALLOWEEN_EXPERIENCE':
-          return this.$t('halloween.experience')
+          return this.$t('events.experience')
         case 'HALLOWEEN_MAZE':
-          return this.$t('halloween.maze')
+          return this.$t('events.maze')
         default:
           return null
       }

@@ -6,7 +6,7 @@
 
     <general-error v-if="error"></general-error>
 
-    <h1 v-if="park && rides && rides.length > 0" class="text-lg text-indigo-800 dark:text-indigo-400 font-bold mb-2">
+    <h1 v-if="park && rides && rides.length > 0" class="text-lg text-indigo-800 dark:text-indigo-300 font-bold mb-2">
       {{ $t('park.allRidesOf', [park.name]) }}
     </h1>
 

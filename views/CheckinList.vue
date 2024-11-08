@@ -19,15 +19,15 @@
       >
         <div class="flex flex-row items-center">
           <div class="flex flex-col">
-            <div class="text-indigo-700 dark:text-indigo-200">{{ checkin.dateTime | formatDateTime }}</div>
-            <div v-if="checkin.waitTime" class="text-sm text-gray-600 dark:text-gray-500">
+            <div class="text-indigo-700 dark:text-indigo-300">{{ checkin.dateTime | formatDateTime }}</div>
+            <div v-if="checkin.waitTime" class="text-sm text-gray-600 dark:text-gray-400">
               {{ $t('general.unspecifiedWaitTime', [checkin.waitTime]) }}
             </div>
           </div>
         </div>
 
         <div class="flex flex-row gap-x-2">
-          <div class="text-gray-700 dark:text-gray-600">{{ checkin.parkId }} / {{ checkin.rideId }}</div>
+          <div class="text-gray-700 dark:text-gray-400">{{ checkin.parkId }} / {{ checkin.rideId }}</div>
           <div v-if="edit" class="text-gray-700 dark:text-gray-300">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              class="w-6 h-6 stroke-indigo-800"
+              class="w-6 h-6 stroke-indigo-800 dark:stroke-indigo-300"
             >
               <path
                 stroke-linecap="round"

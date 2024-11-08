@@ -3,26 +3,26 @@
     <template #content>
       <div class="flex flex-col gap-y-2 mt-2">
         <div v-if="stats.height">
-          <h3 class="font-bold text-indigo-700">{{ $t('ride.stats.heightTitle', [ride.title]) }}</h3>
+          <h3 class="font-bold text-indigo-700 dark:text-indigo-300">{{ $t('ride.stats.heightTitle', [ride.title]) }}</h3>
           {{ $t('ride.stats.height', [stats.height, ride.title]) }}
         </div>
 
         <div v-if="stats.speed">
-          <h3 class="font-bold text-indigo-700">{{ $t('ride.stats.speedTitle', [ride.title]) }}</h3>
+          <h3 class="font-bold text-indigo-700 dark:text-indigo-300">{{ $t('ride.stats.speedTitle', [ride.title]) }}</h3>
           {{ $t('ride.stats.speed', [stats.speed, ride.title]) }}
         </div>
 
         <div v-if="stats.manufacturer">
-          <h3 class="font-bold text-indigo-700">{{ $t('ride.stats.manufacturerTitle', [ride.title]) }}</h3>
+          <h3 class="font-bold text-indigo-700 dark:text-indigo-300">{{ $t('ride.stats.manufacturerTitle', [ride.title]) }}</h3>
           {{ $t('ride.stats.manufacturer', [stats.manufacturer, ride.title]) }}
         </div>
 
         <div v-if="stats.build_in">
-          <h3 class="font-bold text-indigo-700">{{ $t('ride.stats.buildInTitle', [ride.title]) }}</h3>
+          <h3 class="font-bold text-indigo-700 dark:text-indigo-300">{{ $t('ride.stats.buildInTitle', [ride.title]) }}</h3>
           {{ $t('ride.stats.buildIn', [stats.build_in, ride.title]) }}
         </div>
 
-        <a v-if="link" target="_blank" :href="link" class="text-sm underline text-indigo-700 hover:text-indigo-800">
+        <a v-if="link" target="_blank" :href="link" class="text-sm underline text-indigo-700 dark:text-indigo-300 hover:text-indigo-800">
           {{ $t('ride.stats.rcdbSeeMore', [link]) }}
         </a>
       </div>

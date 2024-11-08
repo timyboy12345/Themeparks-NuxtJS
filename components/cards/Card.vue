@@ -11,10 +11,10 @@
       <div class="flex flex-col justify-between h-full">
         <div class="text-gray-800 dark:text-gray-300">
           <slot name="title">
-            <compontent :is="h1 ? 'h1' : 'h2'" v-if="title" class="text-lg text-indigo-800 dark:text-indigo-400 font-bold">{{
+            <compontent :is="h1 ? 'h1' : 'h2'" v-if="title" class="text-lg text-indigo-800 dark:text-indigo-300 font-bold">{{
               title
             }}</compontent>
-            <p v-if="subTitle" class="text-sm text-gray-600 dark:text-gray-500">{{ subTitle }}</p>
+            <p v-if="subTitle" class="text-sm text-gray-600 dark:text-gray-400">{{ subTitle }}</p>
           </slot>
 
           <slot name="content">

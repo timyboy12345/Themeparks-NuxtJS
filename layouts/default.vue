@@ -88,9 +88,13 @@
         </NuxtLink>
       </div>
 
-      <div class="text-gray-600 text-sm">
+      <div class="text-gray-600 dark:text-gray-400 text-sm">
         {{ $t('general.madeWithLove') }} -
-        <a href="https://arendz.nl?utm_source=themeparkplanner&utm_campaign=backlink" target="_blank" class="underline text-gray-800">
+        <a
+          href="https://arendz.nl?utm_source=themeparkplanner&utm_campaign=backlink"
+          target="_blank"
+          class="underline text-gray-800 dark:text-gray-600"
+        >
           Arendz.nl
         </a>
       </div>

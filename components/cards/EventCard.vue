@@ -35,15 +35,12 @@ export default {
     },
   },
   computed: {
-    btnLink() {
-      return this.event.id
-    },
     cardLink() {
       if (!this.park || !this.event || !this.showMore) {
         return null
       }
 
-      return `/parks/${this.park.id}/events/${this.event.type.toLowerCase()}`
+      return `/parks/${this.park.id}/events/${this.event.slug}`
     },
     cardContent() {
       return this.event.dates && this.event.dates.length > 0 ? this.$t('events.dateCount', [this.event.dates.length]) : null

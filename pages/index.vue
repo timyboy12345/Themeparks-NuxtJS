@@ -6,15 +6,15 @@
 
     <card :title="$t('home.infoTitle')">
       <template #content>
-        <h3 class="text-indigo-700 dark:text-indigo-500 mt-4">{{ $t('home.infoWaitTimes') }}</h3>
+        <h3 class="text-indigo-700 dark:text-indigo-300 mt-4">{{ $t('home.infoWaitTimes') }}</h3>
         <p class="text-gray-800 dark:text-gray-300">{{ $t('home.infoWaitTimesContent') }}</p>
 
-        <h3 class="text-indigo-700 dark:text-indigo-500 mt-2">{{ $t('home.infoData') }}</h3>
+        <h3 class="text-indigo-700 dark:text-indigo-300 mt-2">{{ $t('home.infoData') }}</h3>
         <p class="text-gray-800 dark:text-gray-300">
           {{ $t('home.infoDataContent') }}
         </p>
 
-        <h3 class="text-indigo-700 dark:text-indigo-500 mt-2">{{ $t('home.apiInfo') }}</h3>
+        <h3 class="text-indigo-700 dark:text-indigo-300 mt-2">{{ $t('home.apiInfo') }}</h3>
         <p class="text-gray-800 dark:text-gray-300">
           {{ $t('home.apiInfoContent') }}
         </p>

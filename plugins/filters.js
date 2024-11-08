@@ -20,8 +20,13 @@ Vue.filter('formatDate', (value) => {
   })
 })
 
+Vue.filter('limitText', (value) => {
+  const limit = 160
+  return value.length > limit ? value.substring(0, limit).trim() + '...' : value
+})
+
 Vue.filter('formatDateArray', (value) => {
-  const dates = value.map((d) => {
+  const dates = (value ?? []).map((d) => {
     const date = new Date(d)
     return date.toLocaleString(['nl-NL'], {
       month: 'long',

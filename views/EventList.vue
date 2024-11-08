@@ -10,7 +10,7 @@
       <NuxtLink
         v-for="event of events"
         :key="event.id"
-        :to="localePath('/parks/' + parkId + '/events/' + event.type.toLowerCase())"
+        :to="localePath('/parks/' + parkId + '/events/' + event.slug)"
         class="py-2 px-4 flex hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-800 transition duration-100 flex-row justify-between items-center"
       >
         <div class="flex flex-row items-center">
@@ -27,12 +27,12 @@
           </div>
 
           <div class="flex flex-col">
-            <div class="text-indigo-700 dark:text-indigo-400">{{ event.name }}</div>
-            <div class="text-sm text-gray-600">{{ event.subTitle }}</div>
+            <div class="text-indigo-700 dark:text-indigo-300">{{ event.name }}</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">{{ event.subTitle }}</div>
           </div>
         </div>
 
-        <div class="text-gray-700 dark:text-gray-500">{{ event.area }}</div>
+        <div v-if="event.area" class="text-gray-700 dark:text-gray-400">{{ event.area }}</div>
       </NuxtLink>
     </div>
   </div>

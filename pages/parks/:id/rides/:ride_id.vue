@@ -36,7 +36,7 @@
             v-if="$store.state.auth.checkins && $store.state.auth.checkins.filter((r) => r.rideId === rideId).length > 0"
             edit
             :ride-id="ride.id"
-            class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200"
+            class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200 dark:bg-gray-700"
           />
 
           <div v-else>

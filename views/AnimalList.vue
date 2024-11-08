@@ -26,7 +26,7 @@
           </div>
 
           <div class="flex flex-col">
-            <div class="text-indigo-700 dark:text-indigo-400">{{ animal.title }}</div>
+            <div class="text-indigo-700 dark:text-indigo-300">{{ animal.title }}</div>
             <div
               v-if="animal.animalTimes && animal.animalTimes.futureAnimalTimes && animal.animalTimes.futureAnimalTimes.length > 0"
               class="text-gray-600 text-sm"
@@ -36,7 +36,7 @@
           </div>
         </div>
 
-        <div class="text-gray-700 dark:text-gray-500">{{ animal.area }}</div>
+        <div class="text-gray-700 dark:text-gray-400">{{ animal.area }}</div>
       </NuxtLink>
     </div>
   </div>

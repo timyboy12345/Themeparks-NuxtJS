@@ -25,7 +25,7 @@
             <div v-for="showTime of futureShows" :key="showTime.id" class="py-2 px-4 flex flex-row justify-between items-center">
               <div class="flex flex-row items-center">
                 <div class="flex flex-col">
-                  <div class="text-indigo-700 dark:text-indigo-400">{{ showTime.localFromTime }}</div>
+                  <div class="text-indigo-700 dark:text-indigo-300">{{ showTime.localFromTime }}</div>
                   <div v-if="showTime.edition" class="text-sm text-gray-600 dark:text-gray-300">
                     {{ showTime.edition }}
                   </div>

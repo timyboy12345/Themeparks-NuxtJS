@@ -26,14 +26,14 @@
           </div>
 
           <div class="flex flex-col">
-            <div class="text-indigo-700 dark:text-indigo-400">{{ show.title }}</div>
+            <div class="text-indigo-700 dark:text-indigo-300">{{ show.title }}</div>
             <div v-if="futureShowTimes(show).length > 0" class="text-gray-600 dark:text-gray-400 text-sm">
               Volgende show: {{ futureShowTimes(show)[0].localFromTime | time }}
             </div>
           </div>
         </div>
 
-        <div class="text-gray-700 dark:text-gray-500">{{ show.area }}</div>
+        <div class="text-gray-700 dark:text-gray-400">{{ show.area }}</div>
       </NuxtLink>
     </div>
   </div>

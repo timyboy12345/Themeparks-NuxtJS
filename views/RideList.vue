@@ -27,7 +27,7 @@
           </div>
 
           <div class="flex flex-col">
-            <div class="text-indigo-700 dark:text-indigo-400">{{ ride.title }}</div>
+            <div class="text-indigo-700 dark:text-indigo-300">{{ ride.title }}</div>
             <div
               v-if="ride.currentWaitTime !== undefined && ride.currentWaitTime !== null"
               class="text-sm text-gray-600 dark:text-gray-400"
@@ -37,7 +37,7 @@
           </div>
         </div>
 
-        <div class="text-nowrap text-gray-700 dark:text-gray-500">{{ ride.area }}</div>
+        <div v-if="ride.area" class="text-nowrap text-gray-700 dark:text-gray-400">{{ ride.area }}</div>
       </NuxtLink>
     </div>
   </div>

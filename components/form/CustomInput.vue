@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <label class="text-gray-600 text-sm mb-1" :for="id">{{ label }}</label>
+    <label class="text-gray-600 dark:text-gray-400 text-sm mb-1" :for="id">{{ label }}</label>
 
     <slot name="input"></slot>
 
