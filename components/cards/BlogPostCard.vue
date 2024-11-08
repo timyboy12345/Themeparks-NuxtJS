@@ -1,12 +1,12 @@
 <template>
   <card
-    :sub-title="blogPost.createdAt | formatDate"
-    :link="'/blog/' + blogPost.slug"
-    :image-src="blogPost.imageUrl"
-    :title="blogPost.title"
+    :sub-title="(blogPost.translations[0].date_updated || blogPost.translations[0].date_created) | formatDate"
+    :link="'/blog/' + blogPost.translations[0].slug"
+    :image-src="blogPost.header ? 'https://data.arendz.nl/assets/' + blogPost.header.filename_disk : null"
+    :title="blogPost.translations[0].title"
   >
     <template #content>
-      <div class="mt-2">{{ blogPost.description }}</div>
+      <div class="mt-2">{{ blogPost.translations[0].description }}</div>
     </template>
   </card>
 </template>

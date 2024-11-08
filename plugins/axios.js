@@ -1,6 +1,6 @@
 export default function ({ app, $axios }) {
   $axios.onRequest((request) => {
-    if (request.baseURL.includes('tp.arendz.nl')) {
+    if (!request.url.includes('data.arendz.nl')) {
       const locales = app.store.$i18n.locales
       const localeCookie = app.store.$i18n.getLocaleCookie()
 
@@ -15,7 +15,7 @@ export default function ({ app, $axios }) {
         }
       }
 
-      // Auth token
+      // Auth token, only if request is to tp.arendz.nl
       if (process.client && localStorage.getItem('jwt_token')) {
         request.headers = {
           ...request.headers,

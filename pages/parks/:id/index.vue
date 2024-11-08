@@ -250,15 +250,19 @@ export default {
     },
   },
   async created() {
-    this.blogPosts = await this.$axios
-      .get('/blog-posts/parks/' + this.parkId)
-      .then((park) => {
-        return park.data
+    const isoLocale = this.$i18n.locales.find((l) => l.code === this.$i18n.getLocaleCookie()).iso
+
+    await this.$axios
+      .get(
+        `https://data.arendz.nl/items/tp_blogpost?filter[translations][languages_code][_eq]=${isoLocale}&fields=*,translations.*,header.*,user_created.*`
+      )
+      .then((blogPosts) => {
+        this.blogPosts = blogPosts.data.data
       })
-      .catch((e) => {
-        if (e) {
-          this.$sentry.captureException(e)
-        }
+      .catch((reason) => {
+        this.$emit('fetchError', reason)
+        this.$sentry.captureException(reason)
+        throw reason
       })
   },
 }

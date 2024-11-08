@@ -12,23 +12,25 @@
     <div v-else class="grid gap-4" :class="{ 'lg:grid-cols-3': hasAssociatedPosts }">
       <div class="grid gap-4" :class="{ 'lg:col-span-2': hasAssociatedPosts }">
         <img
+          v-if="blogPost.header"
           v-lazy-load
           class="w-full max-h-96 overflow-hidden object-center object-cover rounded bg-white shadow"
-          :data-src="blogPost.imageUrl"
+          :data-src="blogPost.header ? 'https://data.arendz.nl/assets/' + blogPost.header.filename_disk : null"
           alt="Foto van blogpost"
         />
 
         <div class="p-4 rounded bg-white dark:bg-gray-700 shadow">
-          <h1 class="text-2xl font-bold text-indigo-800 dark:text-indigo-300">{{ blogPost.title }}</h1>
+          <h1 class="text-2xl font-bold text-indigo-800 dark:text-indigo-300">{{ blogPost.translations[0].title }}</h1>
           <h2 class="text-gray-600 dark:text-gray-400 my-2">
-            {{ blogPost.createdAt | formatDate }}
-            <!-- TODO: Uncomment once updatedAt is implemented -->
-            <!-- <span v-if="blogPost.createdAt !== blogPost.updatedAt">| {{ blogPost.updatedAt | formatDate }}</span>-->
-            <span v-if="blogPost.author">| {{ blogPost.author.firstName }}</span>
+            {{ (blogPost.translations[0].date_updated || blogPost.translations[0].date_created) | formatDate }}
+            <span v-if="blogPost.user_created">| {{ blogPost.user_created.first_name }}</span>
           </h2>
 
           <!-- eslint-disable-next-line vue/no-v-html -->
-          <article class="prose dark:prose-invert max-w-none" v-html="$md.render(blogPost.content)"></article>
+          <article
+            class="prose dark:prose-invert max-w-none prose-a:text-indigo-700 prose-headings:mb-1 prose-headings:mt-2"
+            v-html="$md.render(blogPost.translations[0].content)"
+          ></article>
         </div>
 
         <nuxt-link
@@ -49,9 +51,10 @@
           </div>
         </nuxt-link>
 
-        <router-link
+        <a
           v-if="$store.state.auth.user"
-          :to="localePath('/blog/' + blogPost.slug + '/edit')"
+          target="_blank"
+          :href="`https://data.arendz.nl/admin/content/tp_blogpost/${blogPost.id}`"
           class="shadow text-white p-1 fixed right-10 bottom-10 w-8 h-8 bg-indigo-800 hover:bg-indigo-900 transition duration-100 rounded"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -61,7 +64,7 @@
               d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
             />
           </svg>
-        </router-link>
+        </a>
       </div>
 
       <div v-if="hasAssociatedPosts" class="grid gap-4 content-start">
@@ -98,21 +101,7 @@ export default {
     }
   },
   async fetch() {
-    await this.$axios
-      .get('/blog-posts/slug/' + this.$route.params.slug)
-      .then(async (blogPost) => {
-        this.blogPost = blogPost.data
-
-        if (blogPost.data.parkId) {
-          await this.loadPark(blogPost.data.parkId)
-          await this.loadParkBlogPosts(blogPost.data.parkId)
-        }
-      })
-      .catch((reason) => {
-        this.$emit('fetchError', reason)
-        this.$sentry.captureException(reason)
-        throw reason
-      })
+    await this.fetchBlogPost()
   },
   head() {
     return {
@@ -146,14 +135,14 @@ export default {
         },
       ]
 
-      if (this.blogPost.parkId) {
+      if (this.blogPost.park_id) {
         if (this.park) {
           bc = bc.concat({ title: this.park.name, url: '/blog?park=' + this.park.id })
         }
       }
 
       return bc.concat({
-        title: this.blogPost.title,
+        title: this.blogPost.translations[0].title,
         url: '#',
       })
     },
@@ -173,9 +162,34 @@ export default {
     },
     async loadParkBlogPosts(parkId) {
       this.associatedBlogPosts = await this.$axios
-        .get('/blog-posts/parks/' + parkId)
-        .then(({ data: blogPosts }) => {
+        .get(`https://data.arendz.nl/items/tp_blogpost?filter[park_id][_eq]=${parkId}&fields=*,translations.*,header.*`)
+        .then(({ data: { data: blogPosts } }) => {
           return blogPosts.filter((p) => p.id !== this.blogPost.id).slice(0, 5)
+        })
+        .catch((reason) => {
+          this.$emit('fetchError', reason)
+          this.$sentry.captureException(reason)
+          throw reason
+        })
+    },
+    async fetchBlogPost() {
+      await this.$axios
+        .get(
+          `https://data.arendz.nl/items/tp_blogpost?filter[translations][slug][_eq]=${this.$route.params.slug}&fields=*,translations.*,header.*,user_created.*`
+        )
+        .then(async (blogPosts) => {
+          const isoLocale = this.$i18n.locales.find((l) => l.code === this.$i18n.getLocaleCookie()).iso
+
+          if (blogPosts.data.data[0].translations[0].languages_code !== isoLocale) {
+            throw new Error('Not the right locale')
+          }
+
+          this.blogPost = blogPosts.data.data[0]
+
+          if (blogPosts.data.data[0].park_id) {
+            await this.loadPark(blogPosts.data.data[0].park_id)
+            await this.loadParkBlogPosts(blogPosts.data.data[0].park_id)
+          }
         })
         .catch((reason) => {
           this.$emit('fetchError', reason)

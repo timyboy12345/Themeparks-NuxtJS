@@ -48,10 +48,14 @@ export default {
     }
   },
   async fetch() {
+    const isoLocale = this.$i18n.locales.find((l) => l.code === this.$i18n.getLocaleCookie()).iso
+
     await this.$axios
-      .get('/blog-posts')
-      .then(({ data: blogPosts }) => {
-        this.blogPosts = blogPosts.slice(0, 4)
+      .get(
+        `https://data.arendz.nl/items/tp_blogpost?filter[translations][languages_code][_eq]=${isoLocale}&fields=*,translations.*,header.*,user`
+      )
+      .then((blogPosts) => {
+        this.blogPosts = blogPosts.data.data
       })
       .catch((reason) => {
         throw reason

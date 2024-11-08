@@ -21,15 +21,16 @@
       <card class="mt-4" :title="$t('blog.bottomSeoBlockTitle')" :content="$t('blog.bottomSeoBlockContent')"></card>
     </div>
 
-    <router-link
+    <a
       v-if="$store.state.auth.user"
-      :to="localePath('/blog/create')"
+      href="https://data.arendz.nl/admin/content/tp_blogpost/+"
+      target="_blank"
       class="shadow text-white p-1 fixed right-10 bottom-10 w-8 h-8 bg-indigo-800 hover:bg-indigo-900 transition duration-100 rounded"
     >
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
       </svg>
-    </router-link>
+    </a>
   </div>
 </template>
 
@@ -52,14 +53,23 @@ export default {
     }
   },
   async fetch() {
+    const isoLocale = this.$i18n.locales.find((l) => l.code === this.$i18n.getLocaleCookie()).iso
+
+    // Fetch all blog posts with the right locale
     await this.$axios
-      .get('/blog-posts')
+      .get(
+        `https://data.arendz.nl/items/tp_blogpost?filter[translations][languages_code][_eq]=${isoLocale}&fields=*,translations.*,header.*`
+      )
       .then((blogPosts) => {
-        this.blogPosts = blogPosts.data
+        this.blogPosts = blogPosts.data.data
       })
       .catch((reason) => {
+        this.$emit('fetchError', reason)
+        this.$sentry.captureException(reason)
         throw reason
       })
+
+    // Fetch a list of all parks for the filters
     await this.$axios
       .get('/parks')
       .then((parks) => {
@@ -102,11 +112,11 @@ export default {
       let posts = this.blogPosts
 
       if (this.searchQuery) {
-        posts = posts.filter((p) => p.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
+        posts = posts.filter((p) => p.translations[0].title.toLowerCase().includes(this.searchQuery.toLowerCase()))
       }
 
       if (this.parkQuery) {
-        posts = posts.filter((p) => p.parkId === this.parkQuery)
+        posts = posts.filter((p) => p.park_id === this.parkQuery)
       }
 
       return posts
