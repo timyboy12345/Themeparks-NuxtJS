@@ -20,15 +20,15 @@
         />
 
         <div class="p-4 rounded bg-white dark:bg-gray-700 shadow">
-          <h1 class="text-2xl font-bold text-indigo-800 dark:text-indigo-300">{{ blogPost.translations[0].title }}</h1>
+          <h1 class="text-3xl font-bold dark:text-indigo-300">{{ blogPost.translations[0].title }}</h1>
           <h2 class="text-gray-600 dark:text-gray-400 my-2">
             {{ (blogPost.translations[0].date_updated || blogPost.translations[0].date_created) | formatDate }}
-            <span v-if="blogPost.user_created">| {{ blogPost.user_created.first_name }}</span>
+            <span v-if="blogPost.user_created && blogPost.user_created.first_name">| {{ blogPost.user_created.first_name }}</span>
           </h2>
 
           <!-- eslint-disable-next-line vue/no-v-html -->
           <article
-            class="prose dark:prose-invert max-w-none prose-a:text-indigo-700 prose-headings:mb-1 prose-headings:mt-2"
+            class="prose dark:prose-invert max-w-none prose-a:text-indigo-700 dark:prose-a:text-indigo-300 prose-headings:mb-1 prose-headings:mt-2"
             v-html="$md.render(blogPost.translations[0].content)"
           ></article>
         </div>
@@ -71,13 +71,15 @@
         <Card :title="$t('blog.associatedTitle')">
           <template #content>
             <p>{{ $t('blog.associatedContent', [park.name]) }}</p>
-            <nuxt-link class="text-sm mt-4 underline text-indigo-800" :to="localePath(`/blog/?park=${park.id}`)">
+            <nuxt-link class="text-sm mt-4 underline text-indigo-800 dark:text-indigo-300" :to="localePath(`/blog/?park=${park.id}`)">
               {{ $t('blog.allBlogpostsOfThisPark') }}
             </nuxt-link>
           </template>
         </Card>
 
-        <blog-post-card v-for="post in associatedBlogPosts" :key="post.id" :blog-post="post" />
+        <div class="grid sm:grid-cols-2 lg:grid-cols-1 gap-4">
+          <blog-post-card v-for="post in associatedBlogPosts" :key="post.id" :blog-post="post" />
+        </div>
       </div>
     </div>
   </div>
@@ -162,7 +164,7 @@ export default {
     },
     async loadParkBlogPosts(parkId) {
       this.associatedBlogPosts = await this.$axios
-        .get(`https://data.arendz.nl/items/tp_blogpost?filter[park_id][_eq]=${parkId}&fields=*,translations.*,header.*`)
+        .get(`https://data.arendz.nl/items/tp_blogpost?filter[park_id][_eq]=${parkId}&fields=*,translations.*,header.*&sort=-date_updated`)
         .then(({ data: { data: blogPosts } }) => {
           return blogPosts.filter((p) => p.id !== this.blogPost.id).slice(0, 5)
         })
@@ -173,22 +175,23 @@ export default {
         })
     },
     async fetchBlogPost() {
+      const isoLocale = this.$i18n.locales.find((l) => l.code === this.$i18n.getLocaleCookie()).iso
+
       await this.$axios
         .get(
-          `https://data.arendz.nl/items/tp_blogpost?filter[translations][slug][_eq]=${this.$route.params.slug}&fields=*,translations.*,header.*,user_created.*`
+          `https://data.arendz.nl/items/tp_blogpost?deep={ "translations": { "_filter": {"_and": [{"languages_code": { "_eq": "${isoLocale}" }}, {"slug": {"_eq": "${this.$route.params.slug}"}}]}}}&fields=*,translations.*,header.*,user_created.*`
         )
         .then(async (blogPosts) => {
-          const isoLocale = this.$i18n.locales.find((l) => l.code === this.$i18n.getLocaleCookie()).iso
-
-          if (blogPosts.data.data[0].translations[0].languages_code !== isoLocale) {
+          const post = blogPosts.data.data.find((p) => p.translations.length > 0)
+          if (!post) {
             throw new Error('Not the right locale')
           }
 
-          this.blogPost = blogPosts.data.data[0]
+          this.blogPost = post
 
-          if (blogPosts.data.data[0].park_id) {
-            await this.loadPark(blogPosts.data.data[0].park_id)
-            await this.loadParkBlogPosts(blogPosts.data.data[0].park_id)
+          if (post.park_id) {
+            await this.loadPark(post.park_id)
+            await this.loadParkBlogPosts(post.park_id)
           }
         })
         .catch((reason) => {

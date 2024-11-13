@@ -254,10 +254,10 @@ export default {
 
     await this.$axios
       .get(
-        `https://data.arendz.nl/items/tp_blogpost?filter[translations][languages_code][_eq]=${isoLocale}&fields=*,translations.*,header.*,user_created.*`
+        `https://data.arendz.nl/items/tp_blogpost?filter[park_id][_eq]=${this.parkId}&deep[translations][_filter][languages_code][_eq]=${isoLocale}&fields=*,translations.*,header.*,user_created.*&limit=3&sort=-date_updated`
       )
       .then((blogPosts) => {
-        this.blogPosts = blogPosts.data.data
+        this.blogPosts = blogPosts.data.data.filter((p) => p.translations.length > 0)
       })
       .catch((reason) => {
         this.$emit('fetchError', reason)

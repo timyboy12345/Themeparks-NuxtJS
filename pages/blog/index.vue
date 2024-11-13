@@ -14,7 +14,7 @@
 
       <card class="mb-4 mt-4" :title="$t('general.blog')" :sub-title="$t('blog.subTitle')"></card>
 
-      <div class="grid gap-4 grid-cols-2 lg:grid-cols-3">
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <blog-post-card v-for="post in filteredBlogPosts" :key="post.id" :blog-post="post" />
       </div>
 
@@ -58,10 +58,10 @@ export default {
     // Fetch all blog posts with the right locale
     await this.$axios
       .get(
-        `https://data.arendz.nl/items/tp_blogpost?filter[translations][languages_code][_eq]=${isoLocale}&fields=*,translations.*,header.*`
+        `https://data.arendz.nl/items/tp_blogpost?deep[translations][_filter][languages_code][_eq]=${isoLocale}&fields=*,translations.*,header.*&sort=-date_updated`
       )
       .then((blogPosts) => {
-        this.blogPosts = blogPosts.data.data
+        this.blogPosts = blogPosts.data.data.filter((p) => p.translations.length > 0)
       })
       .catch((reason) => {
         this.$emit('fetchError', reason)
@@ -73,7 +73,7 @@ export default {
     await this.$axios
       .get('/parks')
       .then((parks) => {
-        this.parks = parks.data
+        this.parks = parks.data.sort((a, b) => a.name > b.name)
       })
       .catch((reason) => {
         throw reason
@@ -120,6 +120,7 @@ export default {
       }
 
       return posts
+      // return posts.sort((a, b) => a.translations[0].date_updated > b.translations[0].date_updated)
       // return posts.sort((a, b) => a.createdAt < b.createdAt)
     },
   },

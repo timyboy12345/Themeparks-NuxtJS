@@ -52,7 +52,7 @@ export default {
 
     await this.$axios
       .get(
-        `https://data.arendz.nl/items/tp_blogpost?filter[translations][languages_code][_eq]=${isoLocale}&fields=*,translations.*,header.*,user`
+        `https://data.arendz.nl/items/tp_blogpost?filter[translations][languages_code][_eq]=${isoLocale}&fields=*,translations.*,header.*&sort=-date_created`
       )
       .then((blogPosts) => {
         this.blogPosts = blogPosts.data.data

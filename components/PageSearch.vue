@@ -35,12 +35,12 @@
         </div>
 
         <div v-if="parks" class="flex flex-row items-center mt-2 lg:mt-0 lg:ml-4">
-          <label for="page-search-park" class="text-sm mr-2">{{ $t('general.park') }}</label>
+          <label for="page-search-park" class="text-sm mr-2 dark:text-gray-400">{{ $t('general.park') }}</label>
 
           <select
             id="page-search-park"
             name="page-search-park"
-            class="form-select rounded py-1 px-2 bg-transparent border-gray-400"
+            class="form-select rounded py-1 px-2 bg-transparent border-gray-400 dark:text-gray-400"
             :value="park"
             @change="selectPark"
           >

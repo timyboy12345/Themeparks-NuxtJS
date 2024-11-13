@@ -2,7 +2,7 @@
   <card
     :sub-title="(blogPost.translations[0].date_updated || blogPost.translations[0].date_created) | formatDate"
     :link="'/blog/' + blogPost.translations[0].slug"
-    :image-src="blogPost.header ? 'https://data.arendz.nl/assets/' + blogPost.header.filename_disk : null"
+    :image-src="blogPost.header && blogPost.header.filename_disk ? 'https://data.arendz.nl/assets/' + blogPost.header.filename_disk : null"
     :title="blogPost.translations[0].title"
   >
     <template #content>
