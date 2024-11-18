@@ -94,6 +94,7 @@ import Breadcrumbs from '~/components/Breadcrumbs.vue'
 import GeneralError from '~/components/GeneralError.vue'
 import Card from '~/components/cards/Card.vue'
 import BlogPostCard from '~/components/cards/BlogPostCard.vue'
+import blog from '~/pages/blog/index.vue'
 
 export default {
   name: 'BlogShow',
@@ -107,6 +108,11 @@ export default {
     }
   },
   async fetch() {
+    // TODO: One day, this route should not exist, or should redirect to blog overview page
+    if (this.$route.params.slug.includes('non-existing-translation')) {
+      return Promise.reject(Error('Non existing translation'))
+    }
+
     await this.fetchBlogPost()
   },
   head() {
@@ -122,6 +128,9 @@ export default {
     }
   },
   computed: {
+    blog() {
+      return blog
+    },
     hasAssociatedPosts() {
       return this.park && this.associatedBlogPosts && this.associatedBlogPosts.length > 0
     },
@@ -218,7 +227,7 @@ export default {
         .then(async (blogPosts) => {
           const post = blogPosts.data.data.find((p) => p.translations.length > 0)
           if (!post) {
-            throw new Error('Not the right locale')
+            throw new Error('No blog posts found for this locale and URL')
           }
 
           this.blogPost = post

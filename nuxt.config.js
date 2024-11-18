@@ -8,8 +8,6 @@ export default {
     port: 3001,
   },
 
-  serverMiddleware: ['~/server-middleware/blog-redirect'],
-
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Themeparkplanner',
