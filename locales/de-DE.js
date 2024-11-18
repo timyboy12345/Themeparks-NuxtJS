@@ -229,5 +229,7 @@ export default {
     associatedContent:
       'Lesen Sie alles über {0}, wie wann bestimmte Ereignisse stattfinden, was in den letzten Monaten passiert ist und vieles mehr.',
     allBlogpostsOfThisPark: 'Alle Beiträge aus diesem Park',
+    noBlogsFoundTitle: 'Keine Blogbeiträge gefunden',
+    noBlogsFoundContent: 'Versuchen Sie andere Filter oder Suchkriterien, um Blogbeiträge zu finden.',
   },
 }

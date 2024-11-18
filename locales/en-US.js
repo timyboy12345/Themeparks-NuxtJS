@@ -224,5 +224,7 @@ export default {
     associatedContent:
       'Read all about {0}, like when certain events are happening, what has happened in the past few months and so much more.',
     allBlogpostsOfThisPark: 'All posts from this park',
+    noBlogsFoundTitle: 'No Blog Posts Found',
+    noBlogsFoundContent: 'Probeer andere filters of zoekcriteria om blogposts te vinden.',
   },
 }

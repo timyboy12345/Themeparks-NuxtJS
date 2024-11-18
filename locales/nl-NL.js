@@ -227,5 +227,7 @@ export default {
     associatedContent:
       'Lees hier andere artikelen over {0}, zoals artikelen over recente activiteiten, toekomstige evenementen en speciale gelegenheden.',
     allBlogpostsOfThisPark: 'Alle blogposts van dit park',
+    noBlogsFoundTitle: 'Geen blogposts gevonden',
+    noBlogsFoundContent: 'Probeer andere filters of zoekcriteria om blogposts te vinden.',
   },
 }

@@ -1,9 +1,6 @@
 <template>
   <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-    <div
-      class="bg-indigo-800 text-white w-full flex flex-row items-center justify-between py-4 px-4 lg:px-8"
-      :class="{ 'mb-4 lg:mb-8': !breadcrumbs || breadcrumbs.length === 0 }"
-    >
+    <div class="bg-indigo-800 text-white w-full flex flex-row items-center justify-between py-4 px-4 lg:px-8 mb-4 lg:mb-8">
       <div class="flex flex-col md:flex-row">
         <NuxtLink :to="localePath('/')" class="lg:text-lg font-bold">Themeparkplanner</NuxtLink>
 
@@ -57,7 +54,7 @@
 
       <div class="hidden sm:flex flex-row">
         <NuxtLink
-          v-for="locale in availableLocales"
+          v-for="locale in filteredLocales"
           :key="locale.code"
           class="rounded-full bg-white overflow-hidden ml-4 w-6 h-6"
           :to="switchLocalePath(locale.code)"
@@ -67,13 +64,8 @@
       </div>
     </div>
 
-    <slot name="breadcrumbs"></slot>
-
     <div class="mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto mt-4 mb-4">
-      <Nuxt
-        keep-alive
-        :keep-alive-props="{ exclude: ['pages/blog/:slug/edit.vue', 'pages/blog/create.vue', 'pages/blog/:slug/index.vue'] }"
-      />
+      <Nuxt keep-alive />
     </div>
 
     <div class="mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto mt-4 pb-4 flex flex-col">
@@ -126,11 +118,14 @@ export default {
     return this.$nuxtI18nHead({ addSeoAttributes: true })
   },
   computed: {
-    breadcrumbs() {
-      return this.$store.state.breadcrumbs
-    },
     availableLocales() {
       return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale)
+    },
+    filteredLocales() {
+      // const locales = this.availableLocales.filter((l) => !this.switchLocalePath(l.code).includes('non-existing-translation'))
+      const locales = this.availableLocales
+
+      return locales
     },
   },
   mounted() {

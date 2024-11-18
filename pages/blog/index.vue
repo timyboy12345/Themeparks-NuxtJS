@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!--    <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>-->
-
     <loading-spinner v-if="$fetchState.pending" class="mt-8"></loading-spinner>
     <general-error
       v-else-if="$fetchState.error"
@@ -14,8 +12,13 @@
 
       <card class="mb-4 mt-4" :title="$t('general.blog')" :sub-title="$t('blog.subTitle')"></card>
 
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div v-if="filteredBlogPosts.length > 0" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <blog-post-card v-for="post in filteredBlogPosts" :key="post.id" :blog-post="post" />
+      </div>
+
+      <div v-if="filteredBlogPosts.length === 0" class="text-center md:col-span-3 lg:col-span-4 flex flex-col my-4">
+        <h2 class="font-bold text-red-700">{{ $t('blog.noBlogsFoundTitle') }}</h2>
+        <p class="text-gray-600">{{ $t('blog.noBlogsFoundContent') }}</p>
       </div>
 
       <card class="mt-4" :title="$t('blog.bottomSeoBlockTitle')" :content="$t('blog.bottomSeoBlockContent')"></card>
@@ -73,7 +76,7 @@ export default {
     await this.$axios
       .get('/parks')
       .then((parks) => {
-        this.parks = parks.data.sort((a, b) => a.name > b.name)
+        this.parks = parks.data.sort((a, b) => a.name.localeCompare(b.name))
       })
       .catch((reason) => {
         throw reason
@@ -92,22 +95,6 @@ export default {
     }
   },
   computed: {
-    breadcrumbs() {
-      if (!this.blogPosts) {
-        return []
-      }
-
-      return [
-        {
-          title: this.$t('general.home'),
-          url: '/',
-        },
-        {
-          title: this.$t('general.blog'),
-          url: '#',
-        },
-      ]
-    },
     filteredBlogPosts() {
       let posts = this.blogPosts
 
@@ -122,6 +109,15 @@ export default {
       return posts
       // return posts.sort((a, b) => a.translations[0].date_updated > b.translations[0].date_updated)
       // return posts.sort((a, b) => a.createdAt < b.createdAt)
+    },
+  },
+  watch: {
+    $route(to, _) {
+      if (to.query.park) {
+        this.parkQuery = to.query.park
+      } else {
+        this.parkQuery = null
+      }
     },
   },
   methods: {

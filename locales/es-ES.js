@@ -225,5 +225,7 @@ export default {
     associatedContent:
       'Lea otros artículos sobre {0} aquí, como artículos sobre actividades recientes, eventos futuros y ocasiones especiales.',
     allBlogpostsOfThisPark: 'Todas las publicaciones de blog de este parque',
+    noBlogsFoundTitle: 'No se encontraron publicaciones de blog',
+    noBlogsFoundContent: 'Pruebe otros filtros o criterios de búsqueda para encontrar publicaciones de blog.',
   },
 }

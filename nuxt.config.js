@@ -8,6 +8,8 @@ export default {
     port: 3001,
   },
 
+  serverMiddleware: ['~/server-middleware/blog-redirect'],
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Themeparkplanner',
@@ -195,7 +197,7 @@ export default {
     gzip: true,
     routes: async () => {
       const routes = []
-      const langs = ['en', 'nl', 'es']
+      const langs = ['en', 'nl', 'es', 'de']
 
       const { data } = await axios.get('https://tp.arendz.nl/parks')
       data.forEach((park) => {

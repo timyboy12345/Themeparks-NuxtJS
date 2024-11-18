@@ -14,8 +14,8 @@
         <img
           v-if="blogPost.header"
           v-lazy-load
-          class="w-full max-h-96 overflow-hidden object-center object-cover rounded bg-white shadow"
-          :data-src="blogPost.header ? 'https://data.arendz.nl/assets/' + blogPost.header.filename_disk : null"
+          class="w-full max-h-96 overflow-hidden object-center object-cover rounded bg-white dark:bg-gray-700 shadow"
+          :data-src="'https://data.arendz.nl/assets/' + blogPost.header.filename_disk + '?width=1000&height=384&format=webp'"
           alt="Foto van blogpost"
         />
 
@@ -28,7 +28,7 @@
 
           <!-- eslint-disable-next-line vue/no-v-html -->
           <article
-            class="prose dark:prose-invert max-w-none prose-a:text-indigo-700 dark:prose-a:text-indigo-300 prose-headings:mb-1 prose-headings:mt-2"
+            class="prose dark:prose-invert max-w-none prose-a:text-indigo-700 dark:prose-a:text-indigo-300 prose-headings:mb-1 prose-headings:mt-2 hover:prose-a:no-underline"
             v-html="$md.render(blogPost.translations[0].content)"
           ></article>
         </div>
@@ -71,7 +71,10 @@
         <Card :title="$t('blog.associatedTitle')">
           <template #content>
             <p>{{ $t('blog.associatedContent', [park.name]) }}</p>
-            <nuxt-link class="text-sm mt-4 underline text-indigo-800 dark:text-indigo-300" :to="localePath(`/blog/?park=${park.id}`)">
+            <nuxt-link
+              class="text-sm mt-4 underline text-indigo-800 dark:text-indigo-300 hover:no-underline"
+              :to="localePath(`/blog/?park=${park.id}`)"
+            >
               {{ $t('blog.allBlogpostsOfThisPark') }}
             </nuxt-link>
           </template>
@@ -100,6 +103,7 @@ export default {
       blogPost: null,
       associatedBlogPosts: null,
       park: null,
+      translations: null,
     }
   },
   async fetch() {
@@ -149,7 +153,37 @@ export default {
       })
     },
   },
+  // If the page is in the cache, re-add the available locales to the store
+  async activated() {
+    if (this.translations) {
+      await this.setTranslations()
+    }
+  },
   methods: {
+    async setTranslations() {
+      const locales = {}
+
+      // Build object for languages that are supported
+      this.translations.forEach((t) => {
+        const locale = this.$i18n.locales.find((i) => i.iso === t.languages_code)
+        locales[locale.code] = { slug: t.slug }
+      })
+
+      this.$i18n.locales.forEach((locale) => {
+        if (!locales[locale.code]) {
+          locales[locale.code] = { slug: 'non-existing-translation' }
+        }
+      })
+
+      // this.$store.dispatch('i18n/setRouteParams', {
+      //   en: { slug: 'my-post' },
+      //   fr: { slug: 'mon-article' },
+      // })
+
+      // console.log(locales)
+
+      await this.$store.dispatch('i18n/setRouteParams', locales)
+    },
     async loadPark(parkId) {
       this.park = await this.$axios
         .get('/parks/' + parkId)
@@ -189,10 +223,29 @@ export default {
 
           this.blogPost = post
 
+          await this.fetchBlogPostTranslations()
+
           if (post.park_id) {
             await this.loadPark(post.park_id)
             await this.loadParkBlogPosts(post.park_id)
           }
+        })
+        .catch((reason) => {
+          this.$emit('fetchError', reason)
+          this.$sentry.captureException(reason)
+          throw reason
+        })
+    },
+    async fetchBlogPostTranslations() {
+      const id = this.blogPost.id
+
+      await this.$axios
+        .get(
+          `https://data.arendz.nl/items/tp_blogpost?filter[id][_eq]=${id}&fields=*,translations.title,translations.slug,translations.description,translations.languages_code,header.*`
+        )
+        .then(async (blogPosts) => {
+          this.translations = blogPosts.data.data[0].translations
+          await this.setTranslations()
         })
         .catch((reason) => {
           this.$emit('fetchError', reason)
