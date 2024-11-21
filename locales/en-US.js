@@ -226,5 +226,9 @@ export default {
     allBlogpostsOfThisPark: 'All posts from this park',
     noBlogsFoundTitle: 'No Blog Posts Found',
     noBlogsFoundContent: 'Probeer andere filters of zoekcriteria om blogposts te vinden.',
+    seeMore: 'View More',
+    seeMoreDescription: 'Click here to read more blog posts',
+    seeMoreContent:
+      'We regularly write about amusement parks in the Netherlands, Europe and the rest of the world. Click here to read all articles',
   },
 }

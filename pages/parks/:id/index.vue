@@ -159,6 +159,7 @@ import BlogPostList from '~/views/BlogPostList.vue'
 import EventList from '~/views/EventList.vue'
 import GeneralError from '~/components/GeneralError.vue'
 import WeatherList from '~/views/WeatherList.vue'
+import { getPostsForPark } from '~/mixins/directus'
 
 export default {
   components: {
@@ -250,20 +251,9 @@ export default {
     },
   },
   async created() {
-    const isoLocale = this.$i18n.locales.find((l) => l.code === this.$i18n.getLocaleCookie()).iso
+    const isoLocale = this.$i18n.locales.find((l) => l.code === this.$i18n.locale).iso
 
-    await this.$axios
-      .get(
-        `https://data.arendz.nl/items/tp_blogpost?filter[park_id][_eq]=${this.parkId}&deep[translations][_filter][languages_code][_eq]=${isoLocale}&fields=*,translations.*,header.*,user_created.*&limit=3&sort=-date_updated`
-      )
-      .then((blogPosts) => {
-        this.blogPosts = blogPosts.data.data.filter((p) => p.translations.length > 0)
-      })
-      .catch((reason) => {
-        this.$emit('fetchError', reason)
-        this.$sentry.captureException(reason)
-        throw reason
-      })
+    this.blogPosts = await getPostsForPark(this.$axios, this.$sentry, isoLocale, this.parkId)
   },
 }
 </script>

@@ -9,14 +9,14 @@
       sub-title="Check if this blog exists, and if the URL is valid"
     ></general-error>
 
-    <div v-else class="grid gap-4" :class="{ 'lg:grid-cols-3': hasAssociatedPosts }">
+    <div v-else-if="blogPost" class="grid gap-4" :class="{ 'lg:grid-cols-3': hasAssociatedPosts }">
       <div class="grid gap-4" :class="{ 'lg:col-span-2': hasAssociatedPosts }">
         <img
           v-if="blogPost.header"
           v-lazy-load
           class="w-full max-h-96 overflow-hidden object-center object-cover rounded bg-white dark:bg-gray-700 shadow"
           :data-src="'https://data.arendz.nl/assets/' + blogPost.header.filename_disk + '?width=1000&height=384&format=webp'"
-          alt="Foto van blogpost"
+          :alt="blogPost.header.description ?? 'Foto van blogpost'"
         />
 
         <div class="p-4 rounded bg-white dark:bg-gray-700 shadow">
@@ -85,6 +85,8 @@
         </div>
       </div>
     </div>
+
+    <div v-else>Blog Post Not Yet Loaded</div>
   </div>
 </template>
 
@@ -95,6 +97,7 @@ import GeneralError from '~/components/GeneralError.vue'
 import Card from '~/components/cards/Card.vue'
 import BlogPostCard from '~/components/cards/BlogPostCard.vue'
 import blog from '~/pages/blog/index.vue'
+import { getPostBySlug, getPostsForPark, getPostTranslations } from '~/mixins/directus'
 
 export default {
   name: 'BlogShow',
@@ -117,12 +120,12 @@ export default {
   },
   head() {
     return {
-      title: this.blogPost ? this.blogPost.title : this.$t('blog.seoTitle'),
+      title: this.blogPost ? this.blogPost.translations[0].title : this.$t('blog.seoTitle'),
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.blogPost ? this.blogPost.description : '',
+          content: this.blogPost ? this.blogPost.translations[0].description : '',
         },
       ],
     }
@@ -189,8 +192,6 @@ export default {
       //   fr: { slug: 'mon-article' },
       // })
 
-      // console.log(locales)
-
       await this.$store.dispatch('i18n/setRouteParams', locales)
     },
     async loadPark(parkId) {
@@ -200,64 +201,46 @@ export default {
           return park
         })
         .catch((reason) => {
-          this.$emit('fetchError', reason)
           this.$sentry.captureException(reason)
-          throw reason
+          return null
         })
     },
-    async loadParkBlogPosts(parkId) {
-      this.associatedBlogPosts = await this.$axios
-        .get(`https://data.arendz.nl/items/tp_blogpost?filter[park_id][_eq]=${parkId}&fields=*,translations.*,header.*&sort=-date_updated`)
-        .then(({ data: { data: blogPosts } }) => {
-          return blogPosts.filter((p) => p.id !== this.blogPost.id).slice(0, 5)
-        })
+    async loadParkBlogPosts(parkId, exclude) {
+      const isoLocale = this.$i18n.locales.find((l) => l.code === this.$i18n.locale).iso
+
+      this.associatedBlogPosts = await getPostsForPark(this.$axios, this.$sentry, isoLocale, parkId)
+        .then((r) => r.slice(0, 5).filter((p) => p.id !== exclude))
         .catch((reason) => {
-          this.$emit('fetchError', reason)
           this.$sentry.captureException(reason)
           throw reason
         })
     },
     async fetchBlogPost() {
-      const isoLocale = this.$i18n.locales.find((l) => l.code === this.$i18n.getLocaleCookie()).iso
+      const isoLocale = this.$i18n.locales.find((l) => l.code === this.$i18n.locale).iso
 
-      await this.$axios
-        .get(
-          `https://data.arendz.nl/items/tp_blogpost?deep={ "translations": { "_filter": {"_and": [{"languages_code": { "_eq": "${isoLocale}" }}, {"slug": {"_eq": "${this.$route.params.slug}"}}]}}}&fields=*,translations.*,header.*,user_created.*`
-        )
-        .then(async (blogPosts) => {
-          const post = blogPosts.data.data.find((p) => p.translations.length > 0)
-          if (!post) {
-            throw new Error('No blog posts found for this locale and URL')
-          }
-
-          this.blogPost = post
-
-          await this.fetchBlogPostTranslations()
+      this.blogPost = await getPostBySlug(this.$axios, this.$sentry, isoLocale, this.$route.params.slug)
+        .then(async (post) => {
+          await this.fetchBlogPostTranslations(post.id)
 
           if (post.park_id) {
             await this.loadPark(post.park_id)
-            await this.loadParkBlogPosts(post.park_id)
+            await this.loadParkBlogPosts(post.park_id, post.id)
           }
+
+          return post
         })
         .catch((reason) => {
-          this.$emit('fetchError', reason)
           this.$sentry.captureException(reason)
           throw reason
         })
     },
-    async fetchBlogPostTranslations() {
-      const id = this.blogPost.id
-
-      await this.$axios
-        .get(
-          `https://data.arendz.nl/items/tp_blogpost?filter[id][_eq]=${id}&fields=*,translations.title,translations.slug,translations.description,translations.languages_code,header.*`
-        )
-        .then(async (blogPosts) => {
-          this.translations = blogPosts.data.data[0].translations
-          await this.setTranslations()
+    async fetchBlogPostTranslations(id) {
+      await getPostTranslations(this.$axios, this.$sentry, id)
+        .then((t) => {
+          this.translations = t
+          this.setTranslations()
         })
         .catch((reason) => {
-          this.$emit('fetchError', reason)
           this.$sentry.captureException(reason)
           throw reason
         })

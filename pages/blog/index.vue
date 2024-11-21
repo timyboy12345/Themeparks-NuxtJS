@@ -43,6 +43,7 @@ import Card from '~/components/cards/Card.vue'
 import GeneralError from '~/components/GeneralError.vue'
 import PageSearch from '~/components/PageSearch.vue'
 import BlogPostCard from '~/components/cards/BlogPostCard.vue'
+import { getPosts } from '~/mixins/directus'
 
 export default {
   name: 'BlogIndex',
@@ -57,20 +58,7 @@ export default {
   },
   async fetch() {
     const isoLocale = this.$i18n.locales.find((l) => l.code === this.$i18n.getLocaleCookie()).iso
-
-    // Fetch all blog posts with the right locale
-    await this.$axios
-      .get(
-        `https://data.arendz.nl/items/tp_blogpost?deep[translations][_filter][languages_code][_eq]=${isoLocale}&fields=*,translations.*,header.*&sort=-date_updated`
-      )
-      .then((blogPosts) => {
-        this.blogPosts = blogPosts.data.data.filter((p) => p.translations.length > 0)
-      })
-      .catch((reason) => {
-        this.$emit('fetchError', reason)
-        this.$sentry.captureException(reason)
-        throw reason
-      })
+    this.blogPosts = await getPosts(this.$axios, this.$sentry, isoLocale)
 
     // Fetch a list of all parks for the filters
     await this.$axios

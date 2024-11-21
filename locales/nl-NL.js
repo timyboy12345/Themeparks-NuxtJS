@@ -229,5 +229,9 @@ export default {
     allBlogpostsOfThisPark: 'Alle blogposts van dit park',
     noBlogsFoundTitle: 'Geen blogposts gevonden',
     noBlogsFoundContent: 'Probeer andere filters of zoekcriteria om blogposts te vinden.',
+    seeMore: 'Bekijk Meer',
+    seeMoreDescription: 'Klik hier om meer blogposts te lezen',
+    seeMoreContent:
+      'We schrijven regelmatig over pretparken in Nederland, Europa en de rest van de wereld. Klik hier om alle artikelen te lezen',
   },
 }

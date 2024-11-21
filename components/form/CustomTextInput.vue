@@ -48,7 +48,7 @@ export default {
       default: 'text',
       validator(value) {
         // The value must match one of these strings
-        return ['text', 'number', 'email', 'password'].includes(value)
+        return ['text', 'number', 'email', 'password', 'datetime-local'].includes(value)
       },
     },
     value: {

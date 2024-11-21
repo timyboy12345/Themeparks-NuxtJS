@@ -8,6 +8,7 @@
         : null
     "
     :title="blogPost.translations[0].title"
+    :image-alt="blogPost.header ? blogPost.header.description : null"
   >
     <template #content>
       <div class="mt-2">{{ blogPost.translations[0].description }}</div>

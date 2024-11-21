@@ -231,5 +231,9 @@ export default {
     allBlogpostsOfThisPark: 'Alle Beiträge aus diesem Park',
     noBlogsFoundTitle: 'Keine Blogbeiträge gefunden',
     noBlogsFoundContent: 'Versuchen Sie andere Filter oder Suchkriterien, um Blogbeiträge zu finden.',
+    seeMore: 'Mehr anzeigen',
+    seeMoreDescription: 'Klicken Sie hier, um weitere Blogbeiträge zu lesen',
+    seeMoreContent:
+      'Wir schreiben regelmäßig über Vergnügungsparks in den Niederlanden, Europa und dem Rest der Welt. Klicken Sie hier, um alle Artikel zu lesen',
   },
 }

@@ -25,8 +25,10 @@
 
     <loading-spinner v-if="$fetchState.pending" />
     <general-error v-if="$fetchState.error" />
-    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div v-if="blogPosts && blogPosts.length > 0" class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <blog-post-card v-for="blogPost of blogPosts" :key="blogPost.id" :blog-post="blogPost" />
+
+      <card :title="$t('blog.seeMore')" :sub-title="$t('blog.seeMoreDescription')" :content="$t('blog.seeMoreContent')" link="/blog"></card>
     </div>
   </div>
 </template>
@@ -38,6 +40,7 @@ import AdCard from '~/components/cards/AdCard.vue'
 import GeneralError from '~/components/GeneralError.vue'
 import LoadingSpinner from '~/components/LoadingSpinner.vue'
 import BlogPostCard from '~/components/cards/BlogPostCard.vue'
+import { getPosts } from '~/mixins/directus'
 
 export default {
   name: 'Index',
@@ -48,18 +51,11 @@ export default {
     }
   },
   async fetch() {
-    const isoLocale = this.$i18n.locales.find((l) => l.code === this.$i18n.getLocaleCookie()).iso
+    const isoLocale = this.$i18n.locales.find((l) => l.code === this.$i18n.locale).iso
 
-    await this.$axios
-      .get(
-        `https://data.arendz.nl/items/tp_blogpost?filter[translations][languages_code][_eq]=${isoLocale}&fields=*,translations.*,header.*&sort=-date_created`
-      )
-      .then((blogPosts) => {
-        this.blogPosts = blogPosts.data.data
-      })
-      .catch((reason) => {
-        throw reason
-      })
+    this.blogPosts = await getPosts(this.$axios, this.$sentry, isoLocale, 7)
+      .then((p) => p)
+      .catch(() => [])
   },
   created() {
     // this.$store.commit('CHANGE_BREADCRUMBS', [])

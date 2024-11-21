@@ -15,7 +15,7 @@
           <div class="shrink-0 rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
             <img
               v-if="post.header"
-              :alt="`Image of ${post.translations[0].title}`"
+              :alt="post.header.description ?? `Image of ${post.translations[0].title}`"
               :title="`Image of ${post.translations[0].title}`"
               :src="'https://data.arendz.nl/assets/' + post.header.filename_disk"
               class="object-cover object-center w-full h-full"

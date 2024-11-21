@@ -93,7 +93,7 @@ export default {
         .then(() => {
           this.$store.commit('popup/closePopup')
 
-          // Todo: Reload checkins or add checkin to array
+          // TODO: Reload checkins or add checkin to array
         })
         .catch((exception) => {
           this.$sentry.captureException(exception)

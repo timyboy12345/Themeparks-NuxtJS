@@ -227,5 +227,9 @@ export default {
     allBlogpostsOfThisPark: 'Todas las publicaciones de blog de este parque',
     noBlogsFoundTitle: 'No se encontraron publicaciones de blog',
     noBlogsFoundContent: 'Pruebe otros filtros o criterios de búsqueda para encontrar publicaciones de blog.',
+    seeMore: 'Ver Más',
+    seeMoreDescription: 'Haga clic aquí para leer más publicaciones de blog',
+    seeMoreContent:
+      'Escribimos regularmente sobre parques de atracciones en los Países Bajos, Europa y el resto del mundo. Haga clic aquí para leer todos los artículos',
   },
 }

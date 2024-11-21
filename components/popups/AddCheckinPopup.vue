@@ -1,5 +1,25 @@
 <template>
   <div class="absolute shadow w-full bottom-0 left-0 z-10">
+    <div class="bg-white rounded shadow m-4 p-4">
+      <h2 class="text-indigo-800">Snel Toevoegen</h2>
+      <p class="text-gray-600 text-xs md:text-sm mb-2">
+        Door hieronder te klikken voeg je automatisch een checkin toe, met als datum/tijd het huidige moment.
+      </p>
+
+      <div class="text-sm grid grid-cols-2 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-4 gap-2">
+        <button
+          v-for="i in [5, 10, 15, 20, 30, 40, 50, 60]"
+          :key="i"
+          type="button"
+          class="border border-gray-300 bg-gray-300 bg-opacity-0 dark:text-gray-200 py-1 px-2 rounded block transition duration-100"
+          :class="{ 'bg-opacity-30 opacity-70': saving, 'cursor-pointer hover:bg-opacity-20': !saving }"
+          @click="fastAddCheckin(i)"
+        >
+          {{ i }} min
+        </button>
+      </div>
+    </div>
+
     <div class="bg-white rounded shadow m-4 p-4 rounded gap-y-4 flex flex-col">
       <div v-if="!saving" class="flex flex-col gap-y-4">
         <CustomTextInput
@@ -49,6 +69,14 @@ export default {
     }
   },
   methods: {
+    fastAddCheckin(mins) {
+      if (this.saving) {
+        return
+      }
+
+      this.waitTime = mins
+      this.addCheckin()
+    },
     addCheckin() {
       if (!this.dateTime) {
         return

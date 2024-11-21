@@ -14,21 +14,23 @@
         </template>
       </card>
 
-      <card v-if="$store.state.auth.user" :title="$t('checkins.addCheckinTitle')">
-        <template #content>
-          <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
-            {{ $t('checkins.addCheckinDescription') }}
-          </p>
+      <div v-if="$store.state.auth.user" class="flex flex-col gap-2">
+        <card :title="$t('checkins.addCheckinTitle')">
+          <template #content>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">
+              {{ $t('checkins.addCheckinDescription') }}
+            </p>
+          </template>
+        </card>
 
-          <button
-            class="rounded py-2 px-4 text-white bg-indigo-800 hover:bg-indigo-900 dark:bg-indigo-400 dark:hover:bg-indigo-500 transition-colors duration-100"
-            type="button"
-            @click="addCheckin"
-          >
-            {{ $t('checkins.addCheckinButton') }}
-          </button>
-        </template>
-      </card>
+        <button
+          class="rounded py-2 px-4 text-white bg-indigo-800 hover:bg-indigo-900 dark:bg-indigo-400 dark:hover:bg-indigo-500 transition-colors duration-100"
+          type="button"
+          @click="addCheckin"
+        >
+          {{ $t('checkins.addCheckinButton') }}
+        </button>
+      </div>
 
       <card v-if="$store.state.auth.user" :title="$t('checkins.existingCheckinsTitle')">
         <template #content>
