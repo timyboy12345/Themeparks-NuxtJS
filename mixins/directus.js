@@ -102,3 +102,22 @@ function constructUrl(parkId, locale, limit = null, sort, fields, slug, postId) 
   const searchParams = new URLSearchParams(params)
   return `https://data.arendz.nl/items/tp_blogpost?${searchParams.toString()}`
 }
+
+/**
+ * Return a list of ticket links for a specific park
+ * @param $axios
+ * @param $sentry
+ * @param parkId
+ * @returns {Promise<*>}
+ */
+export async function getTicketDealsForPark($axios, $sentry, parkId) {
+  return await $axios
+    .get(`https://data.arendz.nl/items/tp_tickets?filter[park_id]=${parkId}`)
+    .then((tickets) => {
+      return tickets.data.data
+    })
+    .catch((reason) => {
+      $sentry.captureException(reason)
+      throw reason
+    })
+}

@@ -91,7 +91,8 @@ export default {
     }
   },
   async fetch() {
-    await Promise.all([this.getPark(), this.getRides(), this.getRestaurants(), this.getShows(), this.getShops(), this.getAnimals()])
+    await this.getPark()
+    // await Promise.all([this.getPark(), this.getRides(), this.getRestaurants(), this.getShows(), this.getShops(), this.getAnimals()])
   },
   head() {
     const title = this.park ? 'All rides and attractions of ' + this.park.name : 'All rides and attractions on a map'
@@ -147,11 +148,14 @@ export default {
     },
   },
   methods: {
+    // TODO: Improve the map, only request (and show) items that the park supports
     async getPark() {
       await this.$axios
         .get('/parks/' + this.parkId)
-        .then((parkResponse) => {
+        .then(async (parkResponse) => {
           this.park = parkResponse.data
+
+          await Promise.all([this.getRides(), this.getRestaurants(), this.getShows(), this.getShops(), this.getAnimals()])
         })
         .catch((e) => {
           this.park = null
@@ -159,6 +163,10 @@ export default {
         })
     },
     async getRides() {
+      if (!this.park.supports.supportsRides) {
+        return Promise.resolve()
+      }
+
       await this.$axios
         .get('/parks/' + this.parkId + '/rides')
         .then((ridesResponse) => {
@@ -170,6 +178,10 @@ export default {
         })
     },
     async getRestaurants() {
+      if (!this.park.supports.supportsRestaurants) {
+        return Promise.resolve()
+      }
+
       await this.$axios
         .get('/parks/' + this.parkId + '/restaurants')
         .then((restaurantsResponse) => {
@@ -181,6 +193,10 @@ export default {
         })
     },
     async getShows() {
+      if (!this.park.supports.supportsShows) {
+        return Promise.resolve()
+      }
+
       await this.$axios
         .get('/parks/' + this.parkId + '/shows')
         .then((showsResponse) => {
@@ -192,6 +208,10 @@ export default {
         })
     },
     async getShops() {
+      if (!this.park.supports.supportsShops) {
+        return Promise.resolve()
+      }
+
       await this.$axios
         .get('/parks/' + this.parkId + '/shops')
         .then((shopsResponse) => {
@@ -203,6 +223,10 @@ export default {
         })
     },
     async getAnimals() {
+      if (!this.park.supports.supportsAnimals) {
+        return Promise.resolve()
+      }
+
       await this.$axios
         .get('/parks/' + this.parkId + '/animals')
         .then((animalsResponse) => {

@@ -1,40 +1,16 @@
 <template>
-  <div>
-    <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
-
-    <loading v-if="!restaurant" class="my-4"></loading>
-
-    <div class="grid md:grid-cols-2 gap-4">
-      <restaurant-card v-if="restaurant" h1 :park="park" :restaurant="restaurant"></restaurant-card>
-
-      <card v-if="restaurant && restaurant.description" :title="$t('general.generalInformation')">
-        <template #content>
-          <!-- eslint-disable-next-line vue/no-v-html -->
-          <div v-html="restaurant.description"></div>
-        </template>
-      </card>
-
-      <div
-        v-if="restaurant && restaurant.images && restaurant.images.length > 0"
-        class="grid grid-cols-2 md:grid-cols-3 md:grid-cols-4 gap-4 mt-4 content-start"
-      >
-        <img v-for="(img, i) of restaurant.images" :key="i" alt="Image of this restaurant" :src="img" class="bg-white rounded shadow" />
-      </div>
-
-      <AdCard v-if="restaurant" />
-    </div>
-  </div>
+  <loading v-if="$fetchState.pending" class="my-4"></loading>
+  <general-error v-else-if="$fetchState.error" :sub-title="$fetchState.error.message" title="Restaurant not found" />
+  <PoiInformation v-else type="restaurant" :park="park" :poi="restaurant"></PoiInformation>
 </template>
 
 <script>
-import Loading from '../../../../components/LoadingSpinner'
-import RestaurantCard from '@/components/cards/RestaurantCard'
-import Breadcrumbs from '@/components/Breadcrumbs'
-import AdCard from '@/components/cards/AdCard'
-import Card from '@/components/cards/Card'
+import Loading from '~/components/LoadingSpinner'
+import PoiInformation from '~/views/PoiInformation.vue'
+import GeneralError from '~/components/GeneralError.vue'
 
 export default {
-  components: { Card, AdCard, Breadcrumbs, RestaurantCard, Loading },
+  components: { GeneralError, PoiInformation, Loading },
   data() {
     return {
       parkId: this.$route.params.id,
@@ -71,32 +47,6 @@ export default {
         },
       ],
     }
-  },
-  computed: {
-    breadcrumbs() {
-      if (!this.park || !this.restaurant) {
-        return []
-      }
-
-      return [
-        {
-          title: this.$t('general.parks'),
-          url: '/parks/',
-        },
-        {
-          title: this.park ? this.park.name : this.$t('general.park'),
-          url: '/parks/' + this.parkId,
-        },
-        {
-          title: this.$t('general.restaurants'),
-          url: '/parks/' + this.parkId + '/restaurants',
-        },
-        {
-          title: this.restaurant ? this.restaurant.title : this.$t('general.restaurant'),
-          url: '#',
-        },
-      ]
-    },
   },
   methods: {
     getRestaurant() {

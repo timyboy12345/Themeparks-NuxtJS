@@ -157,6 +157,8 @@ export default {
     descriptionTitle: 'Todos los restaurantes de {0}',
     descriptionContent:
       '{0} tiene {1} restaurantes diferentes repartidos por todo el parque. Vea todos los menús, horarios de apertura y más en una sola página, solo en themeparkplanner.com.',
+    futureOpeningTimesCardTitle: 'Horario de apertura de hoy',
+    futureOpeningTimesCardSubtitle: 'Hoy esta ubicación está abierta en este horario.',
   },
   events: {
     descriptionTitle: 'Todas las actividades de {0}',

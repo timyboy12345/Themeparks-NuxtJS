@@ -248,3 +248,9 @@ export default {
   },
 }
 </script>
+
+<style>
+.prose p:has(img) {
+  margin: -1rem;
+}
+</style>

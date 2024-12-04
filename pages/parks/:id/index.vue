@@ -8,7 +8,7 @@
     </p>
 
     <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <park-card :park="park" :uses-link="false"></park-card>
+      <park-card :park="park" :tickets="tickets" :uses-link="false"></park-card>
 
       <card v-if="park && park.supports.supportsRides" :title="$t('general.rides')" :sub-title="$t('park.allRidesSubtitle')">
         <template #content>
@@ -159,7 +159,7 @@ import BlogPostList from '~/views/BlogPostList.vue'
 import EventList from '~/views/EventList.vue'
 import GeneralError from '~/components/GeneralError.vue'
 import WeatherList from '~/views/WeatherList.vue'
-import { getPostsForPark } from '~/mixins/directus'
+import { getPostsForPark, getTicketDealsForPark } from '~/mixins/directus'
 
 export default {
   components: {
@@ -186,6 +186,7 @@ export default {
       park: null,
       openingTimes: null,
       blogPosts: null,
+      tickets: null,
     }
   },
   async fetch() {
@@ -197,6 +198,10 @@ export default {
       .catch((e) => {
         throw e
       })
+
+    await getTicketDealsForPark(this.$axios, this.$sentry, this.parkId)
+      .then((res) => (this.tickets = res))
+      .catch((e) => console.error(e))
   },
   head() {
     const title = this.park ? this.park.name : undefined
@@ -254,6 +259,32 @@ export default {
     const isoLocale = this.$i18n.locales.find((l) => l.code === this.$i18n.locale).iso
 
     this.blogPosts = await getPostsForPark(this.$axios, this.$sentry, isoLocale, this.parkId)
+  },
+  methods: {
+    rgbToHex(r, g, b) {
+      function componentToHex(c) {
+        const hex = c.toString(16)
+        return hex.length === 1 ? '0' + hex : hex
+      }
+
+      return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b)
+    },
+    hexToRgb(hex) {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+      return result
+        ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16),
+          }
+        : null
+    },
+    getTextColor(hex) {
+      const rgb = this.hexToRgb(hex)
+
+      const brightness = Math.round((parseInt(rgb.r) * 299 + parseInt(rgb.g) * 587 + parseInt(rgb.b) * 114) / 1000)
+      return brightness > 125 ? 'text-black' : 'text-white'
+    },
   },
 }
 </script>

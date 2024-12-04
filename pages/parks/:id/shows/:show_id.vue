@@ -1,79 +1,16 @@
 <template>
-  <div>
-    <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
-
-    <general-error v-if="error"></general-error>
-
-    <loading v-if="$fetchState.pending" class="my-4"></loading>
-    <div v-else-if="show" class="grid md:grid-cols-2 gap-4">
-      <show-card h1 :park="park" :show="show"></show-card>
-
-      <card v-if="show.description" :title="$t('general.generalInformation')">
-        <template #content>
-          <!-- eslint-disable-next-line vue/no-v-html -->
-          <div v-html="show.description"></div>
-        </template>
-      </card>
-
-      <card
-        v-if="futureShows.length > 0"
-        :title="$t('shows.futureShowTimesCardTitle')"
-        :sub-title="$t('shows.futureShowTimesCardSubtitle')"
-      >
-        <template #content>
-          <div class="flex flex-col bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray600 -mx-4">
-            <div v-for="showTime of futureShows" :key="showTime.id" class="py-2 px-4 flex flex-row justify-between items-center">
-              <div class="flex flex-row items-center">
-                <div class="flex flex-col">
-                  <div class="text-indigo-700 dark:text-indigo-300">{{ showTime.localFromTime }}</div>
-                  <div v-if="showTime.edition" class="text-sm text-gray-600 dark:text-gray-300">
-                    {{ showTime.edition }}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </template>
-      </card>
-
-      <card v-if="pastShows.length > 0" :title="$t('shows.passedShowTimesCardTitle')" :sub-title="$t('shows.passedShowTimesCardSubtitle')">
-        <template #content>
-          <div class="flex flex-col bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-600 -mx-4">
-            <div v-for="showTime of pastShows" :key="showTime.id" class="py-2 px-4 flex flex-row justify-between items-center">
-              <div class="flex flex-row items-center">
-                <div class="flex flex-col">
-                  <div class="text-gray-700 dark:text-gray-400">{{ showTime.localFromTime }}</div>
-                  <div v-if="showTime.edition" class="text-sm text-gray-600 dark:text-gray-300">
-                    {{ showTime.edition }}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </template>
-      </card>
-
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 content-start">
-        <img v-for="(img, i) of show.images" :key="i" alt="Image of this restaurant" :src="img" class="bg-white rounded shadow" />
-      </div>
-
-      <AdCard />
-    </div>
-
-    <general-error v-else title="Show not found" />
-  </div>
+  <loading v-if="$fetchState.pending" class="my-4"></loading>
+  <general-error v-else-if="$fetchState.error" :sub-title="$fetchState.error.message" title="Show not found" />
+  <PoiInformation v-else type="show" :park="park" :poi="show"></PoiInformation>
 </template>
 
 <script>
 import Loading from '../../../../components/LoadingSpinner'
-import Breadcrumbs from '@/components/Breadcrumbs'
 import GeneralError from '@/components/GeneralError'
-import ShowCard from '@/components/cards/ShowCard'
-import Card from '@/components/cards/Card'
-import AdCard from '@/components/cards/AdCard'
+import PoiInformation from '~/views/PoiInformation.vue'
 
 export default {
-  components: { AdCard, Card, ShowCard, GeneralError, Breadcrumbs, Loading },
+  components: { PoiInformation, GeneralError, Loading },
   data() {
     return {
       parkId: this.$route.params.id,
@@ -105,42 +42,7 @@ export default {
       ],
     }
   },
-  computed: {
-    breadcrumbs() {
-      if (!this.park || !this.show) {
-        return []
-      }
-
-      return [
-        {
-          title: this.$t('general.parks'),
-          url: '/parks/',
-        },
-        {
-          title: this.park ? this.park.name : this.$t('general.park'),
-          url: '/parks/' + this.parkId,
-        },
-        {
-          title: this.$t('general.shows'),
-          url: '/parks/' + this.parkId + '/shows',
-        },
-        {
-          title: this.show ? this.show.title : this.$t('general.show'),
-          url: '#',
-        },
-      ]
-    },
-    futureShows() {
-      return this.show && this.show.showTimes && this.show.showTimes.showTimes
-        ? this.show.showTimes.showTimes.filter((st) => !st.isPassed)
-        : []
-    },
-    pastShows() {
-      return this.show && this.show.showTimes && this.show.showTimes.showTimes
-        ? this.show.showTimes.showTimes.filter((st) => st.isPassed)
-        : []
-    },
-  },
+  computed: {},
   methods: {
     getShow() {
       return this.$axios
@@ -151,6 +53,7 @@ export default {
         .catch((reason) => {
           this.error = reason
           this.$sentry.captureException(reason)
+          throw reason
         })
     },
     getPark() {
@@ -162,6 +65,7 @@ export default {
         .catch((reason) => {
           this.error = reason
           this.$sentry.captureException(reason)
+          throw reason
         })
     },
   },

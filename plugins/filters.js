@@ -11,6 +11,14 @@ Vue.filter('formatDateTime', (value) => {
   })
 })
 
+Vue.filter('formatTime', (value) => {
+  const date = new Date(0, 0, 0, value.split(':')[0], value.split(':')[1])
+  return date.toLocaleString(['nl-NL'], {
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+})
+
 Vue.filter('formatDate', (value) => {
   const date = new Date(value)
   return date.toLocaleString(['nl-NL'], {

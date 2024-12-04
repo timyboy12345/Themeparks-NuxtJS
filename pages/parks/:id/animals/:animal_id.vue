@@ -1,46 +1,16 @@
 <template>
-  <div>
-    <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
-
-    <loading v-if="!animal" class="my-4"></loading>
-
-    <div v-if="animal && park" class="grid md:grid-cols-2 gap-4">
-      <animal-card h1 :park="park" :animal="animal"></animal-card>
-
-      <card v-if="animal.description" :title="$t('general.generalInformation')">
-        <template #content>
-          <!-- eslint-disable-next-line vue/no-v-html -->
-          <div v-html="animal.description"></div>
-        </template>
-      </card>
-
-      <a
-        v-if="park && animal.website_url"
-        target="_blank"
-        :href="animal.website_url"
-        class="rounded bg-indigo-800 hover:bg-indigo-900 transition duration-100 py-2 px-4 text-white"
-      >
-        {{ $t('general.readMoreOn', [park.name]) }}
-      </a>
-
-      <div class="grid grid-cols-2 md:grid-cols-3 md:grid-cols-4 gap-4 content-start">
-        <img v-for="(img, i) of animal.images" :key="i" alt="Image of this animal" :src="img" class="bg-white rounded shadow" />
-      </div>
-
-      <AdCard v-if="animal" />
-    </div>
-  </div>
+  <loading v-if="$fetchState.pending" class="my-4"></loading>
+  <general-error v-else-if="$fetchState.error" :sub-title="$fetchState.error.message" title="Animal not found" />
+  <PoiInformation v-else type="animal" :park="park" :poi="animal"></PoiInformation>
 </template>
 
 <script>
-import AnimalCard from '@/components/cards/AnimalCard'
-import Breadcrumbs from '@/components/Breadcrumbs'
-import Card from '@/components/cards/Card'
-import AdCard from '@/components/cards/AdCard'
 import Loading from '@/components/LoadingSpinner'
+import PoiInformation from '~/views/PoiInformation.vue'
+import GeneralError from '~/components/GeneralError.vue'
 
 export default {
-  components: { AdCard, Card, Breadcrumbs, AnimalCard, Loading },
+  components: { GeneralError, PoiInformation, Loading },
   data() {
     return {
       parkId: this.$route.params.id,
@@ -78,32 +48,7 @@ export default {
       ],
     }
   },
-  computed: {
-    breadcrumbs() {
-      if (!this.park || !this.animal) {
-        return []
-      }
-
-      return [
-        {
-          title: this.$t('general.parks'),
-          url: '/parks/',
-        },
-        {
-          title: this.park ? this.park.name : this.$t('general.park'),
-          url: '/parks/' + this.parkId,
-        },
-        {
-          title: this.$t('general.animals'),
-          url: '/parks/' + this.parkId + '/animals',
-        },
-        {
-          title: this.animal ? this.animal.title : this.$t('general.animal'),
-          url: '#',
-        },
-      ]
-    },
-  },
+  computed: {},
   methods: {
     getAnimal() {
       return this.$axios.get('/parks/' + this.parkId + '/animals').then((animals) => {

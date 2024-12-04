@@ -159,6 +159,8 @@ export default {
     descriptionTitle: 'Alle restaurants van {0}',
     descriptionContent:
       "{0} heeft {1} verschillende restaurants. Bekijk op deze pagina de verschillende opties die je hebt, menu's van alle restaurants en meer.",
+    futureOpeningTimesCardTitle: 'Openingstijden van vandaag',
+    futureOpeningTimesCardSubtitle: 'Vandaag is deze locatie geopend op deze tijden.',
   },
   events: {
     descriptionTitle: 'Alle evenementen van {0}',
