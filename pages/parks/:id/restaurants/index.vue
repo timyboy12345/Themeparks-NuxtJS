@@ -8,7 +8,7 @@
       {{ $t('park.allRestaurantsOf', [park.name]) }}
     </h1>
 
-    <restaurant-card-list v-if="restaurants && restaurants.length > 0" :park="park" :restaurants="restaurants"></restaurant-card-list>
+    <poi-card-list v-if="restaurants && restaurants.length > 0" :park="park" type="restaurant" :pois="restaurants"></poi-card-list>
 
     <div v-if="park && restaurants && restaurants.length > 0" class="my-8 grid md:grid-cols-2 gap-4">
       <card
@@ -21,12 +21,12 @@
 
 <script>
 import Breadcrumbs from '@/components/Breadcrumbs'
-import RestaurantCardList from '@/views/RestaurantCardList'
 import Card from '@/components/cards/Card'
 import Loading from '@/components/LoadingSpinner'
+import PoiCardList from '@/views/PoiCardList'
 
 export default {
-  components: { Card, Breadcrumbs, RestaurantCardList, Loading },
+  components: { PoiCardList, Card, Breadcrumbs, Loading },
   data() {
     return {
       parkId: this.$route.params.id,

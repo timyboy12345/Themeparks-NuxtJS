@@ -1,5 +1,7 @@
 <template>
   <div>
+    <page-search v-model="searchQuery"></page-search>
+
     <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
 
     <loading v-if="!rides && !error"></loading>
@@ -10,7 +12,7 @@
       {{ $t('park.allRidesOf', [park.name]) }}
     </h1>
 
-    <ride-list v-if="rides && rides.length > 0" :park="park" :rides="rides"></ride-list>
+    <poi-card-list v-if="rides && rides.length > 0" :park="park" type="ride" :pois="filteredRides"></poi-card-list>
 
     <div v-if="park && rides && rides.length > 0" class="my-8 grid md:grid-cols-2 gap-4">
       <card :title="$t('rides.descriptionTitle', [park.name])" :content="$t('rides.descriptionContent', [park.name, rides.length])"></card>
@@ -34,19 +36,21 @@
 
 <script>
 import Loading from '../../../../components/LoadingSpinner'
-import RideList from '../../../../views/RideCardList'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import GeneralError from '@/components/GeneralError'
 import Card from '@/components/cards/Card'
+import PoiCardList from '@/views/PoiCardList'
+import PageSearch from '@/components/PageSearch'
 
 export default {
-  components: { Card, GeneralError, Breadcrumbs, RideList, Loading },
+  components: { PageSearch, PoiCardList, Card, GeneralError, Breadcrumbs, Loading },
   data() {
     return {
       parkId: this.$route.params.id,
       rides: null,
       park: null,
       error: null,
+      searchQuery: '',
     }
   },
   async fetch() {
@@ -90,6 +94,9 @@ export default {
           url: '#',
         },
       ]
+    },
+    filteredRides() {
+      return this.rides.filter((p) => p.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
     },
   },
   methods: {

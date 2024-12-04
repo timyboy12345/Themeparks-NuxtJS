@@ -8,7 +8,7 @@
       {{ $t('park.allShowsOf', [park.name]) }}
     </h1>
 
-    <show-card-list v-if="shows && shows.length > 0" :park="park" :shows="shows"></show-card-list>
+    <poi-card-list v-if="shows && shows.length > 0" :park="park" type="show" :pois="shows"></poi-card-list>
 
     <div v-if="park && shows && shows.length > 0" class="my-8 grid md:grid-cols-2 gap-4">
       <card :title="$t('shows.descriptionTitle', [park.name])" :content="$t('shows.descriptionContent', [park.name, shows.length])"></card>
@@ -18,12 +18,12 @@
 
 <script>
 import Breadcrumbs from '@/components/Breadcrumbs'
-import ShowCardList from '@/views/ShowCardList'
 import Card from '@/components/cards/Card'
 import Loading from '@/components/LoadingSpinner'
+import PoiCardList from '~/views/PoiCardList.vue'
 
 export default {
-  components: { Card, ShowCardList, Breadcrumbs, Loading },
+  components: { PoiCardList, Card, Breadcrumbs, Loading },
   data() {
     return {
       parkId: this.$route.params.id,

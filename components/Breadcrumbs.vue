@@ -1,5 +1,5 @@
 <template>
-  <div v-if="breadcrumbs && breadcrumbs.length > 0" class="-mx-4 md:-mx-8 -mt-4 lg:-mt-8 lg:max-w-6xl lg:mx-auto">
+  <div v-if="breadcrumbs && breadcrumbs.length > 0" class="-mx-4 md:-mx-8 -mt-4 lg:-mt-2 lg:max-w-6xl lg:mx-auto">
     <div
       v-if="breadcrumbs && breadcrumbs.length > 0"
       vocab="https://schema.org/"

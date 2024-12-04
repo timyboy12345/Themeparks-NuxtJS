@@ -3,8 +3,7 @@
     <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
 
     <div class="grid md:grid-cols-2 gap-4">
-      <!-- TODO: Replace with generic item -->
-      <ride-card h1 :park="park" :ride="poi"></ride-card>
+      <poi-card h1 :type="type" :park="park" :poi="poi"></poi-card>
 
       <card v-if="poi.description" :title="$t('general.generalInformation')">
         <template #content>
@@ -38,10 +37,17 @@
             <div v-for="(openingTime, i) of poi.openingTimes" :key="i" class="py-2 px-4 flex flex-row justify-between items-center">
               <div class="flex flex-row items-center">
                 <div class="flex flex-col">
-                  <div class="text-indigo-700 dark:text-indigo-300">{{ openingTime.openTime | formatTime }}</div>
-                  <!--                <div v-if="showTime.edition" class="text-sm text-gray-600 dark:text-gray-300">-->
-                  <!--                  {{ showTime.edition }}-->
-                  <!--                </div>-->
+                  <div class="text-indigo-700 dark:text-indigo-300">
+                    {{ openingTime.open | formatDateTime }}
+
+                    <span v-if="openingTime.closeTime">- {{ openingTime.closeTime | formatTime }}</span>
+                  </div>
+                  <div
+                    v-if="new Date(openingTime.date).toDateString() === new Date().toDateString()"
+                    class="text-sm text-gray-600 dark:text-gray-300"
+                  >
+                    {{ $t('Vandaag') }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -159,24 +165,24 @@
 </template>
 
 <script>
-import RideCard from '@/components/cards/RideCard'
 import Card from '@/components/cards/Card'
 import AdCard from '@/components/cards/AdCard'
 import CheckinList from '@/views/CheckinList'
 import RideStatsCard from '@/components/cards/RideStatsCard'
 import RCDBStatsCard from '@/components/cards/RCDBStatsCard'
 import Breadcrumbs from '~/components/Breadcrumbs.vue'
+import PoiCard from '~/components/cards/PoiCard.vue'
 
 export default {
   // eslint-disable-next-line vue/no-unused-components
   components: {
+    PoiCard,
     Breadcrumbs,
     RCDBStatsCard,
     RideStatsCard,
     CheckinList,
     AdCard,
     Card,
-    RideCard,
   },
   props: {
     type: {
@@ -200,7 +206,6 @@ export default {
   },
   computed: {
     breadcrumbs() {
-      // TODO: Breadcrumbs based on type
       const bc = [
         {
           title: this.$t('general.parks'),
@@ -231,6 +236,11 @@ export default {
         bc.push({
           title: this.$t('general.animals'),
           url: '/parks/' + this.park.id + '/animals',
+        })
+      } else if (this.type === 'shop') {
+        bc.push({
+          title: this.$t('general.shops'),
+          url: '/parks/' + this.park.id + '/shops',
         })
       }
 

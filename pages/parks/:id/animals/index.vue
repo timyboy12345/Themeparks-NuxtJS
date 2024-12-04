@@ -4,17 +4,17 @@
 
     <loading v-if="!animals || animals.length === 0"></loading>
 
-    <animal-card-list v-if="animals && animals.length > 0" :park="park" :animals="animals"></animal-card-list>
+    <poi-card-list v-if="animals && animals.length > 0" type="animal" :park="park" :pois="animals"></poi-card-list>
   </div>
 </template>
 
 <script>
 import Loading from '../../../../components/LoadingSpinner'
 import Breadcrumbs from '@/components/Breadcrumbs'
-import AnimalCardList from '@/views/AnimalCardList'
+import PoiCardList from '~/views/PoiCardList.vue'
 
 export default {
-  components: { Breadcrumbs, AnimalCardList, Loading },
+  components: { PoiCardList, Breadcrumbs, Loading },
   data() {
     return {
       parkId: this.$route.params.id,
