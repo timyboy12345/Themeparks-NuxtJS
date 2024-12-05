@@ -1,5 +1,5 @@
 <template>
-  <div class="-mx-4 md:-mx-8 -mt-4 lg:-mt-8">
+  <div class="-mx-4 md:-mx-8 -mt-4" :class="{ 'lg:-mt-2': dualHeader, 'lg:-mt-8': !dualHeader }">
     <div
       class="bg-gray-300 dark:bg-gray-800 text-gray-800 flex flex-row py-2 whitespace-no-wrap overflow-x-auto text-sm md:text-base lg:absolute min-w-full lg:left-0 lg:px-8 mb-4 lg:mb-8"
     >
@@ -85,6 +85,10 @@ export default {
       type: Array,
       required: false,
       default: null,
+    },
+    dualHeader: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {

@@ -107,6 +107,7 @@ export default {
       'In this list you will find all theme parks that publish ride data, wait times, show times and other data on their website or app. We transform this data in a standardised format, so you always have access to the most recent themepark-data.',
     openingHoursSubtitle: 'All opening hours for today and the coming days',
     allBlogPostsSubtitle: 'Read all about this park in our recent blogs',
+    buyTickets: 'Buy your tickets through',
   },
   shows: {
     descriptionTitle: 'All shows of {0}',

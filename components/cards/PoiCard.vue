@@ -9,12 +9,12 @@
   >
     <template #content>
       <div v-if="nextShow" class="mt-1 text-indigo-700">
-        {{ $t('general.nextShow', [$options.filters.time(nextShow.localFromTime)]) }}
+        {{ $t('general.nextShow', [$options.filters.formatTime(nextShow.localFromTime)]) }}
       </div>
 
       <div
         v-if="poi.minAgeWithoutEscort || poi.maxAge || poi.minSizeWithEscort || poi.minSizeWithoutEscort || poi.maxSize"
-        class="mt-2 grid text-sm text-gray-600"
+        class="mt-2 grid text-sm text-gray-600 dark:text-gray-400"
       >
         <div v-if="poi.minAgeWithoutEscort">{{ $t('general.minAge', [poi.minAgeWithoutEscort]) }}</div>
         <div v-if="poi.minSizeWithEscort">{{ $t('general.minSizeWithEscort', [poi.minSizeWithEscort]) }}</div>

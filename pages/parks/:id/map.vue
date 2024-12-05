@@ -148,7 +148,6 @@ export default {
     },
   },
   methods: {
-    // TODO: Improve the map, only request (and show) items that the park supports
     async getPark() {
       await this.$axios
         .get('/parks/' + this.parkId)

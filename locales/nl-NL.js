@@ -68,7 +68,8 @@ export default {
       'Jazeker! Alle data op ons platform wordt opgehaald via een door ons ontwikkelde API, die open-source is en te vinden is op https://tp.arendz.nl. Documentatie is te vinden op https://tp.arendz.nl/api',
   },
   parks: {
-    subTitle: 'Bekijk de lijst met alle beschikbare pretparken hieronder.',
+    subTitle:
+      'Bekijk de lijst met alle beschikbare pretparken en dierentuinen hieronder, of gebruik de zoekfilters hierboven om te zoeken naar een park.',
     seoTitle: 'Alle Pretparken',
     seoDescription: 'Bekijk alle verschillende pretparken waarvan de data inzichtelijk is.',
     content: 'Bekijk hier een wereldkaart met alle parken die worden bijgehouden.',
@@ -105,9 +106,10 @@ export default {
     allEventsSubtitle: 'Bekijk alle evenementen van dit park',
     bottomSeoBlockTitle: 'Alle Pretparken in een lijst',
     bottomSeoBlockContent:
-      'In deze lijst vind je alle pretparken die wachttijden, shows, openingstijden of andere data publiceren op hun website. Deze data zetten wij om in een gestandardiseerd formaat, zodat je altijd toegang hebt tot de meest actuele pretpark-data.',
+      'In deze lijst vind je alle pretparken en dierentuinen die wachttijden, shows, openingstijden, dieren of andere data publiceren op hun website. Deze data zetten wij om in een gestandardiseerd formaat, zodat je altijd toegang hebt tot de meest actuele pretpark-data.',
     openingHoursSubtitle: 'De openingstijden van vandaag en de komende dagen',
     allBlogPostsSubtitle: 'Bekijk hier de recentste blogposts van dit park',
+    buyTickets: 'Koop je tickets via',
   },
   shows: {
     descriptionTitle: 'Alle shows van {0}',

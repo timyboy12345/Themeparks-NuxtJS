@@ -1,8 +1,8 @@
 <template>
   <div>
-    <page-search v-model="searchQuery"></page-search>
+    <breadcrumbs dual-header :breadcrumbs="breadcrumbs"></breadcrumbs>
 
-    <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
+    <page-search v-model="searchQuery"></page-search>
 
     <loading v-if="!rides && !error"></loading>
 
@@ -63,8 +63,7 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          // TODO: the allRidesOfDescription requires a value
-          content: this.park ? this.$t('park.allRidesDescription') : this.$t('park.allRidesOfDescription'),
+          content: this.park ? this.$t('park.allRidesOfDescription', [this.park.name]) : this.$t('park.allRidesDescription'),
         },
         {
           hid: 'og:image',

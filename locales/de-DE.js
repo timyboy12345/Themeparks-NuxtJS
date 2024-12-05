@@ -110,6 +110,7 @@ export default {
       'In dieser Liste finden Sie alle Freizeitparks, die Fahrtdaten, Wartezeiten, Showzeiten und andere Daten auf ihrer Website oder App veröffentlichen. Wir transformieren diese Daten in ein standardisiertes Format, damit Sie immer Zugriff auf die neuesten Freizeitpark-Daten haben.',
     openingHoursSubtitle: 'Alle Öffnungszeiten für heute und die kommenden Tage',
     allBlogPostsSubtitle: 'Lesen Sie alles über diesen Park in unseren aktuellen Blogs',
+    buyTickets: 'Kaufen Sie Ihre Tickets über',
   },
   shows: {
     descriptionTitle: 'Alle Shows von {0}',

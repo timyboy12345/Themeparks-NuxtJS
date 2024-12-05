@@ -6,8 +6,8 @@
       </p>
 
       <div v-if="tickets" class="-mx-4 mt-4 flex flex-col divide-y divide-gray-200 dark:bg-gray-700">
-        <div v-for="ticket of tickets" :key="ticket.id" class="py-2 px-4 text-gray-600">
-          Koop jouw tickets via
+        <div v-for="ticket of tickets" :key="ticket.id" class="py-2 px-4 text-gray-600 dark:text-gray-400">
+          {{ $t('park.buyTickets') }}
           <a :href="ticket.url" target="_blank" class="underline hover:no-underline text-indigo-800 dark:text-indigo-300">
             {{ ticket.preview_url }}
           </a>

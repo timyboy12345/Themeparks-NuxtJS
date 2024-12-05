@@ -106,6 +106,7 @@ export default {
       'En este listado encontrarás todos los parques de atracciones que publican tiempos de espera, espectáculos, horarios de apertura u otros datos en su web. Convertimos estos datos a un formato estandarizado para que siempre tengas acceso a los datos más actualizados del parque temático.',
     openingHoursSubtitle: 'Aquí encontrarás los horarios de apertura para hoy y los próximos días',
     allBlogPostsSubtitle: 'Vea las publicaciones de blog más recientes de este parque aquí.',
+    buyTickets: 'Compra tus entradas a través de',
   },
   shows: {
     descriptionTitle: 'Todos los shows de {0}',
