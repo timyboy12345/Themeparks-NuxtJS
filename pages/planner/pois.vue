@@ -1,0 +1,113 @@
+<template>
+  <div>
+    <h1 class="text-2xl text-indigo-800 dark:text-indigo-300 font-bold mb-4">Te Doen</h1>
+
+    <div class="flex flex-col gap-4">
+      <button
+        v-if="!$store.state.planner.location"
+        class="text-center bg-indigo-800 text-white hover:bg-indigo-900 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition duration-100 rounded py-2 px-4"
+        type="button"
+        @click="getLocation"
+      >
+        Klik om je locatie te gebruiken
+      </button>
+
+      <LoadingSpinner v-if="!pois" />
+      <div v-else-if="pois.length === 0">Geen POIs Gevonden</div>
+
+      <div v-else class="grid grid-cols-2 gap-4">
+        <PoiCard v-for="poi of filteredPois" :key="poi.id" type="ride" :poi="poi" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import LoadingSpinner from '~/components/LoadingSpinner.vue'
+import PoiCard from '~/components/cards/PoiCard.vue'
+import { measureLatLngPoints } from '~/mixins/planner'
+
+export default {
+  name: 'PlannerPois',
+  components: { PoiCard, LoadingSpinner },
+  layout: 'planner',
+  data() {
+    return {
+      pois: null,
+    }
+  },
+  computed: {
+    parkId() {
+      return this.$store.state.planner.parkId
+    },
+    filteredPois() {
+      let pois = this.pois ?? []
+
+      pois = pois.map((p) => {
+        const distance = measureLatLngPoints(p.location, this.$store.state.planner.location)
+
+        return {
+          ...p,
+          distance,
+        }
+      })
+
+      return pois.sort((a, b) => {
+        const s1 = this.$store.state.planner.location ? a.distance : a.name
+        const s2 = this.$store.state.planner.location ? b.distance : b.name
+
+        if (this.$store.state.planner.location && s2 === undefined) return -1
+
+        if (s1 < s2) {
+          return -1
+        }
+        if (s1 > s2) {
+          return 1
+        }
+
+        return 0
+      })
+      // .filter((p) => p.name.toLowerCase().includes(this.query.toLowerCase()))
+    },
+  },
+  watch: {
+    parkId() {
+      this.fetchParks()
+    },
+  },
+  mounted() {
+    this.fetchParks()
+  },
+  methods: {
+    async fetchParks() {
+      if (!this.$store.state.planner.parkId) {
+        return
+      }
+
+      this.pois = await this.$axios
+        .$get('/parks/' + this.$store.state.planner.parkId + '/pois')
+        .then((d) => d)
+        .catch((e) => {
+          this.$sentry.captureException(e)
+        })
+    },
+    getLocation() {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude
+          const lng = position.coords.longitude
+
+          this.$store.commit('planner/setLocationStatus', 'accepted')
+          this.$store.commit('planner/setLocation', {
+            lat,
+            lng,
+          })
+        },
+        (err) => {
+          console.error(err)
+        }
+      )
+    },
+  },
+}
+</script>

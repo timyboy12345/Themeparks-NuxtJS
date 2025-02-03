@@ -1,84 +1,49 @@
 <template>
   <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-    <div class="bg-indigo-800 text-white w-full flex flex-row items-center justify-between py-4 px-4 lg:px-8 mb-4 lg:mb-8">
-      <div class="flex flex-col md:flex-row">
-        <NuxtLink :to="localePath('/')" class="lg:text-lg font-bold">Themeparkplanner</NuxtLink>
-
-        <div class="flex flex-row items-center mt-2 md:mt-0">
+    <div class="fixed z-10 shadow-lg bottom-0 bg-indigo-800 text-white w-full flex flex-row items-center justify-between py-4 px-4 lg:px-8">
+      <div class="flex w-full items-center flex-row">
+        <div class="flex flex-row items-center md:mt-0">
           <NuxtLink
-            :to="localePath('/')"
+            :to="localePath('/planner')"
             class="md:ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
             exact-active-class="!opacity-100"
           >
-            {{ $t('general.home') }}
+            {{ $t('planner.menu.home') }}
           </NuxtLink>
           <NuxtLink
-            :to="localePath('/parks')"
+            :class="{ 'opacity-20 cursor-not-allowed': !$store.state.planner.park }"
+            :to="localePath('/planner/pois')"
             class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
             exact-active-class="!opacity-100"
           >
-            {{ $t('general.parks') }}
+            {{ $t('planner.menu.pois') }}
           </NuxtLink>
           <NuxtLink
-            v-if="!$store.state.auth.user"
-            :to="localePath('/planner/login')"
+            :class="{ 'opacity-20 cursor-not-allowed': !$store.state.planner.park }"
+            :to="localePath('/planner/history')"
             class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
             exact-active-class="!opacity-100"
           >
-            {{ $t('general.planner') }}
+            {{ $t('planner.menu.history') }}
           </NuxtLink>
           <NuxtLink
-            v-if="$store.state.auth.user"
-            :to="localePath('/planner')"
+            :class="{ 'opacity-20 cursor-not-allowed': !$store.state.planner.park }"
+            :to="localePath('/planner/news')"
             class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
             exact-active-class="!opacity-100"
           >
-            {{ $t('general.planner') }}
-          </NuxtLink>
-          <NuxtLink
-            v-if="!$store.state.auth.user"
-            :to="localePath('/user/login')"
-            class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
-            exact-active-class="!opacity-100"
-          >
-            {{ $t('general.login') }}
-          </NuxtLink>
-          <NuxtLink
-            v-else
-            :to="localePath('/user/account')"
-            class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
-            exact-active-class="!opacity-100"
-          >
-            {{ $t('general.account') }}
-          </NuxtLink>
-          <NuxtLink
-            :to="localePath('/blog')"
-            class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
-            exact-active-class="!opacity-100"
-          >
-            {{ $t('general.blog') }}
+            {{ $t('planner.menu.news') }}
           </NuxtLink>
         </div>
       </div>
-
-      <div class="hidden sm:flex flex-row">
-        <NuxtLink
-          v-for="locale in filteredLocales"
-          :key="locale.code"
-          class="rounded-full bg-white overflow-hidden ml-4 w-6 h-6"
-          :to="switchLocalePath(locale.code)"
-        >
-          <img alt="Link to other language" :src="`https://flagcdn.com/${locale.countryFlag}.svg`" class="object-cover w-full h-full" />
-        </NuxtLink>
-      </div>
     </div>
 
-    <div class="mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto mt-4 mb-4">
+    <div class="mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto py-4">
       <Nuxt keep-alive />
     </div>
 
     <div class="mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto mt-4 pb-4 flex flex-col">
-      <div class="flex flex-row mb-4 gap-2">
+      <div class="flex flex-row items-center mb-4 gap-2">
         <NuxtLink
           v-for="locale in availableLocales"
           :key="locale.code"
@@ -87,17 +52,15 @@
         >
           <img alt="Link to other language" :src="`https://flagcdn.com/${locale.countryFlag}.svg`" class="object-cover w-full h-full" />
         </NuxtLink>
-      </div>
 
-      <div class="text-gray-600 dark:text-gray-400 text-sm">
-        {{ $t('general.madeWithLove') }} -
-        <a
-          href="https://arendz.nl?utm_source=themeparkplanner&utm_campaign=backlink"
-          target="_blank"
-          class="underline text-gray-800 dark:text-gray-600"
+        <button
+          v-if="$store.state.planner.parkId"
+          type="button"
+          class="bg-red-700 hover:bg-red-800 transition duration-100 text-white text-sm py-1 px-2 rounded"
+          @click="resetPlanner"
         >
-          Arendz.nl
-        </a>
+          Reset
+        </button>
       </div>
     </div>
 
@@ -138,6 +101,12 @@ export default {
     },
   },
   mounted() {
+    if (localStorage.getItem('planner_park_id')) {
+      this.$axios.get('/parks/' + localStorage.getItem('planner_park_id')).then((d) => {
+        this.$store.commit('planner/setPark', d.data)
+      })
+    }
+
     if (localStorage.getItem('jwt_token')) {
       this.$store.commit('auth/setToken', localStorage.getItem('jwt_token'))
 
@@ -173,6 +142,9 @@ export default {
   methods: {
     closePopup() {
       this.$store.commit('popup/closePopup')
+    },
+    resetPlanner() {
+      this.$store.commit('planner/setPark', null)
     },
   },
 }

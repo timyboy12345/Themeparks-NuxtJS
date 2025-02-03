@@ -51,6 +51,8 @@ export default {
     enterSearchTerm: 'Enter Search Term',
     dataIsBeingSaved: 'Data is being saved',
     openingHours: 'Opening Hours',
+    planner: 'Planner',
+    today: 'Today',
   },
   home: {
     title: 'Welcome to Themeparkplanner',

@@ -11,6 +11,17 @@ import GeneralError from '~/components/GeneralError.vue'
 
 export default {
   components: { GeneralError, PoiInformation, Loading },
+  async validate({ params, $axios, $sentry }) {
+    return await $axios
+      .get('/parks/' + params.id + '/restaurants')
+      .then((restaurants) => {
+        return restaurants.data.some((r) => r.id === params.restaurant_id)
+      })
+      .catch((e) => {
+        $sentry.captureException(e)
+        return false
+      })
+  },
   data() {
     return {
       parkId: this.$route.params.id,

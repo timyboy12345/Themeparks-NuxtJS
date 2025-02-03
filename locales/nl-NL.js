@@ -49,6 +49,8 @@ export default {
     enterSearchTerm: 'Zoekterm invoeren',
     dataIsBeingSaved: 'Data wordt opgeslagen',
     openingHours: 'Openingstijden',
+    planner: 'Planner',
+    today: 'Vandaag',
   },
   home: {
     title: 'Welkom bij Themeparkplanner',
@@ -237,5 +239,13 @@ export default {
     seeMoreDescription: 'Klik hier om meer blogposts te lezen',
     seeMoreContent:
       'We schrijven regelmatig over pretparken in Nederland, Europa en de rest van de wereld. Klik hier om alle artikelen te lezen',
+  },
+  planner: {
+    menu: {
+      home: 'Home',
+      pois: 'Attracties & Restaurants',
+      history: 'Eerder',
+      news: 'Nieuws',
+    },
   },
 }

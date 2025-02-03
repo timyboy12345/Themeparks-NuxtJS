@@ -51,6 +51,8 @@ export default {
     enterSearchTerm: 'Suchbegriff eingeben',
     dataIsBeingSaved: 'Daten werden gespeichert',
     openingHours: 'Öffnungszeiten',
+    planner: 'Planner',
+    today: 'Heute',
   },
   home: {
     title: 'Willkommen bei Themeparkplanner',

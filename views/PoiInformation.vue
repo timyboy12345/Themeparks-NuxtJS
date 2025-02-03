@@ -22,7 +22,7 @@
         v-if="poi.website_url"
         target="_blank"
         :href="poi.website_url"
-        class="rounded bg-indigo-800 hover:bg-indigo-900 transition duration-100 py-2 px-4 text-white"
+        class="rounded bg-indigo-800 hover:bg-indigo-900 transition duration-100 py-2 px-4 text-white self-start text-center"
       >
         {{ $t('general.readMoreOn', [park.name]) }}
       </a>
@@ -46,7 +46,7 @@
                     v-if="new Date(openingTime.date).toDateString() === new Date().toDateString()"
                     class="text-sm text-gray-600 dark:text-gray-300"
                   >
-                    {{ $t('Vandaag') }}
+                    {{ $t('general.today') }}
                   </div>
                 </div>
               </div>

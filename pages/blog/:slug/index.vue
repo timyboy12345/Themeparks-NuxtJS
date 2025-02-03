@@ -130,6 +130,20 @@ export default {
       ],
     }
   },
+  // TODO: Add slug validation
+  // async validate({ params, $axios, $sentry }) {
+  //   await getPostBySlug($axios, $sentry, null, params.slug)
+  //     .then((post) => {
+  //       console.log(post)
+  //       return true
+  //     })
+  //     .catch((reason) => {
+  //       console.log(reason);
+  //       $sentry.captureException(reason)
+  //       return false
+  //       // throw reason
+  //     })
+  // },
   computed: {
     blog() {
       return blog

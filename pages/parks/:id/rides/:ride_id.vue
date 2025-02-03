@@ -16,6 +16,17 @@ export default {
     Loading,
     PoiInformation,
   },
+  async validate({ params, $axios, $sentry }) {
+    return await $axios
+      .get('/parks/' + params.id + '/rides')
+      .then((rides) => {
+        return rides.data.some((r) => r.id === params.ride_id)
+      })
+      .catch((e) => {
+        $sentry.captureException(e)
+        return false
+      })
+  },
   data() {
     return {
       parkId: this.$route.params.id,
@@ -50,7 +61,11 @@ export default {
   methods: {
     async fetchRide() {
       this.ride = await this.$axios.get('/parks/' + this.parkId + '/rides').then((rides) => {
-        return rides.data.find((r) => r.id === this.rideId)
+        const ride = rides.data.find((r) => r.id === this.rideId)
+
+        if (ride) return ride
+
+        throw new Error('Ride could not be found, is the API down?')
       })
     },
     async fetchPark() {

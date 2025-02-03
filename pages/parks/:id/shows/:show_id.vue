@@ -11,6 +11,17 @@ import PoiInformation from '~/views/PoiInformation.vue'
 
 export default {
   components: { PoiInformation, GeneralError, Loading },
+  async validate({ params, $axios, $sentry }) {
+    return await $axios
+      .get('/parks/' + params.id + '/shows')
+      .then((shows) => {
+        return shows.data.some((r) => r.id === params.show_id)
+      })
+      .catch((e) => {
+        $sentry.captureException(e)
+        return false
+      })
+  },
   data() {
     return {
       parkId: this.$route.params.id,
