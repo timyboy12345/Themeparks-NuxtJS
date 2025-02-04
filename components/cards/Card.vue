@@ -1,6 +1,7 @@
 <template>
   <component
     :is="componentType"
+    :target="target"
     class="bg-white dark:bg-gray-700 rounded shadow overflow-hidden transition duration-100 d-flex flex-col relative"
     :class="{ 'hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer': link }"
     :to="localizedLink"
@@ -11,10 +12,10 @@
       <div class="flex flex-col justify-between h-full">
         <div class="text-gray-800 dark:text-gray-300">
           <slot name="title">
-            <compontent :is="h1 ? 'h1' : 'h2'" v-if="title" class="text-lg text-indigo-800 dark:text-indigo-300 font-bold">{{
-              title
-            }}</compontent>
-            <p v-if="subTitle" class="text-sm text-gray-600 dark:text-gray-400">{{ subTitle }}</p>
+            <compontent :is="h1 ? 'h1' : 'h2'" v-if="title" class="text-lg text-indigo-800 dark:text-indigo-300 font-bold"
+              >{{ title }}
+            </compontent>
+            <p v-if="subtitle" class="text-sm text-gray-600 dark:text-gray-400">{{ subtitle }}</p>
           </slot>
 
           <slot name="content">
@@ -37,7 +38,7 @@ export default {
       type: String,
       default: null,
     },
-    subTitle: {
+    subtitle: {
       required: false,
       type: String,
       default: null,
@@ -66,6 +67,14 @@ export default {
       required: false,
       type: Boolean,
       default: false,
+    },
+    target: {
+      type: String,
+      required: false,
+      default: '_self',
+      validator(value) {
+        return ['_self', '_blank'].includes(value)
+      },
     },
   },
   computed: {

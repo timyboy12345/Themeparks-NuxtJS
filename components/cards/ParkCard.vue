@@ -1,5 +1,5 @@
 <template>
-  <card h1 :title="park.name" :sub-title="park.countryCode" :image-src="park.image" :link="link">
+  <card h1 :title="park.name" :subttitle="park.countryCode" :image-src="park.image" :link="link">
     <template #content>
       <p class="mt-4">
         {{ park.description }}

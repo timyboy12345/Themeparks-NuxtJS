@@ -1,5 +1,5 @@
 <template>
-  <Card :title="$t('general.statistics')" :sub-title="$t('ride.statisticsSubTitle')">
+  <Card :title="$t('general.statistics')" :subtitle="$t('ride.statisticsSubTitle')">
     <template #content>
       <div class="flex flex-col gap-y-2 mt-2">
         <div v-if="ride.minSizeWithEscort || ride.minSizeWithoutEscort">

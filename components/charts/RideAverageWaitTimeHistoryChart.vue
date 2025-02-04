@@ -1,5 +1,5 @@
 <template>
-  <card :title="$t('ride.averageWaitTimes')" :sub-title="$t('ride.subTitle', [avgWaitTime])">
+  <card :title="$t('ride.averageWaitTimes')" :subtitle="$t('ride.subTitle', [avgWaitTime])">
     <template #content>
       <highchart class="mt-3" :options="highChartsOptions"></highchart>
     </template>

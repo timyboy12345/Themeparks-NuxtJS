@@ -1,11 +1,13 @@
 <template>
   <component
     :is="poi.image_url ? 'image-card' : 'card'"
-    :h1="h1"
-    :title="poi.title"
     :description="poi.subTitle"
+    :h1="h1"
     :image-src="poi.image_url"
     :link="cardLink"
+    :subtitle="poi.distance ? poi.distance : undefined | formatDistance"
+    :target="target"
+    :title="poi.title"
   >
     <template #content>
       <div v-if="nextShow" class="mt-1 text-indigo-700">
@@ -67,6 +69,14 @@ export default {
       required: false,
       type: Boolean,
       default: false,
+    },
+    target: {
+      type: String,
+      required: false,
+      default: '_self',
+      validator(value) {
+        return ['_self', '_blank'].includes(value)
+      },
     },
   },
   computed: {

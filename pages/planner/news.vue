@@ -9,7 +9,7 @@
     </div>
 
     <div v-else class="grid md:grid-cols-2 lg:grid-cols-4 mt-4 gap-4">
-      <BlogPostCard v-for="(item, i) of posts" :key="i" :blog-post="item" />
+      <BlogPostCard v-for="(item, i) of posts" :key="i" target="_blank" :blog-post="item" />
     </div>
   </div>
 </template>

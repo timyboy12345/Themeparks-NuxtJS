@@ -1,5 +1,5 @@
 <template>
-  <Card v-if="loaded && raw" :title="$t('ride.stats.rcdbStatsTitle')" :sub-title="$t('ride.stats.rcdbStatsSubTitle')">
+  <Card v-if="loaded && raw" :title="$t('ride.stats.rcdbStatsTitle')" :subttitle="$t('ride.stats.rcdbStatsSubTitle')">
     <template #content>
       <div class="flex flex-col gap-y-2 mt-2">
         <div v-if="stats.height">
@@ -89,7 +89,6 @@ export default {
         }
       })
       .catch((exception) => {
-        console.error(exception)
         this.$sentry.captureException(exception)
       })
       .then(() => {

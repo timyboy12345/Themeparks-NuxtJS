@@ -27,7 +27,7 @@
         </template>
       </Card>
 
-      <Card :title="$t('checkins.checkedInDaysTitle')" :sub-title="$t('checkins.checkedInDaysSubtitle')">
+      <Card :title="$t('checkins.checkedInDaysTitle')" :subtitle="$t('checkins.checkedInDaysSubtitle')">
         <template #content>
           <checkin-days-list class="-mx-4" :max-days="5"></checkin-days-list>
         </template>
@@ -39,7 +39,7 @@
         </template>
       </Card>
 
-      <Card :title="$t('checkins.checkinsTitle')" :sub-title="$t('checkins.checkinsSubtitle')">
+      <Card :title="$t('checkins.checkinsTitle')" :subtitle="$t('checkins.checkinsSubtitle')">
         <template #content>
           <checkin-list class="-mx-4" :max-checkins="5"></checkin-list>
         </template>

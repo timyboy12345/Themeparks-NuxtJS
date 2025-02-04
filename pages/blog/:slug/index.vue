@@ -14,7 +14,7 @@
         <img
           v-if="blogPost.header"
           v-lazy-load
-          class="w-full max-h-96 overflow-hidden object-center object-cover rounded bg-white dark:bg-gray-700 shadow"
+          class="w-full min-h-20 max-h-96 overflow-hidden object-center object-cover rounded bg-gray-200 leading-[5] text-center dark:bg-gray-700 shadow"
           :data-src="'https://data.arendz.nl/assets/' + blogPost.header.filename_disk + '?width=1000&height=384&format=webp'"
           :alt="blogPost.header.description ?? 'Foto van blogpost'"
         />

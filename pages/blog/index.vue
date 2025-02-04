@@ -10,7 +10,7 @@
     <div v-else>
       <page-search v-model="searchQuery" :park="parkQuery" :parks="parks" @selectPark="selectPark"></page-search>
 
-      <card class="mb-4 mt-4" :title="$t('general.blog')" :sub-title="$t('blog.subTitle')"></card>
+      <card class="mb-4 mt-4" :title="$t('general.blog')" :subtitle="$t('blog.subTitle')"></card>
 
       <div v-if="filteredBlogPosts.length > 0" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <blog-post-card v-for="post in filteredBlogPosts" :key="post.id" :blog-post="post" />

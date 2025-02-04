@@ -12,11 +12,38 @@
         Klik om je locatie te gebruiken
       </button>
 
+      <div class="flex flex-row gap-2">
+        <button
+          v-for="(name, id) of categories"
+          :key="id"
+          class="text-center bg-indigo-800 text-white hover:bg-indigo-900 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition duration-100 rounded py-1 px-2 text-sm"
+          :class="{ 'opacity-60': category && category !== id }"
+          @click="category && category === id ? (category = null) : (category = id)"
+        >
+          {{ name }}
+        </button>
+      </div>
+
+      <input
+        v-model="query"
+        class="rounded py-2 px-4 border-indigo-800 border focus:ring-indigo-800 focus:ring-2"
+        type="text"
+        placeholder="Zoeken op naam"
+      />
+
       <LoadingSpinner v-if="!pois" />
       <div v-else-if="pois.length === 0">Geen POIs Gevonden</div>
 
-      <div v-else class="grid grid-cols-2 gap-4">
-        <PoiCard v-for="poi of filteredPois" :key="poi.id" type="ride" :poi="poi" />
+      <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <PoiCard
+          v-for="poi of filteredPois"
+          :key="poi.id"
+          target="_blank"
+          :park="$store.state.planner.park"
+          :show-more="true"
+          type="ride"
+          :poi="poi"
+        />
       </div>
     </div>
   </div>
@@ -34,6 +61,14 @@ export default {
   data() {
     return {
       pois: null,
+      query: '',
+      category: null,
+      categories: {
+        ATTRACTION: 'Attracties',
+        SHOP: 'Shops',
+        SHOW: 'Shows',
+        RESTAURANT: 'Restaurants',
+      },
     }
   },
   computed: {
@@ -51,6 +86,10 @@ export default {
           distance,
         }
       })
+
+      if (this.category) {
+        pois = pois.filter((p) => p.category === this.category)
+      }
 
       return pois.sort((a, b) => {
         const s1 = this.$store.state.planner.location ? a.distance : a.name
@@ -104,7 +143,8 @@ export default {
           })
         },
         (err) => {
-          console.error(err)
+          this.$sentry.captureException(err)
+          // console.error(err)
         }
       )
     },

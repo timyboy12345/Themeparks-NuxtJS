@@ -4,11 +4,9 @@
 
     <h2 v-if="$store.state.planner.park" class="dark:text-gray-100">Welkom in {{ $store.state.planner.park.name }}</h2>
 
-    <ParkPicker class="mt-4" v-if="!$store.state.planner.park" @select="handleParkSelect" />
+    <ParkPicker v-if="!$store.state.planner.park" class="mt-4" @select="handleParkSelect" />
 
-    <div v-else class="my-16 text-center text-gray-600 dark:text-gray-400">
-      Deze pagina wordt later verder gevuld
-    </div>
+    <div v-else class="my-16 text-center text-gray-600 dark:text-gray-400">Deze pagina wordt later verder gevuld</div>
   </div>
 </template>
 

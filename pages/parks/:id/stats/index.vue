@@ -3,7 +3,7 @@
     <breadcrumbs v-if="breadcrumbs" :breadcrumbs="breadcrumbs"></breadcrumbs>
 
     <div class="grid md:grid-cols-2 gap-4">
-      <card class="md:col-span-2" :title="$t('general.statistics')" :sub-title="$t('statistics.subTitle')"></card>
+      <card class="md:col-span-2" :title="$t('general.statistics')" :subtitle="$t('statistics.subTitle')"></card>
 
       <card class="md:col-span-2" :title="$t('statistics.tempTitle')" :content="$t('statistics.tempContent')"></card>
 

@@ -1,6 +1,6 @@
 <template>
   <no-ssr>
-    <card :title="$t('statistics.waitTimesToday')" :sub-title="$t('statistics.averageWaitTime', [avgWaitTime])">
+    <card :title="$t('statistics.waitTimesToday')" :subtitle="$t('statistics.averageWaitTime', [avgWaitTime])">
       <template #content>
         <highchart class="mt-3" :options="highChartsOptions"></highchart>
       </template>

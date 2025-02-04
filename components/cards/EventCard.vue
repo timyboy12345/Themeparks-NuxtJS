@@ -9,7 +9,7 @@
     :title="event.name"
   />
 
-  <card v-else :content="event.subTitle" :link="cardLink" :sub-title="cardContent" :title="event.name"> </card>
+  <card v-else :content="event.subTitle" :link="cardLink" :subtitle="cardContent" :title="event.name"> </card>
 </template>
 
 <script>

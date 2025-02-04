@@ -30,7 +30,7 @@
       <card
         v-if="poi.openingTimes && poi.openingTimes.length > 0"
         :title="$t('restaurants.futureOpeningTimesCardTitle')"
-        :sub-title="$t('restaurants.futureOpeningTimesCardSubtitle')"
+        :subtitle="$t('restaurants.futureOpeningTimesCardSubtitle')"
       >
         <template #content>
           <div class="flex flex-col bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray600 -mx-4">
@@ -55,11 +55,7 @@
         </template>
       </card>
 
-      <card
-        v-if="futureShows.length > 0"
-        :title="$t('shows.futureShowTimesCardTitle')"
-        :sub-title="$t('shows.futureShowTimesCardSubtitle')"
-      >
+      <card v-if="futureShows.length > 0" :title="$t('shows.futureShowTimesCardTitle')" :subtitle="$t('shows.futureShowTimesCardSubtitle')">
         <template #content>
           <div class="flex flex-col bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray600 -mx-4">
             <div v-for="showTime of futureShows" :key="showTime.id" class="py-2 px-4 flex flex-row justify-between items-center">
@@ -76,7 +72,7 @@
         </template>
       </card>
 
-      <card v-if="pastShows.length > 0" :title="$t('shows.passedShowTimesCardTitle')" :sub-title="$t('shows.passedShowTimesCardSubtitle')">
+      <card v-if="pastShows.length > 0" :title="$t('shows.passedShowTimesCardTitle')" :subtitle="$t('shows.passedShowTimesCardSubtitle')">
         <template #content>
           <div class="flex flex-col bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-600 -mx-4">
             <div v-for="showTime of pastShows" :key="showTime.id" class="py-2 px-4 flex flex-row justify-between items-center">
@@ -114,7 +110,7 @@
       <card v-if="$store.state.auth.user && type === 'ride'" :title="$t('checkins.existingCheckinsTitle')">
         <template #content>
           <checkin-list
-            v-if="$store.state.auth.checkins && $store.state.auth.checkins.filter((r) => r.rideId === rideId).length > 0"
+            v-if="$store.state.auth.checkins && $store.state.auth.checkins.filter((r) => r.rideId === poi.id).length > 0"
             edit
             :ride-id="poi.id"
             class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200 dark:bg-gray-700"

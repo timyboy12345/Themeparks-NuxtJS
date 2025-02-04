@@ -3,7 +3,7 @@
     <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
 
     <div class="grid gap-4">
-      <card h1 :title="$t('map.title')" :sub-title="$t('map.subtitle')"></card>
+      <card h1 :title="$t('map.title')" :subtitle="$t('map.subtitle')"></card>
 
       <no-ssr v-if="parks">
         <map-component component-height="h-128" :zoom="1" :lat="0" :lng="0">

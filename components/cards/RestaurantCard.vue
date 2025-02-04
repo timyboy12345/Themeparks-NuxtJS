@@ -13,7 +13,7 @@
       <!--      </div>-->
     </template>
   </image-card>
-  <card v-else :title="restaurant.title" :sub-title="restaurant.subTitle" />
+  <card v-else :title="restaurant.title" :subtitle="restaurant.subTitle" />
 </template>
 
 <script>

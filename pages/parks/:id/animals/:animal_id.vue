@@ -1,6 +1,6 @@
 <template>
   <loading v-if="$fetchState.pending" class="my-4"></loading>
-  <general-error v-else-if="$fetchState.error" :sub-title="$fetchState.error.message" title="Animal not found" />
+  <general-error v-else-if="$fetchState.error" :subtitle="$fetchState.error.message" title="Animal not found" />
   <PoiInformation v-else type="animal" :park="park" :poi="animal"></PoiInformation>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <card title="Wachttijden van vandaag" :sub-title="`Gemiddelde wachttijd: ${avgWaitTime}`">
+  <card title="Wachttijden van vandaag" :subtitle="`Gemiddelde wachttijd: ${avgWaitTime}`">
     <template #content>
       <highchart class="mt-3" :options="highChartsOptions"></highchart>
     </template>

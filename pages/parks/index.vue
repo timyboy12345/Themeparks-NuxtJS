@@ -2,7 +2,7 @@
   <div class="grid gap-4">
     <page-search v-model="query" :countries="countries" :country="queriedCountry" @selectCountry="handleSelectCountry" />
 
-    <card :h1="true" :title="$t('general.allThemeParks')" :sub-title="$t('parks.subTitle')">
+    <card :h1="true" :title="$t('general.allThemeParks')" :subtitle="$t('parks.subTitle')">
       <template #content>
         <div class="block pt-2">
           <router-link class="underline" :to="localePath('/parks/map/')">{{ $t('parks.content') }}</router-link>

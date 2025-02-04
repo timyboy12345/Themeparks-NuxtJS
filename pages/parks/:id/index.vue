@@ -10,7 +10,7 @@
     <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
       <park-card :park="park" :tickets="tickets" :uses-link="false"></park-card>
 
-      <card v-if="park && park.supports.supportsRides" :title="$t('general.rides')" :sub-title="$t('park.allRidesSubtitle')">
+      <card v-if="park && park.supports.supportsRides" :title="$t('general.rides')" :subttitle="$t('park.allRidesSubtitle')">
         <template #content>
           <ride-list class="-mx-4" :max-rides="5" :park-id="parkId"></ride-list>
         </template>
@@ -31,7 +31,7 @@
       <card
         v-if="park && park.supports.supportsRestaurants"
         :title="$t('general.restaurants')"
-        :sub-title="$t('park.allRestaurantsSubtitle')"
+        :subtitle="$t('park.allRestaurantsSubtitle')"
       >
         <template #content>
           <restaurant-list class="-mx-4" :max-restaurants="5" :park-id="parkId"></restaurant-list>
@@ -50,7 +50,7 @@
         </template>
       </card>
 
-      <card v-if="park && park.supports.supportsShows" :title="$t('general.shows')" :sub-title="$t('park.allShowsSubtitle')">
+      <card v-if="park && park.supports.supportsShows" :title="$t('general.shows')" :subtitle="$t('park.allShowsSubtitle')">
         <template #content>
           <show-list class="-mx-4" :max-shows="5" :park-id="parkId"></show-list>
         </template>
@@ -68,7 +68,7 @@
         </template>
       </card>
 
-      <card v-if="park && park.supports.supportsAnimals" :title="$t('general.animals')" :sub-title="$t('park.allAnimalsSubtitle')">
+      <card v-if="park && park.supports.supportsAnimals" :title="$t('general.animals')" :subtitle="$t('park.allAnimalsSubtitle')">
         <template #content>
           <animal-list class="-mx-4" :max-animals="5" :park-id="parkId"></animal-list>
         </template>
@@ -81,7 +81,7 @@
         </template>
       </card>
 
-      <card v-if="park && park.supports.supportsEvents" :title="$t('general.events')" :sub-title="$t('park.allEventsSubtitle')">
+      <card v-if="park && park.supports.supportsEvents" :title="$t('general.events')" :subtitle="$t('park.allEventsSubtitle')">
         <template #content>
           <event-list class="-mx-4" :max-events="5" :park-id="parkId" />
         </template>
@@ -96,7 +96,7 @@
       <card
         v-if="park && park.supports.supportsOpeningTimes"
         :title="$t('general.openingHours')"
-        :sub-title="$t('park.openingHoursSubtitle')"
+        :subtitle="$t('park.openingHoursSubtitle')"
       >
         <template #content>
           <opening-hours-list class="-mx-4" :max-opening-hours="7" :park-id="parkId"></opening-hours-list>
@@ -113,7 +113,7 @@
 
       <AdCard v-if="park" />
 
-      <card v-if="park && blogPosts && blogPosts.length > 0" :title="$t('general.blog')" :sub-title="$t('park.allBlogPostsSubtitle')">
+      <card v-if="park && blogPosts && blogPosts.length > 0" :title="$t('general.blog')" :subtitle="$t('park.allBlogPostsSubtitle')">
         <template #content>
           <blog-post-list class="-mx-4" :blog-posts="blogPosts"></blog-post-list>
         </template>
@@ -212,7 +212,7 @@ export default {
 
     await getTicketDealsForPark(this.$axios, this.$sentry, this.parkId)
       .then((res) => (this.tickets = res))
-      .catch((e) => console.error(e))
+      .catch(this.$sentry.captureException)
   },
   head() {
     const title = this.park ? this.park.name : undefined

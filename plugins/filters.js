@@ -45,3 +45,15 @@ Vue.filter('formatDateArray', (value) => {
 
   return dates.join(', ')
 })
+
+Vue.filter('formatDistance', (value) => {
+  if (value === undefined || value === null) {
+    return undefined
+  }
+
+  if (value > 1000) {
+    return `${(value / 100).toFixed(1)}km`
+  }
+
+  return `${value}m`
+})

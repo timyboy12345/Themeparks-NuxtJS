@@ -4,6 +4,7 @@
     class="bg-white rounded shadow overflow-hidden transition duration-100 relative"
     :class="{ 'hover:bg-gray-100 cursor-pointer hover:shadow-lg': link }"
     :to="localizedLink"
+    :target="target"
   >
     <img v-if="imageSrc" v-lazy-load :data-src="imageSrc" class="-z-1 w-full min-h-78 h-full object-center object-cover" />
 
@@ -55,6 +56,14 @@ export default {
       required: false,
       type: Boolean,
       default: false,
+    },
+    target: {
+      type: String,
+      required: false,
+      default: '_self',
+      validator(value) {
+        return ['_self', '_blank'].includes(value)
+      },
     },
   },
   computed: {

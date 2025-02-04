@@ -1,6 +1,6 @@
 <template>
   <div class="grid gap-4">
-    <card :title="$t('home.title')" :sub-title="$t('home.subtitle')" :content="$t('home.action')"></card>
+    <card :title="$t('home.title')" :subtitle="$t('home.subtitle')" :content="$t('home.action')"></card>
 
     <card-button btn-link="/parks" :btn-title="$t('home.actionButton')" />
 
@@ -28,7 +28,7 @@
     <div v-if="blogPosts && blogPosts.length > 0" class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <blog-post-card v-for="blogPost of blogPosts" :key="blogPost.id" :blog-post="blogPost" />
 
-      <card :title="$t('blog.seeMore')" :sub-title="$t('blog.seeMoreDescription')" :content="$t('blog.seeMoreContent')" link="/blog"></card>
+      <card :title="$t('blog.seeMore')" :subtitle="$t('blog.seeMoreDescription')" :content="$t('blog.seeMoreContent')" link="/blog"></card>
     </div>
   </div>
 </template>
