@@ -4,7 +4,7 @@
 
     <h2 v-if="$store.state.planner.park" class="dark:text-gray-100">Welkom in {{ $store.state.planner.park.name }}</h2>
 
-    <ParkPicker v-if="!$store.state.planner.park" class="mt-4" @select="handleParkSelect" />
+    <ParkPicker v-if="!$store.state.planner.parkId" class="mt-4" @select="handleParkSelect" />
 
     <div v-else class="my-16 text-center text-gray-600 dark:text-gray-400">Deze pagina wordt later verder gevuld</div>
   </div>
@@ -19,7 +19,13 @@ export default {
   layout: 'planner',
   methods: {
     handleParkSelect(park) {
+      this.$store.commit('planner/setInitialized', false)
       this.$store.commit('planner/setPark', park)
+
+      this.$axios.get('/parks/' + localStorage.getItem('planner_park_id') + '/pois').then((d) => {
+        this.$store.commit('planner/setPois', d.data)
+        this.$store.commit('planner/setInitialized', true)
+      })
     },
   },
 }

@@ -31,8 +31,8 @@
         placeholder="Zoeken op naam"
       />
 
-      <LoadingSpinner v-if="!pois" />
-      <div v-else-if="pois.length === 0">Geen POIs Gevonden</div>
+      <LoadingSpinner v-if="!$store.state.planner.pois" />
+      <div v-else-if="$store.state.planner.pois.length === 0">Geen POIs Gevonden</div>
 
       <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         <PoiCard
@@ -41,7 +41,7 @@
           target="_blank"
           :park="$store.state.planner.park"
           :show-more="true"
-          type="ride"
+          :type="poiType(poi)"
           :poi="poi"
         />
       </div>
@@ -60,7 +60,6 @@ export default {
   layout: 'planner',
   data() {
     return {
-      pois: null,
       query: '',
       category: null,
       categories: {
@@ -72,11 +71,8 @@ export default {
     }
   },
   computed: {
-    parkId() {
-      return this.$store.state.planner.parkId
-    },
     filteredPois() {
-      let pois = this.pois ?? []
+      let pois = this.$store.state.planner.pois ?? []
 
       pois = pois.map((p) => {
         const distance = measureLatLngPoints(p.location, this.$store.state.planner.location)
@@ -109,26 +105,23 @@ export default {
       // .filter((p) => p.name.toLowerCase().includes(this.query.toLowerCase()))
     },
   },
-  watch: {
-    parkId() {
-      this.fetchParks()
-    },
-  },
-  mounted() {
-    this.fetchParks()
-  },
   methods: {
-    async fetchParks() {
-      if (!this.$store.state.planner.parkId) {
-        return
+    poiType(poi) {
+      switch (poi.category) {
+        case 'ATTRACTION':
+          return 'ride'
+        case 'RESTAURANT':
+          return 'restaurant'
+        case 'SHOW':
+          return 'show'
+        case 'SHOP':
+          return 'shop'
+        case 'ANIMAL':
+          return 'animal'
+        case 'SERVICE':
+        default:
+          return 'ride'
       }
-
-      this.pois = await this.$axios
-        .$get('/parks/' + this.$store.state.planner.parkId + '/pois')
-        .then((d) => d)
-        .catch((e) => {
-          this.$sentry.captureException(e)
-        })
     },
     getLocation() {
       navigator.geolocation.getCurrentPosition(

@@ -14,7 +14,7 @@
         <p v-if="subtitle" class="text-sm text-gray-600 -mt-1">{{ subtitle }}</p>
 
         <!-- eslint-disable-next-line vue/no-v-html -->
-        <p v-if="description" class="mt-2 text-gray-800" v-html="description"></p>
+        <p v-if="description" class="mt-2 text-gray-800" v-html="safeDescription"></p>
 
         <slot name="content"></slot>
 
@@ -72,6 +72,16 @@ export default {
     },
     localizedLink() {
       return this.link ? this.localePath(this.link) : null
+    },
+    safeDescription() {
+      const str = this.description.replace(/<\/?[^>]+(>|$)/g, '')
+
+      const ending = '...'
+      const lim = 120
+      if (str.length <= lim) return str
+
+      const lastSpace = str.slice(0, lim - ending.length + 1).lastIndexOf(' ')
+      return str.slice(0, lastSpace > 0 ? lastSpace : lim - ending.length) + ending
     },
   },
 }

@@ -52,7 +52,7 @@ Vue.filter('formatDistance', (value) => {
   }
 
   if (value > 1000) {
-    return `${(value / 100).toFixed(1)}km`
+    return `${(value / 1000).toFixed(1)}km`
   }
 
   return `${value}m`

@@ -9,7 +9,12 @@
       Klik om je locatie te gebruiken
     </button>
 
-    <input v-model="query" class="rounded py-2 px-4" type="text" placeholder="Efteling" />
+    <input
+      v-model="query"
+      class="rounded py-2 px-4 border-indigo-800 border focus:ring-indigo-800 focus:ring-2"
+      type="text"
+      placeholder="Efteling"
+    />
 
     <LoadingSpinner v-if="$fetchState.pending" />
     <div v-if="$fetchState.error">{{ $fetchState.error }}</div>
@@ -24,7 +29,9 @@
             @click="$emit('select', park)"
           >
             <div class="">{{ park.name }}</div>
-            <div v-if="$store.state.planner.location && park.location" class="opacity-60">{{ (park.distance / 100).toFixed(1) }} km</div>
+            <div v-if="$store.state.planner.location && park.location" class="opacity-60">
+              {{ park.distance | formatDistance }}
+            </div>
           </div>
         </div>
       </template>

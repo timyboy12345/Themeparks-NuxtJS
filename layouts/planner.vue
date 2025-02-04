@@ -39,7 +39,10 @@
     </div>
 
     <div class="mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto py-4">
-      <Nuxt keep-alive />
+      <Nuxt v-if="$store.state.planner.initialized" keep-alive />
+      <div v-else>
+        <LoadingSpinner class="my-8" />
+      </div>
     </div>
 
     <div class="mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto mt-4 pb-4 flex flex-col">
@@ -83,9 +86,10 @@
 <script>
 import AddCheckinPopup from '@/components/popups/AddCheckinPopup'
 import EditCheckinPopup from '@/components/popups/EditCheckinPopup'
+import LoadingSpinner from '~/components/LoadingSpinner.vue'
 
 export default {
-  components: { EditCheckinPopup, AddCheckinPopup },
+  components: { LoadingSpinner, EditCheckinPopup, AddCheckinPopup },
   head() {
     return this.$nuxtI18nHead({ addSeoAttributes: true })
   },
@@ -93,18 +97,19 @@ export default {
     availableLocales() {
       return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale)
     },
-    filteredLocales() {
-      // const locales = this.availableLocales.filter((l) => !this.switchLocalePath(l.code).includes('non-existing-translation'))
-      const locales = this.availableLocales
-
-      return locales
-    },
   },
   mounted() {
     if (localStorage.getItem('planner_park_id')) {
-      this.$axios.get('/parks/' + localStorage.getItem('planner_park_id')).then((d) => {
-        this.$store.commit('planner/setPark', d.data)
-      })
+      Promise.all([
+        this.$axios.get('/parks/' + localStorage.getItem('planner_park_id')).then((d) => {
+          this.$store.commit('planner/setPark', d.data)
+        }),
+        this.$axios.get('/parks/' + localStorage.getItem('planner_park_id') + '/pois').then((d) => {
+          this.$store.commit('planner/setPois', d.data)
+        }),
+      ]).then(() => this.$store.commit('planner/setInitialized', true))
+    } else {
+      this.$store.commit('planner/setInitialized', true)
     }
 
     if (localStorage.getItem('jwt_token')) {
