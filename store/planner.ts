@@ -6,6 +6,7 @@ export const state = (): {
   locationStatus: 'unknown' | 'denied' | 'accepted'
   pois: any[] | null
   initialized: boolean
+  favorites: string[]
 } => ({
   checkins: null,
   parkId: null,
@@ -14,6 +15,7 @@ export const state = (): {
   location: null,
   locationStatus: 'unknown',
   initialized: false,
+  favorites: [],
 })
 
 export const mutations = {
@@ -49,5 +51,21 @@ export const mutations = {
   },
   setInitialized(state: any, initialized: boolean) {
     state.initialized = initialized
+  },
+  toggleFavorite(state: any, id: string) {
+    if (state.favorites.includes(id)) {
+      state.favorites = state.favorites.filter((d: string) => d !== id)
+    } else {
+      state.favorites.push(id)
+    }
+  },
+  addFavorite(state: any, id: string) {
+    state.favorites.push(id)
+  },
+  removeFavorite(state: any, id: string) {
+    state.favorites = state.favorites.filter((d: string) => d !== id)
+  },
+  resetFavorites(state: any) {
+    state.favorites = []
   },
 }

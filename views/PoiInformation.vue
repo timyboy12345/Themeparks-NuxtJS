@@ -14,7 +14,11 @@
             v-html="$md.render(poi.description)"
           ></div>
           <!-- eslint-disable-next-line vue/no-v-html -->
-          <div v-else v-html="poi.description"></div>
+          <div
+            v-else
+            class="prose prose-sm dark:prose-invert max-w-none prose-a:text-indigo-700 dark:prose-a:text-indigo-300 prose-headings:mb-1 prose-headings:mt-2 hover:prose-a:no-underline"
+            v-html="poi.description"
+          ></div>
         </template>
       </card>
 

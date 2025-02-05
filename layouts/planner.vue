@@ -77,6 +77,7 @@
             v-if="$store.getters['popup/getCurrentPopup'].type === 'editCheckin'"
             :checkin="$store.getters['popup/getCurrentPopup'].checkin"
           />
+          <PoiPopup v-if="$store.getters['popup/getCurrentPopup'].type === 'poi'" />
         </div>
       </div>
     </Transition>
@@ -87,9 +88,10 @@
 import AddCheckinPopup from '@/components/popups/AddCheckinPopup'
 import EditCheckinPopup from '@/components/popups/EditCheckinPopup'
 import LoadingSpinner from '~/components/LoadingSpinner.vue'
+import PoiPopup from '~/components/popups/PoiPopup.vue'
 
 export default {
-  components: { LoadingSpinner, EditCheckinPopup, AddCheckinPopup },
+  components: { PoiPopup, LoadingSpinner, EditCheckinPopup, AddCheckinPopup },
   head() {
     return this.$nuxtI18nHead({ addSeoAttributes: true })
   },
@@ -149,7 +151,11 @@ export default {
       this.$store.commit('popup/closePopup')
     },
     resetPlanner() {
+      this.$store.commit('planner/setCheckins', [])
       this.$store.commit('planner/setPark', null)
+      this.$store.commit('planner/setPois', null)
+      this.$store.commit('planner/resetFavorites')
+      this.$store.commit('planner/setInitialized', true)
     },
   },
 }

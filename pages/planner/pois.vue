@@ -40,9 +40,10 @@
           :key="poi.id"
           target="_blank"
           :park="$store.state.planner.park"
-          :show-more="true"
           :type="poiType(poi)"
           :poi="poi"
+          class="cursor-pointer"
+          @click.native="handleClick(poi)"
         />
       </div>
     </div>
@@ -122,6 +123,15 @@ export default {
         default:
           return 'ride'
       }
+    },
+    handleClick(poi) {
+      this.$store.commit('popup/addPopup', {
+        type: 'poi',
+        poi,
+        park: this.$store.state.planner.park,
+        parkId: this.$store.state.planner.parkId,
+        rideId: poi.id,
+      })
     },
     getLocation() {
       navigator.geolocation.getCurrentPosition(
