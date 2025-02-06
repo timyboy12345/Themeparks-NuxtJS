@@ -28,6 +28,11 @@ export default {
       posts: null,
     }
   },
+  head() {
+    return {
+      title: this.$t('planner.newsTitle'),
+    }
+  },
   computed: {
     parkId() {
       return this.$store.state.planner.parkId

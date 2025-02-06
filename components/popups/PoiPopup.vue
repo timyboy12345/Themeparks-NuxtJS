@@ -19,18 +19,22 @@
       </div>
     </div>
 
-    <div class="bg-white rounded shadow m-4 p-4">
-      <h1 class="text-indigo-800 text-lg font-bold">{{ poi.title }}</h1>
-      <p v-if="poi.subTitle" class="opacity-60 text-sm">{{ poi.subTitle }}</p>
+    <div class="bg-white rounded shadow m-4 divide-y divide-gray-200">
+      <div class="p-4">
+        <h1 class="text-indigo-800 text-lg font-bold">{{ poi.title }}</h1>
+        <p v-if="poi.subTitle" class="opacity-60 text-sm">{{ poi.subTitle }}</p>
+      </div>
 
-      <img v-if="poi.image_url" v-lazy-load :data-src="poi.image_url" class="rounded w-full max-h-96 object-cover my-2" />
+      <div class="px-4 py-4">
+        <img v-if="poi.image_url" v-lazy-load :data-src="poi.image_url" class="rounded w-full max-h-96 object-cover" />
+      </div>
 
-      <div v-if="poi.showTimes" class="my-2">
+      <div v-if="poi.showTimes" class="py-2 px-4">
         {{ $tc('Show om | Shows om:', poi.showTimes.showTimes.length) }}
         {{ poi.showTimes.showTimes.map((s) => s.localFromTime).join(', ') }}
       </div>
 
-      <article v-if="poi.description" class="max-h-40 overflow-auto text-sm">
+      <article v-if="poi.description" class="max-h-40 overflow-auto text-sm py-2 px-4">
         <!-- eslint-disable-next-line vue/no-v-html -->
         <div
           v-if="park.supports.textType === 'MARKDOWN'"
@@ -44,13 +48,21 @@
           v-html="poi.description"
         ></div>
       </article>
+
+      <MapComponent v-if="poi.location" class="my-2" :lng="poi.location.lng" :lat="poi.location.lat" :zoom="17">
+        <MapMarker :lng="poi.location.lng" :lat="poi.location.lat" />
+      </MapComponent>
     </div>
   </div>
 </template>
 
 <script>
+import MapComponent from '~/components/maps/MapComponent.vue'
+import MapMarker from '~/components/maps/MapMarker.vue'
+
 export default {
   name: 'PoiPopup',
+  components: { MapMarker, MapComponent },
   data() {
     return {}
   },

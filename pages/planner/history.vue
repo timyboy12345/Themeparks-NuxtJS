@@ -10,5 +10,10 @@
 export default {
   name: 'PlannerHistory',
   layout: 'planner',
+  head() {
+    return {
+      title: this.$t('planner.historyTitle'),
+    }
+  },
 }
 </script>

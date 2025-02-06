@@ -247,5 +247,9 @@ export default {
       history: 'Eerder',
       news: 'Nieuws',
     },
+    indexTitle: 'Home - Planner',
+    poisTitle: 'Attracties, Restaurants en Shows - Planner',
+    newsTitle: 'Nieuws - Planner',
+    historyTitle: 'Geschiedenis - Planner',
   },
 }

@@ -54,11 +54,21 @@ export default {
   name: 'PlannerIndex',
   components: { PoiCard, Card, ParkPicker },
   layout: 'planner',
+  head() {
+    return {
+      title: this.$t('planner.indexTitle'),
+    }
+  },
   computed: {
     upcomingShows() {
       return this.$store.state.planner.pois
         .filter((p) => p.category === 'SHOW')
         .filter((s) => s.showTimes && s.showTimes.showTimes.filter((st) => !st.isPassed).length > 0)
+        .sort(function (a, b) {
+          const firstShowTimeA = a.showTimes.showTimes.filter((st) => !st.isPassed)[0].localFromTime ?? '23:59'
+          const firstShowTimeB = b.showTimes.showTimes.filter((st) => !st.isPassed)[0].localFromTime ?? '23:59'
+          return firstShowTimeA.localeCompare(firstShowTimeB)
+        })
     },
     favoritePois() {
       const favorites = this.$store.state.planner.favorites

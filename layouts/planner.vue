@@ -1,8 +1,8 @@
 <template>
   <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-    <div class="fixed z-10 shadow-lg bottom-0 bg-indigo-800 text-white w-full flex flex-row items-center justify-between py-4 px-4 lg:px-8">
+    <div class="fixed z-10 shadow-lg bottom-0 bg-indigo-800 text-white w-full flex flex-row items-center justify-between">
       <div class="flex w-full items-center flex-row">
-        <div class="flex flex-row items-center md:mt-0">
+        <div class="py-4 px-4 lg:px-8 flex flex-row items-center md:mt-0 whitespace-nowrap overflow-x-auto">
           <NuxtLink
             :to="localePath('/planner')"
             class="md:ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
@@ -43,6 +43,22 @@
       <div v-else>
         <LoadingSpinner class="my-8" />
       </div>
+    </div>
+
+    <!-- Location Reload Button -->
+    <div
+      class="fixed shadow right-4 bottom-16 cursor-pointer p-2 rounded-full bg-indigo-800 text-white dark:bg-indigo-300 hover:bg-indigo-900 transition duration-100 dark:hover:bg-indigo-400"
+      title="Haal je geolocatie opnieuw op"
+      @click="getLocation"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+        />
+      </svg>
     </div>
 
     <div class="mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto mt-4 pb-4 flex flex-col">
@@ -91,6 +107,7 @@ import LoadingSpinner from '~/components/LoadingSpinner.vue'
 import PoiPopup from '~/components/popups/PoiPopup.vue'
 
 export default {
+  name: 'PlannerLayout',
   components: { PoiPopup, LoadingSpinner, EditCheckinPopup, AddCheckinPopup },
   head() {
     return this.$nuxtI18nHead({ addSeoAttributes: true })
@@ -147,6 +164,24 @@ export default {
     }
   },
   methods: {
+    getLocation() {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude
+          const lng = position.coords.longitude
+
+          this.$store.commit('planner/setLocationStatus', 'accepted')
+          this.$store.commit('planner/setLocation', {
+            lat,
+            lng,
+          })
+        },
+        (err) => {
+          this.$sentry.captureException(err)
+          // console.error(err)
+        }
+      )
+    },
     closePopup() {
       this.$store.commit('popup/closePopup')
     },

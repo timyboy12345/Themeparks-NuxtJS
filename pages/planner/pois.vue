@@ -12,11 +12,11 @@
         Klik om je locatie te gebruiken
       </button>
 
-      <div class="flex flex-row gap-2">
+      <div class="flex flex-row gap-2 overflow-x-auto whitespace-nowrap">
         <button
           v-for="(name, id) of categories"
           :key="id"
-          class="text-center bg-indigo-800 text-white hover:bg-indigo-900 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition duration-100 rounded py-1 px-2 text-sm"
+          class="shrink-0 text-center bg-indigo-800 text-white hover:bg-indigo-900 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition duration-100 rounded py-1 px-2 text-sm"
           :class="{ 'opacity-60': category && category !== id }"
           @click="category && category === id ? (category = null) : (category = id)"
         >
@@ -69,7 +69,13 @@ export default {
         SHOP: 'Shops',
         SHOW: 'Shows',
         RESTAURANT: 'Restaurants',
+        TOILETS: 'Toiletten',
       },
+    }
+  },
+  head() {
+    return {
+      title: this.$t('planner.poisTitle'),
     }
   },
   computed: {
