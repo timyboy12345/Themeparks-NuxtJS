@@ -38,4 +38,7 @@ export const getters = {
       }
     })
   },
+  todaysCheckins(state) {
+    return (state.checkins ?? []).filter((c) => new Date(c.dateTime).toDateString() === new Date().toDateString())
+  },
 }

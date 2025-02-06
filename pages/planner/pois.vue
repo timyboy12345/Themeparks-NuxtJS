@@ -40,7 +40,7 @@
           :key="poi.id"
           target="_blank"
           :park="$store.state.planner.park"
-          :type="poiType(poi)"
+          type="auto"
           :poi="poi"
           size="sm"
           class="cursor-pointer"
@@ -110,27 +110,9 @@ export default {
 
         return 0
       })
-      // .filter((p) => p.name.toLowerCase().includes(this.query.toLowerCase()))
     },
   },
   methods: {
-    poiType(poi) {
-      switch (poi.category) {
-        case 'ATTRACTION':
-          return 'ride'
-        case 'RESTAURANT':
-          return 'restaurant'
-        case 'SHOW':
-          return 'show'
-        case 'SHOP':
-          return 'shop'
-        case 'ANIMAL':
-          return 'animal'
-        case 'SERVICE':
-        default:
-          return 'ride'
-      }
-    },
     handleClick(poi) {
       this.$store.commit('popup/addPopup', {
         type: 'poi',

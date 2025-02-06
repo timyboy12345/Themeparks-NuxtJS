@@ -54,7 +54,7 @@ export default {
       type: String,
       required: true,
       validator(value) {
-        return ['ride', 'restaurant', 'show', 'animal', 'shop'].includes(value)
+        return ['auto', 'ride', 'restaurant', 'show', 'animal', 'shop'].includes(value)
       },
     },
     showMore: {
@@ -86,6 +86,27 @@ export default {
     },
   },
   computed: {
+    autoType() {
+      if (this.type !== 'auto') {
+        return this.type
+      }
+
+      switch (this.poi.category.category) {
+        case 'ATTRACTION':
+          return 'ride'
+        case 'RESTAURANT':
+          return 'restaurant'
+        case 'SHOW':
+          return 'show'
+        case 'SHOP':
+          return 'shop'
+        case 'ANIMAL':
+          return 'animal'
+        case 'SERVICE':
+        default:
+          return 'ride'
+      }
+    },
     cardLink() {
       if (!this.park || !this.poi || !this.showMore) {
         return null

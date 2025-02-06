@@ -78,8 +78,15 @@
           class="bg-red-700 hover:bg-red-800 transition duration-100 text-white text-sm py-1 px-2 rounded"
           @click="resetPlanner"
         >
-          Reset
+          Park Verlaten
         </button>
+
+        <NuxtLink
+          class="border rounded py-1 px-2 text-sm bg-indigo-800 text-white hover:bg-indigo-900 transition duration-100"
+          :to="localePath('/')"
+        >
+          Home
+        </NuxtLink>
       </div>
     </div>
 
@@ -118,6 +125,11 @@ export default {
     },
   },
   mounted() {
+    if (!localStorage.getItem('jwt_token')) {
+      this.$router.push(this.localePath('/user/login'))
+      return
+    }
+
     if (localStorage.getItem('planner_park_id')) {
       Promise.all([
         this.$axios.get('/parks/' + localStorage.getItem('planner_park_id')).then((d) => {

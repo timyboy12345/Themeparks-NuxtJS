@@ -1,5 +1,4 @@
 export const state = (): {
-  checkins: any[] | null
   parkId: string | null
   park: any
   location: null | { lat: number; lng: number }
@@ -8,7 +7,6 @@ export const state = (): {
   initialized: boolean
   favorites: string[]
 } => ({
-  checkins: null,
   parkId: null,
   park: null,
   pois: null,
@@ -39,12 +37,6 @@ export const mutations = {
   },
   setLocationStatus(state: any, status: 'denied' | 'accepted' | 'unknown') {
     state.locationStatus = status
-  },
-  setCheckins(state: any, checkins: any) {
-    state.checkins = checkins
-  },
-  addCheckin(state: any, checkin: any) {
-    state.checkins.push(checkin)
   },
   setLocation(state: any, location: any) {
     state.location = location

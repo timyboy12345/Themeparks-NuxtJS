@@ -1,10 +1,21 @@
 <template>
   <div class="absolute shadow w-full bottom-0 left-0 z-10">
-    <div class="flex justify-end mx-4 mb-2">
+    <div class="flex justify-end gap-4 mx-4 mb-2">
       <div
         :class="{
-          'bg-red-700 text-white': $store.state.planner.favorites.includes(poi.id),
-          'bg-white text-indigo-800': !$store.state.planner.favorites.includes(poi.id),
+          'bg-green-900 text-white': hasCheckedIn,
+          'bg-white text-indigo-800': !hasCheckedIn,
+        }"
+        class="rounded-full cursor-pointer text-indigo-800 hover:bg-indigo-800 active:bg-indigo-900 hover:text-white py-2 px-4 transition duration-100"
+        @click="checkin"
+      >
+        Inchecken
+      </div>
+
+      <div
+        :class="{
+          'bg-red-700 text-white': hasFavorited,
+          'bg-white text-indigo-800': !hasFavorited,
         }"
         class="rounded-full p-2 transition duration-100 cursor-pointer hover:bg-indigo-800 active:bg-indigo-900 hover:text-white"
         @click="toggleFavorite"
@@ -19,7 +30,7 @@
       </div>
     </div>
 
-    <div class="bg-white rounded shadow m-4 divide-y divide-gray-200">
+    <div class="bg-white max-h-96 overflow-y-auto rounded shadow m-4 divide-y divide-gray-200">
       <div class="p-4">
         <h1 class="text-indigo-800 text-lg font-bold">{{ poi.title }}</h1>
         <p v-if="poi.subTitle" class="opacity-60 text-sm">{{ poi.subTitle }}</p>
@@ -29,9 +40,18 @@
         <img v-if="poi.image_url" v-lazy-load :data-src="poi.image_url" class="rounded w-full max-h-96 object-cover" />
       </div>
 
-      <div v-if="poi.showTimes" class="py-2 px-4">
+      <div v-if="poi.showTimes && poi.showTimes.showTimes && poi.showTimes.showTimes.length > 0" class="py-2 px-4">
         {{ $tc('Show om | Shows om:', poi.showTimes.showTimes.length) }}
         {{ poi.showTimes.showTimes.map((s) => s.localFromTime).join(', ') }}
+      </div>
+
+      <div v-if="openingTimes && openingTimes.length > 0" class="py-2 px-4">
+        {{ $tc('Open van | Open:', openingTimes.length) }}
+        {{
+          openingTimes
+            .map((s) => (s.closeTime ? `${s.openTime.slice(0, -3)} tot ${s.closeTime.slice(0, -3)}` : s.openTime.slice(0, -3)))
+            .join(' en ')
+        }}
       </div>
 
       <article v-if="poi.description" class="max-h-40 overflow-auto text-sm py-2 px-4">
@@ -49,9 +69,13 @@
         ></div>
       </article>
 
-      <MapComponent v-if="poi.location" class="my-2" :lng="poi.location.lng" :lat="poi.location.lat" :zoom="17">
+      <MapComponent v-if="poi.location" class="overflow-hidden" :lng="poi.location.lng" :lat="poi.location.lat" :zoom="17">
         <MapMarker :lng="poi.location.lng" :lat="poi.location.lat" />
       </MapComponent>
+
+      <div v-if="poi.images && poi.images.length > 0" class="p-4 grid grid-cols-2 lg:grid-cols-3 gap-4 content-start">
+        <img v-for="(img, i) of poi.images" :key="i" v-lazy-load alt="Image of this ride" :data-src="img" class="bg-white rounded shadow" />
+      </div>
     </div>
   </div>
 </template>
@@ -73,10 +97,29 @@ export default {
     park() {
       return this.$store.getters['popup/getCurrentPopup'].park
     },
+    openingTimes() {
+      return (this.poi.openingTimes ?? []).filter((openingTime) => new Date(openingTime.date).toDateString() === new Date().toDateString())
+    },
+    hasCheckedIn() {
+      return this.$store.getters['auth/todaysCheckins'].filter((s) => s.rideId === this.poi.id).length > 0
+    },
+    hasFavorited() {
+      return this.$store.state.planner.favorites.includes(this.poi.id)
+    },
   },
   methods: {
     toggleFavorite() {
       this.$store.commit('planner/toggleFavorite', this.poi.id)
+    },
+    checkin() {
+      this.$store.commit('popup/addPopup', {
+        type: 'addCheckin',
+        ride: this.poi,
+        park: this.park,
+        parkId: this.park.id,
+        rideId: this.poi.id,
+        front: true,
+      })
     },
   },
 }

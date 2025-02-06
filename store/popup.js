@@ -4,7 +4,8 @@ export const state = () => ({
 
 export const mutations = {
   addPopup(state, popup) {
-    state.popups.push(popup)
+    if (popup.front ?? false) state.popups.unshift(popup)
+    else state.popups.push(popup)
   },
   closePopup(state) {
     state.popups.shift()

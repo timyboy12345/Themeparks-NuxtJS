@@ -14,7 +14,7 @@
               v-for="show of upcomingShows"
               :key="show.id"
               size="sm"
-              class="w-11/12 flex-shrink-0 cursor-pointer"
+              class="w-11/12 md:w-5/12 lg:w-3/12 flex-shrink-0 cursor-pointer"
               type="show"
               :poi="show"
               @click.native="handleClick(show)"

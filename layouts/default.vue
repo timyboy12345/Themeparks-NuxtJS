@@ -21,7 +21,7 @@
           </NuxtLink>
           <NuxtLink
             v-if="!$store.state.auth.user"
-            :to="localePath('/planner/login')"
+            :to="localePath('/planner/info')"
             class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
             exact-active-class="!opacity-100"
           >
