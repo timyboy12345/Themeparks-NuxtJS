@@ -6,15 +6,32 @@
     :to="localizedLink"
     :target="target"
   >
-    <img v-if="imageSrc" v-lazy-load :data-src="imageSrc" class="-z-1 w-full min-h-78 h-full object-center object-cover" />
+    <img
+      v-if="imageSrc"
+      v-lazy-load
+      :class="{ 'min-h-78': size === 'md', 'min-h-60': size === 'sm' }"
+      :data-src="imageSrc"
+      class="-z-1 w-full h-full object-center object-cover"
+    />
 
     <div class="w-full flex flex-col bottom-0 absolute">
-      <div class="p-4 m-4 rounded z-5 bg-white rounded">
-        <component :is="h1 ? 'h1' : 'h2'" v-if="title" class="text-xl text-indigo-800 font-bold">{{ title }}</component>
+      <div class="p-4 m-4 z-5 bg-white rounded">
+        <component
+          :is="h1 ? 'h1' : 'h2'"
+          v-if="title"
+          :class="{ 'text-xl': size === 'md', 'text-md leading-[1.3]': size === 'sm' }"
+          class="text-indigo-800 font-bold"
+          >{{ title }}</component
+        >
         <p v-if="subtitle" class="text-sm text-gray-600 -mt-1">{{ subtitle }}</p>
 
         <!-- eslint-disable-next-line vue/no-v-html -->
-        <p v-if="description" class="mt-2 text-gray-800" v-html="safeDescription"></p>
+        <p
+          v-if="description"
+          :class="{ 'mt-2': size === 'md', 'mt-1 text-sm': size === 'sm' }"
+          class="text-gray-800"
+          v-html="safeDescription"
+        ></p>
 
         <slot name="content"></slot>
 
@@ -41,6 +58,11 @@ export default {
       required: false,
       type: String,
       default: null,
+    },
+    size: {
+      required: false,
+      type: String,
+      default: 'md',
     },
     imageSrc: {
       required: false,

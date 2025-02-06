@@ -42,6 +42,7 @@
           :park="$store.state.planner.park"
           :type="poiType(poi)"
           :poi="poi"
+          size="sm"
           class="cursor-pointer"
           @click.native="handleClick(poi)"
         />

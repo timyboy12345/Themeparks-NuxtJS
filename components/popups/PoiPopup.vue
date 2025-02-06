@@ -25,7 +25,10 @@
 
       <img v-if="poi.image_url" v-lazy-load :data-src="poi.image_url" class="rounded w-full max-h-96 object-cover my-2" />
 
-      <div v-if="poi.showTimes" class="my-2">Shows om: {{ poi.showTimes.showTimes.map((s) => s.localFromTime).join(', ') }}</div>
+      <div v-if="poi.showTimes" class="my-2">
+        {{ $tc('Show om | Shows om:', poi.showTimes.showTimes.length) }}
+        {{ poi.showTimes.showTimes.map((s) => s.localFromTime).join(', ') }}
+      </div>
 
       <article v-if="poi.description" class="max-h-40 overflow-auto text-sm">
         <!-- eslint-disable-next-line vue/no-v-html -->

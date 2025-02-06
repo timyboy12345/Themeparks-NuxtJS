@@ -13,6 +13,7 @@
             <PoiCard
               v-for="show of upcomingShows"
               :key="show.id"
+              size="sm"
               class="w-11/12 flex-shrink-0 cursor-pointer"
               type="show"
               :poi="show"
@@ -32,6 +33,7 @@
               class="w-11/12 flex-shrink-0 cursor-pointer"
               type="ride"
               :poi="f"
+              size="sm"
               @click.native="handleClick(f)"
             />
           </div>
@@ -54,7 +56,9 @@ export default {
   layout: 'planner',
   computed: {
     upcomingShows() {
-      return this.$store.state.planner.pois.filter((p) => p.category === 'SHOW')
+      return this.$store.state.planner.pois
+        .filter((p) => p.category === 'SHOW')
+        .filter((s) => s.showTimes && s.showTimes.showTimes.filter((st) => !st.isPassed).length > 0)
     },
     favoritePois() {
       const favorites = this.$store.state.planner.favorites

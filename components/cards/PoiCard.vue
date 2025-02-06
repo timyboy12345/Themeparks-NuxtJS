@@ -8,6 +8,7 @@
     :subtitle="poi.distance ? poi.distance : undefined | formatDistance"
     :target="target"
     :title="poi.title"
+    :size="size"
   >
     <template #content>
       <div v-if="nextShow" class="mt-1 text-indigo-700">
@@ -69,6 +70,11 @@ export default {
       required: false,
       type: Boolean,
       default: false,
+    },
+    size: {
+      required: false,
+      type: String,
+      default: 'md',
     },
     target: {
       type: String,
