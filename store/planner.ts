@@ -6,6 +6,7 @@ export const state = (): {
   pois: any[] | null
   initialized: boolean
   favorites: string[]
+  pushMessages: any[]
 } => ({
   parkId: null,
   park: null,
@@ -14,6 +15,7 @@ export const state = (): {
   locationStatus: 'unknown',
   initialized: false,
   favorites: [],
+  pushMessages: [],
 })
 
 export const mutations = {
@@ -59,5 +61,14 @@ export const mutations = {
   },
   resetFavorites(state: any) {
     state.favorites = []
+  },
+  addPushMessage(state: any, message: any) {
+    state.pushMessages.push(message)
+  },
+  removePushMessage(state: any, message: any) {
+    state.pushMessages = state.pushMessages.filter((pm: any) => pm.poiId !== message.poiId && pm.parkId !== message.parkId)
+  },
+  setPushMessages(state: any, messages: any) {
+    state.pushMessages = messages
   },
 }

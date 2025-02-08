@@ -117,7 +117,18 @@ export default {
   name: 'PlannerLayout',
   components: { PoiPopup, LoadingSpinner, EditCheckinPopup, AddCheckinPopup },
   head() {
-    return this.$nuxtI18nHead({ addSeoAttributes: true })
+    return {
+      ...this.$nuxtI18nHead({ addSeoAttributes: true }),
+      script: [
+        {
+          src: 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js',
+          defer: true,
+        },
+        {
+          src: '/onesignal.client.js',
+        },
+      ],
+    }
   },
   computed: {
     availableLocales() {
@@ -125,6 +136,30 @@ export default {
     },
   },
   mounted() {
+    // window.OneSignalDeferred.push(['showNativePrompt'])
+
+    const plann = this
+    window.OneSignalDeferred.push(function (OneSignal) {
+      console.log('Push Supported: ' + OneSignal.Notifications.isPushSupported())
+      console.log('Opted in: ' + OneSignal.User.PushSubscription.optedIn)
+
+      if (OneSignal.User.PushSubscription.optedIn) {
+        console.log('Set User ID for push messages')
+        OneSignal.login(plann.$store.state.auth.user.id)
+      } else {
+        console.log('Not opted in')
+      }
+    })
+
+    // window.$OneSignal.push(['setSubscription', 'true'], (data) => {
+    //   console.log(data)
+    // })
+    // window.OneSignal.push(['login'], 'test')
+
+    // window.OneSignal.push(['addListenerForNotificationOpened', (data) => {
+    //   console.log('Received NotificationOpened:', data )}
+    // ])
+
     if (!localStorage.getItem('jwt_token')) {
       this.$router.push(this.localePath('/user/login'))
       return
@@ -165,8 +200,13 @@ export default {
           // Unauthenticated
           if (exception.response.status === 401) {
             this.$store.commit('auth/setToken', null)
-            // alert('Login is not valid any more, please log in again')
-            // this.$router.push(this.localePath('/user/login'))
+
+            window.OneSignalDeferred.push((OneSignal) => {
+              OneSignal.logout()
+            })
+
+            alert('Login is not valid anymore, please log in again')
+            this.$router.push(this.localePath('/user/login'))
             return
           }
 
@@ -198,7 +238,6 @@ export default {
       this.$store.commit('popup/closePopup')
     },
     resetPlanner() {
-      this.$store.commit('planner/setCheckins', [])
       this.$store.commit('planner/setPark', null)
       this.$store.commit('planner/setPois', null)
       this.$store.commit('planner/resetFavorites')

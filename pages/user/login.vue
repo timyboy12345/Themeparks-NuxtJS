@@ -83,6 +83,10 @@ export default {
         .get('/auth/user')
         .then((response) => {
           this.$store.commit('auth/setUser', response.data)
+
+          window.OneSignalDeferred.push((OneSignal) => {
+            OneSignal.login(response.data.id)
+          })
         })
         .catch((exception) => {
           alert('Something went wrong while fetching user details')

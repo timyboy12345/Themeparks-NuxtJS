@@ -122,9 +122,21 @@ import AddCheckinPopup from '@/components/popups/AddCheckinPopup'
 import EditCheckinPopup from '@/components/popups/EditCheckinPopup'
 
 export default {
+  name: 'DefaultLayout',
   components: { EditCheckinPopup, AddCheckinPopup },
   head() {
-    return this.$nuxtI18nHead({ addSeoAttributes: true })
+    return {
+      ...this.$nuxtI18nHead({ addSeoAttributes: true }),
+      script: [
+        {
+          src: 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js',
+          defer: true,
+        },
+        {
+          src: '/onesignal.client.js',
+        },
+      ],
+    }
   },
   computed: {
     availableLocales() {
@@ -160,6 +172,10 @@ export default {
           // Unauthenticated
           if (exception.response.status === 401) {
             this.$store.commit('auth/setToken', null)
+
+            window.OneSignalDeferred.push((OneSignal) => {
+              OneSignal.logout()
+            })
             // alert('Login is not valid any more, please log in again')
             // this.$router.push(this.localePath('/user/login'))
             return

@@ -72,6 +72,10 @@ export default {
       this.$store.commit('auth/setCheckins', null)
 
       this.$router.push(this.localePath('/user/login'))
+
+      window.OneSignalDeferred.push((OneSignal) => {
+        OneSignal.logout()
+      })
     },
   },
 }
