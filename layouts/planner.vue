@@ -34,6 +34,14 @@
           >
             {{ $t('planner.menu.news') }}
           </NuxtLink>
+          <NuxtLink
+            :class="{ 'opacity-20 cursor-not-allowed': !$store.state.planner.park }"
+            :to="localePath('/planner/user')"
+            class="ml-3 lg:ml-4 text-sm md:text-base opacity-50 transition duration-100"
+            exact-active-class="!opacity-100"
+          >
+            {{ $t('planner.menu.user') }}
+          </NuxtLink>
         </div>
       </div>
     </div>
@@ -43,6 +51,21 @@
       <div v-else>
         <LoadingSpinner class="my-8" />
       </div>
+    </div>
+
+    <!-- POI Reload Button -->
+    <div
+      class="fixed shadow right-16 bottom-16 cursor-pointer p-2 rounded-full bg-indigo-800 text-white dark:bg-indigo-300 hover:bg-indigo-900 transition duration-100 dark:hover:bg-indigo-400"
+      title="Haal gegevens opnieuw op"
+      @click="reloadPois"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+        />
+      </svg>
     </div>
 
     <!-- Location Reload Button -->
@@ -246,6 +269,11 @@ export default {
           // console.error(err)
         }
       )
+    },
+    reloadPois() {
+      this.$axios.get('/parks/' + localStorage.getItem('planner_park_id') + '/pois').then((d) => {
+        this.$store.commit('planner/setPois', d.data)
+      })
     },
     closePopup() {
       this.$store.commit('popup/closePopup')

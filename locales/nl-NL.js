@@ -246,10 +246,12 @@ export default {
       pois: 'Attracties & Restaurants',
       history: 'Eerder',
       news: 'Nieuws',
+      user: 'Account',
     },
     indexTitle: 'Home - Planner',
     poisTitle: 'Attracties, Restaurants en Shows - Planner',
     newsTitle: 'Nieuws - Planner',
     historyTitle: 'Geschiedenis - Planner',
+    userTitle: 'Jouw Account - Planner',
   },
 }

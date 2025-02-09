@@ -65,8 +65,8 @@ export const mutations = {
   addPushMessage(state: any, message: any) {
     state.pushMessages.push(message)
   },
-  removePushMessage(state: any, message: any) {
-    state.pushMessages = state.pushMessages.filter((pm: any) => pm.poiId !== message.poiId && pm.parkId !== message.parkId)
+  removePushMessage(state: any, id: any) {
+    state.pushMessages = state.pushMessages.filter((pm: any) => pm.id !== id)
   },
   setPushMessages(state: any, messages: any) {
     state.pushMessages = messages

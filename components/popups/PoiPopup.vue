@@ -56,9 +56,7 @@
         </div>
 
         <div v-if="poi.currentWaitTime" class="p-4">
-          <!--        <div class="font-bold">Wachttijd Pushberichten</div>-->
-
-          <div v-if="!pushLoaded">Open dit scherm opnieuw om pushmeldingen in te stellen</div>
+          <div v-if="!pushLoaded">Push meldingen op dit moment niet beschikbaar, open dit scherm opnieuw of installeer als web-app.</div>
 
           <div v-else-if="!supportsPush">Dit device ondersteund geen pushberichten</div>
 
@@ -74,7 +72,13 @@
           </div>
 
           <div v-else-if="pushMessagesForPoi && pushMessagesForPoi.length > 0">
-            Je krijgt een pushbericht met {{ pushMessagesForPoi.map((p) => p.minutes).join(', ') }} minuten
+            <div>Je krijgt een pushbericht met {{ pushMessagesForPoi.map((p) => p.minutes).join(', ') }} minuten</div>
+            <div
+              class="cursor-pointer text-sm mt-2 text-red-800 hover:text-red-900 underline hover:no-underline"
+              @click="removePushNotification(pushMessagesForPoi[0].id)"
+            >
+              Verwijder push melding
+            </div>
           </div>
 
           <div v-else>
@@ -85,7 +89,7 @@
                 :key="mins"
                 type="button"
                 class="rounded cursor-pointer bg-indigo-800 hover:bg-indigo-900 text-white py-1 px-2"
-                @click="enablePushMessage(mins)"
+                @click="addPushNotification(mins)"
               >
                 {{ mins }} min
               </button>
@@ -182,7 +186,7 @@ export default {
         context.$store.commit('popup/closePopup')
       })
     },
-    enablePushMessage(minutes) {
+    addPushNotification(minutes) {
       this.$axios
         .post('/push', {
           parkId: this.park.id,
@@ -201,6 +205,14 @@ export default {
           alert('Something went wrong while trying to create a push message alert')
           this.$sentry.captureException(exception)
         })
+    },
+    removePushNotification(id) {
+      this.$axios
+        .delete('/push/' + id)
+        .then(() => {
+          this.$store.commit('planner/removePushMessage', id)
+        })
+        .catch((e) => this.$sentry.captureException(e))
     },
     toggleFavorite() {
       this.$store.commit('planner/toggleFavorite', this.poi.id)
