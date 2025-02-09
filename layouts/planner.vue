@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-    <div class="fixed z-10 shadow-lg bottom-0 bg-indigo-800 text-white w-full flex flex-row items-center justify-between">
+    <div class="bottom-nav fixed z-10 shadow-lg bottom-0 bg-indigo-800 text-white w-full flex flex-row items-center justify-between">
       <div class="flex w-full items-center flex-row">
         <div class="py-4 px-4 lg:px-8 flex flex-row items-center md:mt-0 whitespace-nowrap overflow-x-auto">
           <NuxtLink
@@ -274,6 +274,13 @@ export default {
       this.$axios.get('/parks/' + localStorage.getItem('planner_park_id') + '/pois').then((d) => {
         this.$store.commit('planner/setPois', d.data)
       })
+
+      this.$axios.get('/push').then((pushes) => {
+        this.$store.commit(
+          'planner/setPushMessages',
+          pushes.data.filter((date) => new Date(date.createdAt).toDateString() === new Date().toDateString())
+        )
+      })
     },
     closePopup() {
       this.$store.commit('popup/closePopup')
@@ -297,5 +304,9 @@ export default {
 .v-enter-from,
 .v-leave-to {
   opacity: 0;
+}
+
+.bottom-nav {
+  pading-bottom: env(safe-area-inset-bottom);
 }
 </style>
