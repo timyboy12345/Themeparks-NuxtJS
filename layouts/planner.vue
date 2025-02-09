@@ -121,6 +121,10 @@ export default {
       ...this.$nuxtI18nHead({ addSeoAttributes: true }),
       script: [
         {
+          vmid: 'envsetter',
+          innerHTML: 'window.nodeEnv = "' + process.env.NODE_ENV + '"',
+        },
+        {
           src: 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js',
           defer: true,
         },
@@ -128,6 +132,9 @@ export default {
           src: '/onesignal.client.js',
         },
       ],
+      __dangerouslyDisableSanitizersByTagID: {
+        envsetter: ['innerHTML'],
+      },
     }
   },
   computed: {
@@ -172,6 +179,12 @@ export default {
         }),
         this.$axios.get('/parks/' + localStorage.getItem('planner_park_id') + '/pois').then((d) => {
           this.$store.commit('planner/setPois', d.data)
+        }),
+        this.$axios.get('/push').then((pushes) => {
+          this.$store.commit(
+            'planner/setPushMessages',
+            pushes.data.filter((date) => new Date(date.createdAt).toDateString() === new Date().toDateString())
+          )
         }),
       ]).then(() => this.$store.commit('planner/setInitialized', true))
     } else {

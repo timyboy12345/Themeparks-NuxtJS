@@ -58,17 +58,23 @@
         <div v-if="poi.currentWaitTime" class="p-4">
           <!--        <div class="font-bold">Wachttijd Pushberichten</div>-->
 
-          <div v-if="!supportsPush">Dit device ondersteund geen pushberichten</div>
+          <div v-if="!pushLoaded">Open dit scherm opnieuw om pushmeldingen in te stellen</div>
 
-          <div v-if="!hasPush">
-            Accepteer pushberichten als je wachttijd-updates wilt krijgen
-            <button type="button" class="rounded bg-indigo-800 text-white py-1 px-2" @click="enablePushMessages()">
+          <div v-else-if="!supportsPush">Dit device ondersteund geen pushberichten</div>
+
+          <div v-else-if="!hasPush">
+            <div class="text-sm">Accepteer pushberichten als je wachttijd-updates wilt krijgen</div>
+            <button
+              type="button"
+              class="block mt-2 rounded bg-indigo-800 hover:bg-indigo-900 transition duration-100 text-white py-1 px-2"
+              @click="enablePushMessages()"
+            >
               Zet pushberichten aan
             </button>
           </div>
 
           <div v-else-if="pushMessagesForPoi && pushMessagesForPoi.length > 0">
-            Je krijgt een pushbericht met {{ pushMessagesForPoi.join(', ') }} minuten
+            Je krijgt een pushbericht met {{ pushMessagesForPoi.map((p) => p.minutes).join(', ') }} minuten
           </div>
 
           <div v-else>
@@ -132,8 +138,11 @@ export default {
     return {}
   },
   computed: {
+    pushLoaded() {
+      return window.OneSignal !== undefined
+    },
     supportsPush() {
-      return window.OneSignal.Notifications.isPushSupported()
+      return window.OneSignal ? window.OneSignal.Notifications.isPushSupported() : false
     },
     hasPush() {
       return window.OneSignal.User.PushSubscription.optedIn
@@ -159,6 +168,8 @@ export default {
   },
   methods: {
     enablePushMessages() {
+      const context = this
+
       window.OneSignalDeferred.push((OneSignal) => {
         // TODO: Improve opt in/out flow
         // if (OneSignal.Notifications.permission) {
@@ -168,17 +179,23 @@ export default {
         // }
 
         OneSignal.login(this.$store.state.auth.user.id)
+        context.$store.commit('popup/closePopup')
       })
     },
     enablePushMessage(minutes) {
       this.$axios
         .post('/push', {
           parkId: this.park.id,
-          rideId: this.poi.id,
-          minutes,
+          poiId: this.poi.id,
+          minutes: minutes.toString(),
         })
         .then((response) => {
-          this.$store.commit('planner/addPushMessage', response.data)
+          this.$store.commit('planner/addPushMessage', {
+            id: response.data.identifiers[0].id,
+            poiId: this.poi.id,
+            parkId: this.park.id,
+            minutes,
+          })
         })
         .catch((exception) => {
           alert('Something went wrong while trying to create a push message alert')
