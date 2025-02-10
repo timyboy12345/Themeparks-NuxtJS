@@ -53,38 +53,40 @@
       </div>
     </div>
 
-    <!-- POI Reload Button -->
-    <div
-      class="fixed shadow right-16 bottom-16 cursor-pointer p-2 rounded-full bg-indigo-800 text-white dark:bg-indigo-300 hover:bg-indigo-900 transition duration-100 dark:hover:bg-indigo-400"
-      title="Haal gegevens opnieuw op"
-      @click="reloadPois"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
-        />
-      </svg>
+    <div class="bottom-nav fixed flex flex-row gap-2 bottom-16 right-4">
+      <!-- POI Reload Button -->
+      <div
+        class="shadow cursor-pointer p-2 rounded-full bg-indigo-800 text-white dark:bg-indigo-300 hover:bg-indigo-900 transition duration-100 dark:hover:bg-indigo-400"
+        title="Haal gegevens opnieuw op"
+        @click="reloadPois"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+          />
+        </svg>
+      </div>
+
+      <!-- Location Reload Button -->
+      <div
+        class="shadow cursor-pointer p-2 rounded-full bg-indigo-800 text-white dark:bg-indigo-300 hover:bg-indigo-900 transition duration-100 dark:hover:bg-indigo-400"
+        title="Haal je geolocatie opnieuw op"
+        @click="getLocation"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+          />
+        </svg>
+      </div>
     </div>
 
-    <!-- Location Reload Button -->
-    <div
-      class="fixed shadow right-4 bottom-16 cursor-pointer p-2 rounded-full bg-indigo-800 text-white dark:bg-indigo-300 hover:bg-indigo-900 transition duration-100 dark:hover:bg-indigo-400"
-      title="Haal je geolocatie opnieuw op"
-      @click="getLocation"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-        />
-      </svg>
-    </div>
-
-    <div class="mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto mt-4 pb-4 flex flex-col">
+    <div class="mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto mt-4 pb-12 flex flex-col">
       <div class="flex flex-row items-center mb-4 gap-2">
         <NuxtLink
           v-for="locale in availableLocales"
@@ -105,7 +107,7 @@
         </button>
 
         <NuxtLink
-          class="border rounded py-1 px-2 text-sm bg-indigo-800 text-white hover:bg-indigo-900 transition duration-100"
+          class="rounded py-1 px-2 text-sm bg-indigo-800 text-white hover:bg-indigo-900 transition duration-100"
           :to="localePath('/')"
         >
           Home
@@ -181,15 +183,6 @@ export default {
       }
     })
 
-    // window.$OneSignal.push(['setSubscription', 'true'], (data) => {
-    //   console.log(data)
-    // })
-    // window.OneSignal.push(['login'], 'test')
-
-    // window.OneSignal.push(['addListenerForNotificationOpened', (data) => {
-    //   console.log('Received NotificationOpened:', data )}
-    // ])
-
     if (!localStorage.getItem('jwt_token')) {
       this.$router.push(this.localePath('/user/login'))
       return
@@ -199,6 +192,16 @@ export default {
       Promise.all([
         this.$axios.get('/parks/' + localStorage.getItem('planner_park_id')).then((d) => {
           this.$store.commit('planner/setPark', d.data)
+
+          if (d.data.supports.supportsOpeningTimes)
+            this.$axios
+              .get('/parks/' + d.data.id + '/opening-hours')
+              .then((openingHours) => {
+                this.$store.commit('planner/setOpeningTimes', openingHours.data)
+              })
+              .catch((e) => {
+                this.$sentry.captureException(e)
+              })
         }),
         this.$axios.get('/parks/' + localStorage.getItem('planner_park_id') + '/pois').then((d) => {
           this.$store.commit('planner/setPois', d.data)
@@ -307,6 +310,6 @@ export default {
 }
 
 .bottom-nav {
-  pading-bottom: env(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 </style>

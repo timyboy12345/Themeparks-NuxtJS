@@ -11,7 +11,7 @@
           v-for="i in [5, 10, 15, 20, 30, 40, 50, 60]"
           :key="i"
           type="button"
-          class="border border-gray-300 bg-gray-300 bg-opacity-0 dark:text-gray-200 py-1 px-2 rounded block transition duration-100"
+          class="border border-gray-300 bg-gray-300 bg-opacity-0 py-1 px-2 rounded block transition duration-100"
           :class="{ 'bg-opacity-30 opacity-70': saving, 'cursor-pointer hover:bg-opacity-20': !saving }"
           @click="fastAddCheckin(i)"
         >
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="bg-white rounded shadow m-4 p-4 rounded gap-y-4 flex flex-col">
+    <div class="bg-white rounded shadow m-4 p-4 gap-y-4 flex flex-col">
       <div v-if="!saving" class="flex flex-col gap-y-4">
         <CustomTextInput
           id="dateTime"

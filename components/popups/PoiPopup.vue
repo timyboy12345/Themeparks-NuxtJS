@@ -15,10 +15,10 @@
 
         <div
           :class="{
-            'bg-red-700 text-white': hasFavorited,
-            'bg-white text-indigo-800': !hasFavorited,
+            'bg-red-600 text-white hover:bg-red-700 active:bg-red-800': hasFavorited,
+            'bg-white text-indigo-800 hover:bg-indigo-800 active:bg-indigo-900 hover:text-white': !hasFavorited,
           }"
-          class="rounded-full p-2 transition duration-100 cursor-pointer hover:bg-indigo-800 active:bg-indigo-900 hover:text-white"
+          class="rounded-full p-2 transition duration-100 cursor-pointer"
           @click="toggleFavorite"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -35,6 +35,7 @@
         <div class="p-4">
           <h1 class="text-indigo-800 text-lg font-bold">{{ poi.title }}</h1>
           <p v-if="poi.subTitle" class="opacity-60 text-sm">{{ poi.subTitle }}</p>
+          <p v-if="poi.currentWaitTime" class="opacity-80">{{ poi.currentWaitTime }} minuten wachten</p>
         </div>
 
         <div class="px-4 py-4">
@@ -83,6 +84,7 @@
 
           <div v-else>
             <div class="text-sm">Wanneer wil je een pushbericht krijgen?</div>
+
             <div class="grid grid-cols-4 gap-2 mt-2">
               <button
                 v-for="mins of [0, 5, 10, 20, 30, 40, 50, 60]"
@@ -94,7 +96,16 @@
                 {{ mins }} min
               </button>
             </div>
+
+            <div class="flex flex-row items-center text-sm mt-2">
+              <input id="down-up-checkbox" v-model="downUpValue" type="checkbox" class="mr-2" />
+              <label for="down-up-checkbox">Stuur me ook berichten als de attractie down/up is.</label>
+            </div>
           </div>
+        </div>
+
+        <div v-else-if="poi.category === 'ATTRACTION'" class="px-4 py-2 text-sm">
+          Geen wachttijd beschikbaar, dus er kunnen momenteel geen push-meldingen worden ingesteld voor deze attractie.
         </div>
 
         <article v-if="poi.description" class="max-h-40 overflow-auto text-sm py-2 px-4">
@@ -139,7 +150,9 @@ export default {
   name: 'PoiPopup',
   components: { MapMarker, MapComponent },
   data() {
-    return {}
+    return {
+      downUpValue: true,
+    }
   },
   computed: {
     pushLoaded() {
@@ -192,6 +205,7 @@ export default {
           parkId: this.park.id,
           poiId: this.poi.id,
           minutes: minutes.toString(),
+          downUp: this.downUpValue,
         })
         .then((response) => {
           this.$store.commit('planner/addPushMessage', {
@@ -199,6 +213,7 @@ export default {
             poiId: this.poi.id,
             parkId: this.park.id,
             minutes,
+            downUp: this.downUpValue,
           })
         })
         .catch((exception) => {

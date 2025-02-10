@@ -15,6 +15,7 @@
               Verwijder
             </button>
             {{ $store.state.planner.pois.find((p) => p.id === push.poiId).title ?? poiId }}: {{ push.minutes }} minuten
+            <span v-if="push.downUp" class="opacity-60 ml-2">Of als de POI down/up gaat.</span>
           </div>
         </div>
       </template>

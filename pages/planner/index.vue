@@ -4,6 +4,10 @@
 
     <h2 v-if="$store.state.planner.park" class="dark:text-gray-100">Welkom in {{ $store.state.planner.park.name }}</h2>
 
+    <div v-if="$store.getters['planner/openingTimesToday']" class="text-sm opacity-60">
+      Open van {{ $store.getters['planner/openingTimesToday'].openingTimes.map((t) => `${t.open} tot ${t.close}`).join(', ') }}
+    </div>
+
     <ParkPicker v-if="!$store.state.planner.parkId" class="mt-4" @select="handleParkSelect" />
 
     <div v-else class="grid gap-4 mt-4">

@@ -17,5 +17,6 @@
   ],
   "theme_color": "#3730a3",
   "background_color": "#3730a3",
-  "display": "standalone"
+  "display": "standalone",
+  "start_url": "/planner"
 }

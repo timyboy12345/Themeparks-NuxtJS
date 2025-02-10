@@ -1,6 +1,7 @@
 export const state = (): {
   parkId: string | null
   park: any
+  openingTimes: null | any[]
   location: null | { lat: number; lng: number }
   locationStatus: 'unknown' | 'denied' | 'accepted'
   pois: any[] | null
@@ -11,6 +12,7 @@ export const state = (): {
   parkId: null,
   park: null,
   pois: null,
+  openingTimes: null,
   location: null,
   locationStatus: 'unknown',
   initialized: false,
@@ -70,5 +72,14 @@ export const mutations = {
   },
   setPushMessages(state: any, messages: any) {
     state.pushMessages = messages
+  },
+  setOpeningTimes(state: any, openingTimes: any[]) {
+    state.openingTimes = openingTimes
+  },
+}
+
+export const getters = {
+  openingTimesToday(state: any) {
+    return (state.openingTimes ?? []).find((ot: any) => new Date(ot.date).toDateString() === new Date().toDateString())
   },
 }
