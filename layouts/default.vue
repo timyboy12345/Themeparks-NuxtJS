@@ -127,22 +127,6 @@ export default {
   head() {
     return {
       ...this.$nuxtI18nHead({ addSeoAttributes: true }),
-      script: [
-        {
-          vmid: 'envsetter',
-          innerHTML: 'window.nodeEnv = "' + process.env.NODE_ENV + '"',
-        },
-        {
-          src: 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js',
-          defer: true,
-        },
-        {
-          src: '/onesignal.client.js',
-        },
-      ],
-      __dangerouslyDisableSanitizersByTagID: {
-        envsetter: ['innerHTML'],
-      },
     }
   },
   computed: {

@@ -9,7 +9,7 @@
         :zoom="zoom"
         :center="[lat, lng]"
       >
-        <l-tile-layer :no-wrap="true" url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></l-tile-layer>
+        <l-tile-layer :no-wrap="true" url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"></l-tile-layer>
         <slot></slot>
       </l-map>
     </no-ssr>

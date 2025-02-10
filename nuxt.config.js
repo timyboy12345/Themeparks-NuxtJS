@@ -38,6 +38,24 @@ export default {
       { rel: 'manifest', href: '/site.webmanifest' },
       { rel: 'apple-mobile-web-app-title', content: 'Themeparks' },
     ],
+    script: [
+      {
+        hid: 'envsetter',
+        innerHTML: `window.oneSignalAppId = '${
+          process.env.NODE_ENV === 'production' ? '6011d2bb-3bfa-40cc-adca-3f1b8f1954ee' : 'ce881398-7ed0-4376-bb3b-6a20d63835f3'
+        }'`,
+      },
+      {
+        src: 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js',
+        defer: true,
+      },
+      {
+        src: '/onesignal.client.js',
+      },
+    ],
+    __dangerouslyDisableSanitizersByTagID: {
+      envsetter: ['innerHTML'],
+    },
   },
 
   loading: {
@@ -236,9 +254,5 @@ export default {
         resourceRegExp: /@highcharts\/map-collection/,
       }),
     ],
-  },
-
-  publicRuntimeConfig: {
-    nodeEnv: process.env.NODE_ENV,
   },
 }

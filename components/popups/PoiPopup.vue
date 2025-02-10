@@ -72,8 +72,11 @@
             </button>
           </div>
 
-          <div v-else-if="pushMessagesForPoi && pushMessagesForPoi.length > 0">
+          <div v-else-if="pushMessagesForPoi && pushMessagesForPoi.length > 0" class="flex flex-col">
             <div>Je krijgt een pushbericht met {{ pushMessagesForPoi.map((p) => p.minutes).join(', ') }} minuten</div>
+            <div v-if="pushMessagesForPoi.find((p) => p.downUp ?? false)" class="text-sm opacity-60">
+              Of als de attractie down gaat of weer gerepareerd wordt
+            </div>
             <div
               class="cursor-pointer text-sm mt-2 text-red-800 hover:text-red-900 underline hover:no-underline"
               @click="removePushNotification(pushMessagesForPoi[0].id)"
