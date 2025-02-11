@@ -4,8 +4,9 @@
 
     <h2 v-if="$store.state.planner.park" class="dark:text-gray-100">Welkom in {{ $store.state.planner.park.name }}</h2>
 
-    <div v-if="$store.getters['planner/openingTimesToday']" class="text-sm opacity-60">
-      Open van {{ $store.getters['planner/openingTimesToday'].openingTimes.map((t) => `${t.open} tot ${t.close}`).join(', ') }}
+    <div v-if="$store.getters['planner/openingTimesToday']" class="text-sm opacity-60 dark:text-gray-100">
+      Open van
+      {{ $store.getters['planner/openingTimesToday'].openingTimes.map((t) => `${t.open} tot ${t.close}`).join(', ') }}
     </div>
 
     <ParkPicker v-if="!$store.state.planner.parkId" class="mt-4" @select="handleParkSelect" />
@@ -79,6 +80,11 @@ export default {
       return this.$store.state.planner.pois.filter((p) => favorites.includes(p.id))
     },
   },
+  mounted() {
+    setTimeout(() => {
+      throw new Error('Parameter is not a number!')
+    }, 2000)
+  },
   methods: {
     handleParkSelect(park) {
       this.$store.commit('planner/setInitialized', false)
@@ -99,16 +105,5 @@ export default {
       })
     },
   },
-  // mounted() {
-  // this.$OneSignal.push(() => {
-  //   this.$OneSignal.isPushNotificationsEnabled((isEnabled) => {
-  //     if (isEnabled) {
-  //       console.log('Push notifications are enabled!')
-  //     } else {
-  //       console.log('Push notifications are not enabled yet.')
-  //     }
-  //   })
-  // })
-  // },
 }
 </script>

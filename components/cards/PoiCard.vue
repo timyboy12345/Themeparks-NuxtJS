@@ -31,8 +31,12 @@
         <div v-if="poi.maxSize">{{ $t('general.maxSize', [poi.maxSize]) }}</div>
       </div>
 
-      <div v-if="poi.currentWaitTime !== undefined" class="font-bold text-indigo-700 mt-2">
+      <div v-if="poi.currentWaitTime !== undefined" class="font-bold text-indigo-700 mt-1">
         {{ $t('general.currentWaitTime', [poi.currentWaitTime]) }}
+      </div>
+
+      <div v-else-if="poi.state && poi.state !== 'UNDEFINED'" class="font-bold text-indigo-700 mt-1">
+        {{ $t(`general.states.${poi.state}`) }}
       </div>
     </template>
   </component>

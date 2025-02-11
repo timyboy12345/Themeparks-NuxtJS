@@ -249,10 +249,22 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    // extend(config, { isClient }) {
+    //   // Extend only webpack config for client-bundle
+    //   if (isClient) {
+    //     config.devtool = 'source-map'
+    //   }
+    // },
     plugins: [
       new webpack.IgnorePlugin({
         resourceRegExp: /@highcharts\/map-collection/,
       }),
+      // // Put the Sentry Webpack plugin after all other plugins
+      // sentryWebpackPlugin({
+      //   authToken: process.env.SENTRY_AUTH_TOKEN,
+      //   org: 'wordquest-0n',
+      //   project: 'themeparks-vue',
+      // }),
     ],
   },
 }

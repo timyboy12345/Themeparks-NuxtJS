@@ -53,6 +53,15 @@ export default {
     openingHours: 'Opening Hours',
     planner: 'Planner',
     today: 'Today',
+    states: {
+      OPEN: 'Open',
+      CLOSED: 'Closed',
+      CLOSED_TODAY: 'Closed Today',
+      DOWN: 'Down',
+      MAINTENANCE: 'Maintenance',
+      OPENS_LATER_TODAY: 'Opens later today',
+      UNDEFINED: 'Unkown',
+    },
   },
   home: {
     title: 'Welcome to Themeparkplanner',

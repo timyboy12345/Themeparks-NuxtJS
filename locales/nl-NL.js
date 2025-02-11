@@ -51,6 +51,15 @@ export default {
     openingHours: 'Openingstijden',
     planner: 'Planner',
     today: 'Vandaag',
+    states: {
+      OPEN: 'Geopend',
+      CLOSED: 'Gesloten',
+      CLOSED_TODAY: 'Vandaag Gesloten',
+      DOWN: 'Storing',
+      MAINTENANCE: 'Onderhoud',
+      OPENS_LATER_TODAY: 'Opent later vandaag',
+      UNDEFINED: 'Niet Bekend',
+    },
   },
   home: {
     title: 'Welkom bij Themeparkplanner',

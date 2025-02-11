@@ -95,6 +95,10 @@ export default {
         pois = pois.filter((p) => p.category === this.category)
       }
 
+      if (this.query) {
+        pois = pois.filter((p) => p.title.toLowerCase().includes(this.query.toLowerCase()))
+      }
+
       return pois.sort((a, b) => {
         const s1 = this.$store.state.planner.location ? a.distance : a.name
         const s2 = this.$store.state.planner.location ? b.distance : b.name

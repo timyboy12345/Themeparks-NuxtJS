@@ -1,6 +1,6 @@
 <template>
-  <div class="absolute shadow w-full bottom-0 left-0 z-10">
-    <div class="md:max-w-md md:mx-auto">
+  <div class="absolute w-full bottom-0 left-0 z-10">
+    <div v-if="poi" class="md:max-w-md md:mx-auto">
       <div class="flex justify-end gap-4 mx-4 mb-2">
         <div
           :class="{
@@ -35,7 +35,11 @@
         <div class="p-4">
           <h1 class="text-indigo-800 text-lg font-bold">{{ poi.title }}</h1>
           <p v-if="poi.subTitle" class="opacity-60 text-sm">{{ poi.subTitle }}</p>
+
           <p v-if="poi.currentWaitTime" class="opacity-80">{{ poi.currentWaitTime }} minuten wachten</p>
+          <div v-else-if="poi.state && poi.state !== 'UNDEFINED'" class="opaciy-60 text-sm">
+            {{ $t(`general.states.${poi.state}`) }}
+          </div>
         </div>
 
         <div class="px-4 py-4">
@@ -56,7 +60,9 @@
           }}
         </div>
 
-        <div v-if="poi.currentWaitTime" class="p-4">
+        <div v-if="!park.supports.supportsRideWaitTimesHistory">Dit park ondersteund geen wachttijden</div>
+
+        <div v-else-if="poi.currentWaitTime || (poi.state && poi.category === 'ATTRACTION')" class="p-4">
           <div v-if="!pushLoaded">Push meldingen op dit moment niet beschikbaar, open dit scherm opnieuw of installeer als web-app.</div>
 
           <div v-else-if="!supportsPush">Dit device ondersteund geen pushberichten</div>
@@ -94,6 +100,7 @@
                 :key="mins"
                 type="button"
                 class="rounded cursor-pointer bg-indigo-800 hover:bg-indigo-900 text-white py-1 px-2"
+                :class="{ 'opacity-60': poi.currentWaitTime && poi.currentWaitTime <= mins }"
                 @click="addPushNotification(mins)"
               >
                 {{ mins }} min
@@ -207,7 +214,7 @@ export default {
         .post('/push', {
           parkId: this.park.id,
           poiId: this.poi.id,
-          minutes: minutes.toString(),
+          minutes,
           downUp: this.downUpValue,
         })
         .then((response) => {
@@ -220,7 +227,7 @@ export default {
           })
         })
         .catch((exception) => {
-          alert('Something went wrong while trying to create a push message alert')
+          alert('Something went wrong while trying to create a push message alert, close and open the app again')
           this.$sentry.captureException(exception)
         })
     },
@@ -230,7 +237,10 @@ export default {
         .then(() => {
           this.$store.commit('planner/removePushMessage', id)
         })
-        .catch((e) => this.$sentry.captureException(e))
+        .catch((e) => {
+          alert('Something went wrong while trying to remove the push message alert, close and open the app again')
+          this.$sentry.captureException(e)
+        })
     },
     toggleFavorite() {
       this.$store.commit('planner/toggleFavorite', this.poi.id)
