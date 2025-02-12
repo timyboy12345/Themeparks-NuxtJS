@@ -7,7 +7,7 @@ export const state = (): {
   pois: any[] | null
   initialized: boolean
   favorites: string[]
-  pushMessages: any[]
+  pushMessages: null | any[]
 } => ({
   parkId: null,
   park: null,
@@ -17,7 +17,7 @@ export const state = (): {
   locationStatus: 'unknown',
   initialized: false,
   favorites: [],
-  pushMessages: [],
+  pushMessages: null,
 })
 
 export const mutations = {

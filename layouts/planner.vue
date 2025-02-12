@@ -48,9 +48,7 @@
 
     <div class="mx-4 md:mx-8 lg:max-w-4xl xl:max-w-6xl lg:mx-auto py-4">
       <Nuxt v-if="$store.state.planner.initialized" keep-alive />
-      <div v-else>
-        <LoadingSpinner class="my-8" />
-      </div>
+      <PlannerLoader v-else class="my-8" />
     </div>
 
     <div class="bottom-nav fixed flex flex-row gap-2 bottom-16 right-4">
@@ -135,12 +133,12 @@
 <script>
 import AddCheckinPopup from '@/components/popups/AddCheckinPopup'
 import EditCheckinPopup from '@/components/popups/EditCheckinPopup'
-import LoadingSpinner from '~/components/LoadingSpinner.vue'
 import PoiPopup from '~/components/popups/PoiPopup.vue'
+import PlannerLoader from '~/components/planner/PlannerLoader.vue'
 
 export default {
   name: 'PlannerLayout',
-  components: { PoiPopup, LoadingSpinner, EditCheckinPopup, AddCheckinPopup },
+  components: { PlannerLoader, PoiPopup, EditCheckinPopup, AddCheckinPopup },
   head() {
     return {
       ...this.$nuxtI18nHead({ addSeoAttributes: true }),
@@ -154,14 +152,14 @@ export default {
   mounted() {
     // window.OneSignalDeferred.push(['showNativePrompt'])
 
-    const plann = this
     window.OneSignalDeferred.push(function (OneSignal) {
       console.log('Push Supported: ' + OneSignal.Notifications.isPushSupported())
       console.log('Opted in: ' + OneSignal.User.PushSubscription.optedIn)
 
       if (OneSignal.User.PushSubscription.optedIn) {
-        console.log('Set User ID for push messages')
-        OneSignal.login(plann.$store.state.auth.user.id)
+        // TODO: store is not available at mount, so this can result in errors
+        // console.log('Set User ID for push messages')
+        // OneSignal.login(planner.$store.state.auth.user.id)
       } else {
         console.log('Not opted in')
       }
@@ -196,7 +194,13 @@ export default {
             pushes.data.filter((date) => new Date(date.createdAt).toDateString() === new Date().toDateString())
           )
         }),
-      ]).then(() => this.$store.commit('planner/setInitialized', true))
+      ])
+        .then(() => this.$store.commit('planner/setInitialized', true))
+        .catch((reason) => {
+          this.$sentry.captureException(reason)
+          console.error(reason)
+          alert('Er ging iets fout bij het laden, probeer het later nog eens')
+        })
     } else {
       this.$store.commit('planner/setInitialized', true)
     }

@@ -80,11 +80,7 @@ export default {
       return this.$store.state.planner.pois.filter((p) => favorites.includes(p.id))
     },
   },
-  mounted() {
-    setTimeout(() => {
-      throw new Error('Parameter is not a number!')
-    }, 2000)
-  },
+  mounted() {},
   methods: {
     handleParkSelect(park) {
       this.$store.commit('planner/setInitialized', false)
