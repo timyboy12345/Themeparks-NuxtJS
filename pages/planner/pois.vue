@@ -44,6 +44,7 @@
           :poi="poi"
           size="sm"
           class="cursor-pointer"
+          :class="{ 'opacity-40': $store.getters['auth/todaysCheckins'].find((ci) => ci.rideId === poi.id) }"
           @click.native="handleClick(poi)"
         />
       </div>

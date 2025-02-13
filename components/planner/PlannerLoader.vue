@@ -1,5 +1,7 @@
 <template>
   <div class="flex flex-col mx-auto gap-y-2 w-80">
+    <h1 class="text-xl font-bold text-indigo-800 dark:text-indigo-300 mb-2">Planner wordt geladen</h1>
+
     <div v-for="(state, name) of loaders" :key="name" class="flex flex-col gap-y-2">
       <div class="dark:text-white dark:text-opacity-60 text-opacity-60 flex flex-row gap-x-2 items-center">
         <svg

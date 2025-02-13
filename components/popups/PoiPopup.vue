@@ -37,7 +37,7 @@
           <p v-if="poi.subTitle" class="opacity-60 text-sm">{{ poi.subTitle }}</p>
 
           <p v-if="poi.currentWaitTime" class="opacity-80">{{ poi.currentWaitTime }} minuten wachten</p>
-          <div v-else-if="poi.state && poi.state !== 'UNDEFINED'" class="opaciy-60 text-sm">
+          <div v-else-if="poi.state && poi.state !== 'UNDEFINED' && poi.category === 'ATTRACTION'" class="opaciy-60 text-sm">
             {{ $t(`general.states.${poi.state}`) }}
           </div>
         </div>

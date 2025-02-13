@@ -54,9 +54,13 @@ export const mutations = {
     } else {
       state.favorites.push(id)
     }
+
+    localStorage.setItem('planner_favorites', JSON.stringify(state.favorites))
   },
-  addFavorite(state: any, id: string) {
-    state.favorites.push(id)
+  setFavorites(state: any, ids: string[]) {
+    state.favorites = ids
+
+    // localStorage.setItem('planner_favorites', JSON.stringify(state.favorites))
   },
   removeFavorite(state: any, id: string) {
     state.favorites = state.favorites.filter((d: string) => d !== id)

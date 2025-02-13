@@ -101,7 +101,7 @@
           class="bg-red-700 hover:bg-red-800 transition duration-100 text-white text-sm py-1 px-2 rounded"
           @click="resetPlanner"
         >
-          Park Verlaten
+          Planner Verlaten
         </button>
 
         <NuxtLink
@@ -171,6 +171,11 @@ export default {
     }
 
     if (localStorage.getItem('planner_park_id')) {
+      const favorites = localStorage.getItem('planner_favorites')
+      if (favorites) {
+        this.$store.commit('planner/setFavorites', JSON.parse(favorites))
+      }
+
       Promise.all([
         this.$axios.get('/parks/' + localStorage.getItem('planner_park_id')).then((d) => {
           this.$store.commit('planner/setPark', d.data)

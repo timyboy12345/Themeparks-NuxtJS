@@ -35,7 +35,7 @@
         {{ $t('general.currentWaitTime', [poi.currentWaitTime]) }}
       </div>
 
-      <div v-else-if="poi.state && poi.state !== 'UNDEFINED'" class="font-bold text-indigo-700 mt-1">
+      <div v-else-if="poi.state && poi.state !== 'UNDEFINED' && poi.category === 'ATTRACTION'" class="font-bold text-indigo-700 mt-1">
         {{ $t(`general.states.${poi.state}`) }}
       </div>
     </template>

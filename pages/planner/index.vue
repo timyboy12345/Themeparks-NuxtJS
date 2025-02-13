@@ -12,6 +12,22 @@
     <ParkPicker v-if="!$store.state.planner.parkId" class="mt-4" @select="handleParkSelect" />
 
     <div v-else class="grid gap-4 mt-4">
+      <Card title="Aanbevelingen" subtitle="Gebaseerd op je huidige locatie, voorspelde wachttijd en showtijd">
+        <template #content>
+          <div class="flex overflow-x-auto space-x-4 w-full mt-2">
+            <PoiCard
+              v-for="poi of recommendedPois"
+              :key="poi.id"
+              size="sm"
+              class="w-11/12 md:w-5/12 lg:w-3/12 flex-shrink-0 cursor-pointer"
+              type="auto"
+              :poi="poi"
+              @click.native="handleClick(poi)"
+            />
+          </div>
+        </template>
+      </Card>
+
       <Card v-if="upcomingShows.length > 0" title="Aankomende Shows">
         <template #content>
           <div class="flex overflow-x-auto space-x-4 w-full mt-2">
@@ -65,6 +81,60 @@ export default {
     }
   },
   computed: {
+    recommendedPois() {
+      const favorites = this.$store.state.planner.favorites
+        .filter((f) => !this.$store.getters['auth/todaysCheckins'].find((ci) => ci.rideId === f))
+        .map((p) => this.$store.state.planner.pois.find((poi) => poi.id === p))
+        .map((p) => {
+          const showTimes = p.showTimes && p.showTimes.showTimes ? p.showTimes.showTimes : []
+          const nextShow = showTimes.find((st) => !st.isPassed)
+
+          if (nextShow) {
+            const now = new Date()
+            const endTime = new Date()
+            endTime.setHours(nextShow.localFromTime.split(':')[0])
+            endTime.setMinutes(nextShow.localFromTime.split(':')[1])
+            const difference = endTime.getTime() - now.getTime() // This will give difference in milliseconds
+            const minutes = Math.round(difference / 60000)
+
+            return {
+              ...p,
+              nextShowInMinutes: minutes,
+            }
+          }
+
+          return p
+        })
+        .sort((a, b) => {
+          // Compare show times
+          if (a.nextShowInMinutes && b.nextShowInMinutes) {
+            return a.nextShowInMinutes > b.nextShowInMinutes ? 1 : -1
+          }
+
+          if (a.nextShowInMinutes && b.category === 'ATTRACTION') {
+            return a.nextShowInMinutes > 30 ? 1 : -1
+          }
+
+          // Compare ride wait times
+          if (a.category === 'ATTRACTION' && b.category === 'ATTRACTION') {
+            if (!a.currentWaitTime || !b.currentWaitTime) {
+              return -1
+            }
+
+            if (a.currentWaitTime > b.currentWaitTime) {
+              return 1
+            }
+
+            if (a.currentWaitTime < b.currentWaitTime) {
+              return -1
+            }
+          }
+
+          return 0
+        })
+
+      return favorites
+    },
     upcomingShows() {
       return this.$store.state.planner.pois
         .filter((p) => p.category === 'SHOW')
