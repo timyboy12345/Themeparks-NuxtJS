@@ -5,7 +5,27 @@
     <div class="grid md:grid-cols-2 gap-4">
       <card class="md:col-span-2" :title="$t('general.statistics')" :subtitle="$t('statistics.subTitle')"></card>
 
-      <card class="md:col-span-2" :title="$t('statistics.tempTitle')" :content="$t('statistics.tempContent')"></card>
+      <LoadingSpinner v-if="$fetchState.pending" />
+      <GeneralError v-else-if="$fetchState.error" title="Er ging iets fout" :sub-title="$fetchState.error" />
+
+      <Card v-else :title="$t('statistics.waitTimesToday')">
+        <template #content>
+          <div class="-mx-4 max-h-96 overflow-y-auto flex flex-col divide-y divide-gray-100 dark:divide-gray-600">
+            <NuxtLink
+              v-for="ride of sortedRides"
+              :key="ride.id"
+              :to="localePath('/parks/' + park.id + '/rides/' + ride.id)"
+              target="_blank"
+              class="cursor-pointer py-1 flex hover:bg-gray-100 dark:hover:bg-gray-600 flex-row justify-between px-4"
+            >
+              <div>{{ ride.title }}</div>
+              <div>{{ rideTag(ride) }}</div>
+            </NuxtLink>
+          </div>
+        </template>
+      </Card>
+
+      <card :title="$t('statistics.tempTitle')" :content="$t('statistics.tempContent')" />
 
       <!--      <loading-spinner v-if="!rides" class="md:col-span-2"></loading-spinner>-->
 
@@ -86,10 +106,12 @@
 import Card from '@/components/cards/Card'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import AdCard from '@/components/cards/AdCard'
+import LoadingSpinner from '~/components/LoadingSpinner.vue'
+import GeneralError from '~/components/GeneralError.vue'
 
 export default {
   name: 'Stats',
-  components: { AdCard, Breadcrumbs, Card },
+  components: { GeneralError, LoadingSpinner, AdCard, Breadcrumbs, Card },
   data() {
     return {
       parkId: this.$route.params.id,
@@ -100,7 +122,7 @@ export default {
   },
   async fetch() {
     // await Promise.all([this.fetchPark(), this.fetchRides()])
-    await Promise.all([this.fetchPark()])
+    await Promise.all([this.fetchPark(), this.fetchRides()])
   },
   head() {
     return {
@@ -122,6 +144,24 @@ export default {
     }
   },
   computed: {
+    sortedRides() {
+      return this.rides
+        ? [...this.rides].sort((a, b) => {
+            if (!a.currentWaitTime) return 1
+            if (!b.currentWaitTime) {
+              return -1
+            }
+
+            if (a.currentWaitTime < b.currentWaitTime) {
+              return 1
+            } else if (a.currentWaitTime > b.currentWaitTime) {
+              return -1
+            }
+
+            return 0
+          })
+        : []
+    },
     breadcrumbs() {
       return [
         {
@@ -171,6 +211,17 @@ export default {
     },
   },
   methods: {
+    rideTag(ride) {
+      if (ride.currentWaitTime) {
+        return ride.currentWaitTime + 'min'
+      }
+
+      if (ride.state) {
+        return this.$t(`general.states.${ride.state}`)
+      }
+
+      return ''
+    },
     // TODO: Re-enable once park history is faster
     // async fetchRides() {
     //   this.rides = await this.$axios.get('/parks/' + this.parkId + '/history/today').then((rides) => {
@@ -179,6 +230,11 @@ export default {
     // },
     async fetchPark() {
       this.park = await this.$axios.get('/parks/' + this.parkId).then((park) => {
+        return park.data
+      })
+    },
+    async fetchRides() {
+      this.rides = await this.$axios.get('/parks/' + this.parkId + '/rides').then((park) => {
         return park.data
       })
     },

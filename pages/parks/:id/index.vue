@@ -133,7 +133,7 @@
         <div class="flex flex-col">
           <h4 class="text-yellow-900 capitalize font-bold">{{ $t('statistics.goToTitle') }}</h4>
           <p class="text-sm text-yellow-800">{{ $t('statistics.goToDescription') }}</p>
-          <router-link class="underline text-sm mt-2 text-yellow-600" :to="localePath('/parks/' + parkId + '/stats/')">
+          <router-link class="underline hover:no-underline text-sm mt-2 text-yellow-600" :to="localePath('/parks/' + parkId + '/stats/')">
             {{ $t('statistics.goToLink') }}
           </router-link>
         </div>

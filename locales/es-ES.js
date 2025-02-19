@@ -62,6 +62,7 @@ export default {
     },
   },
   home: {
+    seoTitle: 'Themeparkplanner - Información y Estadísticas de todos los parques de atracciones',
     title: 'Bienvenido a Themeparkplanner',
     subtitle:
       'Con Themeparkplanner puede realizar un seguimiento de los tiempos de espera de sus parques favoritos en todo el mundo. Obtenga recomendaciones sobre qué atracción es mejor subir ahora y qué atracción es mejor saltear',

@@ -57,6 +57,19 @@ export default {
       .then((p) => p)
       .catch(() => [])
   },
+  head() {
+    return {
+      title: this.$t('home.seoTitle'),
+      titleTemplate: '%s',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.$t('home.seoDescription'),
+        },
+      ],
+    }
+  },
   created() {
     // this.$store.commit('CHANGE_BREADCRUMBS', [])
   },

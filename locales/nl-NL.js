@@ -62,6 +62,9 @@ export default {
     },
   },
   home: {
+    seoTitle: 'Themeparkplanner - Informatie en Statistieken van alle pretparken',
+    seoDescription:
+      'Wil je weten tot hoe laat je favoriete park open is, wat de wachttijd is of heb je andere pretparkvraag? Hier vindt je je antwoord!',
     title: 'Welkom bij Themeparkplanner',
     subtitle:
       'Met Themeparkplanner kan je wachttijden van je favoriete parken overal ter wereld tracken. Krijg aanbevelingen in welke attractie je nu het beste kan stappen en welke attractie je het beste even kan overslaan',

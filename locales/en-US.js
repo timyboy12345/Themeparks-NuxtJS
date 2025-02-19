@@ -64,6 +64,7 @@ export default {
     },
   },
   home: {
+    seoTitle: 'Themeparkplanner - Information and Statistics for theme parks',
     title: 'Welcome to Themeparkplanner',
     subtitle:
       'With Themeparkplanner you can track waiting times across many theme parks in across the globe and see live wait times and recommendations',

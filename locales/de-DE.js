@@ -64,6 +64,7 @@ export default {
     },
   },
   home: {
+    seoTitle: 'Themeparkplanner - Informationen und Statistiken aller Vergnügungsparks',
     title: 'Willkommen bei Themeparkplanner',
     subtitle:
       'Mit Themeparkplanner können Sie Wartezeiten in vielen Freizeitparks auf der ganzen Welt verfolgen und Live-Wartezeiten sowie Empfehlungen einsehen.',

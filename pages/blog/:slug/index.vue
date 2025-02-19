@@ -20,7 +20,7 @@
         />
 
         <div class="p-4 rounded bg-white dark:bg-gray-700 shadow">
-          <h1 class="text-3xl font-bold dark:text-indigo-300">{{ blogPost.translations[0].title }}</h1>
+          <h1 class="text-2xl lg:text-2xl font-bold dark:text-indigo-300">{{ blogPost.translations[0].title }}</h1>
           <h2 class="text-gray-600 dark:text-gray-400 my-2">
             {{ (blogPost.translations[0].date_updated || blogPost.translations[0].date_created) | formatDate }}
             <span v-if="blogPost.user_created && blogPost.user_created.first_name">| {{ blogPost.user_created.first_name }}</span>
@@ -28,7 +28,7 @@
 
           <!-- eslint-disable-next-line vue/no-v-html -->
           <article
-            class="prose dark:prose-invert max-w-none prose-a:text-indigo-700 dark:prose-a:text-indigo-300 prose-headings:mb-1 prose-headings:mt-2 hover:prose-a:no-underline"
+            class="prose dark:prose-invert max-w-none prose-a:text-indigo-700 dark:prose-a:text-indigo-300 prose-headings:mb-1 prose-h2:text-xl prose-headings:mt-2 hover:prose-a:no-underline"
             v-html="$md.render(blogPost.translations[0].content)"
           ></article>
         </div>
