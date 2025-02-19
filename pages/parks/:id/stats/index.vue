@@ -112,6 +112,17 @@ import GeneralError from '~/components/GeneralError.vue'
 export default {
   name: 'Stats',
   components: { GeneralError, LoadingSpinner, AdCard, Breadcrumbs, Card },
+  async validate({ params, $axios, $sentry }) {
+    return await $axios
+      .get('/parks/' + params.id)
+      .then(() => {
+        return true
+      })
+      .catch((e) => {
+        $sentry.captureException(e)
+        return false
+      })
+  },
   data() {
     return {
       parkId: this.$route.params.id,

@@ -27,6 +27,17 @@ import PoiCardList from '@/views/PoiCardList'
 
 export default {
   components: { PoiCardList, Card, Breadcrumbs, Loading },
+  async validate({ params, $axios, $sentry }) {
+    return await $axios
+      .get('/parks/' + params.id)
+      .then(() => {
+        return true
+      })
+      .catch((e) => {
+        $sentry.captureException(e)
+        return false
+      })
+  },
   data() {
     return {
       parkId: this.$route.params.id,

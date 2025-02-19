@@ -30,6 +30,17 @@ import EventCardList from '@/views/EventCardList.vue'
 
 export default {
   components: { EventCardList, Card, GeneralError, Breadcrumbs, Loading },
+  async validate({ params, $axios, $sentry }) {
+    return await $axios
+      .get('/parks/' + params.id)
+      .then(() => {
+        return true
+      })
+      .catch((e) => {
+        $sentry.captureException(e)
+        return false
+      })
+  },
   data() {
     return {
       parkId: this.$route.params.id,
