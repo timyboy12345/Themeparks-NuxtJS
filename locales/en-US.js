@@ -65,18 +65,19 @@ export default {
   },
   home: {
     seoTitle: 'Themeparkplanner - Information and Statistics for theme parks',
+    seoDescription: 'Do you want to know how long you have to wait, or until what time a theme park is open? This is the place to be!',
     title: 'Welcome to Themeparkplanner',
     subtitle:
       'With Themeparkplanner you can track waiting times across many theme parks in across the globe and see live wait times and recommendations',
     action: 'Click on the button below to see all available theme parks',
     actionButton: 'See all available theme parks',
     infoTitle: 'Over Themeparkplanner',
-    infoWaitTimes: 'Wachttijden van alle pretparken',
+    infoWaitTimes: 'Wait Times for all theme parks',
     infoWaitTimesContent:
-      "Het doel is om uiteindelijk van veel pretparken ter wereld de wachttijden te tonen. Momenteel ligt de focus op parken in Nederland, de Benelux en Europa, maar parken uit andere regio's worden ook af en toe aangesloten.\n",
-    infoData: 'Waar komt de data vandaan?',
+      'Our goal is to have one, easy-to-understand platform that gathers ride information, wait times, opening times, animals and more for theme parks, zoos and aqua parks world wide. We currently support parks that are located inside the EU, United States, Canada and some other countries, with more on the planning.',
+    infoData: 'Where does the data come from?',
     infoDataContent:
-      "De data is afkomstig van de officiële apps van de parken. De API's die hierbij worden gebruikt worden door ons uitgelezen om vervolgens hier te tonen. ",
+      'The data is fetched from the websites and apps theme parks and zoos have developed. These data points are collected, standardized and returned to you in a clear format, so everyone has all the information needed to have a great day out.',
     apiInfo: 'Can I use the API-data from this website?',
     apiInfoContent:
       'You sure can! All data we retrieve is exposed to a open-source API, freely accessible at https://tp.arendz.nl. Documentation can be found at https://tp.arendz.nl/api',
@@ -189,10 +190,13 @@ export default {
     goToDescription: 'Take a look at park statistics to plan your ideal day out!',
     goToLink: 'See the wait times of today',
     subTitle: 'With this data in hand, you can plan the ideal day out.',
-    waitTimesToday: "Today's waiting times",
+    waitTimesToday: 'Current waiting times',
+    waitTimesGraph: 'Wait Time Graph',
     averageWaitTime: 'Average waiting time: {0} min',
     longestWaitTimesToday: 'Longest waiting times',
     shortestWaitTimesToday: 'Shortest waiting times',
+    longestWaitTimesOnDate: 'Longest waiting times on {0}',
+    shortestWaitTimesOnDate: 'Shortest waiting times on {0}',
     seoTitle: 'History of wait times of {0}',
     seoTitleLoading: 'History of wait times',
     tempTitle: 'Wait time history is temporarily down',

@@ -1,6 +1,6 @@
 <template>
   <no-ssr>
-    <card :title="$t('statistics.waitTimesToday')" :subtitle="$t('statistics.averageWaitTime', [avgWaitTime])">
+    <card :title="$t('statistics.waitTimesGraph')" :subtitle="$t('statistics.averageWaitTime', [avgWaitTime])">
       <template #content>
         <highchart class="mt-3" :options="highChartsOptions"></highchart>
       </template>
@@ -15,6 +15,10 @@ export default {
   name: 'RidesWaitTimeHistoryChart',
   components: { Card },
   props: {
+    history: {
+      type: Object,
+      required: true,
+    },
     rides: {
       type: Array,
       required: true,
@@ -30,6 +34,9 @@ export default {
           title: {
             text: 'Wachttijd (min)',
           },
+        },
+        legend: {
+          maxHeight: 100,
         },
         time: {
           timeZone: 'Europe/Amsterdam',
@@ -53,28 +60,28 @@ export default {
       }
     },
     parsedData() {
-      if (!this.rides) {
+      if (!this.history) {
         return []
       }
 
       const rides = []
 
-      this.rides.forEach((ride) => {
+      for (const [rideId, waitingTimes] of Object.entries(this.history)) {
         const data = []
 
-        ride.waitingTimes
+        waitingTimes
           .filter((d) => d.wait !== null)
-          .filter((d) => this.isToday(d.date))
           .filter((d) => this.parkIsOpen(d.date))
           .forEach((dataPoint) => {
             data.push([Date.parse(dataPoint.date), dataPoint.wait])
           })
 
+        const ride = this.rides.find((r) => r.id === rideId)
         rides.push({
-          name: ride.title,
+          name: ride ? ride.title : rideId,
           data,
         })
-      })
+      }
 
       return rides
     },
@@ -93,14 +100,6 @@ export default {
     },
   },
   methods: {
-    isToday(rawDate) {
-      const today = new Date()
-      const someDate = new Date(rawDate)
-
-      return (
-        someDate.getDate() === today.getDate() && someDate.getMonth() === today.getMonth() && someDate.getFullYear() === today.getFullYear()
-      )
-    },
     parkIsOpen(rawDate) {
       const d = new Date(rawDate)
       return d.getHours() > 9 && d.getHours() < 23

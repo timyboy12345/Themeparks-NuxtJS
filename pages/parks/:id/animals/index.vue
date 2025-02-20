@@ -15,12 +15,11 @@ import PoiCardList from '~/views/PoiCardList.vue'
 
 export default {
   components: { PoiCardList, Breadcrumbs, Loading },
-  // TODO: Check if park supports animals for validation
   async validate({ params, $axios, $sentry }) {
     return await $axios
       .get('/parks/' + params.id)
-      .then(() => {
-        return true
+      .then((data) => {
+        return data.data.supports.supportsAnimals
       })
       .catch((e) => {
         $sentry.captureException(e)

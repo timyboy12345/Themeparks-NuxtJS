@@ -5,7 +5,7 @@
     <div class="grid md:grid-cols-2 gap-4">
       <card class="md:col-span-2" :title="$t('general.statistics')" :subtitle="$t('statistics.subTitle')"></card>
 
-      <LoadingSpinner v-if="$fetchState.pending" />
+      <LoadingPulseCard v-if="$fetchState.pending" />
       <GeneralError v-else-if="$fetchState.error" title="Er ging iets fout" :sub-title="$fetchState.error" />
 
       <Card v-else :title="$t('statistics.waitTimesToday')">
@@ -18,86 +18,95 @@
               target="_blank"
               class="cursor-pointer py-1 flex hover:bg-gray-100 dark:hover:bg-gray-600 flex-row justify-between px-4"
             >
-              <div>{{ ride.title }}</div>
+              <div class="text-indigo-700">{{ ride.title }}</div>
               <div>{{ rideTag(ride) }}</div>
             </NuxtLink>
           </div>
         </template>
       </Card>
 
-      <card :title="$t('statistics.tempTitle')" :content="$t('statistics.tempContent')" />
+      <RidesWaitTimeHistoryChart v-if="loadedHistory" :rides="rides" :history="history"></RidesWaitTimeHistoryChart>
 
-      <!--      <loading-spinner v-if="!rides" class="md:col-span-2"></loading-spinner>-->
+      <LoadingPulseCard v-if="!loadedHistory" />
+      <LoadingPulseCard v-if="!loadedHistory" />
+      <LoadingPulseCard v-if="!loadedHistory" />
 
-      <!--      <div v-if="rides">-->
-      <!--        <RidesWaitTimeHistoryChart :rides="rides"></RidesWaitTimeHistoryChart>-->
-      <!--      </div>-->
+      <card v-if="loadedHistory" :title="$t('statistics.longestWaitTimesOnDate', [formattedDate])">
+        <template #content>
+          <div v-if="topWaitTimes" class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200">
+            <NuxtLink
+              v-for="ride of topWaitTimes.slice(0, 10)"
+              :key="ride.id"
+              target="_blank"
+              :to="localePath('/parks/' + parkId + '/rides/' + ride.ride.id)"
+              class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
+            >
+              <div class="flex flex-row items-center">
+                <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
+                  <img
+                    v-if="ride.ride.image_url"
+                    v-lazy-load
+                    alt="Image of this ride"
+                    :data-src="ride.ride.image_url"
+                    class="object-cover object-center w-full h-full"
+                  />
+                  <div v-else class="object-cover object-center w-full h-full" />
+                </div>
 
-      <!--      <card v-if="rides" :title="$t('statistics.longestWaitTimesToday')">-->
-      <!--        <template #content>-->
-      <!--          <div v-if="topWaitTimes" class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200">-->
-      <!--            <NuxtLink-->
-      <!--              v-for="ride of topWaitTimes.slice(0, 10)"-->
-      <!--              :key="ride.id"-->
-      <!--              :to="localePath('/parks/' + parkId + '/rides/' + ride.ride.id)"-->
-      <!--              class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"-->
-      <!--            >-->
-      <!--              <div class="flex flex-row items-center">-->
-      <!--                <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">-->
-      <!--                  <img-->
-      <!--                    v-if="ride.ride.image_url"-->
-      <!--                    v-lazy-load-->
-      <!--                    alt="Image of this ride"-->
-      <!--                    :data-src="ride.ride.image_url"-->
-      <!--                    class="object-cover object-center w-full h-full"-->
-      <!--                  />-->
-      <!--                  <div v-else class="object-cover object-center w-full h-full" />-->
-      <!--                </div>-->
+                <div class="flex flex-col">
+                  <div class="text-indigo-700">{{ ride.ride.title }}</div>
+                </div>
+              </div>
 
-      <!--                <div class="flex flex-col">-->
-      <!--                  <div class="text-indigo-700">{{ ride.ride.title }}</div>-->
-      <!--                </div>-->
-      <!--              </div>-->
+              <div class="text-gray-700">{{ ride.maxWaitTime }} min</div>
+            </NuxtLink>
+          </div>
+        </template>
+      </card>
 
-      <!--              <div class="text-gray-700">{{ ride.maxWaitTime }} min</div>-->
-      <!--            </NuxtLink>-->
-      <!--          </div>-->
-      <!--        </template>-->
-      <!--      </card>-->
+      <card v-if="loadedHistory" :title="$t('statistics.shortestWaitTimesOnDate', [formattedDate])">
+        <template #content>
+          <div v-if="topWaitTimes" class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200">
+            <NuxtLink
+              v-for="ride of [...topWaitTimes].reverse().slice(0, 10)"
+              :key="ride.id"
+              target="_blank"
+              :to="localePath('/parks/' + parkId + '/rides/' + ride.ride.id)"
+              class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
+            >
+              <div class="flex flex-row items-center">
+                <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
+                  <img
+                    v-if="ride.ride.image_url"
+                    v-lazy-load
+                    alt="Image of this ride"
+                    :data-src="ride.ride.image_url"
+                    class="object-cover object-center w-full h-full"
+                  />
+                  <div v-else class="object-cover object-center w-full h-full" />
+                </div>
 
-      <!--      <card v-if="rides" :title="$t('statistics.shortestWaitTimesToday')">-->
-      <!--        <template #content>-->
-      <!--          <div v-if="topWaitTimes" class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200">-->
-      <!--            <NuxtLink-->
-      <!--              v-for="ride of topWaitTimes.reverse().slice(0, 10)"-->
-      <!--              :key="ride.id"-->
-      <!--              :to="localePath('/parks/' + parkId + '/rides/' + ride.ride.id)"-->
-      <!--              class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"-->
-      <!--            >-->
-      <!--              <div class="flex flex-row items-center">-->
-      <!--                <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">-->
-      <!--                  <img-->
-      <!--                    v-if="ride.ride.image_url"-->
-      <!--                    v-lazy-load-->
-      <!--                    alt="Image of this ride"-->
-      <!--                    :data-src="ride.ride.image_url"-->
-      <!--                    class="object-cover object-center w-full h-full"-->
-      <!--                  />-->
-      <!--                  <div v-else class="object-cover object-center w-full h-full" />-->
-      <!--                </div>-->
+                <div class="flex flex-col">
+                  <div class="text-indigo-700">{{ ride.ride.title }}</div>
+                </div>
+              </div>
 
-      <!--                <div class="flex flex-col">-->
-      <!--                  <div class="text-indigo-700">{{ ride.ride.title }}</div>-->
-      <!--                </div>-->
-      <!--              </div>-->
-
-      <!--              <div class="text-gray-700">{{ ride.maxWaitTime }} min</div>-->
-      <!--            </NuxtLink>-->
-      <!--          </div>-->
-      <!--        </template>-->
-      <!--      </card>-->
+              <div class="text-gray-700">{{ ride.maxWaitTime }} min</div>
+            </NuxtLink>
+          </div>
+        </template>
+      </card>
 
       <AdCard />
+    </div>
+
+    <div class="flex flex-row justify-end items-center mt-4 gap-2">
+      Datum Aanpassen
+      <input
+        v-model="dateSelector"
+        class="form-input border border-gray-300 rounded focus:outline-none focus:shadow-outline focus:border-indigo-300"
+        type="date"
+      />
     </div>
   </div>
 </template>
@@ -106,17 +115,18 @@
 import Card from '@/components/cards/Card'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import AdCard from '@/components/cards/AdCard'
-import LoadingSpinner from '~/components/LoadingSpinner.vue'
 import GeneralError from '~/components/GeneralError.vue'
+import RidesWaitTimeHistoryChart from '~/components/charts/RidesWaitTimeHistoryChart.vue'
+import LoadingPulseCard from '~/components/cards/LoadingPulseCard.vue'
 
 export default {
   name: 'Stats',
-  components: { GeneralError, LoadingSpinner, AdCard, Breadcrumbs, Card },
+  components: { LoadingPulseCard, RidesWaitTimeHistoryChart, GeneralError, AdCard, Breadcrumbs, Card },
   async validate({ params, $axios, $sentry }) {
     return await $axios
       .get('/parks/' + params.id)
-      .then(() => {
-        return true
+      .then((data) => {
+        return data.data.supports.supportsRideWaitTimesHistory
       })
       .catch((e) => {
         $sentry.captureException(e)
@@ -129,6 +139,8 @@ export default {
       rideId: this.$route.params.ride_id,
       park: null,
       rides: null,
+      history: null,
+      selectedDate: null,
     }
   },
   async fetch() {
@@ -155,6 +167,28 @@ export default {
     }
   },
   computed: {
+    dateSelector: {
+      get() {
+        return this.selectedDate ? this.isoFormattedDate : null
+      },
+      set(v) {
+        this.selectedDate = new Date(v)
+        this.fetchHistoryData()
+      },
+    },
+    loadedHistory() {
+      return this.history && this.rides
+    },
+    formattedDate() {
+      return this.selectedDate.toLocaleDateString({ year: 'numeric', month: 'long', day: 'numeric' })
+    },
+    isoFormattedDate() {
+      const year = this.selectedDate.getFullYear()
+      const month = String(this.selectedDate.getMonth() + 1).padStart(2, '0')
+      const day = String(this.selectedDate.getDate()).padStart(2, '0')
+
+      return `${year}-${month}-${day}`
+    },
     sortedRides() {
       return this.rides
         ? [...this.rides].sort((a, b) => {
@@ -192,9 +226,16 @@ export default {
     topWaitTimes() {
       const rides = []
 
-      this.rides.forEach((ride) => {
+      if (!this.history) {
+        return []
+      }
+
+      for (const [rideId, waitingTimes] of Object.entries(this.history)) {
+        const ride = this.rides.find((r) => r.id === rideId)
+
         const times = []
-        ride.waitingTimes.forEach((time) => {
+
+        waitingTimes.forEach((time) => {
           if (!times.includes(time.wait)) {
             times.push(time.wait)
           }
@@ -202,13 +243,13 @@ export default {
 
         rides.push({
           ride: {
-            title: ride.title,
-            id: ride.id,
-            image_url: ride.image_url,
+            title: ride ? ride.title : rideId,
+            id: rideId,
+            image_url: ride ? ride.image_url : null,
           },
           maxWaitTime: Math.max(...times),
         })
-      })
+      }
 
       return rides.sort((a, b) => {
         if (a.maxWaitTime > b.maxWaitTime) {
@@ -221,7 +262,34 @@ export default {
       })
     },
   },
+  mounted() {
+    this.selectedDate = new Date()
+    this.selectedDate.setDate(this.selectedDate.getDate() - 1)
+
+    const [month, day, year] = [this.selectedDate.getMonth(), this.selectedDate.getDate(), this.selectedDate.getFullYear()]
+
+    this.fetchHistoryData(`${year}-${('0' + (month + 1)).slice(-2)}-${day}`)
+  },
   methods: {
+    async fetchHistoryData(date) {
+      if (!date) {
+        const [month, day, year] = [this.selectedDate.getMonth(), this.selectedDate.getDate(), this.selectedDate.getFullYear()]
+
+        date = `${year}-${('0' + (month + 1)).slice(-2)}-${day}`
+      }
+
+      this.history = null
+
+      this.history = await this.$axios
+        .get('https://themeparks-data.arendz.nl/history/daily/' + this.parkId + '/' + date + '.json')
+        .then((d) => {
+          return d.data
+        })
+        .catch((error) => {
+          this.$sentry.captureException(error)
+          alert(error)
+        })
+    },
     rideTag(ride) {
       if (ride.currentWaitTime) {
         return ride.currentWaitTime + 'min'
