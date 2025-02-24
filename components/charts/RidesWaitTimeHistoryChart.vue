@@ -1,8 +1,8 @@
 <template>
   <no-ssr>
-    <card :title="$t('statistics.waitTimesGraph')" :subtitle="$t('statistics.averageWaitTime', [avgWaitTime])">
+    <card :title="$t('statistics.waitTimesGraph', [date])" :subtitle="$t('statistics.averageWaitTime', [avgWaitTime])">
       <template #content>
-        <highchart class="mt-3" :options="highChartsOptions"></highchart>
+        <highchart class="rounded overflow-hidden mt-3" :options="highChartsOptions"></highchart>
       </template>
     </card>
   </no-ssr>
@@ -21,6 +21,10 @@ export default {
     },
     rides: {
       type: Array,
+      required: true,
+    },
+    date: {
+      type: String,
       required: true,
     },
   },

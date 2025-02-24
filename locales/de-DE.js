@@ -195,6 +195,7 @@ export default {
     waitTimesToday: 'Die heutigen Wartezeiten',
     waitTimesGraph: 'Aktuelle Wartezeiten',
     averageWaitTime: 'Durchschnittliche Wartezeit: {0} min',
+    averageWaitTimesGraph: 'Durchschnittswerte letzten Monaten',
     longestWaitTimesToday: 'Längste Wartezeiten',
     shortestWaitTimesToday: 'Kürzeste Wartezeiten',
     longestWaitTimesOnDate: 'Längste Wartezeiten von {0}',

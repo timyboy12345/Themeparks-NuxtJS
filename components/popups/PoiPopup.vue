@@ -137,6 +137,11 @@
           <MapMarker :lng="poi.location.lng" :lat="poi.location.lat" />
         </MapComponent>
 
+        <div v-if="poi.category === 'ATTRACTION' && park.supports.supportsRideWaitTimesHistory" class="px-4 py-2 text-sm">
+          <RidesAverageWaitTimeHistoryChart v-if="historicData" :rides="[poi]" :ride-id="poi.id" :data="historicData" />
+          <LoadingSpinner v-else class="my-4" />
+        </div>
+
         <div v-if="poi.images && poi.images.length > 0" class="p-4 grid grid-cols-2 lg:grid-cols-3 gap-4 content-start">
           <img
             v-for="(img, i) of poi.images"
@@ -155,13 +160,16 @@
 <script>
 import MapComponent from '~/components/maps/MapComponent.vue'
 import MapMarker from '~/components/maps/MapMarker.vue'
+import RidesAverageWaitTimeHistoryChart from '~/components/charts/RidesAverageWaitTimeHistoryChart.vue'
+import LoadingSpinner from '~/components/LoadingSpinner.vue'
 
 export default {
   name: 'PoiPopup',
-  components: { MapMarker, MapComponent },
+  components: { LoadingSpinner, RidesAverageWaitTimeHistoryChart, MapMarker, MapComponent },
   data() {
     return {
       downUpValue: true,
+      historicData: null,
     }
   },
   computed: {
@@ -192,6 +200,23 @@ export default {
     pushMessagesForPoi() {
       return this.$store.state.planner.pushMessages.filter((pm) => pm.poiId === this.poi.id)
     },
+  },
+  async mounted() {
+    this.historicData = null
+
+    const startOfWeek = this.startOfWeek(this.subtractOneWeek(new Date()))
+    const [weekMonth, weekDay, weekYear] = [startOfWeek.getMonth(), startOfWeek.getDate(), startOfWeek.getFullYear()]
+    const date = `${weekYear}-${('0' + (weekMonth + 1)).slice(-2)}-${weekDay}`
+
+    this.historicData = await this.$axios
+      .get('https://themeparks-data.arendz.nl/history/weekly/' + this.park.id + '/' + date + '.json')
+      .then((d) => {
+        return d.data
+      })
+      .catch((error) => {
+        this.$sentry.captureException(error)
+        alert(error)
+      })
   },
   methods: {
     enablePushMessages() {
@@ -254,6 +279,13 @@ export default {
         rideId: this.poi.id,
         front: true,
       })
+    },
+    startOfWeek(date) {
+      const diff = date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1)
+      return new Date(date.setDate(diff))
+    },
+    subtractOneWeek(date) {
+      return new Date(date.setDate(date.getDate() - 7))
     },
   },
 }

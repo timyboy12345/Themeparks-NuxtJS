@@ -193,6 +193,7 @@ export default {
     waitTimesToday: 'Current waiting times',
     waitTimesGraph: 'Wait Time Graph',
     averageWaitTime: 'Average waiting time: {0} min',
+    averageWaitTimesGraph: 'Averages last month',
     longestWaitTimesToday: 'Longest waiting times',
     shortestWaitTimesToday: 'Shortest waiting times',
     longestWaitTimesOnDate: 'Longest waiting times on {0}',

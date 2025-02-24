@@ -97,7 +97,8 @@ export default {
           this.$store.commit('auth/addCheckin', {
             id: data.data.identifiers[0].id,
             createdAt: new Date().toISOString(),
-            dateTime: new Date().toISOString(),
+            // TODO: This does not work properly with time differences
+            dateTime: new Date(this.dateTime).toISOString(),
             parkId: this.$store.getters['popup/getCurrentPopup'].parkId,
             rideId: this.$store.getters['popup/getCurrentPopup'].rideId,
             waitTime: this.waitTime,

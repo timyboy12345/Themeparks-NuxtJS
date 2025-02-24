@@ -4,17 +4,21 @@
 
     <LoadingSpinner v-if="!checkins" />
     <div v-else-if="checkins.length > 0" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <PoiCard
-        v-for="checkin of checkins.reverse()"
-        :key="checkin.id"
-        target="_blank"
-        :park="$store.state.planner.park"
-        type="auto"
-        :poi="$store.state.planner.pois.find((p) => p.id === checkin.rideId)"
-        size="sm"
-        class="cursor-pointer"
-        @click.native="handleClick($store.state.planner.pois.find((p) => p.id === checkin.rideId))"
-      />
+      <div v-for="checkin of checkins" :key="checkin.id">
+        <PoiCard
+          target="_blank"
+          :park="$store.state.planner.park"
+          type="auto"
+          :poi="$store.state.planner.pois.find((p) => p.id === checkin.rideId)"
+          size="sm"
+          class="cursor-pointer"
+          @click.native="handleClick($store.state.planner.pois.find((p) => p.id === checkin.rideId))"
+        />
+        <div class="flex flex-row gap-x-2 text-sm items-center content-center mt-1">
+          <button type="button" class="underline text-red-600 hover:no-underline" @click="deleteCheckin(checkin.id)">Verwijderen</button>
+          <div class="text-gray-600 dark:text-gray-400">Ingecheckt op {{ checkin.dateTime | formatDateTime }}</div>
+        </div>
+      </div>
     </div>
     <div v-else class="my-16 text-center text-gray-600 dark:text-gray-400">
       Je hebt nog geen attracties, restaurants of shows bezocht vandaag.
@@ -41,10 +45,25 @@ export default {
         return undefined
       }
 
-      return this.$store.getters['auth/todaysCheckins'].filter((ci) => ci.parkId === this.$store.state.planner.parkId)
+      return this.$store.getters['auth/todaysCheckins']
+        .filter((ci) => ci.parkId === this.$store.state.planner.parkId)
+        .sort(function (a, b) {
+          return new Date(b.date) - new Date(a.date)
+        })
     },
   },
   methods: {
+    deleteCheckin(checkinId) {
+      this.$axios
+        .delete(`/checkins/${checkinId}`)
+        .then(() => {
+          const newCheckins = this.$store.state.auth.checkins.filter((c) => c.id !== checkinId)
+          this.$store.commit('auth/setCheckins', newCheckins)
+        })
+        .catch((exception) => {
+          this.$sentry.captureException(exception)
+        })
+    },
     handleClick(poi) {
       this.$store.commit('popup/addPopup', {
         type: 'poi',

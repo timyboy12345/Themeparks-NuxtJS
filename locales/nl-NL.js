@@ -195,8 +195,9 @@ export default {
     goToLink: 'Bekijk de wachttijden van vandaag',
     subTitle: 'Met deze data kan je je ideale dagje in dit park plannen.',
     waitTimesToday: 'Huidige Wachttijden',
-    waitTimesGraph: 'Wachttijdgrafiek',
+    waitTimesGraph: 'Wachttijdgrafiek van {0}',
     averageWaitTime: 'Gemiddelde wachttijd: {0} min',
+    averageWaitTimesGraph: 'Gemiddeldes afgelopen maanden',
     longestWaitTimesToday: 'Langste wachttijden van vandaag',
     shortestWaitTimesToday: 'Kortste wachttijden van vandaag',
     longestWaitTimesOnDate: 'Langste wachttijden van {0}',
@@ -258,7 +259,7 @@ export default {
   planner: {
     menu: {
       home: 'Home',
-      pois: 'Attracties & Restaurants',
+      pois: 'Attracties, Shows & Restaurants',
       history: 'Eerder',
       news: 'Nieuws',
       user: 'Account',

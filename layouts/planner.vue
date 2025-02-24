@@ -101,7 +101,7 @@
           class="bg-red-700 hover:bg-red-800 transition duration-100 text-white text-sm py-1 px-2 rounded"
           @click="resetPlanner"
         >
-          Planner Verlaten
+          Ander park kiezen
         </button>
 
         <NuxtLink

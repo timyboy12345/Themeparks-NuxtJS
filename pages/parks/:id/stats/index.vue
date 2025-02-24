@@ -18,14 +18,14 @@
               target="_blank"
               class="cursor-pointer py-1 flex hover:bg-gray-100 dark:hover:bg-gray-600 flex-row justify-between px-4"
             >
-              <div class="text-indigo-700">{{ ride.title }}</div>
+              <div class="text-indigo-700 dark:text-indigo-300">{{ ride.title }}</div>
               <div>{{ rideTag(ride) }}</div>
             </NuxtLink>
           </div>
         </template>
       </Card>
 
-      <RidesWaitTimeHistoryChart v-if="loadedHistory" :rides="rides" :history="history"></RidesWaitTimeHistoryChart>
+      <RidesWaitTimeHistoryChart v-if="loadedHistory" :date="formattedDate" :rides="rides" :history="history"></RidesWaitTimeHistoryChart>
 
       <LoadingPulseCard v-if="!loadedHistory" />
       <LoadingPulseCard v-if="!loadedHistory" />
@@ -33,13 +33,13 @@
 
       <card v-if="loadedHistory" :title="$t('statistics.longestWaitTimesOnDate', [formattedDate])">
         <template #content>
-          <div v-if="topWaitTimes" class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200">
+          <div v-if="topWaitTimes" class="-mx-4 mt-2 flex flex-col bg-white divide-y dark:bg-gray-700 dark:divide-gray-600 divide-gray-200">
             <NuxtLink
               v-for="ride of topWaitTimes.slice(0, 10)"
               :key="ride.id"
               target="_blank"
               :to="localePath('/parks/' + parkId + '/rides/' + ride.ride.id)"
-              class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
+              class="py-2 px-4 flex hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-100 flex-row justify-between items-center"
             >
               <div class="flex flex-row items-center">
                 <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
@@ -54,11 +54,11 @@
                 </div>
 
                 <div class="flex flex-col">
-                  <div class="text-indigo-700">{{ ride.ride.title }}</div>
+                  <div class="text-indigo-700 dark:text-indigo-300">{{ ride.ride.title }}</div>
                 </div>
               </div>
 
-              <div class="text-gray-700">{{ ride.maxWaitTime }} min</div>
+              <div class="text-gray-700 dark:text-gray-300">{{ ride.maxWaitTime }} min</div>
             </NuxtLink>
           </div>
         </template>
@@ -66,13 +66,13 @@
 
       <card v-if="loadedHistory" :title="$t('statistics.shortestWaitTimesOnDate', [formattedDate])">
         <template #content>
-          <div v-if="topWaitTimes" class="-mx-4 mt-2 flex flex-col bg-white divide-y divide-gray-200">
+          <div v-if="topWaitTimes" class="-mx-4 mt-2 flex flex-col bg-white dark:bg-gray-700 dark:divide-gray-600 divide-y divide-gray-200">
             <NuxtLink
               v-for="ride of [...topWaitTimes].reverse().slice(0, 10)"
               :key="ride.id"
               target="_blank"
               :to="localePath('/parks/' + parkId + '/rides/' + ride.ride.id)"
-              class="py-2 px-4 flex hover:bg-gray-100 transition duration-100 flex-row justify-between items-center"
+              class="py-2 px-4 flex hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-100 flex-row justify-between items-center"
             >
               <div class="flex flex-row items-center">
                 <div class="rounded-full bg-gray-500 w-6 h-6 lg:w-8 lg:h-8 mr-2 overflow-hidden">
@@ -87,21 +87,24 @@
                 </div>
 
                 <div class="flex flex-col">
-                  <div class="text-indigo-700">{{ ride.ride.title }}</div>
+                  <div class="text-indigo-700 dark:text-indigo-300">{{ ride.ride.title }}</div>
                 </div>
               </div>
 
-              <div class="text-gray-700">{{ ride.maxWaitTime }} min</div>
+              <div class="text-gray-700 dark:text-gray-300">{{ ride.maxWaitTime }} min</div>
             </NuxtLink>
           </div>
         </template>
       </card>
 
+      <LoadingPulseCard v-if="!weeklyHistory" />
+      <RidesAverageWaitTimeHistoryChartCard v-else :rides="rides" :data="weeklyHistory" />
+
       <AdCard />
     </div>
 
-    <div class="flex flex-row justify-end items-center mt-4 gap-2">
-      Datum Aanpassen
+    <div class="flex flex-row justify-end items-center mt-4 gap-x-4">
+      <div class="dark:text-gray-300">Datum Aanpassen</div>
       <input
         v-model="dateSelector"
         class="form-input border border-gray-300 rounded focus:outline-none focus:shadow-outline focus:border-indigo-300"
@@ -118,10 +121,19 @@ import AdCard from '@/components/cards/AdCard'
 import GeneralError from '~/components/GeneralError.vue'
 import RidesWaitTimeHistoryChart from '~/components/charts/RidesWaitTimeHistoryChart.vue'
 import LoadingPulseCard from '~/components/cards/LoadingPulseCard.vue'
+import RidesAverageWaitTimeHistoryChartCard from '~/components/cards/RidesAverageWaitTimeHistoryChartCard.vue'
 
 export default {
   name: 'Stats',
-  components: { LoadingPulseCard, RidesWaitTimeHistoryChart, GeneralError, AdCard, Breadcrumbs, Card },
+  components: {
+    RidesAverageWaitTimeHistoryChartCard,
+    LoadingPulseCard,
+    RidesWaitTimeHistoryChart,
+    GeneralError,
+    AdCard,
+    Breadcrumbs,
+    Card,
+  },
   async validate({ params, $axios, $sentry }) {
     return await $axios
       .get('/parks/' + params.id)
@@ -140,6 +152,7 @@ export default {
       park: null,
       rides: null,
       history: null,
+      weeklyHistory: null,
       selectedDate: null,
     }
   },
@@ -173,7 +186,7 @@ export default {
       },
       set(v) {
         this.selectedDate = new Date(v)
-        this.fetchHistoryData()
+        this.fetchDailyHistoryData()
       },
     },
     loadedHistory() {
@@ -267,11 +280,15 @@ export default {
     this.selectedDate.setDate(this.selectedDate.getDate() - 1)
 
     const [month, day, year] = [this.selectedDate.getMonth(), this.selectedDate.getDate(), this.selectedDate.getFullYear()]
+    this.fetchDailyHistoryData(`${year}-${('0' + (month + 1)).slice(-2)}-${day}`)
 
-    this.fetchHistoryData(`${year}-${('0' + (month + 1)).slice(-2)}-${day}`)
+    const startOfWeek = this.startOfWeek(this.subtractOneWeek(new Date()))
+    const [weekMonth, weekDay, weekYear] = [startOfWeek.getMonth(), startOfWeek.getDate(), startOfWeek.getFullYear()]
+    this.fetchWeeklyHistoryData(`${weekYear}-${('0' + (weekMonth + 1)).slice(-2)}-${weekDay}`)
+    // this.fetchWeeklyHistoryData('2025-02-13')
   },
   methods: {
-    async fetchHistoryData(date) {
+    async fetchDailyHistoryData(date) {
       if (!date) {
         const [month, day, year] = [this.selectedDate.getMonth(), this.selectedDate.getDate(), this.selectedDate.getFullYear()]
 
@@ -282,6 +299,19 @@ export default {
 
       this.history = await this.$axios
         .get('https://themeparks-data.arendz.nl/history/daily/' + this.parkId + '/' + date + '.json')
+        .then((d) => {
+          return d.data
+        })
+        .catch((error) => {
+          this.$sentry.captureException(error)
+          alert(error)
+        })
+    },
+    async fetchWeeklyHistoryData(date) {
+      this.weeklyHistory = null
+
+      this.weeklyHistory = await this.$axios
+        .get('https://themeparks-data.arendz.nl/history/weekly/' + this.parkId + '/' + date + '.json')
         .then((d) => {
           return d.data
         })
@@ -301,12 +331,6 @@ export default {
 
       return ''
     },
-    // TODO: Re-enable once park history is faster
-    // async fetchRides() {
-    //   this.rides = await this.$axios.get('/parks/' + this.parkId + '/history/today').then((rides) => {
-    //     return rides.data
-    //   })
-    // },
     async fetchPark() {
       this.park = await this.$axios.get('/parks/' + this.parkId).then((park) => {
         return park.data
@@ -316,6 +340,13 @@ export default {
       this.rides = await this.$axios.get('/parks/' + this.parkId + '/rides').then((park) => {
         return park.data
       })
+    },
+    startOfWeek(date) {
+      const diff = date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1)
+      return new Date(date.setDate(diff))
+    },
+    subtractOneWeek(date) {
+      return new Date(date.setDate(date.getDate() - 7))
     },
   },
 }

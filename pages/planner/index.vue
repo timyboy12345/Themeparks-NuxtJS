@@ -85,51 +85,11 @@ export default {
       const favorites = this.$store.state.planner.favorites
         .filter((f) => !this.$store.getters['auth/todaysCheckins'].find((ci) => ci.rideId === f))
         .map((p) => this.$store.state.planner.pois.find((poi) => poi.id === p))
-        .map((p) => {
-          const showTimes = p.showTimes && p.showTimes.showTimes ? p.showTimes.showTimes : []
-          const nextShow = showTimes.find((st) => !st.isPassed)
-
-          if (nextShow) {
-            const now = new Date()
-            const endTime = new Date()
-            endTime.setHours(nextShow.localFromTime.split(':')[0])
-            endTime.setMinutes(nextShow.localFromTime.split(':')[1])
-            const difference = endTime.getTime() - now.getTime() // This will give difference in milliseconds
-            const minutes = Math.round(difference / 60000)
-
-            return {
-              ...p,
-              nextShowInMinutes: minutes,
-            }
-          }
-
-          return p
-        })
+        .map(this.addPoiShowTime)
+        .map(this.poiValue)
         .sort((a, b) => {
-          // Compare show times
-          if (a.nextShowInMinutes && b.nextShowInMinutes) {
-            return a.nextShowInMinutes > b.nextShowInMinutes ? 1 : -1
-          }
-
-          if (a.nextShowInMinutes && b.category === 'ATTRACTION') {
-            return a.nextShowInMinutes > 30 ? 1 : -1
-          }
-
-          // Compare ride wait times
-          if (a.category === 'ATTRACTION' && b.category === 'ATTRACTION') {
-            if (!a.currentWaitTime || !b.currentWaitTime) {
-              return -1
-            }
-
-            if (a.currentWaitTime > b.currentWaitTime) {
-              return 1
-            }
-
-            if (a.currentWaitTime < b.currentWaitTime) {
-              return -1
-            }
-          }
-
+          if (a.poiValue < b.poiValue) return 1
+          else if (b.poiValue < a.poiValue) return -1
           return 0
         })
 
@@ -169,6 +129,37 @@ export default {
         parkId: this.$store.state.planner.parkId,
         rideId: poi.id,
       })
+    },
+    addPoiShowTime(poi) {
+      const showTimes = poi.showTimes && poi.showTimes.showTimes ? poi.showTimes.showTimes : []
+      const nextShow = showTimes.find((st) => !st.isPassed)
+
+      if (nextShow) {
+        const now = new Date()
+        const endTime = new Date()
+        endTime.setHours(nextShow.localFromTime.split(':')[0])
+        endTime.setMinutes(nextShow.localFromTime.split(':')[1])
+        const difference = endTime.getTime() - now.getTime() // This will give difference in milliseconds
+        const minutes = Math.round(difference / 60000)
+
+        return {
+          ...poi,
+          nextShowInMinutes: minutes,
+        }
+      }
+
+      return poi
+    },
+    poiValue(poi) {
+      let poiValue = 0
+
+      if (poi.currentWaitTime) poiValue = Math.max(0, 120 - poi.currentWaitTime)
+      if (poi.nextShowInMinutes && poi.nextShowInMinutes < 30) poiValue = 120 + (30 - poi.nextShowInMinutes)
+
+      return {
+        ...poi,
+        poiValue,
+      }
     },
   },
 }
