@@ -80,6 +80,8 @@ export default {
     apiInfo: 'Kan ik de pretpark-API ook gebruiken?',
     apiInfoContent:
       'Jazeker! Alle data op ons platform wordt opgehaald via een door ons ontwikkelde API, die open-source is en te vinden is op https://tp.arendz.nl. Documentatie is te vinden op https://tp.arendz.nl/api',
+    searchPlaceholder: 'Zoek naar attracties, restaurants, pretparken en zwemparken',
+    noSearchResults: 'Geen resultaten gevonden, probeer een andere zoekterm',
   },
   parks: {
     subTitle:

@@ -23,6 +23,11 @@ export default {
         return rides.data.some((r) => r.id === params.ride_id)
       })
       .catch((e) => {
+        if (e.response.status === 500) {
+          $sentry.captureException(e)
+          throw new Error('Under Construction!')
+        }
+
         $sentry.captureException(e)
         return false
       })

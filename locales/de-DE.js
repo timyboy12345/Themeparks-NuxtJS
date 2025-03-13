@@ -80,6 +80,8 @@ export default {
     apiInfo: 'Kann ich die API-Daten von dieser Website verwenden?',
     apiInfoContent:
       'Ja, sicher! Alle Daten, die wir abrufen, sind über eine Open-Source-API verfügbar, die frei zugänglich ist unter https://tp.arendz.nl. Dokumentation finden Sie unter https://tp.arendz.nl/api',
+    searchPlaceholder: 'Suche nach Sehenswürdigkeiten, Restaurants, Vergnügungsparks und Badeparks',
+    noSearchResults: 'Keine Ergebnisse gefunden, versuchen Sie es mit einem anderen Suchbegriff',
   },
   parks: {
     subTitle: 'Siehe die Liste der verfügbaren Themenparks unten',

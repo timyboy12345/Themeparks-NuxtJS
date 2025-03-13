@@ -18,6 +18,11 @@ export default {
         return restaurants.data.some((r) => r.id === params.restaurant_id)
       })
       .catch((e) => {
+        if (e.response.status === 500) {
+          $sentry.captureException(e)
+          throw new Error('Under Construction!')
+        }
+
         $sentry.captureException(e)
         return false
       })

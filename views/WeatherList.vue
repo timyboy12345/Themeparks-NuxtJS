@@ -7,7 +7,7 @@
     <general-message v-if="!$fetchState.pending && !weatherData && !$fetchState.error" class="m-4" />
 
     <div
-      v-if="!$fetchState.pending && weatherData.current"
+      v-if="!$fetchState.pending && weatherData && weatherData.current"
       class="mt-2 flex flex-col bg-white divide-y divide-gray-200 dark:divide-gray-600"
     >
       <div

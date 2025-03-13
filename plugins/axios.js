@@ -1,6 +1,6 @@
 export default function ({ app, $axios }) {
   $axios.onRequest((request) => {
-    if (!request.url.includes('data.arendz.nl')) {
+    if (!request.url.includes('data.arendz.nl') && !request.url.includes('search.themeparkplanner.com')) {
       const locales = app.store.$i18n.locales
       const localeCookie = app.store.$i18n.getLocaleCookie()
 

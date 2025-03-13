@@ -78,6 +78,8 @@ export default {
     apiInfo: '¿Puedo usar también la API del parque de atracciones?',
     apiInfoContent:
       '¡Sí, por supuesto! Todos los datos de nuestra plataforma se recuperan a través de una API desarrollada por nosotros, que es de código abierto y se puede encontrar en https://tp.arendz.nl. La documentación se puede encontrar en https://tp.arendz.nl/api',
+    searchPlaceholder: 'Buscar atracciones, restaurantes, parques de atracciones y parques para nadar',
+    noSearchResults: 'No se encontraron resultados, intente con otro término de búsqueda',
   },
   parks: {
     subTitle: 'Vea la lista de todos los parques temáticos disponibles a continuación.',

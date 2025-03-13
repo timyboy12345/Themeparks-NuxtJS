@@ -81,6 +81,8 @@ export default {
     apiInfo: 'Can I use the API-data from this website?',
     apiInfoContent:
       'You sure can! All data we retrieve is exposed to a open-source API, freely accessible at https://tp.arendz.nl. Documentation can be found at https://tp.arendz.nl/api',
+    searchPlaceholder: 'Search for rides, restaurants, shops, animals, water parks and theme parks',
+    noSearchResults: 'No results found, try another query',
   },
   parks: {
     subTitle: 'See the list of available themeparks below',

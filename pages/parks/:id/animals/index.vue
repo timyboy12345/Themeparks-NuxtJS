@@ -22,6 +22,11 @@ export default {
         return data.data.supports.supportsAnimals
       })
       .catch((e) => {
+        if (e.response.status === 500) {
+          $sentry.captureException(e)
+          throw new Error('Under Construction!')
+        }
+
         $sentry.captureException(e)
         return false
       })

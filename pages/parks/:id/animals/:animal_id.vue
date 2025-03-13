@@ -18,6 +18,11 @@ export default {
         return animals.data.some((r) => r.id === params.animal_id)
       })
       .catch((e) => {
+        if (e.response.status === 500) {
+          $sentry.captureException(e)
+          throw new Error('Under Construction!')
+        }
+
         $sentry.captureException(e)
         return false
       })

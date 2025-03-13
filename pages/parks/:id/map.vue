@@ -2,12 +2,11 @@
   <div>
     <breadcrumbs :breadcrumbs="breadcrumbs"></breadcrumbs>
 
-    <loading v-if="!park && (!rides || !restaurants)"></loading>
+    <loading v-if="!park"></loading>
 
-    <div class="grid grid-cols-1 gap-4">
-      <card v-if="park && !park.supports.supportsPoiLocations" title="No support" content="This park does not support the map function" />
-
-      <map-component v-if="park && supportsLatLng" component-height="h-128" :lat="averageLat" :lng="averageLng" :zoom="16">
+    <div v-else class="grid grid-cols-1 gap-4">
+      <map-component component-height="h-128" :lat="averageLat" :lng="averageLng" :zoom="16">
+        <!-- TODO: Add links to rides, restaurants, shows, ... -->
         <map-marker
           v-for="ride of latLngRides"
           :key="ride.id"
@@ -54,7 +53,8 @@
         />
       </map-component>
 
-      <card v-if="park && supportsLatLng" title="Map" sub-title="On this map, all retrievable data is shown">
+      <!-- TODO: Translate this page and add more information -->
+      <card v-if="park" :title="$t('general.map')" subtitle="On this map, all retrievable data is shown">
         <template #content>
           <ul class="list list-disc">
             <li class="ml-8"><span class="text-blue-700">Blue</span> markers are rides</li>
@@ -79,6 +79,22 @@ import Card from '@/components/cards/Card'
 export default {
   name: 'ParkMap',
   components: { Card, Loading, MapMarker, MapComponent, Breadcrumbs },
+  async validate({ params, $axios, $sentry }) {
+    return await $axios
+      .get('/parks/' + params.id)
+      .then((data) => {
+        return data.data.supports.supportsPoiLocations
+      })
+      .catch((e) => {
+        if (e.response.status === 500) {
+          $sentry.captureException(e)
+          throw new Error('Under Construction!')
+        }
+
+        $sentry.captureException(e)
+        return false
+      })
+  },
   data() {
     return {
       park: null,
@@ -103,13 +119,14 @@ export default {
   },
   computed: {
     averageLat() {
+      if (this.latLngRides.length === 0) return this.park.location.lat
+
       return this.latLngRides.reduce((total, next) => total + next.location.lat, 0) / this.rides.length
     },
     averageLng() {
+      if (this.latLngRides.length === 0) return this.park.location.lng
+
       return this.latLngRides.reduce((total, next) => total + next.location.lng, 0) / this.rides.length
-    },
-    supportsLatLng() {
-      return this.park && (this.rides || this.restaurants) && (this.latLngRides.length > 0 || this.latLngRestaurants > 0)
     },
     latLngRides() {
       return this.rides.filter((r) => r.location && r.location.lat && typeof r.location.lat === 'number')

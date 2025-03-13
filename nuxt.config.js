@@ -259,10 +259,12 @@ export default {
     hostname: 'https://themeparkplanner.com',
     cacheTime: 6000,
     gzip: true,
+    exclude: ['/planner/**'],
     routes: async () => {
       const routes = []
       const langs = ['en', 'nl', 'es', 'de']
 
+      // TODO: Implement blog pages
       const { data } = await axios.get('https://tp.arendz.nl/parks')
       data.forEach((park) => {
         langs.forEach((lang) => {

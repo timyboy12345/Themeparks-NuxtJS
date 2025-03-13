@@ -18,6 +18,11 @@ export default {
         return shows.data.some((r) => r.id === params.show_id)
       })
       .catch((e) => {
+        if (e.response.status === 500) {
+          $sentry.captureException(e)
+          throw new Error('Under Construction!')
+        }
+
         $sentry.captureException(e)
         return false
       })
