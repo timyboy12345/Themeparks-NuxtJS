@@ -118,18 +118,19 @@ export default {
   },
   methods: {
     async search() {
+      const query = this.query.trim()
       this.searchResults = null
 
-      if (this.query.length > 4) {
+      if (query.length >= 3) {
         this.searching = true
 
-        const pois = await this.getPois()
+        const pois = await this.getPois(query)
         const mapped = pois.map((p) => {
           return { ...p, type: 'poi' }
         })
 
         const parks = this.parks
-          .filter((p) => p.name.toLowerCase().includes(this.query))
+          .filter((p) => p.name.toLowerCase().includes(query))
           .map((p) => {
             return { ...p, type: 'park', title: p.name }
           })
@@ -139,9 +140,9 @@ export default {
         this.searching = false
       }
     },
-    async getPois() {
+    async getPois(query) {
       const response = await this.$axios
-        .get(`https://search.themeparkplanner.com/indexes/pois/search?q=${this.query}`, {
+        .get(`https://search.themeparkplanner.com/indexes/pois/search?q=${query}`, {
           headers: {
             Authorization: 'Bearer 40de3130dd38f80288f0bed376a0817a04792f5d2906714cd80a356bbbd122ef',
           },
