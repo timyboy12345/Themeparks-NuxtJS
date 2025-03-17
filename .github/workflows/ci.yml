@@ -43,5 +43,5 @@ jobs:
         run: npm run lint
 
       - name: Build 🧱
-        run: npm run build:prod
+        run: SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }} npm run build:prod
 

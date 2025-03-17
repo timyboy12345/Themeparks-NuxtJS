@@ -6,15 +6,16 @@
 
     <div v-else class="grid grid-cols-1 gap-4">
       <map-component component-height="h-128" :lat="averageLat" :lng="averageLng" :zoom="16">
-        <!-- TODO: Add links to rides, restaurants, shows, ... -->
-        <map-marker
-          v-for="ride of latLngRides"
-          :key="ride.id"
-          icon="blue"
-          :lat="ride.location.lat"
-          :lng="ride.location.lng"
-          :popup="ride.title"
-        />
+        <map-marker v-for="ride of latLngRides" :key="ride.id" icon="blue" :lat="ride.location.lat" :lng="ride.location.lng" popup="true">
+          <template #default>
+            <div class="min-w-32">
+              <img v-if="ride.image_url" :src="ride.image_url" class="mb-2 w-full max-h-24 object-cover bg-gray-200" />
+              <NuxtLink :to="localePath(`/parks/${parkId}/rides/${ride.id}`)">
+                {{ ride.title }}
+              </NuxtLink>
+            </div>
+          </template>
+        </map-marker>
 
         <map-marker
           v-for="restaurant of latLngRestaurants"
@@ -23,7 +24,16 @@
           :lat="restaurant.location.lat"
           :lng="restaurant.location.lng"
           :popup="restaurant.title"
-        />
+        >
+          <template #default>
+            <div class="min-w-32">
+              <img v-if="restaurant.image_url" :src="restaurant.image_url" class="mb-2 w-full max-h-24 object-cover bg-gray-200" />
+              <NuxtLink :to="localePath(`/parks/${parkId}/restaurants/${restaurant.id}`)">
+                {{ restaurant.title }}
+              </NuxtLink>
+            </div>
+          </template>
+        </map-marker>
 
         <map-marker
           v-for="show of latLngShows"
@@ -32,7 +42,16 @@
           :lat="show.location.lat"
           :lng="show.location.lng"
           :popup="show.title"
-        />
+        >
+          <template #default>
+            <div class="min-w-32">
+              <img v-if="show.image_url" :src="show.image_url" class="mb-2 w-full max-h-24 object-cover bg-gray-200" />
+              <NuxtLink :to="localePath(`/parks/${parkId}/shows/${show.id}`)">
+                {{ show.title }}
+              </NuxtLink>
+            </div>
+          </template>
+        </map-marker>
 
         <map-marker
           v-for="shop of latLngShops"
@@ -41,7 +60,16 @@
           :lat="shop.location.lat"
           :lng="shop.location.lng"
           :popup="shop.title"
-        />
+        >
+          <template #default>
+            <div class="min-w-32">
+              <img v-if="shop.image_url" :src="shop.image_url" class="mb-2 w-full max-h-24 object-cover bg-gray-200" />
+              <NuxtLink :to="localePath(`/parks/${parkId}/shops/${shop.id}`)">
+                {{ shop.title }}
+              </NuxtLink>
+            </div>
+          </template>
+        </map-marker>
 
         <map-marker
           v-for="animal of latLngAnimals"
@@ -50,7 +78,16 @@
           :lat="animal.location.lat"
           :lng="animal.location.lng"
           :popup="animal.title"
-        />
+        >
+          <template #default>
+            <div class="min-w-32">
+              <img v-if="animal.image_url" :src="animal.image_url" class="mb-2 w-full max-h-24 object-cover bg-gray-200" />
+              <NuxtLink :to="localePath(`/parks/${parkId}/animals/${animal.id}`)">
+                {{ animal.title }}
+              </NuxtLink>
+            </div>
+          </template>
+        </map-marker>
       </map-component>
 
       <!-- TODO: Translate this page and add more information -->
@@ -257,4 +294,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.leaflet-popup-content {
+  margin: 0;
+}
+</style>

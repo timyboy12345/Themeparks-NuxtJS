@@ -4,11 +4,11 @@
 
     <card-button btn-link="/parks" :btn-title="$t('home.actionButton')" />
 
-    <div class="shadow rounded overflow-hidden bg-white divide-y divide-gray-200">
+    <div class="shadow rounded overflow-hidden bg-white dark:bg-gray-600 dark:text-gray-300 divide-y dark:divide-gray-700 divide-gray-200">
       <input
         v-model="query"
         type="text"
-        class="focus:outline-none w-full py-2 px-4"
+        class="focus:outline-none w-full py-2 px-4 dark:bg-gray-600"
         :placeholder="$t('home.searchPlaceholder')"
         @keyup.enter="search"
       />
@@ -17,7 +17,7 @@
         <loading-spinner />
       </div>
 
-      <div v-if="searchResults" class="divide-y divide-gray-200 flex flex-col">
+      <div v-if="searchResults" class="divide-y divide-gray-200 dark:divide-gray-700 flex flex-col">
         <div v-if="searchResults.length === 0" class="text-center my-4">
           {{ $t('home.noSearchResults') }}
         </div>
@@ -26,12 +26,12 @@
           v-for="result of searchResults"
           :key="result.id"
           :to="localePath(result.type === 'park' ? '/parks/' + result.id : result.fullSlug.replace('https://themeparkplanner.com', ''))"
-          class="flex flex-row items-center gap-x-2 hover:bg-gray-100 transition duration-100 py-2 px-4"
+          class="flex flex-row items-center gap-x-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-100 py-2 px-4"
         >
-          <div class="rounded-full w-6 h-6 bg-gray-200 overflow-hidden">
+          <div class="rounded-full w-6 h-6 bg-gray-200 dark:bg-gray-800 overflow-hidden">
             <img v-if="result.image" v-lazy-load class="w-full h-full object-center object-cover" :data-src="result.image" />
           </div>
-          <span class="text-indigo-800">{{ result.parkName ?? result.name }}</span>
+          <span class="text-indigo-800 dark:text-indigo-300">{{ result.parkName ?? result.name }}</span>
           <span v-if="result.type === 'poi'">{{ result.title }}</span>
           <span v-if="result.category" class="opacity-60">{{ result.category }}</span>
         </NuxtLink>

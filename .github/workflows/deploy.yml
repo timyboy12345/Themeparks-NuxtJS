@@ -41,7 +41,7 @@ jobs:
         run: npm run lint
 
       - name: Build 🧱
-        run: npm run build:prod
+        run: SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }} npm run build:prod
   deploy:
     runs-on: ubuntu-latest
 
@@ -57,7 +57,7 @@ jobs:
       - name: Install NPM packages locally 🧑🏻‍💻
         run: npm ci
       - name: Build 🧱
-        run: npm run build:prod
+        run: SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }} npm run build:prod
       - name: Install SSH key 🔑
         uses: shimataro/ssh-key-action@v2
         with:
