@@ -15,9 +15,6 @@
         <div class="flex flex-row items-center">
           <div class="flex flex-col">
             <div class="text-indigo-700 dark:text-indigo-300">{{ openingHour.date | formatDate }}</div>
-            <div v-if="openingHour.currentWaitTime !== undefined" class="text-sm text-gray-600">
-              {{ $t('general.unspecifiedWaitTime', [openingHour.currentWaitTime]) }}
-            </div>
           </div>
         </div>
 

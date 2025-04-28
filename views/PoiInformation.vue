@@ -155,6 +155,8 @@
 
       <RideStatsCard v-if="type === 'ride'" :park="park" :ride="poi"></RideStatsCard>
 
+      <RideAlternativeQueuesCard v-if="type === 'ride' && poi.alternativeQueues" :park="park" :ride="poi" />
+
       <client-only>
         <RCDBStatsCard v-if="type === 'ride'" :park="park" :ride="poi"></RCDBStatsCard>
       </client-only>
@@ -172,10 +174,12 @@ import RideStatsCard from '@/components/cards/RideStatsCard'
 import RCDBStatsCard from '@/components/cards/RCDBStatsCard'
 import Breadcrumbs from '~/components/Breadcrumbs.vue'
 import PoiCard from '~/components/cards/PoiCard.vue'
+import RideAlternativeQueuesCard from '~/components/cards/RideAlternativeQueuesCard.vue'
 
 export default {
   // eslint-disable-next-line vue/no-unused-components
   components: {
+    RideAlternativeQueuesCard,
     PoiCard,
     Breadcrumbs,
     RCDBStatsCard,
