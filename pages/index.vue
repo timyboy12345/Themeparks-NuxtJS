@@ -130,7 +130,7 @@ export default {
         })
 
         const parks = this.parks
-          .filter((p) => p.name.toLowerCase().includes(query))
+          .filter((p) => p.name.toLowerCase().includes(query.toLowerCase()))
           .map((p) => {
             return { ...p, type: 'park', title: p.name }
           })

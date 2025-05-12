@@ -3,7 +3,8 @@
     <h1 class="mb-4 text-2xl text-indigo-800 dark:text-indigo-300 font-bold">Jouw Account</h1>
 
     <div class="grid gap-4">
-      <LoadingSpinner v-if="!pushMessages" />
+      <LoadingSpinner v-if="pushMessagesLoading" subtitle="Pushmeldingen worden geladen" />
+
       <Card v-else-if="pushMessages.length > 0" title="Jouw Pushberichten">
         <template #content>
           <div class="-mx-4 divide divide-gray-100 dark:divide-gray-600">
@@ -79,8 +80,15 @@ export default {
     }
   },
   computed: {
+    pushMessagesLoading() {
+      if (this.showAllPushMessages) {
+        return this.allPushMessages === undefined
+      }
+
+      return this.$store.state.planner.pushMessages === undefined
+    },
     pushMessages() {
-      return this.showAllPushMessages ? this.allPushMessages : this.$store.state.planner.pushMessages
+      return this.showAllPushMessages ? this.allPushMessages ?? [] : this.$store.state.planner.pushMessages ?? []
     },
   },
   methods: {

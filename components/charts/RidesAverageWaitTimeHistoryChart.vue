@@ -63,8 +63,8 @@ export default {
         xAxis: {
           type: 'datetime',
           dateTimeLabelFormats: {
-            hour: '%I %p',
-            minute: '%I:%M %p',
+            hour: '%H:%M',
+            minute: '%H:%M',
           },
         },
         tooltip: {

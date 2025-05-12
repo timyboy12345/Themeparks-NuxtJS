@@ -138,8 +138,13 @@
         </MapComponent>
 
         <div v-if="poi.category === 'ATTRACTION' && park.supports.supportsRideWaitTimesHistory" class="px-4 py-2 text-sm">
-          <RidesAverageWaitTimeHistoryChart v-if="historicData" :rides="[poi]" :ride-id="poi.id" :data="historicData" />
-          <LoadingSpinner v-else class="my-4" />
+          <LoadingSpinner v-if="historicData === undefined && historicError === undefined" class="my-4" />
+          <div v-if="historicError">{{ historicError }}</div>
+
+          <div v-else>
+            <div class="text-center text-sm text-gray-600">Gemiddelde Wachttijden afgelopen maanden</div>
+            <RidesAverageWaitTimeHistoryChart :rides="[poi]" :ride-id="poi.id" :data="historicData" />
+          </div>
         </div>
 
         <div v-if="poi.images && poi.images.length > 0" class="p-4 grid grid-cols-2 lg:grid-cols-3 gap-4 content-start">
@@ -170,6 +175,7 @@ export default {
     return {
       downUpValue: true,
       historicData: null,
+      historicError: null,
     }
   },
   computed: {
@@ -202,21 +208,24 @@ export default {
     },
   },
   async mounted() {
-    this.historicData = null
+    if (this.park.supports.supportsRideWaitTimesHistory) {
+      this.historicData = null
 
-    const startOfWeek = this.startOfWeek(this.subtractOneWeek(new Date()))
-    const [weekMonth, weekDay, weekYear] = [startOfWeek.getMonth(), startOfWeek.getDate(), startOfWeek.getFullYear()]
-    const date = `${weekYear}-${('0' + (weekMonth + 1)).slice(-2)}-${weekDay}`
+      const startOfWeek = this.startOfWeek(this.subtractOneWeek(new Date()))
+      const [weekMonth, weekDay, weekYear] = [startOfWeek.getMonth(), ('0' + startOfWeek.getDate()).slice(-2), startOfWeek.getFullYear()]
+      const date = `${weekYear}-${('0' + (weekMonth + 1)).slice(-2)}-${weekDay}`
 
-    this.historicData = await this.$axios
-      .get('https://themeparks-data.arendz.nl/history/weekly/' + this.park.id + '/' + date + '.json')
-      .then((d) => {
-        return d.data
-      })
-      .catch((error) => {
-        this.$sentry.captureException(error)
-        alert(error)
-      })
+      this.historicData = await this.$axios
+        .get('https://themeparks-data.arendz.nl/history/weekly/' + this.park.id + '/' + date + '.json')
+        .then((d) => {
+          return d.data
+        })
+        .catch((error) => {
+          this.$sentry.captureException(error)
+          this.historicError = error
+          // alert(error)
+        })
+    }
   },
   methods: {
     enablePushMessages() {

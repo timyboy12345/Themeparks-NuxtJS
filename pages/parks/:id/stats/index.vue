@@ -288,7 +288,11 @@ export default {
     this.fetchDailyHistoryData(`${year}-${('0' + (month + 1)).slice(-2)}-${day}`)
 
     const startOfWeek = this.startOfWeek(this.subtractOneWeek(new Date()))
-    const [weekMonth, weekDay, weekYear] = [startOfWeek.getMonth(), startOfWeek.getDate(), startOfWeek.getFullYear()]
+    const [weekMonth, weekDay, weekYear] = [
+      startOfWeek.getMonth(),
+      String(startOfWeek.getDate()).padStart(2, '0'),
+      startOfWeek.getFullYear(),
+    ]
     this.fetchWeeklyHistoryData(`${weekYear}-${('0' + (weekMonth + 1)).slice(-2)}-${weekDay}`)
     // this.fetchWeeklyHistoryData('2025-02-13')
   },

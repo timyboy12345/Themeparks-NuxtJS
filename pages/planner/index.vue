@@ -116,6 +116,16 @@ export default {
       this.$store.commit('planner/setInitialized', false)
       this.$store.commit('planner/setPark', park)
 
+      if (park.supports.supportsOpeningTimes)
+        this.$axios
+          .get('/parks/' + park.id + '/opening-hours')
+          .then((openingHours) => {
+            this.$store.commit('planner/setOpeningTimes', openingHours.data)
+          })
+          .catch((e) => {
+            this.$sentry.captureException(e)
+          })
+
       this.$axios.get('/parks/' + localStorage.getItem('planner_park_id') + '/pois').then((d) => {
         this.$store.commit('planner/setPois', d.data)
         this.$store.commit('planner/setInitialized', true)
