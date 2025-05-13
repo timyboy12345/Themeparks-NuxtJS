@@ -15,7 +15,9 @@
         <option value="6">Zondag</option>
       </select>
 
-      <RidesAverageWaitTimeHistoryChart :data="data" :day-of-week="dayOfWeek" :ride-id="rideId" :rides="rides" />
+      <RidesAverageWaitTimeHistoryChart v-if="data" :data="data" :day-of-week="dayOfWeek" :ride-id="rideId" :rides="rides" />
+
+      <LoadingSpinner v-else class="mt-4" />
     </template>
   </card>
 </template>
@@ -24,10 +26,11 @@
 import RidesAverageWaitTimeHistoryChart from '~/components/charts/RidesAverageWaitTimeHistoryChart.vue'
 import Card from '~/components/cards/Card.vue'
 import chartMixin from '@/mixins/charts'
+import LoadingSpinner from '~/components/LoadingSpinner.vue'
 
 export default {
   name: 'RidesAverageWaitTimeHistoryChartCard',
-  components: { Card, RidesAverageWaitTimeHistoryChart },
+  components: { LoadingSpinner, Card, RidesAverageWaitTimeHistoryChart },
   mixins: [chartMixin],
   props: {
     data: {

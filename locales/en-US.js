@@ -178,6 +178,7 @@ export default {
     comeBackBetween: 'Come back between {0} and {1}',
     alternativeFull: 'This queue is full',
     alternativeClosed: 'This queue is closed',
+    loginForCheckins: 'Log in to keep track of what rides you have visited, and how long you have waited for those rides.',
   },
   restaurants: {
     descriptionTitle: 'All restaurants of {0}',

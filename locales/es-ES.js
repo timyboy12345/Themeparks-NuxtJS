@@ -176,6 +176,7 @@ export default {
     comeBackBetween: 'Regresa entre {0} y {1}',
     alternativeFull: 'Esta fila está llena',
     alternativeClosed: 'Esta fila está cerrada',
+    loginForCheckins: 'Inicia sesión para realizar un seguimiento de cuándo fuiste a qué atracción y cuánto tiempo esperaste.',
   },
   restaurants: {
     descriptionTitle: 'Todos los restaurantes de {0}',

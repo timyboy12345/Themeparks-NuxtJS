@@ -181,6 +181,7 @@ export default {
     comeBackBetween: 'Kom terug tussen {0} en {1}',
     alternativeFull: 'Deze rij is vol',
     alternativeClosed: 'Deze rij is gesloten',
+    loginForCheckins: 'Log in om bij te houden wanneer je in welke attractie bent gegaan, en hoe lang je hebt gewacht.',
   },
   restaurants: {
     descriptionTitle: 'Alle restaurants van {0}',

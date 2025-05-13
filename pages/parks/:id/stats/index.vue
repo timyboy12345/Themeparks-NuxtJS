@@ -25,11 +25,16 @@
         </template>
       </Card>
 
-      <RidesWaitTimeHistoryChart v-if="loadedHistory" :date="formattedDate" :rides="rides" :history="history"></RidesWaitTimeHistoryChart>
+      <RidesWaitTimeHistoryChart
+        v-if="loadedHistory && rides"
+        :date="formattedDate"
+        :rides="rides"
+        :history="history"
+      ></RidesWaitTimeHistoryChart>
 
-      <LoadingPulseCard v-if="!loadedHistory" />
-      <LoadingPulseCard v-if="!loadedHistory" />
-      <LoadingPulseCard v-if="!loadedHistory" />
+      <LoadingPulseCard v-if="!loadedHistory || !rides" />
+      <LoadingPulseCard v-if="!loadedHistory || !rides" />
+      <LoadingPulseCard v-if="!loadedHistory || !rides" />
 
       <card v-if="loadedHistory" :title="$t('statistics.longestWaitTimesOnDate', [formattedDate])">
         <template #content>
@@ -97,7 +102,7 @@
         </template>
       </card>
 
-      <LoadingPulseCard v-if="!weeklyHistory" />
+      <LoadingPulseCard v-if="!weeklyHistory || !rides" />
       <RidesAverageWaitTimeHistoryChartCard v-else :rides="rides" :data="weeklyHistory" />
 
       <AdCard />

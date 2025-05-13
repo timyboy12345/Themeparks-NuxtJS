@@ -6,25 +6,25 @@
           {{ $t('general.currentWaitTime', [ride.currentWaitTime]) }}
         </div>
 
-        <div v-for="a of ride.alternativeQueues" :key="a.id" class="text-indigo-700 dark:text-indigo-300 px-4 py-2">
+        <div v-for="a of ride.alternativeQueues" :key="a.id" class="px-4 py-2">
           {{ getTranslatedString(a.type) }}:
 
-          <span v-if="a.waitTime">
+          <span v-if="a.waitTime" class="text-indigo-700 dark:text-indigo-300">
             {{ $t('general.unspecifiedWaitTime', [a.waitTime]) }}
           </span>
-          <span v-if="a.window_start && !a.window_end">
+          <span v-if="a.window_start && !a.window_end" class="text-indigo-700 dark:text-indigo-300">
             {{ $t('ride.comeBackAfter', [a.window_start]) }}
           </span>
-          <span v-if="!a.window_start && a.window_end">
+          <span v-if="!a.window_start && a.window_end" class="text-indigo-700 dark:text-indigo-300">
             {{ $t('ride.comeBackBefore', [a.window_start]) }}
           </span>
-          <span v-if="a.window_start && a.window_end">
+          <span v-if="a.window_start && a.window_end" class="text-indigo-700 dark:text-indigo-300">
             {{ $t('ride.comeBackBetween', [formatTime(a.window_start), formatTime(a.window_end)]) }}
           </span>
-          <span v-if="a.state === 'FULL'">
+          <span v-if="a.state === 'FULL'" class="text-indigo-700 dark:text-indigo-300">
             {{ $t('ride.alternativeFull') }}
           </span>
-          <span v-if="a.state === 'CLOSED'">
+          <span v-if="a.state === 'CLOSED'" class="text-indigo-700 dark:text-indigo-300">
             {{ $t('ride.alternativeClosed') }}
           </span>
         </div>

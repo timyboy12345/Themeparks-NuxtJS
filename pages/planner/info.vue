@@ -4,7 +4,7 @@
       <h1 class="text-2xl text-indigo-800 dark:text-indigo-300 font-bold">
         {{ $t('general.planner') }}
       </h1>
-      <p class="opacity-60">
+      <p class="opacity-60 dark:text-white">
         {{ $t('Plan je ideale dagje uit met onze handige pretpark planner') }}
       </p>
     </div>
@@ -32,10 +32,10 @@
       <div
         v-for="(img, i) in plannerImages"
         :key="i"
-        class="flex-shrink-0 flex flex-col text-center gap-y-1 dark:bg-gray-600 bg-gray-200 p-4 rounded"
+        class="flex-shrink-0 flex flex-col text-center gap-y-1 dark:bg-gray-800 bg-gray-200 p-4 rounded"
       >
         <img v-lazy-load :data-src="img.img" class="max-w-64 object-contain w-full rounded overflow-hidden" />
-        <div class="opacity-80 max-w-64 mx-auto text-sm">{{ img.title }}</div>
+        <div class="opacity-80 dark:text-white max-w-64 mx-auto text-sm">{{ img.title }}</div>
       </div>
     </div>
 
@@ -45,7 +45,7 @@
           {{ f.title }}
         </div>
 
-        <div class="opacity-60">
+        <div class="opacity-60 dark:text-white">
           {{ f.content }}
         </div>
       </div>

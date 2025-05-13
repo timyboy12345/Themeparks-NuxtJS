@@ -180,6 +180,7 @@ export default {
     comeBackBetween: 'Komm zwischen {0} und {1} zurück',
     alternativeFull: 'Diese Zeile ist voll',
     alternativeClosed: 'Diese Zeile ist geschlossen',
+    loginForCheckins: 'Melden Sie sich an, um zu verfolgen, wann Sie welche Attraktion besucht haben und wie lange Sie gewartet haben.',
   },
   restaurants: {
     descriptionTitle: 'Alle Restaurants von {0}',
