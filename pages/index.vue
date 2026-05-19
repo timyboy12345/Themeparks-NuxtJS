@@ -144,7 +144,7 @@ export default {
       const response = await this.$axios
         .get(`https://search.themeparkplanner.com/indexes/pois/search?q=${query}`, {
           headers: {
-            Authorization: 'Bearer 40de3130dd38f80288f0bed376a0817a04792f5d2906714cd80a356bbbd122ef',
+            Authorization: 'Bearer 9fb780cb6e4900c7335b76d51f0d9e77e23f2382ea3288c476980100d5ecd0f1',
           },
         })
         .then((res) => res.data)
