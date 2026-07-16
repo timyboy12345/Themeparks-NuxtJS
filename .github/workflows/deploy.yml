@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        node: [18.15]
+        node: [22]
 
     steps:
       - name: Checkout 🛎

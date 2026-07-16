@@ -76,11 +76,14 @@ export default {
   },
   methods: {
     allowedInPoi(poi) {
-      if (poi.minSizeWithEscort && this.size < poi.minSizeWithEscort) {
+      const minSize = poi.minSizeWithEscort ?? poi.minSizeWithoutEscort
+      const maxSize = poi.maxSize
+
+      if (minSize && minSize > this.length) {
         return false
       }
 
-      if (poi.maxSize && this.length > poi.maxSize) {
+      if (maxSize && this.length > maxSize) {
         return false
       }
 
