@@ -14,6 +14,8 @@
       class="-z-1 w-full h-full object-center object-cover"
     />
 
+    <slot name="absolute" />
+
     <div class="w-full flex flex-col bottom-0 absolute">
       <div class="p-4 m-4 z-5 bg-white rounded">
         <component

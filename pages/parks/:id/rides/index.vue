@@ -2,7 +2,7 @@
   <div>
     <breadcrumbs dual-header :breadcrumbs="breadcrumbs"></breadcrumbs>
 
-    <page-search v-model="searchQuery"></page-search>
+    <page-search v-model="searchQuery" :length="length" include-length @changeLength="handleChangeLength"></page-search>
 
     <loading v-if="!rides && !error"></loading>
 
@@ -12,7 +12,7 @@
       {{ $t('park.allRidesOf', [park.name]) }}
     </h1>
 
-    <poi-card-list v-if="rides && rides.length > 0" :park="park" type="ride" :pois="filteredRides"></poi-card-list>
+    <poi-card-list v-if="rides && rides.length > 0" :park="park" type="ride" :length="length" :pois="filteredRides"></poi-card-list>
 
     <div v-if="park && rides && rides.length > 0" class="my-8 grid md:grid-cols-2 gap-4">
       <card :title="$t('rides.descriptionTitle', [park.name])" :content="$t('rides.descriptionContent', [park.name, rides.length])"></card>
@@ -67,6 +67,7 @@ export default {
       park: null,
       error: null,
       searchQuery: '',
+      length: null,
     }
   },
   async fetch() {
@@ -136,6 +137,10 @@ export default {
           this.error = reason
           this.$sentry.captureException(reason)
         })
+    },
+    handleChangeLength(length) {
+      console.log(length)
+      this.length = length
     },
   },
 }

@@ -50,6 +50,20 @@
             </option>
           </select>
         </div>
+
+        <div v-if="includeLength" class="flex flex-row items-center mt-2 lg:mt-0 lg:ml-4">
+          <label for="user-length" class="text-sm dark:text-gray-500 mr-2">{{ $t('general.length') }}</label>
+          <input
+            id="user-length"
+            :value="length"
+            :placeholder="$t('general.enterLength')"
+            class="form-input rounded py-1 px-2 bg-transparent border-gray-400 dark:text-gray-300"
+            name="user-length"
+            type="number"
+            @input="changeLength"
+            @keydown.enter="$event.target.blur()"
+          />
+        </div>
       </div>
     </div>
 
@@ -90,6 +104,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    includeLength: {
+      type: Boolean,
+      default: false,
+    },
+    length: {
+      type: Number,
+      default: null,
+    },
   },
   computed: {
     internalValue: {
@@ -117,6 +139,14 @@ export default {
       }
 
       this.$emit('selectPark', elem.target.value)
+    },
+    changeLength(elem) {
+      if (elem.target.value === null || elem.target.value === '') {
+        this.$emit('changeLength', null)
+        return
+      }
+
+      this.$emit('changeLength', parseInt(elem.target.value))
     },
   },
 }

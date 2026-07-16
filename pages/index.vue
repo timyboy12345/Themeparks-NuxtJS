@@ -29,7 +29,13 @@
           class="flex flex-row items-center gap-x-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-100 py-2 px-4"
         >
           <div class="rounded-full w-6 h-6 bg-gray-200 dark:bg-gray-800 overflow-hidden">
-            <img v-if="result.image" v-lazy-load class="w-full h-full object-center object-cover" :data-src="result.image" />
+            <img
+              v-if="result.image"
+              v-lazy-load
+              alt="Image of search result"
+              class="w-full h-full object-center object-cover"
+              :data-src="result.image"
+            />
           </div>
           <span class="text-indigo-800 dark:text-indigo-300">{{ result.parkName ?? result.name }}</span>
           <span v-if="result.type === 'poi'">{{ result.title }}</span>
@@ -144,10 +150,14 @@ export default {
       const response = await this.$axios
         .get(`https://search.themeparkplanner.com/indexes/pois/search?q=${query}`, {
           headers: {
-            Authorization: 'Bearer 40de3130dd38f80288f0bed376a0817a04792f5d2906714cd80a356bbbd122ef',
+            Authorization: 'Bearer 9fb780cb6e4900c7335b76d51f0d9e77e23f2382ea3288c476980100d5ecd0f1',
           },
         })
         .then((res) => res.data)
+        .catch((error) => {
+          console.error(error)
+          this.$sentry.captureException(error)
+        })
 
       return response.hits.filter((r) => r.fullSlug)
     },

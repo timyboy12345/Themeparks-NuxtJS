@@ -20,8 +20,8 @@
 
         <div class="text-gray-700 dark:text-gray-300">
           <div v-for="timeSlot of openingHour.openingTimes" :key="timeSlot.openTime">
-            {{ timeSlot.openTime }} -
-            {{ timeSlot.closeTime }}
+            {{ timeSlot.openTime | formatTime }} -
+            {{ timeSlot.closeTime | formatTime }}
           </div>
         </div>
       </div>

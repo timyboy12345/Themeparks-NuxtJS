@@ -8,6 +8,8 @@
   >
     <img v-if="imageSrc" :alt="imageAlt" :src="imageSrc" class="w-full h-32 object-center object-cover" />
 
+    <slot name="absolute" />
+
     <div class="p-4 h-full">
       <div class="flex flex-col justify-between h-full">
         <div class="text-gray-800 dark:text-gray-300">

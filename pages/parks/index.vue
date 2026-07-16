@@ -5,7 +5,7 @@
     <card :h1="true" :title="$t('general.allThemeParks')" :subtitle="$t('parks.subTitle')">
       <template #content>
         <div class="block pt-2">
-          <router-link class="underline" :to="localePath('/parks/map/')">{{ $t('parks.content') }}</router-link>
+          <router-link class="underline hover:no-underline" :to="localePath('/parks/map/')">{{ $t('parks.content') }}</router-link>
         </div>
       </template>
     </card>

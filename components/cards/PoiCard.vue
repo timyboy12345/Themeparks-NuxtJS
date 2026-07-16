@@ -39,6 +39,12 @@
         {{ $t(`general.states.${poi.state}`) }}
       </div>
     </template>
+
+    <template v-if="poi.price" #absolute>
+      <div class="absolute top-4 right-4 bg-white rounded py-1 px-2 text-xs">
+        {{ $t('general.price') }}: {{ poi.price }} {{ poi.priceName }}
+      </div>
+    </template>
   </component>
 </template>
 

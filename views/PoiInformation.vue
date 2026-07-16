@@ -9,35 +9,37 @@
           to="#information"
           class="transition duration-100 rounded py-2 px-4"
         >
-          Informatie
+          {{ $t('ride.sidebarInfo') }}
         </NuxtLink>
         <NuxtLink
           :class="{ 'text-indigo-800 bg-gray-200 dark:bg-gray-800 dark:text-indigo-300': activeSection === 'openingtimes' }"
           to="#openingtimes"
           class="transition duration-100 rounded py-2 px-4"
         >
-          Show- en Openingstijden
+          {{ $t('ride.sidebarShowOpeningTimes') }}
         </NuxtLink>
         <NuxtLink
           :class="{ 'text-indigo-800 bg-gray-200 dark:bg-gray-800 dark:text-indigo-300': activeSection === 'checkins' }"
           to="#checkins"
           class="transition duration-100 rounded py-2 px-4"
         >
-          Checkins
+          {{ $t('ride.sidebarCheckins') }}
         </NuxtLink>
         <NuxtLink
+          v-if="poi.images && poi.images.length > 0"
           :class="{ 'text-indigo-800 bg-gray-200 dark:bg-gray-800 dark:text-indigo-300': activeSection === 'images' }"
           to="#images"
           class="transition duration-100 rounded py-2 px-4"
         >
-          Afbeeldingen
+          {{ $t('ride.sidebarImages') }}
         </NuxtLink>
         <NuxtLink
+          v-if="type === 'ride'"
           :class="{ 'text-indigo-800 bg-gray-200 dark:bg-gray-800 dark:text-indigo-300': activeSection === 'stats' }"
           to="#stats"
           class="transition duration-100 rounded py-2 px-4"
         >
-          Statistieken
+          {{ $t('ride.sidebarStats') }}
         </NuxtLink>
 
         <!--        <div class="max-w-full max-h-60 overflow-hidden">-->
@@ -50,19 +52,19 @@
           <poi-card h1 :type="type" :park="park" :poi="poi"></poi-card>
 
           <div class="flex flex-col gap-4">
-            <card v-if="poi.description" :title="$t('general.generalInformation')">
+            <card v-if="poi.description || poi.subTitle" :title="$t('general.generalInformation')">
               <template #content>
                 <!-- eslint-disable-next-line vue/no-v-html -->
                 <div
                   v-if="park.supports.textType === 'MARKDOWN'"
                   class="prose prose-sm dark:prose-invert max-w-none prose-a:text-indigo-700 dark:prose-a:text-indigo-300 prose-headings:mb-1 prose-headings:mt-2 hover:prose-a:no-underline"
-                  v-html="$md.render(poi.description)"
+                  v-html="$md.render(poi.description ?? poi.subTitle)"
                 ></div>
                 <!-- eslint-disable-next-line vue/no-v-html -->
                 <div
                   v-else
                   class="prose prose-sm dark:prose-invert max-w-none prose-a:text-indigo-700 dark:prose-a:text-indigo-300 prose-headings:mb-1 prose-headings:mt-2 hover:prose-a:no-underline"
-                  v-html="poi.description"
+                  v-html="poi.description ?? poi.subTitle"
                 ></div>
               </template>
             </card>
@@ -83,7 +85,7 @@
         </div>
 
         <div id="openingtimes" class="w-full flex flex-row gap-2 text-nowrap items-center">
-          <div class="text-gray-600 dark:text-gray-400">Openingstijden, Wachttijden en Showtijden</div>
+          <div class="text-gray-600 dark:text-gray-400">{{ $t('ride.titleOpeningWaitShowTimes') }}</div>
           <div class="w-full h-0.5 bg-gray-200 dark:bg-gray-800"></div>
         </div>
         <div class="grid lg:grid-cols-2 gap-4">
@@ -161,7 +163,7 @@
         </div>
 
         <div v-if="type === 'ride'" id="checkins" class="w-full flex flex-row gap-2 text-nowrap items-center">
-          <div class="text-gray-600 dark:text-gray-400">Checkins</div>
+          <div class="text-gray-600 dark:text-gray-400">{{ $t('ride.titleCheckins') }}</div>
           <div class="w-full h-0.5 bg-gray-200 dark:bg-gray-800"></div>
         </div>
         <div v-if="$store.state.auth.user && type === 'ride'" class="grid lg:grid-cols-2 gap-4">
@@ -207,7 +209,7 @@
         </div>
 
         <div v-if="poi.images && poi.images.length > 0" id="images" class="w-full flex flex-row gap-2 text-nowrap items-center">
-          <div class="text-gray-600 dark:text-gray-400">Afbeeldingen</div>
+          <div class="text-gray-600 dark:text-gray-400">{{ $t('ride.titleImages') }}</div>
           <div class="w-full h-0.5 bg-gray-200 dark:bg-gray-800"></div>
         </div>
         <div v-if="poi.images && poi.images.length > 0" class="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start">
@@ -221,26 +223,28 @@
           />
         </div>
 
-        <div id="stats" class="w-full flex flex-row gap-2 text-nowrap items-center">
-          <div class="text-gray-600 dark:text-gray-400">Statistieken</div>
-          <div class="w-full h-0.5 bg-gray-200 dark:bg-gray-800"></div>
-        </div>
-        <div class="grid gap-4 lg:grid-cols-2">
-          <client-only>
-            <RCDBStatsCard v-if="type === 'ride'" :park="park" :ride="poi"></RCDBStatsCard>
-          </client-only>
-
-          <RideStatsCard v-if="type === 'ride'" :park="park" :ride="poi"></RideStatsCard>
-
-          <div v-if="poi && park && park.supports.supportsRideWaitTimesHistory && historicData">
-            <RidesAverageWaitTimeHistoryChartCard :data="historicData" :ride-id="poi.id" :rides="[poi]" />
+        <div v-if="type === 'ride'">
+          <div id="stats" class="w-full flex flex-row gap-2 text-nowrap items-center">
+            <div class="text-gray-600 dark:text-gray-400">{{ $t('ride.titleStats') }}</div>
+            <div class="w-full h-0.5 bg-gray-200 dark:bg-gray-800"></div>
           </div>
+          <div class="grid gap-4 lg:grid-cols-2">
+            <!--          <client-only>-->
+            <!--            <RCDBStatsCard v-if="type === 'ride'" :park="park" :ride="poi"></RCDBStatsCard>-->
+            <!--          </client-only>-->
 
-          <LoadingSpinner
-            v-else-if="!historicData || !poi || !park"
-            class="my-8"
-            :subtitle="$t('ride.averageWaitingTimesLoading')"
-          ></LoadingSpinner>
+            <RideStatsCard v-if="type === 'ride'" :park="park" :ride="poi"></RideStatsCard>
+
+            <div v-if="poi && park && park.supports.supportsRideWaitTimesHistory && historicData">
+              <RidesAverageWaitTimeHistoryChartCard :data="historicData" :ride-id="poi.id" :rides="[poi]" />
+            </div>
+
+            <LoadingSpinner
+              v-else-if="!historicData || !poi || !park"
+              class="my-8"
+              :subtitle="$t('ride.averageWaitingTimesLoading')"
+            ></LoadingSpinner>
+          </div>
         </div>
       </div>
     </div>
@@ -252,7 +256,7 @@ import Card from '@/components/cards/Card'
 import AdCard from '@/components/cards/AdCard'
 import CheckinList from '@/views/CheckinList'
 import RideStatsCard from '@/components/cards/RideStatsCard'
-import RCDBStatsCard from '@/components/cards/RCDBStatsCard'
+// import RCDBStatsCard from '@/components/cards/RCDBStatsCard'
 import Breadcrumbs from '~/components/Breadcrumbs.vue'
 import PoiCard from '~/components/cards/PoiCard.vue'
 import RideAlternativeQueuesCard from '~/components/cards/RideAlternativeQueuesCard.vue'
@@ -267,7 +271,7 @@ export default {
     RideAlternativeQueuesCard,
     PoiCard,
     Breadcrumbs,
-    RCDBStatsCard,
+    // RCDBStatsCard,
     RideStatsCard,
     CheckinList,
     AdCard,
